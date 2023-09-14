@@ -1,0 +1,48 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg" ng-controller="resourcesExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+    	<md-button aria-label="btn" class="md-icon-button"><md-ico i=assignment></md-ico></md-button>
+			<h2 translate>TOOLBAR_RESOURCES</h2>
+      <span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+			<ul class="margin-top timeline" style="width:100%">
+				<li ng-repeat="(key,item) in frmParent.resources">
+					<i class="fa fa-{{item.recurso_icon}} bg-{{colorName[key+1]}}"></i>
+			    <div class="timeline-item" style="margin-top:-5px;">
+			    	<h3 class="timeline-header">{{item.recurso_id}}. {{item.recurso_nombre}}</h3>
+			      <div class="timeline-body" layout-padding>
+							<md-checkbox 
+							    ng-model="item.transporteglp"
+							    aria-label="item"
+							    ng-true-value="'SI'"
+							    ng-false-value="'NO'"
+							    class="md-align-top-left no-padding">
+							  <span class="ipsum" translate>LB_GLP_TRANSPORT</span>
+							</md-checkbox>
+							<md-checkbox 
+							    ng-model="item.reportes"
+							    aria-label="item"
+							    ng-true-value="'SI'"
+							    ng-false-value="'NO'"
+							    class="md-align-top-left no-padding">
+							  <span class="ipsum" translate>LB_REPORTS</span>
+							</md-checkbox>
+						</div>
+					</div>
+				</li>
+			  <li><i class="fa fa-clock-o bg-gray"></i></li>
+			</ul>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

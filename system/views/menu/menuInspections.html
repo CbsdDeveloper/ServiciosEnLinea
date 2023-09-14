@@ -1,0 +1,76 @@
+<md-menu md-position-mode="target-right target" >
+  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+  </md-button>
+  <md-menu-content width="5">
+    <md-menu-item ng-if="allow.permiso6012 && (row.inspector==session.usuario_login || session.fk_perfil_id==6 || session.fk_perfil_id==3) && row.inspection.inspeccion_estado!='APROBADO'">
+      <md-button aria-label="editar" ng-click="goUI('prevention.inspections.preinspection',{id:row.inspection.inspeccion_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_DO_INSPECTION</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=transfer_within_a_station></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="allow.permiso6013 && (row.inspector==session.usuario_login || session.fk_perfil_id==6 || session.fk_perfil_id==3)"></md-divider>
+    <md-menu-item ng-if="allow.permiso6013 && (row.inspector==session.usuario_login || session.fk_perfil_id==6 || session.fk_perfil_id==3)">
+      <md-button aria-label="editar" ng-click="oParentModal('Inspectores',row.inspection)">
+          <div layout="row" flex>
+            <p flex translate>LB_ASSIGN_INSPECTOR</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=group_add></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="allow.permiso6013 && (row.inspector==session.usuario_login || session.fk_perfil_id==6 || session.fk_perfil_id==3)">
+      <md-button aria-label="editar" ng-click="printModel(row.inspection.inspeccion_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_ADD_ACTIVITY</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=playlist_add></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="row.inspection.inspeccion_estado!='PENDIENTE' && allow.permiso6013 && (row.inspector==session.usuario_login || session.fk_perfil_id==6 || session.fk_perfil_id==3)"></md-divider>
+    <md-menu-item ng-if="row.inspection.inspeccion_estado!='PENDIENTE' && allow.permiso6013 && (row.inspector==session.usuario_login || session.fk_perfil_id==6 || session.fk_perfil_id==3)">
+      <md-button aria-label="editar" ng-click="oParentModal('Files',{edit:false,fk_table:'inspecciones',fk_id:row.inspection.inspeccion_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_UPLOAD_EVIDENCE</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=add_a_photo></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="row.inspection.inspeccion_estado!='PENDIENTE'"></md-divider>
+    <md-menu-item ng-if="row.inspection.inspeccion_estado!='PENDIENTE'">
+      <md-button aria-label="editar" ng-click="exportWithDetail('inspecciones',row.inspection.inspeccion_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_PRINT_REPORT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=print></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="row.inspection.inspeccion_estado!='PENDIENTE'"></md-divider>
+    
+    <md-menu-item ng-if="row.inspection.inspeccion_estado!='PENDIENTE'">
+      <md-button aria-label="editar" ng-click="goUI('prevention.inspections.detailInspections',{id:row.inspection.inspeccion_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_DETAIL</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=zoom_out_map></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

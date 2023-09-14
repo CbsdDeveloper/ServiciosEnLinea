@@ -1,0 +1,90 @@
+<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=history_toggle_off></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_EQUIPMENT_HISTORY</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<datatable-toolbar></datatable-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="">
+     	<col style="">
+     	<col style="width:20%">
+     	<col style="width:3%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_EVALUATION</span></th>
+					<th md-column><span translate>LB_EQUIPMENTS</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td md-cell>
+						<div>
+							<md-ico i=filter_none></md-ico><span ng-bind-html="highlight(row.form.formulario_nombre)"></span>
+							<md-tooltip>{{'LB_FORM_FOR_EVALUATION' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=view_week></md-ico><span ng-bind-html="highlight(row.registro_codigo)"></span>
+							<md-tooltip>{{'LB_EVALUATION_CODE' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=event></md-ico><span>{{row.registro_fecha_utilizacion | date:'fullDate'}}</span>
+							<md-tooltip>{{'LB_DATE_OF_USE' | translate}}</md-tooltip>
+						</div>
+						
+						<div>
+							<md-ico i=schedule></md-ico><span ng-bind-html="highlight(row.registro_tiempouso)"></span>
+							<md-tooltip>{{'LB_USE_TIME' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=info></md-ico><span ng-bind-html="highlight(row.registro_condiciones_preuso)"></span>
+							<md-tooltip>{{'LB_PREUSE_CONDITIONS' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=info></md-ico><span ng-bind-html="highlight(row.registro_condiciones_postuso)"></span>
+							<md-tooltip>{{'LB_POSTUSE_CONDITIONS' | translate}}</md-tooltip>
+						</div>
+					</td>
+					<td md-cell class="text-uppercase">
+						<div>
+							<md-ico i=category></md-ico><span ng-bind-html="highlight(row.equipment.category.categoria_nombre)"></span>
+							<md-tooltip>{{'LB_CATEGORY' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=view_week></md-ico><span ng-bind-html="highlight(row.equipment.equipo_serial)"></span>
+							<md-tooltip>{{'LB_SERIE' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=event></md-ico><span>{{row.equipment.equipo_fecha_asignacion | date:'fullDate'}}</span>
+							<md-tooltip>{{'LB_DATE_FIRST_USE' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=nature></md-ico><span ng-bind-html="highlight(row.platoon.station.estacion_nombre)"></span> - <span ng-bind-html="highlight(row.platoon.peloton_nombre)"></span>
+							<md-tooltip>{{'LB_PLATOON' | translate}}</md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.registro_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.registro_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.user.person.persona_apellidos+' '+row.user.person.persona_nombres)"></span>
+					</td>
+					<td md-cell>
+						<menu-rescue-history ng-if="(allow.permiso82642 || allow.permiso82643 || allow.permiso82644)"></menu-rescue-history>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<datatable-footer></datatable-footer>
+</md-card>

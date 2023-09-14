@@ -1,0 +1,84 @@
+﻿<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=assignment_turned_in></md-ico>
+				<md-tooltip><span translate>TOOLBAR_PERMITS</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.textFilter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_MAIN_TOOLBAR' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.textFilter!=''" ng-click="filterParent.textFilter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<md-divider></md-divider ng-if="allow.permiso5081">
+	<md-toolbar  ng-if="allow.permiso5081">
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><i-fa i=barcode s=lg></i-fa></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="Ingrese el código de autoInspección para generar el nuevo permiso. Ej. 2020PER0666" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+	  </form>
+	</md-toolbar>
+	
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+    	<col style="width:20%">
+    	<col style="">
+    	<col style="width:15%">
+    	<col style="width:3%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_PERMITS</span></th>
+					<th md-column><span translate>LB_COMERTIAL</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td md-cell>
+						<div>
+							<md-ico i=assignment_turned_in></md-ico><span ng-bind-html="highlight(row.permiso_numero)"></span>
+							<md-tooltip>{{'LB_PERMIT_NUMBER' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=confirmation_number></md-ico><span ng-bind-html="highlight(row.numero_solicitud)"></span>
+							<md-tooltip>{{'LB_REQUEST_NUMBER' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<a ui-sref="src.detailPermits({id:row.permiso_id})" target="_balnk"><md-ico i=assignment_turned_in></md-ico></a><span ng-bind-html="highlight(row.codigo_per)"></span>
+							<md-tooltip>{{'LB_PER' | translate}}</md-tooltip>
+						</div>
+						<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.permiso_fecha)"></span><br>
+					</td>
+					<td md-cell>
+						<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.selfInspection.local.entity.entidad_ruc)"></span><br>
+						<a ui-sref="src.detailEntities({entityId:row.selfInspection.local.entity.entidad_id})" target="_balnk"><md-ico i={{string2JSON('mdIconList')[row.selfInspection.local.entity.entidad_contribuyente]}}></md-ico></a><span ng-bind-html="highlight(row.selfInspection.local.entity.entidad_razonsocial)"></span><br>
+						<a ui-sref="src.detailLocals({localId:row.selfInspection.local.local_id})" target="_balnk"><md-ico i=store_mall_directory></md-ico></a><span ng-bind-html="highlight(row.selfInspection.local.local_nombrecomercial)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.permiso_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.permiso_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.user.usuario)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <menu-permits></menu-permits>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	
+	<datatable-footer></datatable-footer>
+	
+</md-card>

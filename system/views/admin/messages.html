@@ -1,0 +1,76 @@
+<div class="md-padding" ng-controller="myTableCtrl">
+	<!-- Main content -->
+	<section class="content">
+	  <div class="row">
+	    <div class="col-md-3">
+	      <a href="compose.html" class="btn btn-primary btn-block margin-bottom">Compose</a>
+	
+	      <div class="box box-solid">
+	        <div class="card-header with-border">
+	          <h3 class="card-title">Folders</h3>
+	
+	          <div class="box-tools">
+	            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i>
+	            </button>
+	          </div>
+	        </div>
+	        <div class="card-body no-padding">
+	          <ul class="nav nav-pills nav-stacked">
+	            <li class="active"><a href="#"><i class="fa fa-inbox"></i> Inbox
+	              <span class="label label-primary pull-right">12</span></a></li>
+	            <li><a href="#"><i class="fa fa-envelope-o"></i> Sent</a></li>
+	            <li><a href="#"><i class="fa fa-trash-o"></i> Trash</a></li>
+	          </ul>
+	        </div>
+	        <!-- /.card-body -->
+	      </div>
+	      <!-- /. box -->
+	    </div>
+	    <!-- /.col -->
+	    <div class="col-md-9">
+	    	<md-card>
+          <md-toolbar ng-hide="filter.show">
+						<div class="md-toolbar-tools">
+							<md-button aria-label="btn" class="md-icon-button"><md-ico i=mail></md-ico></md-button>
+							<h2 translate>TOOLBAR_MESSAGES</h2>
+							<span flex></span>
+							<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+							<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+						</div>
+					</md-toolbar>
+					<toolbar-filter></toolbar-filter>
+					<md-table-container>
+				    <table md-table class="md-primary table-hover" md-progress="deferred">
+				      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+								<tr md-row>
+									<th md-column md-order-by="usuario_login"><span translate>LB_USER</span></th>
+									<th></th>
+									<th md-column md-order-by="perfil_nombre"><span translate>DESCRIPTION</span></th>
+									<th md-column md-order-by="usuario_estado"><span translate>LB_DATE</span></th>
+								</tr>
+				      </thead>
+				      <tbody>
+								<tr md-row data-ng-repeat="row in rowsParent.data">
+									<td md-cell>
+										<img src="/app/src/img/users/default.png" ng-src="/app/src/img/users/{{row.persona_imagen}}"
+										 style="width:48px;height:48px;padding:5px" class="img-circle" alt="img" />
+									</td>
+									<td md-cell><i class="fa fa-star text-yellow"></i></td>
+									<td md-cell>
+										<a ui-sref="control.detailMessage({id:row.mensaje_id})">
+											<span ng-bind-html="highlight(row.mensaje_descripcion)"></span>
+										</a>
+									</td>
+									<td md-cell><span ng-bind-html="highlight(row.mensaje_enviado)"></span></td>
+								</tr>
+				      </tbody>
+				    </table>
+					</md-table-container>
+					<footer-table></footer-table>
+				</md-card>
+	    </div>
+	    <!-- /.col -->
+	  </div>
+	  <!-- /.row -->
+	</section>
+</div>

@@ -1,0 +1,69 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=event_available></md-ico></md-button>
+			<h2 translate>TOOLBAR_VEHICULAR_REVIEW</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-divider ng-if="allow.permiso7091"></md-divider>
+	<md-toolbar  ng-if="allow.permiso7091">
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><md-ico i=local_shipping></md-ico></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="{{'LB_SEARCH' | translate}}" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+	  </form>
+	</md-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column md-order-by="unidad_nombre"><span translate>LB_UNITS</span></th>
+					<th md-column md-order-by="flota_salida_hora"><span translate>LB_DATA_OUTPUT</span></th>
+					<th md-column md-order-by="flota_arribo_hora"><span translate>LB_DATA_INPUT</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<a ui-sref="logistics.detailTracking({id:row.flota_id})" target="_balnk"><md-ico i=gps_fixed></md-ico></a><span ng-bind-html="highlight(row.codigo_clave+' ['+row.codigo_detalle+']')"></span><br>
+						<a ui-sref="logistics.detailUnits({id:row.fk_unidad_id})" target="_balnk"><md-ico i=local_shipping></md-ico></a><span ng-bind-html="highlight(row.flota_codigo+' ['+row.vehiculo_placa+']')"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.conductor)"></span><br>
+						<md-ico i=location_on></md-ico><span ng-bind-html="highlight(row.flota_destino)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=timer></md-ico><span ng-bind-html="highlight(row.flota_salida_hora)"></span><br>
+						<md-ico i=flight_takeoff></md-ico><span ng-bind-html="highlight(row.flota_salida_km+' km')"></span><br>
+						<md-ico i=person_outline></md-ico><span ng-bind-html="highlight(row.usuario_salida)"></span><br>
+						<md-ico i=location_on></md-ico><span ng-bind-html="highlight(row.estacion_salida)"></span>
+					</td>
+					<td md-cell>
+						<div ng-if="row.flota_estado=='ESTACION'">
+							<md-ico i=timer_off></md-ico><span ng-bind-html="highlight(row.flota_arribo_hora)"></span><br>
+							<md-ico i=flight_land></md-ico><span ng-bind-html="highlight(row.flota_arribo_km+' km')"></span><br>
+							<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario_arribo)"></span><br>
+							<md-ico i=location_on></md-ico><span ng-bind-html="highlight(row.estacion_arribo)"></span>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.flota_estado]"></span><br>
+						<div ng-if="row.flota_estado=='ESTACION'">
+							<md-ico i=timer></md-ico><span ng-bind-html="highlight(row.tiempo)"></span><br>
+							<i-fa i=tachometer></i-fa>{{row.kilometros+' km'}}<br>
+						</div>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <menu-tracking></menu-tracking>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

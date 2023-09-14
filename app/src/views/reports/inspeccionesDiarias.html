@@ -1,0 +1,53 @@
+<style>{{css}}</style>
+<page backtop="{{margin_top}}mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	<!-- HEADER DE SOLICITUD -->
+	{{HEADER_ENTITY}}
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE}}
+	
+	<!-- CUERPO DE REPORTE -->
+	<h2 class="report-title text-center">{{informe}}<br>{{inspeccion_codigo}}</h2>
+	<table class="table table-bordered text-uppercase">
+		<col style="width:25%;font-weight:bold;" class="subheader">
+		<col style="width:25%">
+		<col style="width:25%;font-weight:bold;" class="subheader">
+		<col style="width:25%">
+		<thead><tr><th colspan="4">DETALLE DE INSPECCIÓN</th></tr></thead>
+		<tbody>
+			<tr><td># INSPECCIÓN</td><td colspan="3">{{inspeccion_codigo}}</td></tr>
+			<tr><td>NÚMERO INFORME</td><td>{{inspeccion_informe_numero}}</td><td>NÚMERO CITACIÓN</td><td>{{citacion_numero}}</td></tr>
+			<tr><td>INSPECTOR ASIGNADO</td><td colspan="3">{{inspector}}</td></tr>
+			<tr><td>FECHA INSPECCIÓN</td><td colspan="3">{{inspeccion_fecha_inspeccion}}</td></tr>
+			<tr><td>FECHA INGRESO</td><td>{{inspeccion_hora_ingreso}}</td><td>FECHA SALIDA</td><td>{{inspeccion_hora_salida}}</td></tr>
+			<tr><td>ESTADO DE INSPECCIÓN</td><td colspan="3">{{inspeccion_estado}}</td></tr>
+			<tr><td>FECHA REINSPECCIÓN</td><td colspan="3">{{reinspeccion}}</td></tr>
+			<tr><td>OBSERVACIONES</td><td colspan="3">{{inspeccion_observacion}}</td></tr>
+			
+			<tr><td>ENTREVISTADO</td><td colspan="3">{{entrevistado_cargo}} / {{entrevistado_identificacion}} / {{entrevistado_nombre}}</td></tr>
+		</tbody>
+	</table>
+	<br>
+	
+	<table class="table table-bordered text-uppercase">
+		<col style="width:25%;" class="subheader text-bold">
+		<col style="width:25%">
+		<col style="width:25%;" class="subheader text-bold">
+		<col style="width:25%">
+		<thead><tr><th colspan="4">INSPECTOR(ES) RESPONSABLE(S)</th></tr></thead>
+		<tbody>{{inspectorsList}}</tbody>
+	</table>
+	<br>
+	
+	<table class="table table-bordered text-uppercase">
+		<col style="width:25%;" class="subheader text-bold">
+		<col style="width:25%">
+		<col style="width:25%;" class="subheader text-bold">
+		<col style="width:25%">
+		<thead><tr><th colspan="4">ACTIVIDAD(ES) ECONÓMICA(S)</th></tr></thead>
+		<tbody>{{entitiesList}}</tbody>
+	</table>
+	<br>
+	
+	{{inspection}}
+	
+</page>

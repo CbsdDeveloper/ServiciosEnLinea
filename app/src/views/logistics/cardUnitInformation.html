@@ -1,0 +1,22 @@
+<div class="box collapsed-box no-margin text-center card-entity-information">
+  <div class="box-header with-border">
+    <h3 class="box-title" translate="LB_UNIT_INFORMATION_X" translate-values="{val:frmParent.unidad_nombre}"></h3>
+		<div class="box-tools pull-right">
+			<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+		</div>
+  </div>
+  <div class="box-body row">
+    <div class="col-md-3">
+    	<p><img class="profile-user-img img-responsive" src="/app/src/img/vehicles/default.png" ng-src="/app/src/img/vehicles/{{dataEntity.vehiculo_imagen}}" alt="profile"></p>
+    </div>
+    <div class="col-md-9 text-left">
+    	<p><md-ico i=local_shipping></md-ico> <b translate>LB_UNIT_NAME</b>: {{frmParent.unidad_nombre}}</p>
+      <p><md-ico i=directions_car></md-ico> <b translate>LB_TYPE</b>: {{frmParent.vehiculo_tipo}}</p>
+      <p><md-ico i=directions_car></md-ico> <b translate>LB_PLATE</b>: {{frmParent.vehiculo_placa}}</p>
+    	<p><md-ico i=assistant_photo></md-ico> <b translate>LB_STATION</b>: {{frmParent.estacion}}</p>
+    	<p><md-ico i=local_gas_station></md-ico> <b translate>LB_GAS_TYPE</b>: {{frmParent.vehiculo_combustible}}</p>
+    	<p><md-ico i=fingerprint></md-ico> <b translate>LB_CHASSIS</b>: {{frmParent.vehiculo_chasis}}</p>
+    	<p><md-ico i=fingerprint></md-ico> <b translate>LB_MOTOR</b>: {{frmParent.vehiculo_motor}}</p>
+    </div>
+  </div>
+</div>

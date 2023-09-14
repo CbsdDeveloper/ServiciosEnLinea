@@ -1,0 +1,399 @@
+<!-- MENU SUPERIOR -->
+<header class="main-header" ng-cloak>
+	
+	<!-- LOGO -->
+  <a ui-sref=session class="logo">
+    <!-- mini logo for sidebar mini 50x50 pixels -->
+    <span class="logo-mini"><b>B</b>+</span>
+    <!-- logo for regular state and mobile devices -->
+    <span class="logo-lg"><b translate>APP_HEADER</b></span>
+  </a>
+  
+  <!-- HEADER -->
+  <nav class="navbar navbar-static-top">
+    <!-- Sidebar toggle button-->
+    <a href="" class="sidebar-toggle" data-toggle="push-menu" role="button">
+      <span class="sr-only">Toggle navigation</span>
+    </a>
+    <!-- Navbar Right Menu -->
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        
+        <!-- User Account: style can be found in dropdown.less -->
+        <li class="messages-menu">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">
+            <md-ico i=notifications_active></md-ico>
+            <span class="label label-success">{{entityInfo.edocsunread}}</span>
+		  			<md-tooltip><span translate>LB_NOTIFICATIONS</span></md-tooltip>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="header" translate="MESSAGES_NOTIFY" translate-values="{x:entityInfo.edocsunread}"></li>
+            <li>
+              <!-- inner menu: contains the actual data -->
+              <ul class="menu">
+                <li ng-repeat="item in messages.msg"><!-- start message -->
+                  <a ui-sref="main.message({id:item.mensaje_id})">
+                    <div class="pull-left img-circle">
+                      <img src="/app/src/img/users/{{item.mensaje_emisor.img}}" class="img-responsive" alt="User Image">
+                    </div>
+                    <h4>
+                      <span>{{item.mensaje_emisor.nombre}}</span>
+                      <small><i class="fa fa-clock-o"></i> {{item.mensaje_enviado}}</small>
+                    </h4>
+                    <p ng-bind-html="item.mensaje_descripcion | limitTo:100"></p>
+                  </a>
+                </li>
+                <!-- end message -->
+              </ul>
+            </li>
+            <li class="footer"><a ui-sref=administrative.edocumentation translate>SHOW_ALL</a></li>
+          </ul>
+        </li>
+        <!-- Informacion de otros módulos -->
+        <li class="messages-menu">
+          <a ng-href="http://intranet.cbsd.gob.ec" target="_blank">
+            <md-ico i=important_devices></md-ico>
+            <span class="label label-success">☆</span>
+		  			<md-tooltip><span translate>LB_INTRANET</span></md-tooltip>
+          </a>
+        </li>
+        <li class="messages-menu">
+          <a ng-href="https://mail.cbsd.gob.ec" target="_blank">
+            <md-ico i=mail_outline></md-ico>
+            <span class="label label-primary">★</span>
+		  			<md-tooltip><span translate>LB_INSTITUTIONAL_MAIL</span></md-tooltip>
+          </a>
+        </li>
+        <li class="messages-menu">
+          <a ng-href="/app/src/formats/manual_tthh.pdf" target="_blank">
+            <md-ico i=help_outline></md-ico>
+            <span class="label label-default"><i-fa i=user></i-fa></span>
+		  			<md-tooltip><span translate>LB_USER_MANUAL</span></md-tooltip>
+          </a>
+        </li>
+        <!-- User Account: style can be found in dropdown.less -->
+        <li class="dropdown user user-menu">
+        	<a href="" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="hidden-xs" style="padding-right:13px">{{session.personal_nombre}} ({{session.persona_doc_identidad}})</span>
+            <div class="pull-right profile-img">
+             <img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{session.persona_imagen}}" alt="User Image" />
+            </div>
+          </a>
+          <ul class="dropdown-menu">
+            <!-- User image -->
+            <li class="user-header">
+            	<div class="container-img-user">
+              	<img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{session.persona_imagen}}" class="profile-user-img img-responsive" alt="User Image">
+            	</div>
+              <p><small>{{session.puesto_nombre}}</small></p>
+            </li>
+            <!-- Menu Footer-->
+            <li class="user-footer">
+            	<div class="pull-left">
+                <a ui-sref=profile.profile class="btn btn-default btn-flat">
+                	<i-fa i=user-circle></i-fa> <span translate>LB_PROFILE</span>
+                </a>
+              </div>
+              <div class="pull-right">
+                <a ng-click="logoutSession()" class="btn btn-default btn-flat">
+                	<span translate>LB_LOGOUT</span> <i-fa i=sign-out></i-fa>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </li>
+      
+      </ul>
+    </div>
+  </nav>
+
+</header>
+
+<!-- MENU LATERAL IZQUIERDO -->
+<aside class="main-sidebar" ng-cloak>
+  
+  <section class="sidebar">
+    
+    <div class="user-panel">
+      <img src="/app/src/img/system/escudo.png" class="img-circle img-responsive" alt="User Image" />
+      <div class="pull-left info">
+        <img src="/app/src/img/system/escudo.png" class="img-circle" alt="User Image" />
+      </div>
+    </div>
+    
+    <ul class="sidebar-menu" data-widget="tree">
+      
+      <li class="header" translate>MENU_MAIN</li>
+			
+			<li ui-sref-active="active">
+        <a ui-sref=session><md-ico i=home></md-ico> <span translate>LB_HOME</span></a>
+      </li>
+      
+      <!-- MI PERFIL -->
+     	<li class="treeview" ui-sref-active="{'menu-open active':'profile.*'}">
+        <a href="">
+          <md-ico i=folder_shared></md-ico> <span translate>LB_MY_PROFILE</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+	        <li ui-sref-active="active" ng-if="availableModules['profile.profile']">
+	          <a ui-sref=profile.profile>
+	          	<md-ico i=person></md-ico>
+	          	<span translate>LB_PERSONAL_INFORMATION</span>
+	          </a>
+	        </li>
+					<li ui-sref-active="active" ng-if="availableModules['profile.titles']">
+	          <a ui-sref=profile.titles>
+	          	<md-ico i=school></md-ico> <span translate>LB_ACADEMIC_TRAINING</span>
+	          	<span class="pull-right-container"><span class="badge bg-blue pull-right">{{entityInfo.titles}}</span></span>
+	          </a>
+	        </li>
+					<li ui-sref-active="active" ng-if="availableModules['profile.awards']">
+	          <a ui-sref=profile.awards>
+	          	<md-ico i=star_border></md-ico> <span translate>LB_AWARDS</span>
+	          	<span class="pull-right-container"><span class="badge bg-green pull-right">{{entityInfo.awards}}</span></span>
+	          </a>
+	        </li>
+					<li ui-sref-active="active" ng-if="availableModules['profile.trainings']">
+	          <a ui-sref=profile.trainings>
+	          	<md-ico i=receipt></md-ico> <span translate>LB_COURSES_COMPLETED</span>
+	          	<span class="pull-right-container"><span class="badge bg-blue pull-right">{{entityInfo.trainings}}</span></span>
+	          </a>
+	        </li>
+					<li ui-sref-active="active" ng-if="availableModules['profile.affidavits']">
+	          <a ui-sref=profile.affidavits>
+	          	<md-ico i=folder></md-ico> <span translate>LB_AFFIDAVITS</span>
+	          	<span class="pull-right-container"><span class="badge bg-blue pull-right">{{entityInfo.affidavits}}</span></span>
+	          </a>
+	        </li>
+					<li ui-sref-active="active" ng-if="availableModules['profile.familiars']">
+	          <a ui-sref=profile.familiars>
+	          	<md-ico i=group></md-ico> <span translate>LB_FAMILY_RESPONSIBILITIES</span>
+	          	<span class="pull-right-container"><span class="badge bg-blue pull-right">{{entityInfo.familiars}}</span></span>
+	          </a>
+	        </li>
+					<li ui-sref-active="active" ng-if="availableModules['profile.employments']">
+	          <a ui-sref=profile.employments>
+	          	<md-ico i=assignment_ind></md-ico> <span translate>LB_EMPLOYMENT_HISTORY</span>
+	          	<span class="pull-right-container"><span class="badge bg-blue pull-right">{{entityInfo.employments}}</span></span>
+	          </a>
+	        </li>
+          <li ui-sref-active="active" ng-if="availableModules['profile.driverslicenses']">
+            <a ui-sref=profile.driverslicenses>
+            	<md-ico i=credit_card></md-ico> <span translate>LB_DRIVERS_LICENSES</span>
+	          	<span class="pull-right-container"><span class="badge bg-blue pull-right">{{entityInfo.driverslicenses}}</span></span>
+            </a>
+          </li>
+          <li ui-sref-active="active" ng-if="availableModules['profile.banks']">
+            <a ui-sref=profile.banks>
+            	<md-ico i=account_balance></md-ico> <span translate>LB_BANK_ACCOUNTS</span>
+	          	<span class="pull-right-container"><span class="badge bg-red pull-right">{{entityInfo.banks}}</span></span>
+            </a>
+          </li>
+        </ul>
+      </li>
+			
+			<!-- DIRECCIÓN DE TALENTO HUMANO -->
+     	<li class="treeview" ui-sref-active="{'menu-open active':'tthh.**'}">
+        <a href="">
+          <md-ico i=folder_special></md-ico> <span translate>MENU_TTHH_MANAGEMENT</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+					<li ui-sref-active="active" ng-if="availableModules['tthh.calendar']">
+		        <a ui-sref=tthh.calendar>
+		        	<md-ico i=event></md-ico> <span translate>LB_CALENDAR</span>
+		        </a>
+		      </li>
+          <li ui-sref-active="active" ng-if="availableModules['tthh.performance']">
+            <a ui-sref=tthh.performance>
+            	<md-ico i=history></md-ico> <span translate>LB_PERFORMANCE</span>
+	          	<span class="pull-right-container"><span class="badge bg-blue pull-right">{{entityInfo.performance}}</span></span>
+            </a>
+          </li>
+					<li ui-sref-active="active" ng-if="availableModules['tthh.permissions']">
+		        <a ui-sref=tthh.permissions>
+		        	<md-ico i=thumb_up></md-ico> <span translate>LB_PERMISSIONS</span>
+	          	<span class="pull-right-container"><span class="badge bg-blue pull-right">{{entityInfo.permissions}}</span></span>
+		        </a>
+		      </li>
+					<li ui-sref-active="active" ng-if="availableModules['tthh.vacations']">
+		        <a ui-sref=tthh.vacations>
+		        	<md-ico i=flight_takeoff></md-ico> <span translate>LB_VACATIONS</span>
+	          	<span class="pull-right-container"><span class="badge bg-blue pull-right">{{entityInfo.vacations}}</span></span>
+		        </a>
+		      </li>
+					
+					<li ui-sref-active="active" ng-if="availableModules['tthh.sanctions']">
+		        <a ui-sref=tthh.sanctions>
+		        	<md-ico i=thumb_down></md-ico> <span translate>LB_SANCTIONS</span>
+	          	<span class="pull-right-container"><span class="badge bg-red pull-right">{{entityInfo.sanctions}}</span></span>
+		        </a>
+		      </li>
+					<li ui-sref-active="active" ng-if="availableModules['tthh.medicalcertificates']">
+		        <a ui-sref=tthh.medicalcertificates>
+		        	<md-ico i=hotel></md-ico> <span translate>MENU_MEDICALREST</span>
+	          	<span class="pull-right-container"><span class="badge bg-yellow pull-right">{{entityInfo.medicalcertifications}}</span></span>
+		        </a>
+		      </li>
+	        
+					<li ui-sref-active="active" ng-if="availableModules['tthh.roadmap']">
+		        <a ui-sref=tthh.roadmap>
+		        	<md-ico i=touch_app></md-ico> <span translate>LB_ROADMAP</span>
+	          	<span class="pull-right-container"><span class="badge bg-blue pull-right">{{entityInfo.roadmap}}</span></span>
+		        </a>
+		      </li>
+					<li ui-sref-active="active" ng-if="availableModules['tthh.dailyactivities']">
+		        <a ui-sref=tthh.dailyactivities>
+		        	<md-ico i=transfer_within_a_station></md-ico> <span translate>LB_DAILY_ACTIVITIES</span>
+	          	<span class="pull-right-container"><span class="badge bg-blue pull-right">{{entityInfo.dailyactivities}}</span></span>
+		        </a>
+		      </li>
+		      
+					<li ui-sref-active="active" ng-if="availableModules['tthh.psychosocialEvaluations']">
+		        <a ui-sref=tthh.psychosocialEvaluations><md-ico i=playlist_add_check></md-ico> <span translate>MENU_PSYCHOSOCIAL_RISK</span></a>
+		      </li>
+					
+					<li ui-sref-active="active" ng-if="availableModules['tthh.surveyEvaluations']">
+		        <a ui-sref=tthh.surveys><md-ico i=spellcheck></md-ico> <span translate>MENU_SURVEYS</span></a>
+		      </li>
+        </ul>
+      </li>
+      
+      <!-- DIRECCIÓN ADMINISTRATIVA -->
+     	<li class="treeview" ui-sref-active="{'menu-open active':'administrative.**'}">
+        <a href="">
+          <md-ico i=folder_special></md-ico> <span translate>MENU_ADMINISTRATIVE_MANAGEMENT</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          
+          <li ui-sref-active="active" ng-if="availableModules['administrative.edocumentation']">
+            <a ui-sref=administrative.edocumentation>
+            	<md-ico i=verified></md-ico> <span translate>LB_ELECTRONIC_DOCUMENTATION</span>
+            	<span class="pull-right-container">
+	              <span class="badge pull-right bg-red">{{entityInfo.edocs}}</span>
+	              <span class="badge pull-right bg-blue">{{entityInfo.edocsunread}}</span>
+	            </span>
+            </a>
+          </li>
+          
+          <li ui-sref-active="active" ng-if="false">
+            <a ui-sref=administrative.archive>
+            	<md-ico i=style></md-ico> <span translate>LB_INSTITUTIONAL_ARCHIVE</span>
+            </a>
+          </li>
+          
+          <li ui-sref-active="active" ng-if="availableModules['administrative.trainingroom']">
+            <a ui-sref=administrative.trainingroom>
+            	<md-ico i=account_balance></md-ico> <span translate>LB_TRAINING_ROOM</span>
+	          	<span class="pull-right-container"><span class="badge bg-blue pull-right">{{entityInfo.trainingroom}}</span></span>
+            </a>
+          </li>
+          <li ui-sref-active="active" ng-if="availableModules['administrative.fuelvouchers']">
+            <a ui-sref=administrative.fuelvouchers>
+            	<md-ico i=local_gas_station></md-ico> <span translate>LB_FUEL_VOUCHERS</span>
+	          	<span class="pull-right-container"><span class="badge bg-blue pull-right">{{entityInfo.fuelvouchers}}</span></span>
+            </a>
+          </li>
+				</ul>
+			</li>
+      
+			<!-- MENU: DIRECCIÓN FINANCIERA -->
+      <li class="treeview" ui-sref-active="{'menu-open active':'financial.**'}" 
+      		ng-if="availableModules['financial.advances'] || availableModules['financial.processcontracts']">
+        <a href="">
+          <md-ico i=folder_special></md-ico> <span translate>MENU_FINANCIAL_MANAGEMENT</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+        
+					<li ui-sref-active="active" ng-if="availableModules['financial.advances']">
+		        <a ui-sref=financial.advances>
+		        	<md-ico i=money></md-ico> <span translate>LB_ADVANCES_OF_REMUNERATION</span>
+	          	<span class="pull-right-container"><span class="badge bg-yellow pull-right">{{entityInfo.advances}}</span></span>
+		        </a>
+		      </li>
+        
+					<li ui-sref-active="active" ng-if="availableModules['financial.processcontracts']">
+	          <a ui-sref=financial.processcontracts><md-ico i=done_all></md-ico> <span translate>LB_PROCESSES_AND_CONTRACTS</span></a>
+	        </li>
+        
+        </ul>
+			</li>
+      
+      <!-- DIRECCIÓN PERSONAL -->
+      <li class="treeview" ui-sref-active="{'menu-open active':'leadership.**'}"
+      		ng-if="session.puesto_direccion=='SI' || entityInfo.requestedvacations>0 || entityInfo.requestedpermissions>0">
+        <a href="">
+          <md-ico i=record_voice_over c=text-yellow></md-ico> <span translate>LB_MY_LEADERSHIP</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+					<li ui-sref-active="active" ng-if="session.puesto_direccion=='SI'|| entityInfo.requestedpermissions>0">
+		        <a ui-sref=leadership.requestedpermissions>
+		        	<md-ico i=thumb_up></md-ico> <span translate>LB_PERMISSION_REQUEST</span>
+		         	<span class="pull-right-container"><span class="badge bg-purple pull-right">{{entityInfo.requestedpermissions}}</span></span>
+		        </a>
+		      </li>
+		      <li ui-sref-active="active" ng-if="session.puesto_direccion=='SI' || entityInfo.requestedvacations>0">
+		        <a ui-sref=leadership.requestedvacations>
+		        	<md-ico i=flight_takeoff></md-ico> <span translate>LB_VACATION_REQUEST</span>
+		         	<span class="pull-right-container"><span class="badge bg-purple pull-right">{{entityInfo.requestedvacations}}</span></span>
+		        </a>
+		      </li>
+					<li ui-sref-active="active">
+		        <a ui-sref=leadership.staff({leadershipId:session.fk_direccion_id})>
+		        	<md-ico i=group></md-ico> <span translate>LB_STAFF</span>
+		        </a>
+		      </li>
+          <li ui-sref-active="active">
+            <a ui-sref="leadership.driverslicenses({leadershipId:session.fk_direccion_id})">
+            	<md-ico i=credit_card></md-ico> <span translate>LB_DRIVERS_LICENSES</span>
+            </a>
+          </li>
+					<li ui-sref-active="active">
+		        <a ui-sref="leadership.roadmap({leadershipId:session.fk_direccion_id})">
+		        	<md-ico i=touch_app></md-ico> <span translate>LB_ROADMAP</span>
+		        </a>
+		      </li>
+					<li ui-sref-active="active">
+		        <a ui-sref="leadership.dailyactivities({leadershipId:session.fk_direccion_id})">
+		        	<md-ico i=transfer_within_a_station></md-ico> <span translate>LB_DAILY_ACTIVITIES</span>
+		        </a>
+		      </li>
+					<li ui-sref-active="active">
+		        <a ui-sref="leadership.academictraining({leadershipId:session.fk_direccion_id})">
+		        	<md-ico i=receipt></md-ico> <span translate>LB_COURSES_COMPLETED</span>
+		        </a>
+		      </li>
+        </ul>
+			</li>
+      
+      <!-- SERVICIOS ADICIONALES -->
+      <li class="header text-uppercase"><small translate>LB_ADDITIONAL_SERVICES</small></li>
+      
+      <!-- OTROS LINKS -->
+      <li ui-sref-active="active" class="treeview" ng-if="(externalLinks | lengthObj) > 0">
+        <a href="">
+        	<md-ico i=phonelink></md-ico> <span translate>LB_OTHER_LINKS</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+					<li ui-sref-active="active" ng-repeat="(key,item) in externalLinks">
+		        <a ng-href="{{item.link}}" target="_blank">
+		        	<i-fa i="{{item.icon}}"></i-fa> <span>{{key}}</span>
+		        </a>
+		      </li>
+		  	</ul>
+			</li>
+			
+			<!-- DENUNCIAS EN LÍNEA -->
+			<li><a href="http://online.cbsd.gob.ec/denuncias-en-linea/" target="_blank"><md-ico i=record_voice_over c=text-red></md-ico> <span translate>LB_COMPLAINTS_ONLINE</span></a></li>
+      
+    </ul>
+  
+  </section>
+  
+</aside>
+
+<script>
+(function($){
+	'use strict'
+	$('[data-widget="tree"]').tree('init');
+})(jQuery)
+</script>

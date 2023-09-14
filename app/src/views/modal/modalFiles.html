@@ -1,0 +1,24 @@
+<md-dialog aria-label="Form Data" class="modal-dialog">
+  <form name="formData" ng-submit="submitFormFile()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="btn" class="md-icon-button"><md-ico i=add_a_photo></md-ico></md-button>
+			<h2 translate>TOOLBAR_GALLERY</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-content layout=column layout-padding>
+			
+			<input uploader-model="frmParent.attachment_file" type="file" accept="{{string2JSON('fileTypeMime')[frmParent.typeFile]}}" class="form-control" required/>
+			
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

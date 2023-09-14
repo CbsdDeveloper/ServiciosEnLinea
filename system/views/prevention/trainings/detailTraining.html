@@ -1,0 +1,213 @@
+﻿<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		<card-training class="card-information" ng-if="detailConfig.show" flex></card-training>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=settings_input_antenna></md-ico></md-button>
+						<h2>{{entity.capacitacion_codigo}} ({{entity.capacitacion_serie}})</h2>
+						<span flex></span>
+						<menu-detail-trainings></menu-detail-trainings>
+						
+						<md-button aria-label="btn" class="md-icon-button" ng-click="reloadEntity()">
+							<md-ico i=refresh></md-ico>
+							<md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+						</md-button>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<md-tabs md-dynamic-height md-border-bottom>
+					<md-tab label="{{'LB_INFORMATION' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=info_outline></md-ico></md-button>
+								<h2 translate>TOOLBAR_TRAININGS</h2>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+						<div layout-xs=column layout=row layout-padding>
+							<card-entity flex></card-entity>
+							<card-training flex></card-training>
+						</div>
+					</md-tab>
+					
+					<md-tab label="{{'LB_PARTICIPANTS' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=group_add></md-ico></md-button>
+								<h2 translate>TOOLBAR_PARTICIPANTS</h2>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+						<div class="md-padding gallery-columns-3" layout-padding layout-wrap>
+							<div class="figure-gallery" ng-repeat="row in entity.people">
+								<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} no-margin">
+									<div class="card-header with-border">
+										<small>{{row.persona_apellidos}} {{row.persona_nombres}}</small>
+										<div class="card-tools">
+											<button type="button" class="btn btn-tool" ng-if="allow.permiso60613" ng-click="$parent.openModal('Personas',row)"><i class="fa fa-pencil"></i></button>
+										</div>
+									</div>
+									<div class="card-body text-center">
+										<strong><i-fa i=credit-card></i-fa> <span translate>LB_IDENTIFICATION_TYPE</span></strong>
+								    <p class="text-muted">{{string2JSON('identificationType')[row.persona_tipo_doc]}}</p>
+								    <hr>
+										<strong><i-fa i=id-card></i-fa> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+								    <p class="text-muted">{{row.persona_doc_identidad}}</p>
+								    <hr>
+										<strong><i-fa i=flag></i-fa> <span translate>LB_STATUS</span></strong>
+								    <p class="text-muted"><span ng-bind-html="statusLabel[row.estado]"></span></p>
+									</div>
+								</div>
+								<div class="card-footer" ng-if="(row.estado=='REFRENDADO')">
+								 <button class="btn btn-info btn-block" ng-click="downloadCertificateSingle(row.fk_participante_id,row.fk_capacitacion_id)">
+										<i-fa i=download></i-fa> <span translate>LB_CERTIFICATE</span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</md-tab>
+					
+					<md-tab label="{{'LB_TRAINERS' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=group></md-ico></md-button>
+								<h2 translate>TOOLBAR_TRAINERS</h2>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+						<div class="md-padding" layout-xs=column layout=row layout-padding layout-wrap>
+							<div style="min-width:350px;max-width:480px" ng-repeat="row in entity.capacitorsList" flex>
+								<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+									<div class="card-header text-center">
+										<img src="/app/src/img/users/default.png" ng-src="/app/src/img/users/{{row.persona_imagen}}"
+					 						 style="width:128px;height:128px;padding:5px;margin:auto" class="img-circle" alt="img" />
+									</div>
+									<div class="card-body">
+										<h3 class="profile-username">{{row.personal_nombre}}</h3>
+								    <hr>
+										<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+								    <p class="text-muted">{{row.persona_doc_identidad}}</p>
+								    <hr>
+										<strong><md-ico i=account_balance s=18></md-ico> <span translate>LB_LEADERSHIP</span></strong>
+								    <p class="text-muted">{{row.direccion_nombre}}</p>
+								    <hr>
+										<strong><md-ico i=wrap_text s=18></md-ico> <span translate>LB_JOB</span></strong>
+								    <p class="text-muted">{{row.puesto_nombre}}</p>
+								    <hr>
+										<strong><md-ico i=mail s=18></md-ico> <span translate>LB_CONTACT</span></strong>
+								    <p class="text-muted">{{row.persona_telefono}} - {{row.persona_correo}}</p>
+								    <hr>
+										<strong><i-fa i=flag></i-fa> <span translate>LB_STATUS</span></strong>
+								    <p class="text-muted"><span ng-bind-html="statusLabel[row.capacitador_estado]"></span></p>
+								    <div ng-if="row.capacitador_estado=='EVALUADO'">
+									    <hr>
+											<strong><i-fa i=star-o></i-fa> <span translate>LB_SCORE</span></strong>
+									    <p class="text-muted"><a ng-click="reviewByTrainer(row.capacitador_id)">{{row.score | number:2 }}</a></p>
+								    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</md-tab>
+					
+					<md-tab label="{{'LB_MEDIA' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=attach_file></md-ico></md-button>
+								<h2 translate>TOOLBAR_GALLERY</h2>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+						<div class="md-padding gallery-columns" layout-padding>
+							<div class="figure-gallery" ng-repeat="row in entity.gallery">
+								<div class="card card-outline card-{{string2JSON('colorCss')[$index+1]}} no-margin">
+									<div class="card-header with-border">
+			              <div class="user-block">
+			                <img class="img-circle" src="/app/src/img/users/default.png" ng-src="/app/src/img/users/{{row.profile}}" alt="User Image">
+			                <span class="username">
+			                	<a href="#">{{row.usuario_nombre}}</a>
+			                	<a href="#" class="pull-right btn-box-tool" ng-click="openModal('Gallery',row)" ng-if="allow.permiso60671">
+			                		<md-ico i=edit s=18></md-ico>
+			                	</a>
+			                </span>
+			                <span class="description">{{row.perfil_nombre}}</span>
+			              </div>
+			            </div>
+			            <div class="card-body text-center no-padding">
+			            	<div ng-if="row.media_tipo=='IMG'">
+				              <img class="img-responsive pad" ng-src="/app/src/img/gallery/{{row.media_nombre}}" alt="Photo">
+			            	</div>
+			            	<div ng-if="row.media_tipo!='IMG'" class="md-padding">
+				              <a target="_blank" ng-href="/app/src/img/gallery/{{row.media_nombre}}" alt="Photo">
+			            			<i-fa i={{string2JSON('iFaIconList')[row.media_tipo]}} s=4x></i-fa><br> 
+				              	{{string2JSON('fileTypeList')[row.media_tipo]}}
+				              </a>
+			            	</div>
+			            </div>
+			            <div class="card-footer box-comments">
+			              <div class="box-comment">
+			                <div class="comment-text text-justify no-margin ">
+	                      <span class="username">
+	                      	{{row.media_titulo}}
+	                      	<span class="text-muted pull-right"><i-fa i=clock-o></i-fa> {{row.media_registro}}</span>
+	                      </span>
+	                  		{{row.media_descripcion}}
+			                </div>
+			              </div>
+			            </div>
+			          </div>
+							</div>
+						</div>
+					</md-tab>
+					
+					<md-tab label="{{'LB_ACTIVITY_LOG' | translate}}">
+						<md-content ng-controller="historyEntityCtrl">
+							<div ng-controller="myTableCtrl">
+								<toolbar-filter-in-tab></toolbar-filter-in-tab>
+								<toolbar-filter></toolbar-filter>
+								<md-table-container>
+							    <table md-table class="md-primary table-hover" md-progress="deferred">
+							      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+											<tr md-row>
+												<th md-column><span translate>LB_TRAINING</span></th>
+												<th md-column><span translate>LB_ENTITY</span></th>
+												<th md-column><span translate>LB_STATUS</span></th>
+											</tr>
+							      </thead>
+							      <tbody>
+											<tr md-row data-ng-repeat="row in rowsParent.data">
+												<td md-cell>
+													<md-ico i=book></md-ico><span ng-bind-html="highlight(row.tema_nombre)"></span><br>
+													<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.capacitacion_fecha)"></span><br>
+													<md-ico i=assignment_turned_in></md-ico><span ng-bind-html="highlight(row.capacitacion_codigo)"></span><br>
+													<md-ico i=confirmation_number></md-ico><span ng-bind-html="highlight(row.capacitacion_solicitud)"></span>
+												</td>
+												<td md-cell>
+													<md-ico i=business></md-ico><span ng-bind-html="highlight(row.entidad_razonsocial)"></span><br>
+													<md-ico i=person></md-ico><span ng-bind-html="highlight(row.coordinador)"></span><br>
+													<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.persona_doc_identidad)"></span>
+												</td>
+												<td md-cell>
+													<md-ico i=flag></md-ico><span ng-bind-html="highlight(statusLabel[row.capacitacion_estado])"></span><br>
+													<md-ico i=event></md-ico> <span ng-bind-html="highlight(row.capacitacion_registro)"></span><br>
+													<md-ico i=person></md-ico> <span ng-bind-html="highlight(row.usuario)"></span>
+												</td>
+											</tr>
+							      </tbody>
+							    </table>
+								</md-table-container>
+								<footer-table></footer-table>
+							</div>
+						</md-content>
+					</md-tab>
+				</md-tabs>
+			</md-card>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,54 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="btn" class="md-icon-button"><md-ico i=settings_input_antenna></md-ico></md-button>
+			<h2 translate>TOOLBAR_PARTICIPANTS</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content ng-controller="participantsExtendsCtrl">
+  	<md-content layout=column layout-padding>
+			<!-- INFORMACIÓN DE CAPACITACIÓN -->
+			<card-training-information></card-training-information>
+			<!-- FILTRO DE PARTICIPANTES -->
+			<div layout-padding>
+				<div>
+					<div class="card card-outline card-primary no-margin">
+						<div class="card-body text-center">
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=search></md-ico></div></div> 
+								<input ng-model="frmParent.filter" class="form-control" placeholder="Ej. 1236587490" maxlength="20">
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-default" ng-if="frmParent.filter!=''" ng-click="frmParent.filter=''"><md-ico i=clear></md-ico></button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- LISTADO DE PARTICIPANTES -->
+			<div layout-xs=column layout=row layout-padding layout-wrap>
+				<div style="min-width:360px;" ng-repeat="row in requestList | filter : frmParent.filter" flex>
+					<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} no-margin no-padding">
+						<div class="card-header with-border">
+		        	<h3 class="card-title">
+		        		<md-checkbox class="no-margin text-left" ng-checked="exists(row.fk_participante_id)" ng-click="toggle(row.fk_participante_id)">
+		        			{{$index+1}}. <span ng-bind-html="highlight(row.persona_doc_identidad,frmParent.filter)"></span>
+								</md-checkbox>
+		        	</h3>
+						</div>
+		        <div class="card-body text-center" layout=row layout-padding>
+							<img src="/app/src/img/users/default.png" ng-src="/app/src/img/users/{{row.persona_imagen}}"
+			 						 style="width:64px;height:64px;margin:auto" class="img-circle" alt="img" />
+			 				<span style="width:100%;margin:auto" ng-bind-html="highlight(row.persona_apellidos+' '+row.persona_nombres,frmParent.filter)"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+  	</md-content>
+  </md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="button" ng-click="closeDialog()"><span translate>LB_CLOSE</span></md-button>
+	</md-dialog-actions>
+</md-dialog>

@@ -1,0 +1,62 @@
+{
+	"view_prevencion":{
+		"mistraining":{
+			"vw":"vw_training",
+			"relation":{
+				"pk":"capacitacion_id",
+				"entity":"capacitadores",
+				"fk":"fk_capacitacion_id",
+				"profile":"fk_usuario"
+			}
+		},
+		
+		"misinspecciones":{
+			"vw":"my_inspecciones",
+			"profile":"fk_inspector_id"
+		},
+		"miscitaciones":{
+			"vw":"my_citaciones",
+			"profile":"fk_inspector_id"
+		},
+		"mistransporteglp":{
+			"vw":"vw_transporteglp",
+			"profile":"fk_inspector_id"
+		},
+		"misplanesemergencia":{
+			"vw":"vw_planesemergencia",
+			"profile":"fk_inspector_id"
+		}
+	},
+	
+	"view_custom_index":{
+		"getFuelorder":{
+			"fk_entity":"solicitante_personal_id"
+		}
+	},
+	
+	"relations":{
+		"requerimientos":["req"],
+		"preguntas":["requerimientos"],
+    
+    "requeridos":["requerimientos"],
+    
+    "reglasocasionales":["recursosocasionales"]
+	},
+	
+	"default_order":{
+		"personas":"persona_doc_identidad",
+		"usuarios":"usuario_login",
+		"tasas":"tasa_nombre",
+		"ciiu":"ciiu_nombre",
+		
+		"personal":"persona_apellidos",
+		"conductores":"conductor",
+		
+		"participantes":"persona_apellidos"
+	},
+	"default_pagination":{
+    "page":1,
+    "limit":10
+	}
+	
+}

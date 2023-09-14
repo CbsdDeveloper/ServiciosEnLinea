@@ -1,0 +1,95 @@
+<div layout-padding>
+	<div flex class="box box-info no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+			<div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+      </div>
+		</div>
+		<div class="box-body box-bg-info" layout=column>
+			<div ng-bind-html="$parent.trustAsHtml(paramsConf.DEFINITIVE_STEPS_INFO)"></div>
+		</div>
+	</div>
+</div>
+
+<md-card ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><i-fa i=object-group s=lg></i-fa></md-button>
+			<h2 hide-xs><span translate>LB_GLP_DEFINITIVE</span></h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_PROJECTS</span></th>
+					<th md-column><span translate>LB_ADDRESS</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+			</thead>
+		  <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<i-fa i=shield></i-fa><span ng-bind-html="highlight(row.definitivo_codigo)"></span><br>
+						<div>
+							<i-fa i=calendar></i-fa><span ng-bind-html="highlight(row.factibilidad_proyecto)"></span>
+							<md-tooltip>{{'LB_PROJECT_NAME' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<i-fa i=user></i-fa><span ng-bind-html="highlight(row.entidad_razonsocial)"></span> <md-tooltip>{{'LB_OWNER' | translate}}</md-tooltip>
+						</div>
+						<div class="label label-fa" ng-class="{'label-danger':(row.r_memoriatecnica=='0'),'label-success':(row.r_memoriatecnica!='0')}">
+							<span translate>LB_RESPONSIBLE_TECHNICAL_MEMORY</span> <i-fa i="{{(row.r_memoriatecnica=='0')?'times':'check'}}"></i-fa>
+						</div>
+						<br>
+						<div class="label label-fa" ng-class="{'label-danger':(row.r_planos=='0'),'label-success':(row.r_planos!='0')}">
+							<span translate>LB_RESPONSIBLE_PLANS</span> <i-fa i="{{(row.r_planos=='0')?'times':'check'}}"></i-fa>
+						</div>
+					</td>
+					<td md-cell>
+						<div>
+							<i-fa i=globe></i-fa><span ng-bind-html="highlight(row.factibilidad_parroquia)"></span>
+							<md-tooltip><span translate>LB_PARISH</span></md-tooltip>
+						</div>
+						<div>
+							<i-fa i=location-arrow></i-fa><span ng-bind-html="highlight(row.factibilidad_principal+' y '+row.factibilidad_secundaria)"></span>
+							<md-tooltip><span translate>LB_ADDRESS</span></md-tooltip>
+						</div>
+						<div>
+							<i-fa i=fire></i-fa><span ng-bind-html="highlight(row.tanques_total+' TANQUE(S)')"></span>
+							<md-tooltip>{{'LB_NUMBER_TANKS' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<i-fa i=thermometer-empty></i-fa><span ng-bind-html="highlight(row.tanques_capacidad+' M3')"></span>
+							<md-tooltip>{{'LB_CAPACITY_M3' | translate}}</md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<i-fa i=flag></i-fa><span ng-bind-html="statusLabel[row.definitivo_estado]"></span><br>
+						<i-fa i=calendar></i-fa><span ng-bind-html="highlight(row.definitivo_registro)"></span><br>
+						<i-fa i=user></i-fa><span ng-bind-html="highlight(row.usuario)"></span>
+						<div class="text-uppercase" ng-if="row.gallery>0">
+							<a ng-click="downloadAttachments(row.factibilidad_id)">
+								<i-fa i=download></i-fa><span translate="LB_ATTACHED_FILES_X" translate-values="{x:row.gallery}"></span>
+							</a>
+						</div>
+					</td>
+					<td md-cell class="table-menu text-center">
+						<menu-definitive></menu-definitive>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

@@ -1,0 +1,43 @@
+<div layout-padding>
+	<div flex class="box box-primary collapsed-box no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+			<div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+      </div>
+		</div>
+		<div class="box-body box-bg-info" layout=column layout-wrap>
+			<div ng-bind-html="$parent.trustAsHtml(paramsConf.TRY_INFO_TOPICS)"></div>
+		</div>
+	</div>
+</div>
+
+<md-card ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><i-fa i=book s=lg></i-fa></md-button>
+			<h2 hide-xs translate>TOOLBAR_TOPICS</h2>
+		</div>
+	</md-toolbar>
+	<md-table-container>
+	    <table md-table class="md-primary table-hover">
+	      <thead md-head md-order="filterParent.order">
+					<tr md-row>
+						<th md-column md-numeric md-order-by="tema_id"><span translate>LB_CODE</span></th>
+						<th md-column md-order-by="tema_nombre"><span translate>LB_TOPIC</span></th>
+						<th md-column><span translate>LB_MENU</span></th>
+					</tr>
+				</thead>
+			  <tbody>
+					<tr md-row data-ng-repeat="row in rowsParent.data">
+						<td md-cell>{{$index+1}}</td>
+						<td md-cell>{{row.tema_nombre}}</td>
+						<td md-cell>
+							<md-button aria-label="button" class="md-icon-button" ng-click="goEntity({id:row.tema_id})"><i-fa i=eye></i-fa></md-button>
+						</td>
+					</tr>
+	      </tbody>
+	    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

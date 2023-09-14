@@ -1,0 +1,63 @@
+<style>{{css}}*{line-height:1.5;font-weight:100}</style>
+<page backtop="0mm" backbottom="0mm" backleft="0mm" backright="0mm">
+	<page_footer>
+		<img src="src/img/reports/training.jpg" alt="img" style="width:297mm;height:210mm;" />
+		<table class="page_footer" style="margin-top:-165px;">
+			<tr>
+				<td style="width:25%;text-align:center"></td>
+				<!-- <td style="width:50%;text-align:center">
+					{{J1_NOMBRE}}<br>
+					{{J1_CARGO}}<br>
+					{{INSTITUTION_NAME}}
+				</td> -->
+				<td style="width:50%;text-align:center">
+					{{J2_NOMBRE}}<br>
+					{{J2_CARGO}}<br>
+					{{INSTITUTION_NAME}}
+				</td>
+			</tr>
+		</table>
+	</page_footer>
+	
+	<div style="margin-top:320px;">
+		<p style="color:#e74a4a;font-size:30px;margin:5px;text-align:center;">{{TRY_CERTIFICATE}}</p>
+		<p style="color:#285082;font-size:35px;margin:0px;text-align:center;" class="text-uppercase">A: {{participante}}</p>
+	</div>
+	<div style="padding:0px 150px">
+		<p style="font-size:20px;">Por haber asistido al curso de capacitación sobre: 	CONTRA INCENDIOS, EVACUACIÓN, GESTION DE RIESGO, 	PRIMEROS AUXILIOS, RESCATE Y TRANSPORTE<br>
+		efectuado el día: {{capacitacion_fecha}}, con una duración 
+		de: {{TRY_DURATION_TRAINING}} horas</p>
+		<p style="font-size:15px;">Fecha: {{sistema_ciudad}}, {{report_date}}</p>
+	</div>
+</page>
+<page backbottom="30mm" backleft="30mm">
+	<page_footer>
+		<div style="margin:150px;width:50%;">
+			<table style="border-collapse:separate;border:1px;padding:3px">
+				<tbody>
+					<tr>
+						<td colspan="3"><h4 style="text-align:center">{{INSTITUTION_FULL_NAME}}</h4></td>
+					</tr>
+					<tr>
+						<td colspan="2" style="border:0px;">NOMBRES APELLIDOS / INSTITUCIÓN:</td>
+						<td style="border:0px;">CÉDULA / RUC:</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="border:1px;padding:2px"><b>{{participante}}</b></td>
+						<td style="border:1px;padding:2px"><b>{{participante_doc_identidad}}</b></td>
+					</tr>
+					<tr>
+						<td style="border:0px;">REFRENDACIÓN:</td>
+						<td style="border:0px;">FECHA DEL REGISTRO:</td>
+						<td style="border:0px;">CÓDIGO DE REGISTRO:</td>
+					</tr>
+					<tr>
+						<td style="border:1px;padding:2px;color:red;"><b>{{refrendacion_serie}}</b></td>
+						<td style="border:1px;padding:2px"><b>{{refrendacion_fecha_full}}</b></td>
+						<td style="border:1px;padding:2px"><b>{{refrendacion_entidad}}</b></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</page_footer>
+</page>

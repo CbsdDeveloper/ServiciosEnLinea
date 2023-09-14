@@ -1,0 +1,56 @@
+<form name="formData" class="form-digital no-padding" layout-padding>
+	<div class="no-padding-bottom">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+			  	<md-button aria-label="btn" class="md-icon-button" hide-xs><i-fa i=star-half-o s=lg></i-fa></md-button>
+			  	<h2 translate hide-xs>LB_SELFINSPECTION</h2>
+			    <span flex hide-xs></span>
+			    <span>{{toolbar}}</span>
+			</div>
+		</md-toolbar>
+	</div>
+	<div class="padding-all" layout-padding>
+	
+		<div flex class="box no-margin">
+			<div class="box-header with-border text-center">
+				<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+				<div class="box-tools pull-right">
+		       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+		     </div>
+			</div>
+			<div class="box-body box-bg-info" layout=column>
+				<div ng-bind-html="$parent.trustAsHtml(paramsConf.SELFINSPECTION_STEP1)"></div>
+			</div>
+		</div>
+		
+		<div layout-xs=column layout=row layout-padding>
+			<div flex layout=column layout-padding>
+				<card-entity></card-entity>
+				<card-agent></card-agent>
+			</div>
+			<div flex layout=column layout-padding>
+				<div>
+					<div class="box box-warning no-margin">
+						<div class="box-header text-center">
+						  <h3 class="box-title">{{frmLocales.local_nombrecomercial}}</h3>
+						</div>
+						<div class="box-body" layout=column layout-padding ng-controller="localsExtendsCtrl">
+							<frm-locals layout-padding></frm-locals>
+						</div>
+						<div class="box-footer" layout=row layout-align="space-between center">
+								<md-button ui-sref="main.locals" class="md-raised md-warn btn-block">
+									<i-fa i=angle-left></i-fa>
+									<span translate>BTN_CANCEL</span>
+								</md-button>
+								<md-button ng-click="goStep2()" class="md-raised md-primary btn-block" ng-disabled="formData.$invalid">
+									<span translate>BTN_NEXT</span>
+									<i-fa i=play></i-fa>
+								</md-button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	</div>
+</form>

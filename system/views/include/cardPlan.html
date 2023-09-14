@@ -1,0 +1,38 @@
+﻿<div class="card card-outline card-primary no-margin">
+	<div class="card-body box-profile text-center">
+		<md-ico i=security s=64></md-ico>
+		<h3 class="profile-username md-padding">{{dataEntity.plan_codigo}} ({{dataEntity.plan_serie}})</h3>
+		
+		<div ng-if="row.plan_solicitud!=null">
+	    <hr>
+			<strong><md-ico i=confirmation_number s=18></md-ico> <span translate>LB_REQUEST_NUMBER</span></strong>
+			<p class="text-muted text-center">{{dataEntity.plan_solicitud}}</p>
+		</div>
+		
+		<div ng-if="dataEntity.plan_estado=='APROBADO'">
+			<hr>
+			<strong><md-ico i=event s=18></md-ico> <span translate>LB_ELABORATED</span></strong>
+	    <p class="text-muted text-uppercase">{{dataEntity.plan_elaborado | date:'fullDate'}}</p>
+	    <hr>
+			<strong><md-ico i=event_available s=18></md-ico> <span translate>LB_APPROVAL_DATE</span></strong>
+	    <p class="text-muted text-uppercase">{{dataEntity.plan_aprobado | date:'fullDate'}}</p>
+	    <hr>
+			<strong><md-ico i=event_busy></md-ico> <span translate>LB_VALID_UNTIL</span></strong>
+	    <p class="text-muted text-uppercase">{{dataEntity.plan_caduca | date:'fullDate'}}</p>
+		</div>
+		
+    <hr>
+		<strong><i-fa i=user></i-fa> <span translate>LB_TECHNICAL_INSPECTORS</span></strong>
+    <p class="text-muted no-margin" ng-repeat="insp in dataEntity.inspectors">{{insp.ppersonal.staff.person.persona_apellidos}} {{insp.ppersonal.staff.person.persona_nombres}}</p>
+		
+		<hr>
+		<strong><md-ico i=event s=18></md-ico> <span translate>LB_REGISTRE_DATE</span></strong>
+	    <p class="text-muted">{{dataEntity.plan_registro| date:'fullDate'}}</p>
+		<hr>
+		<strong><md-ico i=flag s=18></md-ico> <span translate>LB_STATUS</span></strong>
+		<p class="text-muted text-center"><span ng-bind-html="statusLabel[dataEntity.plan_estado]"></span></p>
+		<hr>
+		<strong><md-ico i=comment s=18></md-ico> <span translate>LB_OBSERVATION</span></strong>
+		<p class="text-muted text-center">{{dataEntity.plan_observacion}}</p>
+	</div>
+</div>

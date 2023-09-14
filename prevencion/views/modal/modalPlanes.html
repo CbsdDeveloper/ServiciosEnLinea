@@ -1,0 +1,130 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg form-digital" ng-controller="planExtendsCtrl">
+  <form name="formData" ng-submit="submitFormPE()" class="form-uppercase">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="btn" class="md-icon-button"><md-ico i=security></md-ico></md-button>
+			<h2 translate>TOOLBAR_PLANS</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-content class="padding-all" layout=column layout-padding>
+			
+			<!-- INSTRUCCIONES -->
+			<div class="callout callout-warning no-margin margin-bottom">
+			  <div class="text-center margin-bottom"><i class="icon fa fa-bell-o fa-3x faa-ring animated"></i></div>
+			  <p ng-bind-html="trustAsHtml(paramsConf.PREVENTION_INTRUCTIONS_NEW_PLAN)"></p>
+			</div>
+			
+			<!-- FORMULARIO DE DATOS DE VEHICULO -->
+			<card-local-information layout-padding></card-local-information>
+			
+			<!-- INFORMACIÓN DEL ESTABLECIMIENTO -->
+			<div class="box box-warning no-margin margin-top" layout-padding>
+				<div class="box-header text-center">
+				  <h3 class="box-title" translate>LB_RESPONSIBLE_FOR_REGISTRATION</h3>
+				</div>
+				<div class="box-body padding-all" layout=column layout-padding>
+				
+					<div class="form-group required" flex>
+					  <label translate>LB_RESPONSIBLE_NAME</label>
+					  <div class="input-group">
+					    <div class="input-group-addon"><md-ico i=person></md-ico></div>
+					    <input class="form-control" ng-model="frmParent.plan_responsbale_registro" required />
+					  </div>
+					</div>
+					
+					<div class="form-group required" flex>
+					  <label translate>LB_SELFPROTECTION_REASON_FOR_RENEWAL</label>
+					  <div class="input-group">
+					    <div class="input-group-addon"><md-ico i=comment></md-ico></div>
+					    <textarea rows="5" class="form-control" ng-model="frmParent.plan_motivoregistro" required></textarea>
+					  </div>
+					</div>
+				
+				</div>
+			</div>
+			
+			<!-- INFORMACIÓN DEL ESTABLECIMIENTO -->
+			<div class="box box-primary no-margin margin-top" layout-padding>
+				<div class="box-header text-center">
+				  <h3 class="box-title" translate>LB_PROPERTY_INFORMATION</h3>
+				</div>
+				<div class="box-body padding-all" layout=column layout-padding>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+						  <label translate>LB_PEOPLE_WORK</label>
+						  <div class="input-group">
+						    <div class="input-group-addon"><md-ico i=info_outline></md-ico></div>
+						    <input class="form-control font-digital" type="number" step="1" min=0 parse-float ng-model="frmParent.local.local_ocupantes" required />
+						  </div>
+						</div>
+						<div class="form-group" flex>
+						  <label translate>LB_CLIENTS_PER_DAY</label>
+						  <div class="input-group">
+						    <div class="input-group-addon"><md-ico i=info_outline></md-ico></div>
+						    <input class="form-control font-digital" type="number" step="1" min=0 parse-float ng-model="frmParent.local.local_visitantes" required />
+						  </div>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+						  <label translate>LB_FLOORS_PLACE</label>
+						  <div class="input-group">
+						  	<div class="input-group-addon"><md-ico i=info_outline></md-ico></div>
+						    <input class="form-control font-digital" type="number" step="1" min=0 parse-float ng-model="frmParent.local.local_pisos" required />
+						  </div>
+						</div>
+						<div class="form-group required" flex>
+						  <label translate>LB_SUBSOILS_PLACE</label>
+						  <div class="input-group">
+						  	<div class="input-group-addon"><md-ico i=info_outline></md-ico></div>
+						    <input class="form-control font-digital" type="number" step="1" min=0 parse-float ng-model="frmParent.local.local_subsuelos" required />
+						  </div>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_EDIFICATION_AREA</label>
+							<div class="input-group">
+								<div class="input-group-addon"><md-ico i=info_outline></md-ico></div>
+								<input class="form-control font-digital" type="number" step="0.01" min=1 max="100000" parse-float ng-model="frmParent.local.local_area_planta_baja" required />
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_SUBSOILS_AREA</label>
+							<div class="input-group">
+								<div class="input-group-addon"><md-ico i=info_outline></md-ico></div>
+								<input class="form-control font-digital" type="number" step="0.01" min=0  parse-float ng-model="frmParent.local.local_area_subsuelos" required />
+							</div>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_USEFUL_AREA</label>
+							<div class="input-group">
+								<div class="input-group-addon"><md-ico i=aspect_ratio></md-ico></div>
+								<input class="form-control font-digital" type="number" step="0.01" min=1 parse-float ng-model="frmParent.local.local_area" required />
+							</div>
+						</div>
+						<div class="form-group required" flex>
+						  <label translate>LB_CATASTRAL_KEY</label>
+							<div class="input-group">
+								<span class="input-group-addon"><i-fa i=podcast></i-fa></span>
+								<input class="form-control font-digital" ng-model="frmParent.local.local_clavecatastral" placeholder="Ej. 170256314" required />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+    </md-content>
+  </md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type=submit ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

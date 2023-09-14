@@ -1,0 +1,111 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog-60" ng-controller="unitsExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+	  <md-toolbar>
+	    <div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=local_shipping></md-ico></md-button>
+				<h2 class="md-flex" translate>TOOLBAR_UNITS</h2>
+	      <span flex></span>
+	      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+	    </div>
+	  </md-toolbar>
+	  <md-dialog-content>
+	    <md-content class="no-padding" layout-xs=column layout=row layout-padding>
+	    	
+	    	<!-- INFORMACIÓN DE VEHÍCULO PARA EDICIÓN -->
+	    	<card-vehicle-information flex ng-if="toogleEditMode"></card-vehicle-information>
+	    	
+	    	<div ng-if="!toogleEditMode" flex>
+		    	<!-- FORMULARIO DE VEHÍCULO -->
+					<frm-vehiculos-advanced></frm-vehiculos-advanced>
+	    	</div>
+	    	
+	    	<div flex>
+		    	
+		    	<!-- FORMULARIO DE PROPIETARIO -->
+					<frm-personas-custom ng-if="!toogleEditMode"></frm-personas-custom>
+					
+		    	<!-- DATOS DE UNIDAD -->
+		    	<div class="card card-outline card-success no-margin" ng-class="[{'margin-top':!toogleEditMode}]">
+						<div class="card-header text-center">
+						  <h3 class="card-title" translate>LB_UNIT_INFORMATION</h3>
+						</div>
+						<div class="card-body" layout=column layout-padding>
+							<div class="form-group required" flex>
+				    		<label translate>LB_UNIT_NAME</label>
+							  <div class="input-group" flex>
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_shipping></md-ico></div></div> 
+										<input class="form-control text-uppercase" ng-model="frmParent.unidad_nombre" required placeholder="Ej. MJ-1" />
+									</div>
+				    	</div>
+							<div class="form-group required" flex ng-controller="staffListCtrl">
+								<label translate>LB_CUSTODIAN</label>
+								<div class="input-group">
+						      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=perm_contact_calendar></md-ico></div></div> 
+						      <ui-select class="form-control" ng-model="frmParent.fk_custodio_id" reset-search-input="false" required>
+					         	<ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.personal_nombre,'Seleccione un registro...')  | translate}}">
+											{{$select.selected.personal_nombre}}
+					         	</ui-select-match>
+										<ui-select-choices class="list-personal" repeat="item.ppersonal_id as item in FKList | filter: { personal_nombre: $select.search }">
+											<img src="/app/src/img/users/default.png" style="width:48px;height:48px;padding:3px" class="img-circle" alt="img" />
+											<div flex>
+												<div ng-bind-html="item.personal_nombre | highlight: $select.search"></div>
+												<small ng-bind-html="'Puesto: '+item.puesto_definicion"></small><br>
+												<small ng-bind-html="'Dirección: '+item.direccion_nombre"></small>
+											</div>
+										</ui-select-choices>
+						      </ui-select>
+						    </div>
+							</div>
+							<div layout=row layout-xs=column layout-padding>
+								<div class="form-group required" flex>
+					    		<label translate>LB_STATION</label>
+								  <div class="input-group" flex ng-controller="stationsListCtrl">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assistant_photo></md-ico></div></div> 
+										<select class="form-control" ng-model="frmParent.fk_estacion_id" required ng-options="row.estacion_id as (row.estacion_nombre+' - '+row.estacion_nombre_alterno) for row in list"></select>
+									</div>
+					    	</div>
+								<div class="form-group required" flex>
+					    		<label translate>LB_MODE</label>
+								  <div class="input-group" flex>
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+										<select class="form-control" ng-model="frmParent.unidad_area" required ng-options="val as val for (key,val) in string2JSON('modeJobsList')"></select>
+									</div>
+					    	</div>
+				    	</div>
+							<div layout=row layout-xs=column layout-padding>
+								<div class="form-group required" flex>
+					    		<label translate>LB_PLAN_MAINTENANCE</label>
+								  <div class="input-group" flex ng-controller="planMaintenanceListCtrl">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+											<select class="form-control" ng-model="frmParent.fk_plan_id" required ng-options="row.plan_id as row.plan_modelo for row in jsonList"></select>
+										</div>
+					    	</div>
+								<div class="form-group required" flex ng-if="toogleEditMode">
+					    		<label translate>LB_STATUS</label>
+								  <div class="input-group" flex>
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+											<select class="form-control" ng-model="frmParent.unidad_estado" required ng-options="val as val for (key,val) in string2JSON('UNIT_STATUS_LIST')"></select>
+										</div>
+					    	</div>
+							</div>
+							<div class="form-group">
+				    		<label translate>LB_DETAIL</label>
+							  <div class="input-group" flex>
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+									<textarea rows="4" class="form-control" ng-model="frmParent.unidad_detalle" placeholder="Ej. Detalle" ></textarea>
+								</div>
+				    	</div>
+						</div>
+					</div>
+	    	
+	    	</div>
+	    	
+	    </md-content>
+	  </md-dialog-content>
+	  <md-dialog-actions layout=row>
+			<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+			<span flex></span>
+			<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+		</md-dialog-actions>
+  </form>
+</md-dialog>

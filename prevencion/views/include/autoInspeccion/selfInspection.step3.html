@@ -1,0 +1,108 @@
+<div flex class="box box-default">
+	<div class="box-header with-border text-center no-margin">
+		<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+		<div class="box-tools pull-right">
+       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+     </div>
+	</div>
+	<div class="box-body box-bg-info no-margin" layout=column layout-wrap>
+		<div ng-bind-html="$parent.trustAsHtml(paramsConf.SELFINSPECTION_STEP3)"></div>
+	</div>
+</div>
+
+
+<ul class="timeline margin-top">
+	
+	<!-- ENCABEZADO DE REQUERIMIENTOS -->
+	<li class="time-label text-uppercase">
+	  <span class="bg-blue padding-all" translate>LB_MINIMUM_REQUIREMENTS</span>
+	</li>
+	
+	<!-- FORMULARIOS DE REQUERIMIENTOS -->
+	<li ng-repeat="(key, requirements) in formulario.form">
+		<i class="fa fa-info bg-{{string2JSON('colorName')[$index]}}"></i>
+		<div class="timeline-item">
+			<div class="timeline-body no-padding" layout-padding>
+	     
+						<div flex class="box box-{{string2JSON('colorCss')[$index+1]}} no-margin">
+							<div class="box-header with-border text-center">
+								<h3 class="box-title">{{key}}</h3>
+								<div class="box-tools pull-right">
+					        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					      </div>
+							</div>
+							<div class="box-body" layout=column layout-wrap>
+									
+									
+									<ul class="timeline timeline-inverse">
+										<li ng-repeat="(key2, forms) in requirements">
+											<i class="fa fa-{{formulario.icons[key2]}} bg-{{string2JSON('colorName')[$index+$parent.$index]}}" hide-xs></i>
+									    <div class="timeline-item pad-btm-10">
+										    		
+										    		<h3 class="timeline-header"><b>{{key2}}</b></h3>
+										    		<img ng-if="formulario.images[key2]!=''" src="/app/src/img/requirements/{{formulario.images[key2]}}" hide-xs class="img-requirement" alt="img" />
+										    		<div>
+												      <div class="timeline-body" ng-repeat="item in forms.threads" layout=row layout-xs=column layout-align="center center">
+											      		<div ng-if="item.pregunta_has_img=='Si'">
+																	<img src="/app/src/img/questions/default.png" ng-src="/app/src/img/questions/{{item.pregunta_imagen}}" style="width:90px;margin:5px" alt="img" />
+																</div>
+												      	<span><b>{{item.fk_pregunta_id}}.</b> {{item.pregunta_nombre}}</span>
+																<span flex></span>
+																<div>
+																	<md-radio-group ng-model="declaracion.threads[item.thread_id]" layout=row ng-required="{{item.thread_requerido}}">
+															      <md-radio-button ng-disabled="locked.threads[item.thread_id]" value="SI" class="md-primary">SÍ</md-radio-button>
+															      <!-- <md-radio-button ng-disabled="locked.threads[item.thread_id]" value="NO">NO</md-radio-button>-->
+															      <md-radio-button ng-disabled="locked.threads[item.thread_id]" value="NA">N/A</md-radio-button>
+															    </md-radio-group>
+																</div>
+															</div>
+															<div class="timeline-footer" ng-if="!(forms.items | isEmpty)">
+								              	<div class="form-group">
+								              		<label>{{forms.items.fk_pregunta_id}}. {{forms.items.pregunta_nombre}} (Mínimo {{locked.items[forms.items.item_id]}})</label>
+									              	<div class="input-group">
+									              		<span class="input-group-addon" hide-xs>{{key2}}</span>
+									              		<input type="number" step=1 min="{{locked.items[forms.items.item_id]}}" 
+									              					class="form-control" 
+									              					parse-float 
+									              					ng-model="declaracion.items[forms.items.item_id]" 
+									              					ng-required="{{forms.items.item_requerido}}" />
+									              	</div>
+								              	</div>
+															</div>
+										    		</div>
+														
+											</div>
+										</li>
+									  <li><i class="fa fa-clock-o bg-gray"></i></li>
+									</ul>
+									
+									
+							</div>
+						</div>
+	     
+			</div>
+		</div>
+	</li>
+	
+	<!-- BOTONERA -->
+	<li>
+		<i class="fa fa-paper-plane-o bg-red"></i>
+	   <div class="timeline-item">
+	     <div class="timeline-body" layout-xs=column layout=row layout-padding>
+	      <div flex>
+					<a ui-sref="permits.selfInspection.step2({id:local.local_id})" class="btn btn-warning btn-sm btn-block">
+						<i-fa i=angle-double-left></i-fa> <span translate>BTN_PREV</span>
+					</a>
+				</div>
+				<div flex>
+					<button type="button" ng-click="submitForm()" class="btn btn-success btn-sm btn-block" ng-disabled="formData.$invalid">
+						<span translate>LB_FINISH_AI</span> <i-fa i=angle-double-right></i-fa>
+					</button>
+				</div>
+	     </div>
+		</div>
+	</li>
+
+	<li><i class="fa fa-clock-o bg-gray"></i></li>
+	
+</ul>

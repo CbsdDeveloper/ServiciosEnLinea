@@ -1,0 +1,25 @@
+<div flex class="card card-outline card-danger text-center no-margin card-entity-information">
+  <div class="card-header with-border">
+    <h3 class="card-title">{{frmParent.definitivo_codigo}}</h3>
+  </div>
+  <div class="card-body row">
+    <div class="col-md-4">
+    	<p><img src="/app/src/img/entities/default.png" style="width:128px;margin:auto" class="img-responsive"/></p>
+    </div>
+    <div class="col-md-8 text-left">
+    	<p><md-ico i={{frmParent.entidad_contribuyente=='natural'?'person':'business'}}></md-ico> <b translate>LB_TRADENAME</b>: {{frmParent.entidad_razonsocial}}</p>
+    	<p><md-ico i=credit_card></md-ico> <b translate>LB_RUC</b>: {{frmParent.entidad_ruc}}</p>
+    	<p><md-ico i=account_balance></md-ico> <b translate>LB_TAXPAYER_TYPE</b>: {{string2JSON('contribuyenteType')[frmParent.entidad_contribuyente]}}</p>
+    	<p><md-ico i=person></md-ico> <b translate>LB_AGENT</b>: {{frmParent.representantelegal_nombre}}</p>
+    	<p><md-ico i=credit_card></md-ico> <b translate>LB_IDENTIFICATION_NUMBER</b>: {{frmParent.representantelegal_ruc}}</p>
+    	<hr>
+    	<p><md-ico i=flag></md-ico> <b translate>LB_PROJECT_NAME</b>: {{frmParent.factibilidad_proyecto}}</p>
+    	<p><md-ico i=public></md-ico> <b translate>LB_PARISH</b>: {{frmParent.factibilidad_parroquia}}</p>
+    	<p><md-ico i=directions></md-ico> <b translate>LB_ADDRESS</b>: {{frmParent.factibilidad_principal}}, {{frmParent.factibilidad_secundaria}}</p>
+    	<hr>
+    	<p><md-ico i=event_available></md-ico> <b translate>LB_APPROVED_FEASIBILITY</b>: {{frmParent.factibilidad_aprobado}}</p>
+    	<p><md-ico i=whatshot></md-ico> <b translate>LB_NUMBER_TANKS</b>: {{frmParent.tanques_total}} {{'LB_LPG_TANKS' | translate}}</p>
+    	<p><md-ico i=disc_full></md-ico> <b translate>LB_CAPACITY_M3</b>: {{frmParent.tanques_capacidad}} m3</p>
+    </div>
+  </div>
+</md-card>

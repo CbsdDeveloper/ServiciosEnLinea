@@ -1,0 +1,29 @@
+﻿<div class="card card-outline card-primary">
+	<div class="card-body box-profile text-center">
+		<md-ico i=event_busy s=64></md-ico>
+		<h3 class="profile-username" ng-bind-html="statusLabel[dataEntity.inspeccion_estado]"></h3>
+		<h3 class="text-muted text-center"># {{dataEntity.citacion_numero}}</h3>
+    <hr>
+		<strong><md-ico i=person s=18></md-ico> <span translate>LB_INSPECTOR</span></strong>
+		<p class="text-muted text-center">{{dataEntity.inspector_citacion}}</p>
+		<hr>
+		<strong><md-ico i=event_note s=18></md-ico> <span translate>LB_NEXT_INSPECTION</span></strong>
+		<p class="text-muted text-center">{{dataEntity.citacion_fecha_reinspeccion}}</p>
+		<hr>
+		<strong><md-ico i=extension s=18></md-ico> <span translate>LB_EXTENSION</span></strong>
+		<p class="text-muted text-center">{{dataEntity.citacion_prorroga?'LB_YES':'LB_NO' | translate}}</p>
+		<div ng-if="dataEntity.citacion_observacion!=''">
+			<hr>
+			<strong><i-fa i=comments></i-fa> <span translate>LB_OBSERVATION</span></strong>
+			<p class="text-muted text-center" ng-bind-html="dataEntity.citacion_observacion"></p>
+		</div>
+		<hr>
+		<a ui-sref="prevention.inspection.step1({id:dataEntity.inspeccion_id,localId:dataEntity.local_id})" class="btn btn-primary btn-block">
+			<md-ico i=transfer_within_a_station s=18></md-ico> <span translate>LB_INSPECTION</span>
+		</a>
+		<hr>
+		<a ng-click="$parent.openModal('Citaciones',dataEntity)" class="btn btn-primary btn-block">
+			<md-ico i=edit s=18></md-ico> <span translate>LB_EDIT</span>
+		</a>
+	</div>
+</div>

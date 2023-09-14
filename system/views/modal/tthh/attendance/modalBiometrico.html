@@ -1,0 +1,55 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitRequested()">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=wrap_text></md-ico></md-button>
+			<h2 translate>LB_USER_CODES</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+		<md-content layout=column layout-padding>
+      <!-- INFORACIÓN GENERAL -->
+      <div class="card card-outline card-dark no-padding no-margin">
+        <div class="card-header with-border text-center">
+          <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+        </div>
+        <div class="card-body" layout=column layout-padding>
+          
+					<div class="form-group required">
+						<label translate>LB_BIOMETRIC_CODE</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=access_time></md-ico></div></div> 
+							<input type="number" min="0" step="1" class="form-control" ng-model="frmParent.biometrico_id" placeholder="Ej. 16" required >
+						</div>
+					</div>
+         
+         	<div class="form-group required" ng-controller="workdaysListCtrl" flex>
+						<label translate>LB_WORKDAY</label>
+					  <div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=access_time></md-ico></div></div> 
+					    <select class="form-control" ng-model="frmParent.fk_jornada_id" required ng-options="row.jornada_id as row.jornada_nombre for row in jsonList"></select>
+					  </div>
+					</div>
+					
+					<div class="form-group required" flex>
+						<label translate>LB_STATUS</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+							<select class="form-control" ng-model="frmParent.personal_estado" ng-options="val as val for (key,val) in string2JSON('TTHH_PERSONAL_STATUS')" required></select>
+						</div>
+					</div>
+          
+				</div>
+			</div>
+			
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

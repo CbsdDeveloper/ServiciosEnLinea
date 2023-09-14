@@ -1,0 +1,102 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button class="md-icon-button"><md-ico i=thumb_up></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_PERMISSIONS</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+			
+			<div class="callout callout-info no-margin margin-bottom" ng-if="frmParent.permiso_estado!='SOLICITUD GENERADA'">
+			  <p ng-bind-html="trustAsHtml(string2JSON('VACATIONS_PERMISSION_STATUS')[frmParent.permiso_estado])"></p>
+			</div>
+			
+			<div class="box box-success no-margin" layout-padding>
+				<div class="box-header text-center">
+				  <h3 class="box-title" translate>LB_MAIN_INFORMATION</h3>
+				</div>
+				<div class="box-body" layout=column layout-padding>
+					<div layout-padding layout=column >
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_CODE</label>
+								<div class="input-group">
+									<span class="input-group-addon"><md-ico i=fingerprint></md-ico></span>
+							    <input class="form-control" ng-model="frmParent.permiso_codigo" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_REASON</label>
+								<div class="input-group">
+									<span class="input-group-addon"><md-ico i=info></md-ico></span>
+							    <input class="form-control" ng-model="frmParent.permiso_motivo" readonly="readonly">
+								</div>
+							</div>
+						</div>
+						
+						<div class="form-group required" flex>
+							<label translate>LB_SELECT_PERMIT_TYPE</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=format_list_bulleted></md-ico></span>
+								<select class="form-control select2" ng-model="frmParent.permiso_parametro" required ng-options="key as val for (key,val) in string2JSON('TTHH_PERMISSION_SECTION')"></select>
+							</div>
+						</div>
+						
+						<div layout-xs=column layout=row layout-padding ng-if="frmParent.permiso_parametro=='HORAS'">
+							<div class="form-group required" flex>
+								<label translate>LB_FROM_TIME</label>
+								<div class="input-group" min-date="dataEntity.staff.jornada_entrada"  max-date="dataEntity.staff.jornada_salida" moment-picker="frmParent.permiso_desde" format="YYYY-MM-DD HH:mm" min-view="month" max-view="hour">
+								<span class="input-group-addon"><md-ico i=event_available></md-ico></span>
+						    	<input class="form-control" ng-model="frmParent.permiso_desde" ng-model-options="{ updateOn: 'blur' }" placeholder="EJ. 08:00" required>
+						    </div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_UNTIL_TIME</label>
+								<div class="input-group" min-date="frmParent.permiso_desde"  max-date="dataEntity.staff.jornada_salida" moment-picker="frmParent.permiso_hasta" format="YYYY-MM-DD HH:mm" min-view="month" max-view="hour">
+								<span class="input-group-addon"><md-ico i=event_busy></md-ico></span>
+						    	<input class="form-control" ng-model="frmParent.permiso_hasta" ng-model-options="{ updateOn: 'blur' }" placeholder="EJ. 12:00" required>
+						    </div>
+							</div>
+						</div>
+						
+						<div layout-xs=column layout=row layout-padding ng-if="frmParent.permiso_parametro=='DIAS'">
+							<div class="form-group required" flex>
+								<label translate>LB_FROM_DAY</label>
+								<div class="input-group" moment-picker="frmParent.permiso_desde" format="YYYY-MM-DD">
+								<span class="input-group-addon"><md-ico i=event_available></md-ico></span>
+						    	<input class="form-control" ng-model="frmParent.permiso_desde" ng-model-options="{ updateOn: 'blur' }" placeholder="EJ. 2017-03-13" required>
+						    </div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_UNTIL_DAY</label>
+								<div class="input-group" moment-picker="frmParent.permiso_hasta" format="YYYY-MM-DD" min-date="frmParent.permiso_desde">
+								<span class="input-group-addon"><md-ico i=event_busy></md-ico></span>
+						    	<input class="form-control" ng-model="frmParent.permiso_hasta" ng-model-options="{ updateOn: 'blur' }" placeholder="EJ. 2017-07-27" required>
+						    </div>
+							</div>
+						</div>
+					</div>
+					<div>
+			    	<div class="form-group" ng-class="[{'required':frmParent.permiso_estado=='SOLICITUD NEGADA'}]">
+							<label translate>LB_OBSERVATION</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=info_outline></md-ico></span>
+						    <textarea ng-model="frmParent.permiso_observacion" class="form-control" ng-required="frmParent.permiso_estado=='SOLICITUD NEGADA'"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

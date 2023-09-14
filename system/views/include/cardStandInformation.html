@@ -1,0 +1,28 @@
+<md-card flex class="card card-outline card-danger collapsed-card no-margin text-center card-entity-information">
+  <div class="card-header with-border">
+    <h3 class="card-title">{{frmParent.stand_codigo}}</h3>
+		<div class="card-tools">
+			<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-plus"></i></button>
+		</div>
+  </div>
+  <div class="card-body row">
+    <div class="col-md-3">
+    	<p><img src="/app/src/img/entities/default.png" style="width:128px;margin:auto" class="img-responsive"/></p>
+    </div>
+    <div class="col-md-9 text-left">
+    	<p><md-ico i={{frmParent.entidad_contribuyente=='natural'?'person':'business'}}></md-ico> <b translate>LB_TRADENAME</b>: {{frmParent.entidad_ruc}}</p>
+    	<p><md-ico i=account_balance></md-ico> <b translate>LB_TAXPAYER_TYPE</b>: {{string2JSON('contribuyenteType')[frmParent.entidad_contribuyente]}}</p>
+    	<p><md-ico i=credit_card></md-ico> <b translate>LB_RUC</b>: {{frmParent.entidad_ruc}}</p>
+    	<hr>
+    	<p><md-ico i=person></md-ico> <b translate>LB_COORDINATOR</b>: {{frmParent.persona_apellidos}} {{frmParent.persona_nombres}}</p>
+    	<p><md-ico i=credit_card></md-ico> <b translate>LB_IDENTIFICATION_NUMBER</b>: {{frmParent.persona_doc_identidad}}</p>
+    	<p><md-ico i=phone></md-ico> <b translate>LB_TEL</b>: {{frmParent.persona_telefono}}</p>
+    	<p><md-ico i=email></md-ico> <b translate>LB_MAIL</b>: {{frmParent.persona_correo}}</p>
+    	<hr>
+    	<p><md-ico i=book></md-ico> <b translate>LB_TOPIC</b>: {{frmParent.stand_tema}}</p>
+    	<p><md-ico i=event></md-ico> <b translate>LB_DATE</b>: {{frmParent.stand_fecha}}</p>
+    	<p><md-ico i=event_busy></md-ico> <b translate>LB_CONFIRMATION_DATE</b>: <label class="label label-danger text-capitalize">{{frmParent.stand_confirmacion | date: 'fullDate'}}</label></p>
+    	<p><md-ico i=directions></md-ico> <b translate>LB_ADDRESS</b>: {{frmParent.stand_direccion}}</p>
+    </div>
+  </div>
+</md-card>

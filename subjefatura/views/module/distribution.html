@@ -1,0 +1,45 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=loupe></md-ico>
+				<md-tooltip><span translate>TOOLBAR_DISTRIBUTION</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.filter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_INPUT' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.filter!=''" ng-click="filterParent.filter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<div class="md-padding row no-margin" layout-padding>
+		<div class="col-md-4 col-xs-12 wow fadeInUp" data-ng-repeat="row in rowsParent.data">
+						
+			<div class="box box-widget widget-user-2 text-uppercase no-margin">
+			   <div class="widget-user-header bg-black" ng-class="[{'bg-blue':row.persona_sexo=='HOMBRE','bg-red':row.persona_sexo=='MUJER'}]">
+			     <div class="widget-user-image">
+			       <img class="img-circle" src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{row.persona_imagen}}" alt="User Avatar">
+			     </div>
+			     <h3 class="widget-user-username">{{row.personal_nombre}}</h3>
+			     <h5 class="widget-user-desc">{{row.persona_doc_identidad}} / {{row.puesto_definicion}}</h5>
+			   </div>
+			   <div class="box-footer no-padding">
+			     <ul class="nav nav-stacked">
+			       <li><a href="#"><md-ico i=flag s=18></md-ico> <small translate>LB_STATION</small> <span class="pull-right text-right" style="max-width:60%;font-size:10px;">{{row.estacion}}</span></a></li>
+			       <li><a href="#"><md-ico i=nature_people s=18></md-ico> <small translate>LB_PLATOON</small> <span class="pull-right text-right" style="max-width:60%;font-size:10px;">{{row.peloton_nombre}}</span></a></li>
+			       <li><a href="#"><md-ico i=how_to_reg s=18></md-ico> <small translate>LB_PERFORMANCE</small> <span class="pull-right text-right" style="max-width:60%;font-size:10px;">{{row.tropa_cargo}}</span></a></li>
+			       <li><a href="#"><md-ico i=info s=18></md-ico> <small translate>LB_DETAIL</small> <span class="pull-right text-right" style="max-width:60%;font-size:10px;">{{row.tropa_detalle}}</span></a></li>
+			     </ul>
+			   </div>
+			</div>
+		</div>
+	</div>
+	<footer-table></footer-table>
+</md-card>

@@ -1,0 +1,23 @@
+<div class="box box-primary no-margin">
+	<div class="box-body box-profile text-center">
+		<strong><md-ico i=account_balance></md-ico><br><span translate>LB_LEADERSHIP</span></strong>
+    <p class="text-muted">{{item.direccion_nombre}}</p>
+    <hr>
+		<strong><md-ico i=star_half></md-ico><br><span translate>LB_EMPLOYMENT</span></strong>
+    <p class="text-muted">{{item.puesto_nombre}}</p>
+    <hr>
+		<strong><md-ico i=photo_filter></md-ico><br><span translate>LB_CONTRACT_TYPE</span> / <span translate>LB_REGIME</span></strong>
+    <p class="text-muted">{{dataEntity.puesto_modalidad}} / {{item.personal_contrato}} / {{dataEntity.personal_regimen_laboral}}</p>
+    <hr>
+    <strong><md-ico i=event_available></md-ico><br><span translate>LB_DATE_CONTRACT</span></strong>
+    <p class="text-muted text-uppercase">{{item.personal_fecha_ingreso | date:'fullDate'}}</p>
+    <div ng-if="item.personal_contrato=='CONTRATO CIVIL' || item.personal_contrato=='CONTRATO OCASIONAL'">
+    <hr>
+    <strong><md-ico i=event_busy></md-ico><br><span translate>LB_TERMINATION_CONTRACT</span></strong>
+    <p class="text-muted text-uppercase">{{item.personal_fecha_salida | date:'fullDate'}}</p>
+    </div>
+    <hr>
+    <strong><md-ico i=monetization_on></md-ico><br><span translate>LB_REMUNERATION</span></strong>
+    <p class="text-muted">{{item.puesto_remuneracion | currency}}</p>
+  </div>
+</div>

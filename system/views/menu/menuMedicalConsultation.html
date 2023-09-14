@@ -1,0 +1,54 @@
+<md-menu md-position-mode="target-right target">
+  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+  </md-button>
+  <md-menu-content width="5">
+    
+    <md-menu-item ng-if="allow.permiso8164">
+      <md-button aria-label="editar" ng-click="goUpdateEntity(row.consulta_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_EDIT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=edit></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="row.consulta_medicamento=='SI' && allow.permiso8205"></md-divider>
+    <md-menu-item ng-if="row.consulta_medicamento=='SI' && allow.permiso8205">
+      <md-button aria-label="editar" ng-click="exportEntity('prescripcionmedica',row.consulta_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_PRINT_MEDICALPRESCRIPTION</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=list_alt></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="row.consulta_descansomedico=='SI' && allow.permiso8215"></md-divider>
+    <md-menu-item ng-if="row.consulta_descansomedico=='SI' && allow.permiso8215">
+      <md-button aria-label="editar" ng-click="exportEntity('certificadosmedicos',row.consulta_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_PRINT_MEDICALREST</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=hotel></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="allow.permiso8165"></md-divider>
+    <md-menu-item>
+      <md-button aria-label="editar" ng-click="exportById(row.consulta_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_PRINT_CONSULTATION</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=print s=18></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

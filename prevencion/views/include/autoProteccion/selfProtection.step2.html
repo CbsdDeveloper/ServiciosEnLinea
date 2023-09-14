@@ -1,0 +1,65 @@
+<div layout-xs=column layout=row layout-column layout-padding>
+				
+	<div layout=column layout-padding flex>
+		<!-- INFORMACION DE ENTIDAD -->
+		<card-entity flex></card-entity>
+		<!-- INFORMACION DE LOCAL -->
+		<card-local flex></card-local>
+	</div>
+		
+	<div flex>
+		<div class="box box-primary no-margin margin-bottom" ng-repeat="item in plansList">
+			<div class="box-header with-border text-center">
+				<md-ico i=security s=64></md-ico>
+    		<h3 class="profile-username">{{item.plan_codigo}}</h3>
+			</div>
+			<div class="box-body box-profile text-center">
+				<strong><i-fa i=book></i-fa> <span translate>LB_TYPE_OF_SELFPROTECTIONPLAN</span></strong>
+		    <p class="text-muted"><span ng-bind-html="statusLabel[item.plan_tipo]"></span></p>
+	    	<hr>
+				<div ng-if="item.plan_estado=='APROBADO' || item.plan_estado=='VENCIDO'">
+					<strong><md-ico i=event></md-ico> <span translate>LB_ELABORATED</span></strong>
+			    <p class="text-muted text-uppercase">{{item.plan_elaborado | date:'fullDate'}}</p>
+			    <hr>
+					<strong><md-ico i=event_available></md-ico> <span translate>LB_APPROVAL_DATE</span></strong>
+			    <p class="text-muted text-uppercase">{{item.plan_aprobado | date:'fullDate'}}</p>
+			    <hr>
+					<strong><md-ico i=event_busy></md-ico> <span translate>LB_VALID_UNTIL</span></strong>
+			    <p class="text-muted text-uppercase">{{item.plan_caduca | date:'fullDate'}}</p>
+			    <hr>
+				</div>
+				<strong><md-ico i=event s=18></md-ico> <span translate>LB_REGISTRE_DATE</span></strong>
+				<p class="text-muted text-center">{{item.plan_registro}}</p>
+				<hr>
+				<strong><md-ico i=flag s=18></md-ico> <span translate>LB_STATUS</span></strong>
+				<p class="text-muted text-center"><span ng-bind-html="statusLabel[item.plan_estado]"></span></p>
+				<hr>
+				<strong><md-ico i=comment s=18></md-ico> <span translate>LB_OBSERVATION</span></strong>
+				<p class="text-muted text-center">{{item.plan_observacion}}</p>
+			</div>
+			<div class="box-footer" layout=column layout-padding>
+				
+				<a ui-sref="permits.editSelfProtection.stepSingle({planId:item.plan_id})" class="btn btn-warning btn-block" ng-if="item.plan_tipo=='FORMATO PROPIO' && (item.plan_estado=='PENDIENTE' || item.plan_estado=='CORRECCION')">
+					<span translate>LB_COMPLETE_APPLICATION_DATA</span>
+					<md-ico i=edit s=18></md-ico>
+				</a>
+				
+				<a ui-sref="permits.editSelfProtection.step3({planId:item.plan_id})" class="btn btn-warning btn-block" ng-if="item.plan_tipo=='FORMATO ONLINE' && (item.plan_estado=='PENDIENTE' || item.plan_estado=='CORRECCION')">
+					<span translate>LB_EDIT_AUTOPROTECTION_PLAN</span>
+					<md-ico i=edit s=18></md-ico>
+				</a>
+				<button ng-click="exportWithDetail('planesemergencia',item.plan_id)" class="btn btn-info btn-block" ng-if="item.plan_estado=='PENDIENTE' || item.plan_estado=='CORRECCION'">
+					<span translate>LB_PRINT_REQUEST</span>
+					<md-ico i=print s=18></md-ico>
+				</button>
+				<a ng-click="exportPlan(item.plan_id)" class="btn btn-primary btn-block" ng-if="item.plan_tipo=='FORMATO ONLINE'">
+					<span translate>LB_PRINT_AUTOPROTECTION_PLAN</span>
+					<i-fa i=bullhorn></i-fa>
+				</a>
+				
+			</div>
+		</div>
+	</div>
+		
+
+</div>

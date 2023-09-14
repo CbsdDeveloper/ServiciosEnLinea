@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="center-block">
+    
+    <!-- SLIDESHOW -->
+    <div class="col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-sm-12 col-xs-12 no-padding" style="z-index:1">
+      <div class="mlt-carousel">
+        <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            <div class="item" ng-class="[{'active':$first}]" ng-repeat="row in slides">
+              <img class="img-responsive center-block" ng-src="/app/src/img/gallery/{{row.slide_imagen}}" alt="step1">
+              <div class="item-content">
+                 <h3>{{row.slide_titulo}}</h3>
+                 <p>{{row.slide_descripcion}}</p>
+              </div>
+            </div>
+          </div>
+          <ol class="carousel-indicators"><li data-target="#myCarousel" data-slide-to="{{$index}}" ng-class="[{'active':$first}]" ng-repeat="row in slides"></li></ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORMULARIOS -->
+    <div class="col-lg-6 col-lg-offset-right-1 col-md-6 col-md-offset-right-1 col-sm-12 col-xs-12 no-padding">
+      <div class="mlt-content" style="padding-top:10px;">
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade in active" id="login">
+            <!-- HEADER -->
+						<div class="box-header">
+					  	<img alt="CBSD" src="/app/src/img/system/restore.png" style="width:159px;margin:0px auto;" class="img-responsive">
+						</div>
+	           
+						<!--FORMULARIO DE INICIO DE SESION -->
+						<form name="formData" style="padding:15px 25px 0px;" class="text-left form-login" ng-submit="submitForm()" ng-hide="request.pass">
+							<div class="form-group required">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-id-card-o fa-fw"></i></span>
+									<input class="form-control" placeholder="{{'LB_ENTER_YOUR_ID_NUMBER' | translate}}" id="user" name="user" ng-model="frmLogin.usuario_login" required autofocus autocomplete="off" />
+								</div>
+							</div>
+							<button type="submit" class="btn btn-warning btn-block" ng-disabled="(formData.user.$invalid)">
+							  <span translate>BTN_RECOVERY_PASS</span> <i class="fa fa-unlock"></i>
+							</button>
+							<div class="text-right margin-top row pull-right">
+								<div class="col-md-6 col-xs-12 no-padding-right">
+									<a ui-sref="main"><span translate>BTN_LOGIN</span> <i class="fa fa-sign-in"></i></a>
+								</div>
+								<div class="col-md-6 col-xs-12 no-padding-right">
+									<a href="http://online.cbsd.gob.ec/denuncias-en-linea/" target="_blank"><span translate>LB_COMPLAINT_ONLINE</span> <i class="fa fa-inbox"></i></a>
+								</div>
+								<div class="col-md-6 col-xs-12 no-padding-right">
+										
+								</div>
+								<div class="col-md-6 col-xs-12 no-padding-right">
+									<a href="/app/src/formats/manual_tthhlogin.pdf" target="_blank"><span translate>LB_USER_MANUAL</span> <i class="fa fa-book"></i></a>
+								</div>
+							</div>
+						</form>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>

@@ -1,0 +1,224 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg" ng-controller="partsExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=style></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_PARTS</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content class="my-dialog-content">
+    <md-content layout=column layout-padding layout-wrap>
+    	
+   		<div class="card card-outline card-success no-margin no-padding">
+				<div class="card-header">
+				  <h3 class="card-title" translate>LB_MAIN_DATA</h3>
+				</div>
+				<div class="card-body">
+					<div class="no-padding" layout-xs=column layout=row layout-padding layout-wrap>
+			    	<div class="form-group required" flex>
+			    		<label translate>LB_STATION</label>
+						  <div class="input-group" flex ng-controller="stationsListCtrl">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assistant_photo></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.fk_estacion_id" required
+													ng-options="row.estacion_id as row.estacion_nombre for row in list"></select>
+								</div>
+			    	</div>
+			    	<div class="form-group required" flex>
+			    		<label translate>LB_TYPE_PART</label>
+						  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assistant_photo></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.parte_tipo" required
+													ng-options="val as val for (key,val) in typePartList"></select>
+								</div>
+			    	</div>
+		    	</div>
+		    	<div class="no-padding" layout-xs=column layout=row layout-padding layout-wrap>
+		    		<div class="form-group required" flex>
+			    		<label translate>LB_TYPE_DAY</label>
+						  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.parte_clasedia" required
+													ng-options="val for (key,val) in typeDaysPart"></select>
+								</div>
+			    	</div>
+		    		<div class="form-group required" flex>
+			    		<label translate>LB_DATE</label>
+						  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_note></md-ico></div></div> 
+									<input type="date" class="form-control" ng-model="frmParent.parte_fecha" required /> 
+								</div>
+			    	</div>
+		    	</div>
+				</div>
+			</div>
+			
+   		<div class="card card-outline card-info no-padding">
+				<div class="card-header">
+				  <h3 class="card-title" translate>LB_LOCATION</h3>
+				</div>
+				<div class="card-body" layout=column layout-padding layout-wrap>
+					<div class="no-padding" layout-xs=column layout=row layout-padding layout-wrap>
+						<div class="form-group required" flex ng-controller="statesListCtrl">
+			    		<label translate>LB_STATES</label>
+						  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=public></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.fk_state_id"
+													ng-options="row.state_id as row.state_name for row in statesList"></select>
+								</div>
+			    	</div>
+					</div>
+		    	<div layout-xs=column layout=row layout-padding layout-wrap>
+			    	<div class="form-group required" flex ng-controller="townsListCtrl">
+			    		<label translate>LB_TOWN</label>
+						  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=public></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.fk_town_id"
+													ng-options="row.town_id as row.town_name for row in townsList[frmParent.fk_state_id]"></select>
+								</div>
+			    	</div>
+			    	<div class="form-group required" flex ng-controller="parishesListCtrl">
+			    		<label translate>LB_PARRISH</label>
+						  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=public></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.fk_parroquia_id"
+													ng-options="row.parish_id as row.parish_name for row in parishesList[frmParent.fk_town_id]"></select>
+								</div>
+			    	</div>
+		    	</div>
+		    	<div layout-xs=column layout=row layout-padding layout-wrap>
+			    	<div class="form-group required">
+			    		<label translate>LB_ADDRESS</label>
+						  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=directions></md-ico></div></div> 
+									<input class="form-control" ng-model="frmParent.parte_direccion" required />
+								</div>
+			    	</div>
+		    	</div>
+		    	<div layout-xs=column layout=row layout-padding layout-wrap>
+			    	<div class="form-group" flex>
+			    		<label translate>LB_SECTOR</label>
+						  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=location_on></md-ico></div></div> 
+									<input class="form-control" ng-model="frmParent.parte_sector" />
+								</div>
+			    	</div>
+			    	<div class="form-group" flex>
+			    		<label translate>LB_ZONE</label>
+						  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=location_on></md-ico></div></div> 
+									<input class="form-control" ng-model="frmParent.parte_zona" />
+								</div>
+			    	</div>
+			    </div>
+				</div>
+			</div>
+			
+			<div class="card card-outline card-primary no-padding">
+				<div class="card-header">
+				  <h3 class="card-title" translate>LB_ATTENDED_BY</h3>
+				</div>
+				<div class="card-body">
+					<div class="no-padding" layout-xs=column layout=row layout-padding layout-wrap>
+			    	<div class="form-group required" flex>
+			    		<label translate>LB_ATTENDED_BY</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assistant_photo></md-ico></div></div> 
+								<textarea class="form-control" ng-model="frmParent.parte_atendido_por" required ></textarea>
+							</div>
+			    	</div>
+			    	<div class="form-group required" flex>
+			    		<label translate>LB_SUPPORT_FOR</label>
+						  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assistant_photo></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.parte_apoyo" required
+													ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+								</div>
+			    	</div>
+		    	</div>
+		    	<div class="no-padding" layout-xs=column layout=row layout-padding layout-wrap>
+		    		<div class="form-group required" flex>
+			    		<label translate>LB_EXTRA_SUPPORT</label>
+						  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.parte_apoyo_personal" required
+													ng-options="val for (key,val) in typeDaysPart"></select>
+								</div>
+			    	</div>
+		    		<div class="form-group required" flex>
+			    		<label translate>LB_DETAIL</label>
+						  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_note></md-ico></div></div> 
+									<input type="date" class="form-control" ng-model="frmParent.parte_apoyo_detalle" /> 
+								</div>
+			    	</div>
+		    	</div>
+				</div>
+			</div>
+			
+			<div class="card card-outline card-danger no-padding">
+				<div class="card-header">
+				  <h3 class="card-title" translate>LB_WAY_OF_NOTICE</h3>
+				</div>
+				<div class="card-body">
+					<div class="no-padding" layout-xs=column layout=row layout-padding layout-wrap>
+			    	<div class="form-group required" flex>
+			    		<label translate>LB_WAY_OF_NOTICE</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assistant_photo></md-ico></div></div> 
+								<input class="form-control" ng-model="frmParent.parte_aviso_forma" required /> 
+							</div>
+			    	</div>
+			    	<div class="form-group" flex>
+			    		<label translate>LB_NOTICE</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_></md-ico></div></div> 
+								<input type="datetime-local" class="form-control" ng-model="frmParent.parte_aviso_hora" />
+							</div>
+			    	</div>
+			    </div>
+					<div class="no-padding" layout-xs=column layout=row layout-padding layout-wrap>
+			    	<div class="form-group" flex>
+			    		<label translate>LB_DEPARTURE</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_></md-ico></div></div> 
+								<input type="datetime-local" class="form-control" ng-model="frmParent.parte_salida_personal" />
+							</div>
+			    	</div>
+			    	<div class="form-group" flex>
+			    		<label translate>LB_ARRIVAL</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_></md-ico></div></div> 
+								<input type="datetime-local" class="form-control" ng-model="frmParent.parte_llegada_personal" />
+							</div>
+			    	</div>
+			    </div>
+					<div class="no-padding" layout-xs=column layout=row layout-padding layout-wrap>
+			    	<div class="form-group" flex>
+			    		<label translate>LB_RETURN</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_></md-ico></div></div> 
+								<input type="datetime-local" class="form-control" ng-model="frmParent.parte_retorno" />
+							</div>
+			    	</div>
+			    	<div class="form-group" flex>
+			    		<label translate>LB_WARD</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_></md-ico></div></div> 
+								<input type="datetime-local" class="form-control" ng-model="frmParent.parte_ingreso_cuartel" />
+							</div>
+			    	</div>
+		    	</div>
+				</div>
+			</div>
+    	
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

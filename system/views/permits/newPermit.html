@@ -1,0 +1,203 @@
+﻿<div class="padding-all">
+
+	<md-card class="no-margin ">
+	
+		<md-toolbar ng-hide="filter.show">
+			<div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=assignment_turned_in></md-ico></md-button>
+				<h2 translate>TOOLBAR_PERMITS</h2>
+				<span flex></span>
+				<small><span>{{dataEntity.local_nombrecomercial}}</span></small>
+			</div>
+		</md-toolbar>
+		<md-tabs md-dynamic-height md-border-bottom class="no-margin-bottom-input">
+			
+			<!-- FORMULARIO DE REGISTRO -->
+			<md-tab label="{{'LB_REGISTRATION_FORM' | translate}}">
+				<md-content>
+					
+					
+					<form name="formData" ng-submit="submitForm()" class="padding-all" layout-xs=column layout=row layout-padding>
+						
+						<!-- INFORMACION ADICIONAL -->
+						<div layout=column layout-padding flex>
+							
+							<!-- VALIDACION DE DOCUMENTOS -->
+							<div class="card card-outline card-info no-margin margin-top">
+								<div class="card-body no-padding">
+									<table class="table table-hover text-nowrap text-uppercase">
+	                  <thead>
+	                    <tr>
+	                      <th><span translate>LB_DOCUMENTS_AND_PERSONS</span></th>
+	                      <th><span translate>LB_TO_VIEW</span></th>
+	                    </tr>
+	                  </thead>
+	                  <tbody>
+	                    <tr>
+	                      <td><small translate>LB_RUC_CERTIFICATE</small></td>
+	                      <td><a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/ruc/{{dataEntity.entidad_sitioweb}}" target="_blank"><i-fa i=download></i-fa></a></td>
+	                    </tr>
+	                    <tr>
+	                      <td><small translate>LB_LEGAL_REPRESENTATIVE_ID</small></td>
+	                      <td><a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/cedulas/{{dataEntity.person.persona_anexo_cedula}}" target="_blank"><i-fa i=download></i-fa></a></td>
+	                    </tr>
+	                    <tr ng-if="dataEntity.entidad_apoderado=='SI'">
+	                      <td><small translate>LB_APPOINTMENT_AND_LOCAL_AUTHORITY_CERTIFICATE</small></td>
+	                      <td><a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/cedulas/{{dataEntity.adopted.persona_anexo_cedula}}" target="_blank"><i-fa i=download></i-fa></a></td>
+	                    </tr>
+	                    <tr>
+	                      <td><small translate>LB_CERTIFICATE_ESTABLISHMENT</small></td>
+	                      <td><a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/locals/{{dataEntity.fk_local_id}}/{{dataEntity.local_certificadostablecimiento}}" target="_blank"><i-fa i=download></i-fa></a></td>
+	                    </tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							
+							<!-- HISTORIAL DE PERMISOS DE FUNCIONAMIENTO -->
+							<div class="card card-outline card-warning no-margin margin-top">
+								<div class="card-body no-padding">
+									<table class="table table-hover text-nowrap text-uppercase">
+	                  <thead>
+	                    <tr>
+	                      <th><span translate>LB_PERMITS</span></th>
+	                      <th><span translate>LB_DATE</span></th>
+	                      <th><span translate>LB_STATUS</span></th>
+	                    </tr>
+	                  </thead>
+	                  <tbody>
+	                    <tr ng-repeat="item in permitList">
+	                      <td>{{item.codigo_per}}</td>
+	                      <td>{{item.permiso_fecha}}</td>
+	                      <td>{{item.permiso_estado}}</td>
+	                    </tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							
+						</div>
+						
+						
+						<!-- FORMULARIO DE REGISTRO -->
+						<div flex>
+							<div class="card card-outline card-danger no-margin">
+								<div class="card-header text-center">
+									<h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+								</div>
+								<div class="card-body" layout=column layout-padding>
+									
+										<div flex layout=row layout-padding layout-wrap>
+											<div class="form-group required" flex>
+												<label translate>LB_PER</label>
+												<div class="input-group">
+													<div class="input-group-prepend"><div class="input-group-text"><i-fa i=barcode></i-fa></div></div>
+													<input class="form-control" ng-model="frmParent.codigo_per" readonly required />
+												</div>
+											</div>
+											<div class="form-group" flex>
+												<label translate>LB_PERMIT_NUMBER</label>
+												<div class="input-group">
+													<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assignment_turned_in></md-ico></div></div>
+													<input class="form-control" ng-model="frmParent.permiso_numero" maxlength="7" placeholder="Ej. 23155" required />
+												</div>
+											</div>
+										</div>
+										<div flex layout=row layout-padding layout-wrap>
+											<div class="form-group required" flex>
+												<label translate>LB_REQUEST_NUMBER</label>
+												<div class="input-group">
+													<div class="input-group-prepend"><div class="input-group-text"><md-ico i=confirmation_number></md-ico></div></div>
+													<input class="form-control" ng-model="frmParent.numero_solicitud" maxlength="6" placeholder="Ej. 23155" autofocus="autofocus" required />
+												</div>
+											</div>
+											<div class="form-group required" flex>
+												<label translate>LB_DEALER</label>
+												<div class="input-group">
+													<div class="input-group-prepend"><div class="input-group-text"><md-ico i=person_outline></md-ico></div></div>
+													<select class="form-control" ng-model="frmParent.persona_responsable" required 
+																	ng-options="val as val for (key,val) in $parent.string2JSON('dealerType')"></select>
+												</div>
+											</div>
+										</div>
+										
+										<div class="form-group required" ng-if="frmParent.persona_responsable=='ENCARGADO'">
+											<label translate>LB_DEALER</label>
+											<div class="input-group">
+												<div class="input-group-prepend"><div class="input-group-text"><md-ico i=person></md-ico></div></div>
+												<input class="form-control" ng-model="frmParent.persona_retira" placeholder="Ej. Nombre Encargado" autocomplete="on" required />
+											</div>
+										</div>
+										<div class="form-group">
+											<label translate>LB_OBSERVATION</label>
+											<div class="input-group">
+												<div class="input-group-prepend"><div class="input-group-text"><i-fa i=comments></i-fa></div></div>
+												<textarea rows=2 class="form-control" ng-model="frmParent.observacion" placeholder="Ej. Encargado con poder firmado"></textarea>
+											</div>
+										</div>
+									
+								</div>
+							
+					      <div class="card-footer" layout-xs=column layout=row layout-padding>
+					      	<div flex>
+						        <button class="btn btn-warning btn-sm btn-block" ui-sref="src.permits">
+						        	<i-fa i=angle-double-left></i-fa>
+											<span translate>BTN_CANCEL</span>
+						        </button>
+									</div>
+									<div flex>
+					      		<button class="btn btn-success btn-sm btn-block" type="submit" ng-disabled="formData.$invalid">
+						        	<span translate>BTN_SAVE</span>
+											<i-fa i=angle-double-right></i-fa>
+						        </button>
+									</div>
+					      </div>
+								
+							</div>
+							
+						</div>
+						
+							
+					</form>
+					
+					
+				
+				</md-content>
+			</md-tab>
+			
+			<!-- INFORMACION ADICIONAL -->
+			<md-tab label="{{'LB_PROPERTY_INFORMATION' | translate}}">
+				<md-content class="row no-margin padding-all">
+					
+					<div class="col-md-4 col-xs-12">
+						<card-local flex></card-local>
+					</div>	
+					<div class="col-md-4 col-xs-12">
+						<card-ciiu flex></card-ciiu>
+					</div>
+				
+				</md-content>
+			</md-tab>
+			
+			<!-- INFORMACION ADICIONAL -->
+			<md-tab label="{{'LB_ENTITY_INFORMATION' | translate}}">
+				<md-content class="row no-margin padding-all">
+					<div class="col-md-4 col-xs-12">
+						<card-entity></card-entity>
+					</div>
+					<div class="col-md-4 col-xs-12">
+						<card-agent></card-agent>
+					</div>
+					<div class="col-md-4 col-xs-12" ng-if="dataEntity.entidad_apoderado=='SI'">
+						<card-adopted></card-adopted>
+					</div>
+				</md-content>
+			</md-tab>
+		
+		
+		</md-tabs>
+	
+	
+	</md-card>
+
+</div>

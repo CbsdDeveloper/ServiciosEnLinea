@@ -1,0 +1,90 @@
+<md-menu md-position-mode="target-right target">
+  <md-button aria-label="Open demo menu" class="md-icon-button main-menu-icon" ng-click="$mdOpenMenu($event)">
+    <md-icon><i-fa i=cogs></i-fa></md-icon>
+  </md-button>
+  <md-menu-content width="6">
+  
+    <md-menu-item ng-if="(row.plan_estado=='PENDIENTE' || row.plan_estado=='CORRECCION') && row.plan_tipo=='FORMATO ONLINE'">
+      <md-button aria-label="editar" ng-click="goUI('permits.selfProtection.step1',{localId:row.local_id})">
+        <div layout="row" flex>
+          <p flex translate>LB_COMPANY_INFORMATION</p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+            <md-ico i=business></md-ico>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-menu-item ng-if="(row.plan_estado=='PENDIENTE' || row.plan_estado=='CORRECCION') && row.plan_tipo=='FORMATO ONLINE'">
+      <md-button aria-label="editar" ng-click="goUI('permits.editSelfProtection.step3',{planId:row.plan_id})">
+        <div layout="row" flex>
+          <p flex translate>LB_EDIT_AUTOPROTECTION_PLAN</p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+            <md-ico i=create_new_folder></md-ico>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-menu-item ng-if="(row.plan_estado=='PENDIENTE' || row.plan_estado=='CORRECCION') && row.plan_tipo=='FORMATO PROPIO'">
+      <md-button aria-label="editar" ng-click="goUI('permits.editSelfProtection.stepSingle',{planId:row.plan_id})">
+        <div layout="row" flex>
+          <p flex translate>LB_EDIT_AUTOPROTECTION_PLAN</p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+            <md-ico i=create_new_folder></md-ico>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="row.plan_estado=='APROBADO' || row.plan_estado=='CADUCADO' || row.plan_estado=='VENCIDO'"></md-divider>
+    <md-menu-item ng-if="row.plan_estado=='APROBADO' || row.plan_estado=='CADUCADO' || row.plan_estado=='VENCIDO'">
+      <md-button aria-label="editar" ng-click="openParentModal('Planes',mergeData(row,{edit:false}))">
+        <div layout="row" flex>
+          <p flex translate>LB_GENERATE_UPDATE_SELFPROTECTION_PLAN</p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+            <i-fa i=file-o></i-fa>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="row.plan_estado!='VENCIDO' && row.plan_estado!='APROBADO' && row.plan_estado!='SUSPENDIDO'"></md-divider>
+    
+    <md-menu-item ng-if="row.plan_estado!='VENCIDO' && row.plan_estado!='APROBADO' && row.plan_estado!='SUSPENDIDO'">
+      <md-button aria-label="editar" ng-click="exportWithDetail(row.plan_id)">
+        <div layout="row" flex>
+          <p flex translate>LB_PRINT_REQUEST</p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+            <i-fa i=download></i-fa>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="row.plan_tipo=='FORMATO ONLINE'"></md-divider>
+    
+    <md-menu-item ng-if="row.plan_tipo=='FORMATO ONLINE'">
+      <md-button aria-label="editar" ng-click="exportEntityById('planautoproteccion',row.plan_id)">
+        <div layout="row" flex>
+          <p flex translate>LB_PRINT_AUTOPROTECTION_PLAN</p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+						<i-fa i=bullhorn></i-fa>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-menu-item ng-if="row.plan_tipo=='FORMATO ONLINE'">
+      <md-button aria-label="editar" ng-click="prinrModelById(row.plan_id)">
+        <div layout="row" flex>
+          <p flex translate>LB_PRINT_MODEL</p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+						<md-ico i=insert_drive_file></md-ico>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+    
+  </md-menu-content>
+</md-menu>

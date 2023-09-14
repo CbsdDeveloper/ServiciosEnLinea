@@ -1,0 +1,35 @@
+﻿<div class="card card-outline card-primary no-margin">
+	<div class="card-body box-profile text-center">
+		<md-ico i=assignment_turned_in s=64></md-ico>
+		<h3 class="profile-username md-padding">{{dataEntity.codigo_per}}</h3>
+    <hr>
+		<strong><md-ico i=event s=18></md-ico> <span translate>LB_DATE</span></strong>
+		<p class="text-muted text-center">{{dataEntity.permiso_fecha}}</p>
+    <hr>
+		<strong><md-ico i=assignment_turned_in s=18></md-ico> <span translate>LB_PERMIT_NUMBER</span></strong>
+		<p class="text-muted text-center">{{dataEntity.permiso_numero}}</p>
+		<hr>
+		<strong><md-ico i=confirmation_number s=18></md-ico> <span translate>LB_REQUEST_NUMBER</span></strong>
+		<p class="text-muted text-center">{{dataEntity.numero_solicitud}}</p>
+		<hr>
+		<strong><md-ico i=person s=18></md-ico> <span translate>LB_USER</span></strong>
+		<p class="text-muted text-center">{{dataEntity.usuario}}</p>
+		<hr>
+		<strong><md-ico i=person_outline s=18></md-ico> <span translate>LB_DEALER</span></strong>
+		<p class="text-muted text-center">{{dataEntity.persona_responsable}}</p>
+		<div ng-if="dataEntity.persona_responsable!='PROPIETARIO'">
+			<hr>
+			<strong><md-ico i=person s=18></md-ico> <span translate>LB_DEALER</span></strong>
+			<p class="text-muted text-center">{{dataEntity.persona_retira}}</p>
+		</div>
+		<div ng-if="dataEntity.observacion!=''">
+			<hr>
+			<strong><i-fa i=comments></i-fa> <span translate>LB_OBSERVATION</span></strong>
+			<p class="text-muted text-center">{{dataEntity.observacion}}</p>
+		</div>
+		<hr>
+		<a ng-click="exportById('autoinspecciones',dataEntity.selfInspection.autoinspeccion_id)" class="btn btn-info btn-block">
+			<md-ico i=print s=18></md-ico> <span translate>LB_SELFINSPECTION</span>
+		</a>
+	</div>
+</div>

@@ -1,0 +1,226 @@
+<md-card ng-cloak>
+	<md-content>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=public></md-ico></md-button>
+				<h2 class="md-flex" translate>TOOLBAR_COUNTRIES</h2>
+			</div>
+		</md-toolbar>
+		<md-tabs md-dynamic-height md-border-bottom class="no-margin-bottom-input">
+      
+      <md-tab label="{{'LB_COUNTRIES' | translate}}">
+      	<div flex ng-controller="countriesCtrl">
+	        <md-content ng-controller="myTableCtrl">
+						<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=format_list_bulleted></md-ico></md-button>
+								<h2 translate>TOOLBAR_UTILS</h2>
+								<span flex></span>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()"><md-ico i=add></md-ico></md-button>
+							</div>
+						</md-toolbar>
+						<toolbar-filter></toolbar-filter>
+						<md-table-container>
+								<table md-table class="md-primary table-hover" md-progress="deferred">
+									<thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+										<tr md-row>
+											<th md-column md-order-by="country_id"><span translate>LB_CODE</span></th>
+											<th md-column md-order-by="country_sortname"><span translate>LB_KEY</span></th>
+											<th md-column md-order-by="country_name"><span translate>LB_COUNTRY</span></th>
+											<th md-column><span translate>LB_MENU</span></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr md-row data-ng-repeat="row in rowsParent.data">
+											<td md-cell><span ng-bind-html="highlight(row.country_id)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.country_sortname)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.country_name)"></span></td>
+											<td md-cell class="table-menu text-center" layout=row>
+												<menu-single></menu-single>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</md-table-container>
+							<footer-table></footer-table>
+	        </md-content>
+				</div>
+      </md-tab>
+      
+      <md-tab label="{{'LB_STATES' | translate}}">
+      	<div flex ng-controller="statesCtrl">
+	        <md-content ng-controller="myTableCtrl">
+						<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=format_list_numbered></md-ico></md-button>
+								<h2 translate>TOOLBAR_UTILS</h2>
+								<span flex></span>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()"><md-ico i=add></md-ico></md-button>
+							</div>
+						</md-toolbar>
+						<toolbar-filter></toolbar-filter>
+						<md-table-container>
+								<table md-table class="md-primary table-hover" md-progress="deferred">
+									<thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+										<tr md-row>
+											<th md-column md-order-by="state_id"><span translate>LB_CODE</span></th>
+											<th md-column md-order-by="country_name"><span translate>LB_COUNTRY</span></th>
+											<th md-column md-order-by="state_name"><span translate>LB_STATES</span></th>
+											<th md-column><span translate>LB_MENU</span></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr md-row data-ng-repeat="row in rowsParent.data">
+											<td md-cell><span ng-bind-html="highlight(row.state_id)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.country_name)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.state_name)"></span></td>
+											<td md-cell class="table-menu text-center" layout=row>
+												<menu-single></menu-single>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</md-table-container>
+							<footer-table></footer-table>
+	        </md-content>
+				</div>
+      </md-tab>
+      
+      <md-tab label="{{'LB_CITIES' | translate}}">
+      	<div flex ng-controller="citiesCtrl">
+	        <md-content ng-controller="myTableCtrl">
+						<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=format_list_numbered></md-ico></md-button>
+								<h2 translate>TOOLBAR_UTILS</h2>
+								<span flex></span>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()"><md-ico i=add></md-ico></md-button>
+							</div>
+						</md-toolbar>
+						<toolbar-filter></toolbar-filter>
+						<md-table-container>
+								<table md-table class="md-primary table-hover" md-progress="deferred">
+									<thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+										<tr md-row>
+											<th md-column md-order-by="city_id"><span translate>LB_CODE</span></th>
+											<th md-column md-order-by="country_name"><span translate>LB_COUNTRY</span></th>
+											<th md-column md-order-by="state_name"><span translate>LB_STATES</span></th>
+											<th md-column md-order-by="city_name"><span translate>LB_CITIES</span></th>
+											<th md-column><span translate>LB_MENU</span></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr md-row data-ng-repeat="row in rowsParent.data">
+											<td md-cell><span ng-bind-html="highlight(row.city_id)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.country_name)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.state_name)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.city_name)"></span></td>
+											<td md-cell class="table-menu text-center" layout="row">
+												<menu-single></menu-single>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</md-table-container>
+							<footer-table></footer-table>
+	        </md-content>
+				</div>
+      </md-tab>
+      
+      <md-tab label="{{'LB_TOWNS' | translate}}">
+      	<div flex ng-controller="townsCtrl">
+	        <md-content ng-controller="myTableCtrl">
+						<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=format_list_numbered></md-ico></md-button>
+								<h2 translate>TOOLBAR_UTILS</h2>
+								<span flex></span>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()"><md-ico i=add></md-ico></md-button>
+							</div>
+						</md-toolbar>
+						<toolbar-filter></toolbar-filter>
+						<md-table-container>
+								<table md-table class="md-primary table-hover" md-progress="deferred">
+									<thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+										<tr md-row>
+											<th md-column md-order-by="town_id"><span translate>LB_CODE</span></th>
+											<th md-column md-order-by="country_name"><span translate>LB_COUNTRY</span></th>
+											<th md-column md-order-by="state_name"><span translate>LB_STATES</span></th>
+											<th md-column md-order-by="town_name"><span translate>LB_TOWNS</span></th>
+											<th md-column><span translate>LB_MENU</span></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr md-row data-ng-repeat="row in rowsParent.data">
+											<td md-cell><span ng-bind-html="highlight(row.town_id)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.country_name)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.state_name)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.town_name)"></span></td>
+											<td md-cell class="table-menu text-center" layout="row">
+												<menu-single></menu-single>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</md-table-container>
+							<footer-table></footer-table>
+	        </md-content>
+				</div>
+      </md-tab>
+      
+      <md-tab label="{{'LB_PARISHES' | translate}}">
+      	<div flex ng-controller="parishesCtrl">
+	        <md-content ng-controller="myTableCtrl">
+						<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=format_list_numbered></md-ico></md-button>
+								<h2 translate>TOOLBAR_UTILS</h2>
+								<span flex></span>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()"><md-ico i=add></md-ico></md-button>
+							</div>
+						</md-toolbar>
+						<toolbar-filter></toolbar-filter>
+						<md-table-container>
+								<table md-table class="md-primary table-hover" md-progress="deferred">
+									<thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+										<tr md-row>
+											<th md-column md-order-by="parish_id"><span translate>LB_CODE</span></th>
+											<th md-column md-order-by="country_name"><span translate>LB_COUNTRY</span></th>
+											<th md-column md-order-by="state_name"><span translate>LB_STATES</span></th>
+											<th md-column md-order-by="town_name"><span translate>LB_TOWNS</span></th>
+											<th md-column md-order-by="parish_name"><span translate>LB_PARISH</span></th>
+											<th md-column><span translate>LB_MENU</span></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr md-row data-ng-repeat="row in rowsParent.data">
+											<td md-cell><span ng-bind-html="highlight(row.parish_id)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.country_name)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.state_name)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.town_name)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.parish_name)"></span></td>
+											<td md-cell class="table-menu text-center" layout="row">
+												<menu-single></menu-single>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</md-table-container>
+							<footer-table></footer-table>
+	        </md-content>
+				</div>
+      </md-tab>
+      
+		</md-tabs>
+	</md-content>
+</md-card>

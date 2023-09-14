@@ -1,0 +1,76 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=whatshot></md-ico></md-button>
+			<h2 translate>TOOLBAR_GLP_FEASIBILITY</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+		<table md-table class="md-primary table-hover" md-progress="deferred">
+			<thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+      	<tr md-row>
+        	<th md-column><span translate>LB_PROJECTS</span></th>
+          <th md-column><span translate>LB_DETAIL</span></th>
+          <th md-column><span translate>LB_MENU</span></th>
+				</tr>
+			</thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+				  <td md-cell>
+						<div ng-if="row.factibilidad_solicitud>0">
+						  <md-ico i=confirmation_number></md-ico><span ng-bind-html="highlight(row.factibilidad_solicitud)"></span>
+						</div>
+						<a ui-sref="prevention.detailVbp({id:row.factibilidad_id})" target="_balnk"><md-ico i=security></md-ico></a><span ng-bind-html="highlight(row.factibilidad_codigo)"></span> ({{row.factibilidad_serie}})<br>
+				    <div>
+				      <md-ico i=layers></md-ico><span ng-bind-html="highlight(row.factibilidad_proyecto)"></span>
+				      <md-tooltip>{{'LB_PROJECT_NAME' | translate}}</md-tooltip>
+				    </div>
+				    <div ng-if="row.propietario_razonsocial!=''">
+					    <md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.propietario_doc_identificacion)"></span><br>
+					    <md-ico i=person></md-ico><span ng-bind-html="highlight(row.propietario_razonsocial)"></span>
+				      <md-tooltip>{{'LB_OWNER' | translate}}</md-tooltip>
+				    </div>
+				  </td>
+				  <td md-cell>
+				    <md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.factibilidad_estado]"></span><br>
+				    <md-ico i=event></md-ico><span ng-bind-html="highlight(row.factibilidad_registro)"></span><br>
+				    <md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+						<div class="text-uppercase" ng-if="row.gallery>0">
+							<a ng-click="downloadAttachments(row.factibilidad_id)">
+								<md-ico i=file_download></md-ico><span translate="LB_ATTACHED_FILES_X" translate-values="{x:row.gallery}"></span>
+							</a>
+						</div>
+				  </td>
+				  <td md-cell class="table-menu text-center">
+				    
+				    <md-menu md-position-mode="target-right target">
+						  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+						    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+						  </md-button>
+						  <md-menu-content width="5">
+						    
+						    <md-menu-item ng-if="(row.factibilidad_estado=='REVISADO' || row.factibilidad_estado=='APROBADO') && allow.permiso6177">
+						      <md-button aria-label="editar" ng-click="openParentModal('Files',{edit:false,fk_table:'factibilidadglp_migracion',fk_id:row.factibilidad_id})">
+						          <div layout="row" flex>
+						            <p flex translate>LB_UPLOAD_FILES</p>
+						            <md-icon md-menu-align-target class="md-menu-btn-ico">
+						              <md-ico i=file_upload></md-ico>
+						            </md-icon>
+						          </div>
+						      </md-button>
+						    </md-menu-item>
+						    
+						  </md-menu-content>
+						</md-menu>
+						
+				  </td>
+				</tr>
+			</tbody>
+		</table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

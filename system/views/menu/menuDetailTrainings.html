@@ -1,0 +1,115 @@
+<md-menu md-position-mode="target-right target" >
+  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+    <md-ico i=menu></md-ico>
+    <md-tooltip><span translate>LB_MENU</span></md-tooltip>
+  </md-button>
+  <md-menu-content width="5">
+  	
+    <md-menu-item ng-if="allow.permiso60611 && (entity.capacitacion_estado=='CONFIRMADO' || entity.capacitacion_estado=='ASIGNADO' || entity.capacitacion_estado=='REAGENDADA')">
+      <md-button aria-label="editar" ng-click="openModal('Training',mergeData(entity,{capacitacion_estado:'REAGENDADA'}))">
+          <div layout="row" flex>
+            <p flex translate>LB_SCHEDULE</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=event_note s=18></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="allow.permiso6062 && (entity.capacitacion_estado=='CONFIRMADO' || entity.capacitacion_estado=='ASIGNADO' || entity.capacitacion_estado=='REAGENDADA')">
+      <md-button aria-label="editar" ng-click="openModal('Capacitadores',mergeData(entity,{entity:'training',entityId:entity.capacitacion_id,edit:false}))">
+          <div layout="row" flex>
+            <p flex translate>LB_CAPACITORS</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=person_add></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item  ng-if="allow.permiso6067">
+      <md-button aria-label="editar" ng-click="openModal('Gallery',{edit:false,fk_table:'training',fk_id:entity.capacitacion_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_UPLOAD_FILES</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=file_upload></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+  	<md-divider></md-divider>
+  	
+    <md-menu-item ng-if="allow.permiso60612">
+      <md-button aria-label="editar" ng-click="truncateParticipants(entity.capacitacion_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_TRUNCATE_PARTICIPANTS</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=delete_sweep></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="allow.permiso60614">
+      <md-button aria-label="editar" ng-click="openParentModal('Participantesseleccion',entity)">
+          <div layout="row" flex>
+            <p flex translate>LB_SELECT_PARTICIPANTS</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=playlist_add></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="allow.permiso60621 && (entity.capacitacion_estado=='CONFIRMADO' || entity.capacitacion_estado=='ASIGNADO' || entity.capacitacion_estado=='REAGENDADA' || entity.capacitacion_estado=='DESPACHADA')">
+      <md-button aria-label="editar" ng-click="openParentModal('ParticipantesLista',entity)">
+          <div layout="row" flex>
+            <p flex translate>LB_UPLOAD_PARTICIPANTS</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <i-fa i=file-excel-o></i-fa>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="allow.permiso6063 && (entity.capacitacion_estado=='ASIGNADO' || entity.capacitacion_estado=='REAGENDADA')">
+      <md-button aria-label="editar" ng-click="openModal('Training',entity)">
+          <div layout="row" flex>
+            <p flex translate>LB_REVIEW</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=done_all></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="entity.capacitacion_estado=='DESPACHADA' || entity.capacitacion_estado=='EVALUADA'">
+      <md-button aria-label="editar" ng-click="openModal('Participantes',entity)">
+          <div layout="row" flex>
+            <p flex translate>LB_ATTENDANCE</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=person_pin_circle></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+  	<md-divider></md-divider>
+    
+    <md-menu-item ng-if="allow.permiso6064 && entity.capacitacion_estado=='EVALUADA'">
+      <md-button aria-label="editar" ng-click="downloadCertificate(entity.capacitacion_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_CERTIFICATE</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=assignment_ind></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item>
+      <md-button aria-label="editar" ng-click="exportById(entity.capacitacion_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_PRINT_REQUEST</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=file_download></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

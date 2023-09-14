@@ -1,0 +1,168 @@
+<!-- 
+<div class="form-group required">
+	<label translate>LB_COMERTIAL_ACTIVITY</label>
+	<div class="input-group" flex>
+		<div class="input-group-prepend"><div class="input-group-text"><md-ico i=import_contacts></md-ico></div></div> 
+		<select class="form-control" ng-model="frmParent.fk_actividad_id" required
+					ng-change="getFKs()"
+					ng-options="row.actividad_id as (row.actividad_id+'. '+row.actividad_nombre) for row in activitiesList"></select>
+	</div>
+</div>
+<div class="form-group required" ng-if="frmParent.fk_actividad_id>0">
+	<label translate>LB_TAXES</label>
+	<div class="input-group" flex>
+		<div class="input-group-prepend"><div class="input-group-text"><md-ico i=monetization_on></md-ico></div></div> 
+		<select class="form-control" ng-model="frmParent.fk_tasa_id" required
+					ng-change="getFKs()"
+					ng-options="row.tasa_id as row.tasa_nombre for row in taxesList"></select>
+	</div>
+</div>-->
+
+<div class="form-group required">
+	<label translate>LB_COMERTIAL_ACTIVITY_CIIU</label>
+	<div class="input-group">
+		<div class="input-group-prepend"><div class="input-group-text"><md-ico i=content_paste></md-ico></div></div> 
+  	<ui-select class="form-control" ng-model="frmParent.fk_ciiu" ng-change="changeFK('fk_ciiu_id')" theme="" reset-search-input="false">
+    	<ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.ciiu.ciiu_nombre,'Seleccione una actividad econónima')  | translate}}">
+      	{{$select.selected.ciiu_nombre}}
+			</ui-select-match>
+      <ui-select-choices repeat="item in FKList track by $index" refresh="getFKs($select.search)" refresh-delay="1500">
+      	<div ng-bind-html="item.ciiu_nombre | highlight: $select.search"></div>
+      	<small ng-bind-html="'<b>CÓDIGO:</b> '+item.ciiu_codigo | highlight: $select.search"></small>
+			</ui-select-choices>
+		</ui-select>
+	</div>
+</div>
+
+<div class="form-group required">
+	<label translate>LB_COMERTIAL</label>
+	<div class="input-group">
+		<div class="input-group-prepend"><div class="input-group-text"><md-ico i=store_mall_directory></md-ico></div></div> 
+		<input ng-model="frmParent.local_nombrecomercial" class="form-control" placeholder="Ej. Tienda de abarrotes" required />
+	</div>
+</div>
+
+
+<div layout-xs0column layout=row layout-padding>
+	<div class="form-group required" flex>
+		<label translate>LB_ESTABLISHMENT_NUMBER_SRI</label>
+		<div class="input-group">
+			<div class="input-group-prepend"><div class="input-group-text"><md-ico i=public></md-ico></div></div> 
+			<input type="number" step="1" min="1" parse-float ng-model="frmParent.local_numeroestablecimiento" class="form-control" placeholder="Ej. 1" required />
+		</div>
+	</div>
+	
+	<div class="form-group required" flex>
+		<label translate>LB_PARISH</label>
+		<div class="input-group">
+			<div class="input-group-prepend"><div class="input-group-text"><md-ico i=public></md-ico></div></div> 
+			<select class="form-control" ng-model="frmParent.local_parroquia" required ng-options="val as val for (key,val) in string2JSON('parishesList')"></select>
+		</div>
+	</div>
+</div>
+
+<div class="form-group required">
+	<label translate>LB_FIRST_LINE</label>
+	<div class="input-group">
+		<div class="input-group-prepend"><div class="input-group-text"><md-ico i=navigation></md-ico></div></div> 
+		<input ng-model="frmParent.local_principal" class="form-control" placeholder="Ej. Av. Quevedo y Av. Coperativismo" required />
+	</div>
+</div>
+<div class="form-group required">
+	<label translate>LB_SECOND_LINE</label>
+	<div class="input-group">
+		<div class="input-group-prepend"><div class="input-group-text"><md-ico i=directions></md-ico></div></div> 
+		<input ng-model="frmParent.local_secundaria" class="form-control" placeholder="Ej. Coop. El Proletariado" required />
+	</div>
+</div>
+<div class="form-group required">
+	<label translate>LB_REFERENCE</label>
+	<div class="input-group">
+		<div class="input-group-prepend"><div class="input-group-text"><md-ico i=place></md-ico></div></div> 
+		<textarea rows="2" ng-model="frmParent.local_referencia" class="form-control" placeholder="Ej. Al frente de nuevo HINO" required></textarea>
+	</div>
+</div>
+
+<div class="form-group required" flex>
+	<label translate>LB_DO_YOU_HAVE_AN_ESTABLISHMENT</label>
+	<div class="input-group">
+		<div class="input-group-prepend"><div class="input-group-text"><i-fa i=local_offer></i-fa></div></div> 
+		<select class="form-control" ng-model="frmParent.local_establecimiento" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+	</div>
+</div>
+
+<!-- 
+<div layout=column layout-gt-xs=row layout-padding>
+	<div class="form-group required">
+		<label translate>LB_LIGHTMETER</label>
+		<div class="input-group">
+			<div class="input-group-prepend"><div class="input-group-text"><i-fa i=lightbulb-o></md-ico></div></div> 
+			<input ng-model="frmParent.local_medidor" class="form-control" placeholder="Ej. 23009485" required />
+		</div>
+	</div>
+	<div class="form-group required">
+		<label translate>LB_CADASTRAL_KEY</label>
+		<div class="input-group">
+			<div class="input-group-prepend"><div class="input-group-text"><i-fa i=podcast></md-ico></div></div> 
+			<input ng-model="frmParent.local_clavecatastral" class="form-control" placeholder="Ej. 18-52336" required />
+		</div>
+	</div>
+</div>
+<div class="form-group">
+	<label translate>LB_BUILDING</label>
+	<div class="input-group">
+		<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_convenience_store></md-ico></div></div> 
+		<input ng-model="frmParent.local_edificio" class="form-control" placeholder="Ej. Edificio San José" />
+	</div>
+</div>
+<div layout-xs=column layout=row layout-padding>
+	<div class="form-group" flex>
+		<label translate>LB_OFFICE</label>
+		<div class="input-group">
+			<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_convenience_store></md-ico></div></div> 
+			<input ng-model="frmParent.local_oficina" class="form-control" placeholder="Ej. Oficina 3" />
+		</div>
+	</div>
+	<div class="form-group" flex>
+		<label translate>LB_FLOOR</label>
+		<div class="input-group">
+			<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_convenience_store></md-ico></div></div> 
+			<input ng-model="frmParent.local_piso" class="form-control" placeholder="Ej. Piso 2" />
+		</div>
+	</div>
+</div>
+
+<div layout-xs=column layout=row layout-padding>
+	<div class="form-group required" flex>
+		<label translate>LB_ATENTION</label>
+		<div class="input-group">
+			<div class="input-group-prepend"><div class="input-group-text"><md-ico i=access_time></md-ico></div></div> 
+			<input ng-model="frmParent.local_atencion" class="form-control" placeholder="Ej. Lunes - Viernes; 8H00 - 15H00" required />
+		</div>
+	</div>
+	<div class="form-group required" flex>
+		<label translate>LB_TEL</label>
+		<div class="input-group">
+			<div class="input-group-prepend"><div class="input-group-text"><md-ico i=phone></md-ico></div></div> 
+			<input ng-model="frmParent.local_telefono" class="form-control" placeholder="Ej. 0234567891" required />
+		</div>
+	</div>
+</div>
+ -->
+
+<div layout-xs=column layout=row layout-padding>
+	<div class="form-group" ng-if="toogleEditMode" flex>
+		<label translate>LB_STATUS</label>
+		<div class="input-group">
+			<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+			<select class="form-control" ng-model="frmParent.local_estado" ng-options="val as val for (key,val) in string2JSON('statusType')"></select>
+		</div>
+	</div>
+	<div class="form-group required" ng-if="frmParent.local_estado=='SUSPENDIDO' && false" flex>
+		<label translate>LB_REQUEST_NUMBER</label>
+		<div class="input-group">
+			<div class="input-group-prepend"><div class="input-group-text"><md-ico i=format_list_numbered></md-ico></div></div> 
+			<input class="form-control" ng-model="frmParent.local_tipo" required />
+		</div>
+	</div>
+</div>

@@ -1,0 +1,85 @@
+<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=engineering></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_VERTICAL_RESCUE_EQUIPMENTS</h2>
+			<span flex></span>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="goUI('tthh.sos.vrescue.equipmentcategories',{})" ng-if="allow.permiso8262">
+				<md-ico i=category></md-ico><md-tooltip><span translate>LB_EQUIPMENT_CATEGORIES</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()" ng-if="allow.permiso82631">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<datatable-toolbar></datatable-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="">
+     	<col style="">
+     	<col style="width:20%">
+     	<col style="width:3%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_EQUIPMENTS</span></th>
+					<th md-column><span translate>LB_CATEGORY</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td md-cell class="text-uppercase">
+						<div>
+							<md-ico i=view_week></md-ico><span ng-bind-html="highlight(row.equipo_serial)"></span>
+							<md-tooltip>{{'LB_SERIE' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=info></md-ico><span ng-bind-html="highlight(row.equipo_marca)"></span> / <span ng-bind-html="highlight(row.equipo_modelo)"></span>
+							<md-tooltip>{{'LB_BRAND' | translate}} / {{'LB_MODEL' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=event></md-ico><span>{{row.equipo_fecha_fabricacion | date:'fullDate'}}</span>
+							<md-tooltip>{{'LB_MANUFACTURING_DATE' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=event></md-ico><span>{{row.equipo_fecha_compra | date:'fullDate'}}</span>
+							<md-tooltip>{{'LB_ACQUISITION_DATE' | translate}}</md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<div>
+							<md-ico i=category></md-ico><span ng-bind-html="highlight(row.category.categoria_nombre)"></span>
+							<md-tooltip>{{'LB_CATEGORY' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=nature></md-ico><span ng-bind-html="highlight(row.platoon.station.estacion_nombre)"></span> - <span ng-bind-html="highlight(row.platoon.peloton_nombre)"></span>
+							<md-tooltip>{{'LB_PLATOON' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=filter_none></md-ico><span ng-bind-html="highlight(row.form.formulario_nombre)"></span>
+							<md-tooltip>{{'LB_FORM_FOR_EVALUATION' | translate}}</md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.equipo_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.equipo_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.user.person.persona_apellidos+' '+row.user.person.persona_nombres)"></span>
+					</td>
+					<td md-cell>
+						<menu-rescue-equipments ng-if="(allow.permiso82632 || allow.permiso82633 || allow.permiso82641)"></menu-rescue-equipments>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<datatable-footer></datatable-footer>
+</md-card>

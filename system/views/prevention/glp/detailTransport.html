@@ -1,0 +1,146 @@
+﻿<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		
+		<card-glp-transport class="card-information" ng-if="detailConfig.show" flex></card-glp-transport>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=directions_car></md-ico></md-button>
+						<h2>{{dataEntity.transporte_codigo}} - {{dataEntity.vehicle.vehiculo_placa}}</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<md-tabs md-dynamic-height md-border-bottom>
+				
+					<!-- INFORMACION GENERAL -->
+					<md-tab label="{{'LB_INFORMATION' | translate}}">
+						<md-content layout-xs=column layout=row layout-padding>
+							<card-permit flex></card-permit>
+							<card-local flex></card-local>
+						</md-content>
+					</md-tab>
+					
+					<!-- INSPECTORES ASIGNADOS -->
+					<md-tab label="{{'LB_TECHNICAL_INSPECTORS' | translate}}">
+						<div class="padding-all row no-margin gallery-columns" layout-padding>
+							<div class="col-md-4 col-xs-12" ng-repeat="row in dataEntity.inspectors">
+								<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+									<div class="card-header with-border text-center">
+										<img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{row.ppersonal.staff.person.persona_imagen}}" style="width:128px;height:128px;padding:5px;margin:auto" class="img-circle" alt="img" />
+									</div>
+									<div class="card-body card-entity-information">
+										<h3 class="profile-username">{{row.ppersonal.staff.person.persona_apellidos}} {{row.ppersonal.staff.person.persona_nombres}}</h3>
+										<p class="text-muted text-center"><md-ico i=event s=18></md-ico> {{row.ppersonal.personal_fecha_ingreso | date:'fullDate'}}</p>
+								    <hr>
+										<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+								    <p class="text-muted">{{row.ppersonal.staff.person.persona_doc_identidad}}</p>
+								    <hr>
+										<strong><md-ico i=account_balance s=18></md-ico> <span translate>LB_LEADERSHIP</span></strong>
+								    <p class="text-muted">{{row.ppersonal.job.leadership.direccion_nombre}}</p>
+								    <hr>
+										<strong><md-ico i=wrap_text s=18></md-ico> <span translate>LB_JOB</span></strong>
+								    <p class="text-muted">{{row.ppersonal.job.puesto_nombre}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</md-tab>
+					
+					<!-- EVIDENCIAS CARGADAS AL SISTEMA -->
+					<md-tab label="{{'LB_MEDIA' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=attach_file></md-ico></md-button>
+								<h2 translate>TOOLBAR_GALLERY</h2>
+								<span flex></span>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openModal('Gallery',{edit:false,fk_table:'transporteglp',fk_id:dataEntity.transporte_id})" ng-if="allow.permiso6055">
+									<md-ico i=file_upload></md-ico>
+									<md-tooltip><span translate>LB_UPLOAD_FILES</span></md-tooltip>
+								</md-button>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+						<div class="md-padding gallery-columns" layout-padding>
+							<div class="figure-gallery" ng-repeat="row in dataEntity.gallery">
+								<div class="card card-outline card-{{string2JSON('colorCss')[$index+1]}} no-margin">
+									<div class="card-header with-border">
+			              <div class="user-block">
+			                <img class="img-circle" src="/app/src/img/users/default.png" ng-src="/app/src/img/users/{{row.profile}}" alt="User Image">
+			                <span class="username">
+			                	<a href="#">{{row.usuario_nombre}}</a>
+			                	<a href="#" class="pull-right btn-box-tool" ng-click="openModal('Gallery',row)" ng-if="allow.permiso60551">
+			                		<md-ico i=edit s=18></md-ico>
+			                	</a>
+			                </span>
+			                <span class="description">{{row.perfil_nombre}}</span>
+			              </div>
+			            </div>
+			            <div class="card-body text-center no-padding">
+			            	<div ng-if="row.media_tipo=='IMG'">
+				              <img class="img-responsive pad" ng-src="/app/src/img/gallery/{{row.media_nombre}}" alt="Photo">
+			            	</div>
+			            	<div ng-if="row.media_tipo!='IMG'" class="md-padding">
+				              <a target="_blank" ng-href="/app/src/img/gallery/{{row.media_nombre}}" alt="Photo">
+			            			<i-fa i={{string2JSON('iFaIconList')[row.media_tipo]}} s=4x></i-fa><br> 
+				              	{{fileTypeList[row.media_tipo]}}
+				              </a>
+			            	</div>
+			            </div>
+			            <div class="card-footer box-comments">
+			              <div class="box-comment">
+			                <div class="comment-text text-justify no-margin ">
+	                      <span class="username">
+	                      	{{row.media_titulo}}
+	                      	<span class="text-muted pull-right"><i-fa i=clock-o></i-fa> {{row.media_registro}}</span>
+	                      </span>
+	                  		{{row.media_descripcion}}
+			                </div>
+			              </div>
+			            </div>
+			          </div>
+							</div>
+						</div>
+					</md-tab>
+					
+					<!-- HISTORIAL DE CAMBIOS -->
+					<md-tab label="{{'LB_ACTIVITY_LOG' | translate}}">
+						<md-content ng-controller="historyEntityCtrl">
+							<div ng-controller="myTableCtrl">
+								<toolbar-filter-in-tab></toolbar-filter-in-tab>
+								<toolbar-filter></toolbar-filter>
+								<md-table-container>
+							    <table md-table class="md-primary table-hover" md-progress="deferred">
+							      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+											<tr md-row>
+												<th md-column><span translate>LB_REQUEST_NUMBER</span></th>
+												<th md-column><span translate>LB_REGISTRE_DATE</span></th>
+												<th md-column><span translate>LB_USER</span></th>
+												<th md-column><span translate>LB_STATUS</span></th>
+											</tr>
+							      </thead>
+							      <tbody>
+											<tr md-row data-ng-repeat="row in rowsParent.data">
+												<td md-cell><md-ico i=confirmation_number s=18></md-ico> <span ng-bind-html="highlight(row.transporte_solicitud)"></span></td>
+												<td md-cell><span ng-bind-html="highlight(row.transporte_registro)"></span></td>
+												<td md-cell><span ng-bind-html="highlight(row.usuario_login)"></span></td>
+												<td md-cell><span ng-bind-html="highlight(statusLabel[row.transporte_estado])"></span></td>
+											</tr>
+							      </tbody>
+							    </table>
+								</md-table-container>
+								<footer-table></footer-table>
+							</div>
+						</md-content>
+					</md-tab>
+				
+				</md-tabs>
+			</md-card>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,21 @@
+<div class="padding-all" layout-padding>
+  
+  <!-- MENSAJE DE INICIO -->
+	<div class="box box-success text-center padding-all no-marginl wow fadeIn margin-bottom">
+		<p ng-bind-html="trustAsHtml(paramsConf.MESSAGE_HOME)"></p>
+	</div>
+	
+	<!-- NOTIFICATIONS -->
+	<div class="no-padding margin-bottom" ng-repeat="item in setting.notifications">
+		<div class="no-padding margin-bottom" ng-if="item.status">
+	    <div class="info-box no-margin">
+	      <span class="info-box-icon" ng-class="item.type"><md-ico i={{item.icon}} s=64></md-ico></span>
+	      <div class="info-box-content">
+	        <b class="info-box-text">{{item.header}}</b>
+	        <p ng-bind-html="trustAsHtml(item.msg)"></p>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+</div>

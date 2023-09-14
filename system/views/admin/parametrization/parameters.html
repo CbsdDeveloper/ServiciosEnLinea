@@ -1,0 +1,54 @@
+<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=engineering></md-ico>
+				<md-tooltip><span translate>TOOLBAR_PARAMETERS</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.textFilter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_MAIN_TOOLBAR' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.textFilter!=''" ng-click="filterParent.textFilter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<datatable-toolbar></datatable-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="width:20%">
+     	<col style="width:75%">
+     	<col style="width:5%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_ENVIRONMENT_VARIABLES</span></th>
+					<th md-column><span translate>LB_VALUE</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td md-cell>
+						<md-ico i=web_asset></md-ico><span ng-bind-html="highlight(row.param_modulo)"></span><br>
+						<md-ico i=assistant_photo></md-ico><span ng-bind-html="highlight2JSON('paramType',row.param_type)"></span><br>
+						<md-ico i=settings></md-ico>{{row.param_id}}. <span ng-bind-html="highlight(row.param_key)"></span>
+						<md-tooltip>{{row.param_name}}</md-tooltip>
+					</td>
+					<td md-cell><span ng-bind-html="highlight(row.param_value)"></span></td>
+					<td md-cell class="table-menu text-center">
+					  <menu-mini></menu-mini>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<datatable-footer></datatable-footer>
+</md-card>

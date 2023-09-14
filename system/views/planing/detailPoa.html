@@ -1,0 +1,172 @@
+﻿<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		
+		<card-poa class="card-information" ng-if="detailConfig.show" flex></card-poa>
+		
+		<div class="no-padding" flex>
+			
+			<md-card>
+			
+				<md-toolbar ng-hide="filter.show">
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=chrome_reader_mode></md-ico></md-button>
+						<h2 translate="LB_POA_X" translate-values="{x:dataEntity.poa_periodo}"></h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="reloadData()">
+							<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+						</md-button>
+						
+						<md-button aria-label="btn" class="md-icon-button" ng-click="openModal('Poa_proyectos',{edit:false,fk_reforma_id:reform.reforma_id})" ng-if="reform.reforma_estado=='PLANIFICACION' && allow.permiso41021">
+							<md-ico i=post_add></md-ico><md-tooltip><span translate>LB_NEW_PROJECT</span></md-tooltip>
+						</md-button>
+						
+						<md-button aria-label="btn" class="md-icon-button" ng-click="verifyPoa({poaId:poa.poa_id,reformId:reform.reforma_id})" ng-if="reform.reforma_estado=='PLANIFICACION'">
+							<md-ico i=verified></md-ico><md-tooltip><span translate>LB_FINISH_CHANGES</span></md-tooltip>
+						</md-button>
+						
+						<md-button aria-label="btn" class="md-icon-button" ng-click="openModal('Poa_reformas',{edit:false,poaId:poa.poa_id,reformId:reform.reforma_id})" ng-if="reform.reforma_estado=='VIGENTE' && allow.permiso41021">
+							<md-ico i=addchart></md-ico><md-tooltip><span translate>LB_NEW_REFORM_POA</span></md-tooltip>
+						</md-button>
+						
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				
+				<!-- TABS -->
+				<md-tabs md-dynamic-height md-border-bottom>
+				
+					<!-- REFORMA ACTUAL -->
+					<md-tab label="{{'LB_CURRENT_REFORM' | translate}}">
+						
+							<table md-table class="md-primary table-hover">
+					    	<col style="">
+					    	<col style="width:5%">
+					    	<col style="width:5%">
+					    	<col style="width:5%">
+					    	<col style="width:5%">
+					    	<col style="width:20%">
+					    	<col style="width:5%">
+								<thead md-head>
+									<tr md-row>
+										<th md-column><span translate>LB_POA_PROJECTS</span></th>
+										<th md-column><span translate>1 T</span></th>
+										<th md-column><span translate>2 T</span></th>
+										<th md-column><span translate>3 T</span></th>
+										<th md-column><span translate>4 T</span></th>
+										<th md-column><span translate>LB_DETAIL</span></th>
+										<th md-column><span translate>LB_MENU</span></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr md-row data-ng-repeat="row in reform.projects">
+										<td md-cell class="text-uppercase">
+											<md-ico i=info></md-ico> <span ng-bind-html="highlight(row.proyecto_codigo)"></span><br>
+											<md-ico i=post_add></md-ico> <span ng-bind-html="highlight(row.proyecto_nombre)"></span><br>
+											<md-ico i=done_all></md-ico> <span ng-bind-html="highlight(row.proyecto_objetivos)"></span><br>
+											<md-ico i=attach_money></md-ico> {{row.proyecto_presupuesto | currency}}
+										</td>
+										<td md-cell>
+											<div ng-if="row.proyecto_trimestre_i_porcentaje>0">
+												<span class="badge bg-blue font-9">{{row.proyecto_trimestre_i_porcentaje | number}}%</span>
+											</div>
+										</td>
+										<td md-cell>
+											<div ng-if="row.proyecto_trimestre_ii_porcentaje>0">
+												<span class="badge bg-blue font-9">{{row.proyecto_trimestre_ii_porcentaje | number}}%</span>
+											</div>
+										</td>
+										<td md-cell>
+											<div ng-if="row.proyecto_trimestre_iii_porcentaje>0">
+												<span class="badge bg-blue font-9">{{row.proyecto_trimestre_iii_porcentaje | number}}%</span>
+											</div>
+										</td>
+										<td md-cell>
+											<div ng-if="row.proyecto_trimestre_iv_porcentaje>0">
+												<span class="badge bg-blue font-9">{{row.proyecto_trimestre_iv_porcentaje | number}}%</span>
+											</div>
+										</td>
+										<td md-cell>
+											<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.proyecto_estado]"></span><br>
+											<md-ico i=event></md-ico><span ng-bind-html="highlight(row.proyecto_registro)"></span><br>
+											<md-ico i=person></md-ico><span ng-bind-html="highlight(row.user.person.persona_apellidos+' '+row.user.person.persona_nombres)"></span>
+										</td>
+										<td md-cell class="table-menu text-center">
+											
+											<md-menu md-position-mode="target-right target" ng-if="reform.reforma_estado!='VIGENTE'">
+											  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+											    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+											  </md-button>
+											  <md-menu-content width="5">
+											    <md-menu-item>
+											      <md-button aria-label="editar" ng-click="openModal('Poa_proyectos',row)">
+											          <div layout="row" flex>
+											            <p flex translate>LB_EDIT</p>
+											            <md-icon md-menu-align-target class="md-menu-btn-ico">
+											              <md-ico i=edit s=18></md-ico>
+											            </md-icon>
+											          </div>
+											      </md-button>
+											    </md-menu-item>
+											  </md-menu-content>
+											</md-menu>
+											
+										</td>
+									</tr>
+								</tbody>
+							</table>
+					
+					</md-tab>
+				
+					
+					
+					
+					<!-- INFORMACION DEL REGISTRO -->
+					<md-tab label="{{'LB_REGISTRATION_DETAIL' | translate}}">
+					
+						
+					
+					</md-tab>
+					
+					
+					
+					<!-- REFORMAS ANTERIORES -->
+					<md-tab label="{{'LB_PREVIOUS_REFORMS' | translate}}">
+						
+							<table md-table class="md-primary table-hover">
+					    	<col style="">
+					    	<col style="width:25%">
+								<thead md-head>
+									<tr md-row>
+										<th md-column><span translate>LB_REFORM</span></th>
+										<th md-column><span translate>LB_DETAIL</span></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr md-row data-ng-repeat="row in poa.reforms">
+										<td md-cell class="text-uppercase">
+											<md-ico i=addchart></md-ico> <span ng-bind-html="highlight(row.reforma_nombre)"></span><br>
+											<md-ico i=event></md-ico> {{row.reforma_fecha| date:'fullDate'}}<br>
+											<md-ico i=comment></md-ico> <span ng-bind-html="highlight(row.reforma_descripcion)"></span>
+										</td>
+										<td md-cell>
+											<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.reforma_estado]"></span><br>
+											<md-ico i=event></md-ico><span ng-bind-html="highlight(row.reforma_registro)"></span><br>
+											<md-ico i=person></md-ico><span ng-bind-html="highlight(row.user.person.persona_apellidos+' '+row.user.person.persona_nombres)"></span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+					
+					</md-tab>
+					
+				</md-tabs>
+				
+				
+			</md-card>
+			
+		</div>
+	</div>
+</div>

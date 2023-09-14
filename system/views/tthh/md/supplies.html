@@ -1,0 +1,83 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=healing></md-ico></md-button>
+			<h2 translate>TOOLBAR_MEDICINES</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ui-sref="tthh.medical.inventoryMedicines" ng-if="allow.permiso81911 || allow.permiso81912">
+				<md-ico i=add_shopping_cart></md-ico><md-tooltip><span translate>LB_ADJUST_INVENTORY</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()" ng-if="allow.permiso8193">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="">
+     	<col style="width:15%;">
+     	<col style="width:25%;">
+     	<col style="width:5%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_MEDICALLY</span></th>
+					<th md-column><span translate>LB_TOTAL</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<div>
+							<md-ico i=fingerprint></md-ico><span ng-bind-html="highlight(row.medicamento_codigo)"></span>
+							<md-tooltip><span translate>LB_CODE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=healing></md-ico><span ng-bind-html="highlight(row.medicamento_nombre+' '+row.medicamento_dosis)"></span>
+							<md-tooltip><span translate>LB_MEDICALLY</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=share></md-ico><span ng-bind-html="highlight(row.medicamento_via_administracion)"></span>
+							<md-tooltip><span translate>LB_ROUTE_OF_ADMINISTRATION</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=bookmark></md-ico><span ng-bind-html="highlight(row.medicamento_presentacion)"></span>
+							<md-tooltip><span translate>LB_PRESENTATION</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<div>
+							<md-ico i=add_circle_outline></md-ico>{{row.total_ingresos | number:0}}
+							<md-tooltip><span translate>LB_INCOME</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=remove_circle_outline></md-ico>{{row.total_descargos | number:0}}
+							<md-tooltip><span translate>LB_DISCHARGE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=store></md-ico>{{row.total_medicamento | number:0}}
+							<md-tooltip><span translate>LB_STOCK</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell class="table-menu">
+					  <md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.medicamento_status]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.medicamento_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+					</td>
+					<td md-cell class="table-menu">
+					  <menu-medicines ng-if="allow.permiso8194 || allow.permiso81911 || allow.permiso81912"></menu-medicines>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

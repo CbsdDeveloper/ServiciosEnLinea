@@ -1,0 +1,19 @@
+<div class="card card-outline card-danger no-margin text-center card-entity-information">
+  <div class="card-header with-border">
+    <h3 class="card-title" translate>LB_PERSONAL_INFORMATION</h3>
+  </div>
+  <div class="card-body">
+  	<div class="row">
+	    <div class="col-md-3">
+	    	<p><img src="/app/src/img/users/default.png" ng-src="/app/src/img/users/{{frmParent.persona_imagen}}" style="width:128px;margin:auto" class="img-responsive"/></p>
+	    </div>
+	    <div class="col-md-9 text-left">
+				<p><span><md-ico i=credit_card></md-ico> <b translate>LB_DOC_IDENTIFICATION</b>: {{frmParent.persona_doc_identidad}}</p>
+				<p><span><md-ico i=person></md-ico> <b translate>LB_NAME</b>: {{frmParent.persona_apellidos}} {{frmParent.persona_nombres}}</p>
+				<p><span><md-ico i=place></md-ico> <b translate>LB_ADDRESS</b>: {{frmParent.persona_direccion}}</p>
+				<p><span><md-ico i=mail></md-ico> <b translate>LB_MAIL</b>: {{frmParent.persona_correo}}</p>
+				<p><span><md-ico i=phone></md-ico> <b translate>LB_TEL</b>: {{frmParent.persona_telefono}}</p>
+	    </div>
+  	</div>
+  </div>
+</div>

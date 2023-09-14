@@ -1,0 +1,60 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg" ng-controller="tablesExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=web_asset></md-ico></md-button>
+			<h2 translate="TOOLBAR_TABLES_X" translate-values="{val:info.modulo_nombre}"></h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	
+    	<!-- SELECCIONAR EL LISTADO DE MÓDULOS -->
+    	<div class="card card-outline card-success no-margin" layout-padding>
+				<div class="card-header text-center">
+				  <h3 class="card-title" translate>LB_CHOOSE_MODULE</h3>
+				</div>
+				<div class="card-body" style="padding:8px" layout=column layout-padding>
+		    	<div class="form-group required" flex>
+						<label translate>LB_MODULE</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=extension></md-ico></div></div> 
+							<select class="form-control" ng-model="frmParent.module"
+											ng-options="val as val for (key,val) in frmParent.modules"></select>
+						</div>
+					</div>
+				</div>
+			</div>
+    	<!-- FORMULARIO DE ROLES -->
+			<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} no-margin margin-top">
+         <div class="card-header with-border text-center">
+           <h3 class="card-title" translate>LB_ENTITIES</h3>
+         </div>
+         <div class="card-body" layout=row layout-wrap>
+						<div class="col-md-4 col-xs-12 md-2-line contact-item" ng-repeat="item in frmParent.resources[frmParent.module]">
+			        <label class="label">
+						    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.model" checklist-value="item" />
+						    <span class="label__text">
+						      <span class="label__check">
+						        <i class="fa fa-check icon"></i>
+						      </span>
+						    </span>
+						  </label>
+			        <div class="md-list-item-text compact">
+		          	<span class="text-bold" ng-bind-html="highlight(item)"></span>
+			        </div>
+						</div>
+					</div>
+       </div>
+			
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

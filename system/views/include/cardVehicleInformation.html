@@ -1,0 +1,29 @@
+<div flex class="card card-outline card-danger text-center card-entity-information no-margin">
+  <div class="card-header with-border">
+    <h3 class="card-title" translate>LB_VEHICLE_INFORMATION</h3>
+  </div>
+  <div class="card-body row">
+    <div class="col-md-3">
+    	<p><img src="/app/src/img/vehicles/default.png" style="width:128px;margin:auto" class="img-responsive"/></p>
+    </div>
+    <div class="col-md-9 text-left">
+    	<p><md-ico i=directions_car></md-ico> <b translate>LB_TYPE</b>: {{frmParent.vehiculo_tipo}}</p>
+    	<p><md-ico i=flag></md-ico> <b translate>LB_PURPOSE</b>: {{frmParent.vehiculo_proposito}}</p>
+    	<p><md-ico i=public></md-ico> <b translate>LB_COUNTRY_ORIGIN</b>: {{frmParent.vehiculo_pais}}</p>
+    	<hr>
+    	<p><md-ico i=directions_car></md-ico> <b translate>LB_PLATE</b>: {{frmParent.vehiculo_placa}}</p>
+    	<p><md-ico i=local_offer></md-ico> <b translate>LB_BRAND</b>: {{frmParent.vehiculo_marca}}</p>
+    	<p><md-ico i=local_car_wash></md-ico> <b translate>LB_MODEL</b>: {{frmParent.vehiculo_modelo}}</p>
+    	<p><md-ico i=fingerprint></md-ico> <b translate>LB_CHASSIS</b>: {{frmParent.vehiculo_chasis}}</p>
+    	<p><md-ico i=fingerprint></md-ico> <b translate>LB_MOTOR</b>: {{frmParent.vehiculo_motor}}</p>
+    	<hr>
+    	<p><md-ico i=local_gas_station></md-ico> <b translate>LB_GAS_TYPE</b>: {{frmParent.vehiculo_combustible}}</p>
+    	<p><md-ico i=donut_small></md-ico> <b translate>LB_TONS</b>: {{frmParent.vehiculo_toneladas}}</p>
+    	<p><md-ico i=group></md-ico> <b translate>LB_PASSENGERS</b>: {{frmParent.vehiculo_pasajeros}}</p>
+    	
+    	<p><md-ico i=donut_small></md-ico> <b translate>LB_YEAR</b>: {{frmParent.vehiculo_anio}}</p>
+    	<p><md-ico i=palette></md-ico> <b translate>LB_COLOR</b>: {{frmParent.vehiculo_color1}} / {{frmParent.vehiculo_color2}}</p>
+    	<p><md-ico i=place></md-ico> <b translate>LB_ADDRESS</b>: {{frmParent.vehiculo_direccion}}</p>
+    </div>
+  </div>
+</div>

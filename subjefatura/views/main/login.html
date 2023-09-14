@@ -1,0 +1,110 @@
+<div class="container">
+  <div class="center-block">
+    
+    <div class="col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-sm-12 col-xs-12 no-padding" style="z-index:1">
+      <div class="mlt-carousel">
+        <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            <div class="item" ng-class="[{'active':$first}]" ng-repeat="row in slides">
+              <img class="img-responsive center-block" ng-src="/app/src/img/gallery/{{row.slide_imagen}}" alt="step1">
+              <div class="item-content">
+                 <h3>{{row.slide_titulo}}</h3>
+                 <p>{{row.slide_descripcion}}</p>
+              </div>
+            </div>
+          </div>
+          <ol class="carousel-indicators"><li data-target="#myCarousel" data-slide-to="{{$index}}" ng-class="[{'active':$first}]" ng-repeat="row in slides"></li></ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login -->
+    <div class="col-lg-6 col-lg-offset-right-1 col-md-6 col-md-offset-right-1 col-sm-12 col-xs-12 no-padding">
+      <div class="mlt-content">
+        <ul class="nav nav-tabs">
+					<li class="active"><a data-target="#login" data-toggle="tab" ng-click="make()" translate>LB_LOGIN</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade in active" id="login">
+            <div class="img-profile img-circle">
+              <img src="/app/src/img/services/login.png" ng-src="/app/src/img/users/{{request.img}}" alt="step1">
+            </div>
+            <!--login form-->
+            <form name="formData" style="padding:15px 25px 0px;" class="text-left form-login" ng-submit="submitForm()" ng-hide="request.pass">
+            	<div class="form-group required">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user"></i></span>
+									<input class="form-control" placeholder="{{'LB_ANY_USER' | translate}}" id="user" name="user" ng-model="frmLogin.usuario_login" required autofocus autocomplete="off" />
+								</div>
+							</div>
+            	<div class="form-group required">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+									<input type="password" class="form-control" placeholder="{{'LB_ENTER_PASSWORD' | translate}}" id="pass" name="pass" ng-model="frmLogin.usuario_password" required />
+								</div>
+							</div>
+							<button type="submit" class="btn btn-success btn-block" ng-disabled="formData.$invalid">
+							  <span translate>BTN_LOGIN</span> <i class="fa fa-sign-in"></i>
+							</button>
+            </form>
+            
+            <form name="formData1" style="padding:15px 25px 0px;" class="form-login" ng-submit="submitForm()" ng-show="request.pass">
+              <h3 class="profile-name">{{request.name}}</h3>
+              <br>
+            	<div class="form-group required">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-unlock-alt"></i></span>
+									<input type="password" class="form-control" placeholder="{{'LB_NEW_PASSWORD' | translate}}" id="pass1" name="pass1" ng-model="frmLogin.usuario_new_password" required />
+								</div>
+							</div>
+            	<div class="form-group required">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-unlock"></i></span>
+									<input type="password" class="form-control" placeholder="{{'LB_CONFIRM_PASSWORD' | translate}}" id="pass2" name="pass2" ng-model="frmLogin.usuario_password_new" required />
+								</div>
+							</div>
+              <button type="submit" class="btn btn-success btn-block" ng-disabled="formData1.$invalid">
+                <span translate>BTN_LOGIN</span>
+                <i-fa i=sign-in></i-fa>
+              </button>
+              <button type="button" class="btn btn-primary btn-block" ng-click="openInstructions()">
+                <span translate>LB_INSTRUCTIONS</span>
+                <i-fa i=info></i-fa>
+              </button>
+            </form>
+          </div>
+          
+          <div class="tab-pane fade" id="support">
+            <form form data-feedback='{"success": "fa-check", "error": "fa-times"}' class="text-left form-login">
+            	<div class="form-group required">
+            		<label translate>LB_INSTITUTIONAL_MAIL</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+									<input type="password" class="form-control" ng-model="frmLogin.mail" required />
+								</div>
+							</div>
+            	<div class="form-group required">
+            		<label translate>LB_DESCRIBE_MESSAGE</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-comment"></i></span>
+									<textarea rows="5"  class="form-control" ng-model="frmLogin.msg" required ></textarea>
+								</div>
+							</div>
+							<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="termsFlag">
+							  <input type="checkbox" id="termsFlag" class="mdl-checkbox__input ">
+							  <span class="mdl-checkbox__label ">He leido y acepto los <a href="# ">Términos de uso</a> y <a href="# ">Políticas de privacidad</a></span>
+							</label>
+							<button class="btn btn-primary btn-block" formaction="# ">
+								<span translate>BTN_SUBMIT</span>
+								<i class="fa fa-send"></i>
+							</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <!--center-block-->
+  </div>
+  <!--container-->
+</div>

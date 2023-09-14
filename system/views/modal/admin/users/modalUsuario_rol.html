@@ -1,0 +1,50 @@
+<md-dialog aria-label="modal" class="form-content-alt modal-dialog modal-lg" ng-controller="accessCtrl">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+    	<md-button aria-label="btn" class="md-icon-button"><md-ico i=star_half></md-ico></md-button>
+    	<h2 translate="ACCOUNT_ROLES" translate-values="{user:usuario_login}"></h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	<!-- INFORMACIÓN DE USUARIO -->
+			<card-user-information layout-padding></card-user-information>
+    	<!-- SELECCIONAR EL LISTADO DE MÓDULOS -->
+			<div class="card card-outline card-success no-margin margin-top" layout-padding>
+				<div class="card-header text-center">
+				  <h3 class="card-title" translate>LB_CHOOSE_MODULE</h3>
+				</div>
+				<div class="card-body" style="padding:8px" layout=column layout-padding>
+		    	<div class="form-group required" flex>
+						<label translate>LB_MODULE</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=extension></md-ico></div></div> 
+							<select class="form-control" ng-model="frmParent.modulo_id" ng-options="row.modulo_id as (row.modulo_id+'. '+row.modulo_nombre) for row in jsonList.modules"></select>
+						</div>
+					</div>
+				</div>
+			</div>
+    	<!-- FORMULARIO DE ROLES -->
+			<div ng-repeat="(key, permisos) in jsonList.submodules[frmParent.modulo_id]" class="margin-top" layout-padding>
+				<div flex class="card card-outline card-{{string2JSON('colorCss')[$index]}} no-margin">
+          <div class="card-header with-border text-center">
+            <h3 class="card-title" translate="ROLES_TYPE" translate-values="{key:key}"></h3>
+          </div>
+          <div class="card-body" layout=row layout-wrap>
+          	<div flex=50 ng-repeat="permiso in permisos">
+							<md-checkbox ng-checked="exists(permiso.rol_id)" ng-click="toggle(permiso.rol_id)">
+							 {{permiso.rol_id}}. {{permiso.rol_nombre}} <i><b><span ng-if="exists(permiso.rol_id)">Activo</span></b></i>
+							 <br><span>{{permiso.rol_descripcion}}</span>
+							</md-checkbox>
+						</div>
+          </div>
+        </div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+	  <md-button type="button" ng-click="closeDialog()"><span translate>LB_CLOSE</span></md-button>
+  </md-dialog-actions>
+</md-dialog>

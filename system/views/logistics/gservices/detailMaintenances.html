@@ -1,0 +1,40 @@
+﻿<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		<card-unit class="card-information" ng-if="detailConfig.show" flex></card-unit>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=local_shipping></md-ico></md-button>
+						<h2>{{entity.unidad_nombre}} [{{entity.vehiculo_placa}}]</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()"><md-ico i={{detailConfig.icon}}></md-ico></md-button>
+					</div>
+				</md-toolbar>
+				<md-tabs md-dynamic-height md-border-bottom>
+				
+					<md-tab label="{{'LB_TRACKING' | translate}}">
+						<md-content ng-controller="unitTrackingCtrl">
+							<div ng-controller="myTableCtrl">
+								<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+									<div class="md-toolbar-tools">
+										<md-button aria-label="btn" class="md-icon-button"><md-ico i={{filterInTab.mdIcon}}></md-ico></md-button>
+										<h2 translate>{{filterInTab.label}}</h2>
+										<span flex></span>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()" ng-if="filterInTab.search"><md-ico i=search></md-ico></md-button>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()" ><md-ico i=refresh></md-ico></md-button>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="openParentModal('Tracking',mergeData(entity,{fk_unidad_id:entity.unidad_id,edit:false}))" ng-if="allow.permiso7071"><md-ico i=add></md-ico></md-button>
+									</div>
+								</md-toolbar>
+								<toolbar-filter></toolbar-filter>	
+								
+							</div>
+						</md-content>
+					</md-tab>
+										
+				</md-tabs>
+			</md-card>
+		</div>
+	</div>
+</div>

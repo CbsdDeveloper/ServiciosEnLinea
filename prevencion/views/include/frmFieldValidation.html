@@ -1,0 +1,17 @@
+
+<!-- {{field}} -->
+
+<span class="help-block text-red" ng-messages='field.$error' ng-if='field.$dirty' ng-cloak>
+	
+	<div ng-message="required"><md-ico i=new_releases s=15></md-ico>  <span translate>LB_THIS_FIELD_IS_REQUIRED</span></div>
+	
+	<div ng-show="field.$error.email"><md-ico i=new_releases s=15></md-ico>  <span translate>LB_ENTER_VALID_EMAIL</span></div>
+	<div ng-show="field.$error.number"><md-ico i=new_releases s=15></md-ico>  <span translate>LB_ENTER_VALID_NUMBER</span></div>
+	
+	<div ng-show="field.$error.min"><md-ico i=new_releases s=15></md-ico>  <span translate="LB_VALUE_CANNOT_BE_LESS_THAN_X" translate-values="{x:min}"></span></div>
+	<div ng-show="field.$error.max"><md-ico i=new_releases s=15></md-ico>  <span translate="LB_VALUE_CANNOT_BE_GREATER_THAN_X" translate-values="{x:max}"></span></div>
+	
+	<div ng-message="minlength"><md-ico i=new_releases s=15></md-ico>  <span translate="LB_VALUE_MINLENGTH_X" translate-values="{x:minlgth}"></span></div>
+	<div ng-message="maxlength"><md-ico i=new_releases s=15></md-ico>  <span translate="LB_VALUE_MAXLENGTH_X" translate-values="{x:maxlgth}"></span></div>
+	
+</span>

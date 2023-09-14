@@ -1,0 +1,56 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=folder_shared></md-ico></md-button>
+			<h2 translate>TOOLBAR_CHECKING</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column md-order-by="checking_direccion"><span translate>LB_LEADERSHIP</span></th>
+					<th md-column><span translate>LB_VISITOR</span> / <span translate>LB_SUBJECT</span></th>
+					<th md-column><span translate>LB_STATUS</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<md-ico i=security></md-ico><span ng-bind-html="highlight(row.checking_codigo)"></span><br>
+						<md-ico i=account_balance></md-ico><span ng-bind-html="highlight(row.checking_direccion)"></span><br>
+						<md-ico i=timer></md-ico><span ng-bind-html="highlight(row.checking_ingreso)"></span>
+						<div ng-if="row.checking_estado=='SALIDA'">
+							<md-ico i=timer_off></md-ico><span ng-bind-html="highlight(row.checking_salida)"></span>
+						</div>
+					</td>
+					<td class="text-uppercase" md-cell>
+						<md-ico i=account_balance></md-ico><span ng-bind-html="highlight(row.checking_entidad)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.externo)"></span><br>
+						<md-ico i=flag></md-ico><span ng-bind-html="highlight(row.checking_motivo)"></span><br>
+						<md-ico i=info></md-ico><span ng-bind-html="highlight(row.checking_asunto)"></span>
+						<div ng-if="row.checking_documento!=null && row.checking_documento!=''">
+							<a ng-click="openParentModal('PDFViewer',{embed:'gesdoc/'+row.checking_documento,label:row.checking_asunto})">
+								<md-ico i=attach_file></md-ico><span ng-bind-html="highlight(row.checking_documento)"></span>
+							</a>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.checking_estado]"></span><br>
+						<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.checking_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <menu-mini ng-if="allow.permiso7202"></menu-mini>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

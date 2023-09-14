@@ -1,0 +1,27 @@
+<div class="box box-primary no-margin">
+  <div class="box-body box-profile text-center">
+    <div class="container-img-user">
+    	<img class="profile-user-img img-responsive" src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{dataEntity.persona_imagen}}" alt="profile">
+    </div>
+		<h3 class="profile-username">{{dataEntity.persona_apellidos}} {{dataEntity.persona_nombres}}</h3>
+		<p class="text-muted text-center">{{dataEntity.personal_fingreso}}</p>
+    <hr>
+		<strong><md-ico i=cake></md-ico><br><span translate>LB_BIRTHDATE</span></strong>
+    <p class="text-muted text-uppercase">{{dataEntity.persona_fnacimiento | date:'fullDate'}}</p>
+    <hr>
+		<strong><i-fa i="{{string2JSON('iFaIconList')[dataEntity.persona_sexo]}}" s=lg></i-fa><br><span translate>LB_SEX</span> / <span translate>LB_MARITAL_STATUS</span></strong>
+    <p class="text-muted text-uppercase">{{dataEntity.persona_estadocivil}}</p>
+    <hr>
+		<strong><md-ico i=place></md-ico><br><span translate>LB_ADDRESS</span></strong>
+    <p class="text-muted">{{dataEntity.provincia}} - {{dataEntity.pais}} <br> {{dataEntity.canton}} / {{dataEntity.parroquia}} <br> {{dataEntity.persona_principal}} y {{dataEntity.persona_secundaria}}</p> 
+    <hr>
+		<strong><md-ico i=credit_card></md-ico><br><span translate>LB_DOC_IDENTIFICATION</span></strong>
+    <p class="text-muted">{{string2JSON('identificationType')[dataEntity.persona_tipo_doc]}} / {{dataEntity.persona_doc_identidad}}</p>
+    <hr>
+    <strong><md-ico i=mail></md-ico><br><span translate>LB_MAIL</span></strong>
+    <p class="text-muted">{{dataEntity.persona_correo}}</p>
+    <hr>
+    <strong><md-ico i=phone></md-ico><br><span translate>LB_TEL</span></strong>
+    <p class="text-muted">{{dataEntity.persona_telefono}} - {{dataEntity.persona_celular}}</p>
+  </div>
+</div>

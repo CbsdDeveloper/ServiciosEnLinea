@@ -1,0 +1,131 @@
+<md-card ng-cloak>
+	<form name="formData" ng-submit="submitForm()">
+	<md-content>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=settings></md-ico></md-button>
+				<h2 class="md-flex">Información de la empresa</h2>
+				<span flex></span>
+				<md-button type="submit" ng-disabled="formData.$invalid" class="md-icon-button"><md-ico i=save></md-ico></md-button>
+			</div>
+		</md-toolbar>
+		<div layout=column layout-wrap>
+			<div flex=100 layout=row layout-xs=column>
+				<div flex>
+					<md-card layout=column>
+						<div class="card card-outline card-danger">
+							<div class="card-header text-center">
+							  <h3 class="card-title">Datos de la empresa</h3>
+							</div>
+							<div class="card-body" layout=column layout-padding layout-wrap>
+									<div class="form-group required">
+									  <label>RUC</label>
+									  <div class="input-group">
+									    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=credit_card></md-ico></div></div>
+									    <input maxlength=13 ng-model="sistema.sistema_ruc" class="form-control" required>
+									  </div>
+									</div>
+									<div class="form-group required">
+									  <label>Razón Social</label>
+									  <div class="input-group">
+									    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=business></md-ico></div></div>
+									    <input ng-model="sistema.sistema_nombre" class="form-control" required>
+									  </div>
+									</div>
+									<div class="form-group required">
+									  <label>Nombre Comercial</label>
+									  <div class="input-group">
+									    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=import_contacts></md-ico></div></div>
+									    <input ng-model="sistema.sistema_header" class="form-control" required>
+									  </div>
+									</div>
+									<div class="form-group required">
+									  <label>Fecha de constitución</label>
+									  <div class="input-group">
+									    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div>
+									    <input ng-model="sistema.fecha_constitucion" class="form-control" required>
+									  </div>
+									</div>
+									
+									<div class="form-group required">
+									  <label>Slogan</label>
+									  <div class="input-group">
+									    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div>
+									    <textarea rows="3" ng-model="sistema.sistema_slogan" class="form-control" required></textarea>
+									  </div>
+									</div>
+									
+									<div class="form-group">
+										<label>Footer</label>
+										<div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=person></md-ico></div></div>
+										    <input ng-model="sistema.sistema_footer" class="form-control">
+										  </div>
+									</div>
+							</div>
+						</div>
+					</md-card>
+				</div>
+				<div flex>
+					<md-card layout=column>
+						<div class="card card-outline card-info">
+							<div class="card-header text-center">
+							  <h3 class="card-title">Datos de contacto</h3>
+							</div>
+							<div class="card-body" layout=column layout-padding layout-wrap>
+								<div class="form-group">
+									<label>Provincia - País</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=place></md-ico></div></div>
+									    <input ng-model="sistema.sistema_ciudad" class="form-control">
+									  </div>
+								</div>
+								
+								<div class="form-group">
+									<label>Ciudad - Dirección</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=directions></md-ico></div></div>
+									    <textarea rows=3 ng-model="sistema.sistema_direccion" class="form-control"></textarea>
+									  </div>
+								</div>
+								
+								<div class="form-group">
+									<label>Teléfono(s)</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=phone></md-ico></div></div>
+									    <input ng-model="sistema.sistema_telefono" class="form-control">
+									  </div>
+								</div>
+								
+								<div class="form-group">
+									<label>Celular(es)</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=phone_iphone></md-ico></div></div>
+									    <input ng-model="sistema.sistema_celular" class="form-control">
+									  </div>
+								</div>
+								
+								<div class="form-group">
+									<label>Correo de contacto</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=mail></md-ico></div></div>
+									    <input type=email ng-model="sistema.sistema_correo" class="form-control">
+									  </div>
+								</div>
+								
+								<div class="form-group required">
+									<label>Sitio web</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=public></md-ico></div></div>
+									    <input type=url ng-model="sistema.sistema_sitioweb" class="form-control" required>
+									  </div>
+								</div>
+							</div>
+						</div>
+					</md-card>
+				</div>
+			</div>
+		</div>
+	</md-content>
+	</form>
+</md-card>

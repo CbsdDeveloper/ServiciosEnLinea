@@ -1,0 +1,56 @@
+@CHARSET "UTF-8";
+.loader{position:fixed;left:0px;top:0px;width:100%;height:100%;z-index: 99999999;background: url('/app/src/img/system/page-loader.gif') 50% 50% no-repeat white;}
+body{background:#343a40;}
+.wrapper{padding-top: calc(10%);}
+.container-main{max-width:480px;margin:0px auto;padding:20px;}
+.card-header, .card-footer {background:white;border:none;}
+.card-body {padding-bottom: 0px;}
+.card-header img{width:200px;}
+
+/** FORMULARIOS **/
+form.form-fa .form-control{padding-left:45px;height:auto;}
+form.form-fa .form-group .fa{position:absolute;margin-top:10px;margin-left:15px;width:22px;color:#919398;}
+.card-footer small {font-weight: 600;}
+
+.footer_bg{background: url(/app/src/img/system/footer.png) repeat-x transparent bottom;position: fixed;bottom: 0;width: 100%;height: 500px;z-index:-1;}
+
+.footer_bg .footer_bg_two {
+    background: url(/app/src/img/system/cyclist.gif) no-repeat center center;
+    width: 88px;
+    height: 100px;
+  	background-size:100%;
+    bottom: 0;
+    left: 38%;
+    position: absolute;
+    -webkit-animation: myfirst 30s linear infinite;
+    animation: myfirst 30s linear infinite;
+}
+
+
+
+@-moz-keyframes myfirst {
+  0% {
+    left: -25%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@-webkit-keyframes myfirst {
+  0% {
+    left: -25%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes myfirst {
+  0% {
+    left: -25%;
+  }
+  100% {
+    left: 100%;
+  }
+}

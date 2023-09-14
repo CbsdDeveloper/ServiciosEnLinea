@@ -1,0 +1,204 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog" ng-controller="mobilizationordersExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=local_library></md-ico></md-button>
+			<h2 translate>TOOLBAR_MOBILIZATION_ORDER</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-content layout=column layout-padding>
+				
+				<!-- INFORMACIÓN DE UNIDAD -->
+				<card-unit-information layout-padding></card-unit-information>
+				
+				<!-- FORMULARIO DE REGISTRO -->
+				<div class="card card-outline card-success no-margin margin-top" layout-padding>
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+					</div>
+					<div class="card-body padding-all" layout=column layout-padding>
+					
+			    	<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+				    		<label translate>LB_ORDER_NUMBER</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><i-fa i=tachometer></md-ico></div></div> 
+									<input type="number" step=1 min=0 parse-float class="form-control" ng-model="frmParent.orden_serie" required ng-disabled="toogleEditMode" />
+								</div>
+				    	</div>
+				    	<div class="form-group required" flex>
+								<label translate>LB_STATUS</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.orden_estado" required ng-options="val as val for (key,val) in string2JSON('statusTracking')"></select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="form-group required" flex>
+			    		<label translate>{{frmParent.administrative.puesto_definicion}}</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=person></md-ico></div></div> 
+								<input class="form-control" ng-model="frmParent.administrative.personal_nombre" readonly="readonly" />
+							</div>
+			    	</div>
+						<div class="form-group required" flex>
+			    		<label translate>{{frmParent.professional.puesto_definicion}}</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=how_to_reg></md-ico></div></div> 
+								<input class="form-control" ng-model="frmParent.professional.personal_nombre" readonly="readonly" />
+							</div>
+			    	</div>
+			    	
+						<div class="form-group required" flex ng-controller="staffListCtrl">
+							<label translate>LB_PERSON_REQUESTING</label>
+							<div class="input-group">
+					      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=perm_contact_calendar></md-ico></div></div> 
+					      <ui-select class="form-control" ng-model="frmParent.personal_solicita" reset-search-input="false" required>
+				         	<ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.personal_nombre,'Solicitante...')  | translate}}">
+										{{$select.selected.personal_nombre}}
+				         	</ui-select-match>
+									<ui-select-choices class="list-personal" repeat="item.ppersonal_id as item in FKList | filter: { personal_nombre: $select.search }">
+										<img src="/app/src/img/users/default.png" style="width:48px;height:48px;padding:3px" class="img-circle" alt="img" />
+										<div flex>
+											<div ng-bind-html="item.personal_nombre | highlight: $select.search"></div>
+											<small ng-bind-html="'Puesto: '+item.puesto_definicion"></small><br>
+											<small ng-bind-html="'Dirección: '+item.direccion_nombre"></small>
+										</div>
+									</ui-select-choices>
+					      </ui-select>
+					    </div>
+						</div>
+						
+			    	<div class="form-group required" ng-controller="driversListCtrl">
+							<label translate>LB_OPERATOR</label>
+							<div class="input-group">
+					      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=person></md-ico></div></div> 
+					      <ui-select class="form-control" ng-model="frmParent.operador_id" reset-search-input="false" required>
+				         	<ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.conductor,'Seleccione el operador')  | translate}}">
+										{{$select.selected.personal_nombre}}
+				         	</ui-select-match>
+									<ui-select-choices class="list-personal" repeat="item.conductor_id as item in jsonList | filter: { conductor: $select.search }">
+										<img src="/app/src/img/users/default.png" style="width:48px;height:48px;padding:3px" class="img-circle" alt="img" />
+										<div flex>
+											<div ng-bind-html="item.conductor | highlight: $select.search"></div>
+											<small ng-bind-html="'Tipo de licencia.: '+item.licencia_categoria+' ('+item.licencia_tipo+')'"></small><br>
+											<small translate>LB_STATUS</small> <label class="label" ng-class="[{'label-success':item.conductor_estado=='VIGENTE','label-danger':item.conductor_estado=='CADUCADA'}]">{{item.conductor_estado}}</label>
+										</div>
+									</ui-select-choices>
+					      </ui-select>
+					    </div>
+						</div>
+			    	
+						<div class="form-group">
+							<label translate>LB_OBSERVATION</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div>
+								<textarea class="form-control" ng-model="frmParent.orden_observaciones" placeholder="Ej. Detallar información"></textarea>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				
+				<!-- DATOS DE SALIDA -->
+				<div class="card card-outline card-info no-margin margin-top" layout-padding>
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_CHECK_OUT</h3>
+					</div>
+					<div class="card-body padding-all" layout=column layout-padding>
+
+						<div class="form-group required">
+			    		<label translate>LB_DESTINATION</label>
+						  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=location_on></md-ico></div></div> 
+									<input class="form-control" ng-model="frmParent.orden_destino" placeholder="Ej. Estación 2" required />
+							</div>
+			    	</div>
+						<div class="form-group required">
+			    		<label translate>LB_REASON_EXIT</label>
+						  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+									<textarea class="form-control" ng-model="frmParent.orden_motivo_salida" placeholder="Ej. Asuntos varios..." required ></textarea>
+							</div>
+			    	</div>
+			    	<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_DEPARTURE_TIME</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.orden_hora_salida_tipo" required ng-disabled="toogleEditMode"
+													ng-options="key as val for (key,val) in string2JSON('inputDataType')"></select>
+								</div>
+							</div>
+				    	<div class="form-group required" flex ng-if="frmParent.orden_hora_salida_tipo=='MANUAL' || toogleEditMode">
+				    		<label translate>LB_DEPARTURE_TIME</label>
+							  <div class="input-group" max-date="maxDate" start-view="day" moment-picker="frmParent.orden_hora_salida">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+									<input class="form-control" ng-model="frmParent.orden_hora_salida" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required ng-disabled="toogleEditMode">
+								</div>
+				    	</div>
+				    </div>
+			    
+						<div class="form-group required" flex>
+			    		<label translate>LB_OUTPUT_MILE</label>
+						  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flight_takeoff></md-ico></div></div> 
+									<input type="number" step=1 parse-float class="form-control" ng-model="frmParent.orden_kilometraje_salida" required ng-disabled="toogleEditMode" />
+								</div>
+			    	</div>
+			    	
+					</div>
+				</div>
+				
+				<!-- DATOS DE INGRESO -->
+				<div class="card card-outline card-info no-margin margin-top" layout-padding ng-if="frmParent.orden_estado=='ESTACION'">
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_INCOME_REGISTRATION</h3>
+					</div>
+					<div class="card-body padding-all" layout=column layout-padding>
+			    	
+			    	<div layout-xs=column layout=row layout-padding>
+				    	<div class="form-group required" flex>
+				    		<label translate>LB_CHECK_IN_TIME</label>
+							  <div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=account_circle></md-ico></div></div> 
+										<select class="form-control" ng-model="frmParent.orden_hora_entrada_tipo" required 
+													ng-options="key as val for (key,val) in string2JSON('inputDataType')"></select>
+									</div>
+				    	</div>
+				    	<div class="form-group required" flex ng-if="frmParent.orden_hora_entrada_tipo=='MANUAL'">
+				    		<label translate>LB_CHECK_IN_TIME</label>
+							  <div class="input-group" start-view="day" min-date="frmParent.flota_salida_hora" max-date="maxDate"
+							  		 moment-picker="frmParent.orden_hora_entrada">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+										<input class="form-control" ng-model="frmParent.orden_hora_entrada" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required>
+									</div>
+				    	</div>
+			    	</div>
+			    	
+			    	<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+				    		<label translate>LB_INPUT_MILE</label>
+							  <div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flight_land></md-ico></div></div> 
+										<input type="number" step=1 min={{frmParent.orden_kilometraje_salida}} parse-float class="form-control" ng-model="frmParent.orden_kilometraje_entrada" required />
+									</div>
+				    	</div>
+			    	</div>
+					
+					</div>
+				</div>
+				
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

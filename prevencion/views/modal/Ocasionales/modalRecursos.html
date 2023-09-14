@@ -1,0 +1,189 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg form-fa" ng-controller="resourcesExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><i-fa i=bookmark></i-fa></md-button>
+			<h2 translate>TOOLBAR_RESOURCES</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="closeDialog()"><md-ico i=close></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+			
+			<md-tabs md-dynamic-height md-border-bottom>
+				<md-tab label="{{'LB_THREATS' | translate}}">
+					<md-content layout=column layout-padding>
+						<div class=no-padding>
+							<div class="callout callout-info no-margin" style="margin-bottom:8px!important;">
+							  <div class="text-center"><i class="icon fa fa-bell-o fa-2x faa-ring animated"></i></div>
+							  <p ng-bind-html="trustAsHtml(paramsConf.INFO_THREATS_OCCASIONALS)"></p>
+							</div>
+						</div>
+						<div class=no-padding ng-repeat="(key,row) in frmParent.model.amenazas">
+							<div class="box box-{{string2JSON('colorCss')[$index]}} no-margin no-padding" style="margin-bottom:8px!important;">
+								<div class="box-header with-border">
+				        	<h3 class="box-title">{{$index+1}}. {{row.recurso_nombre}}</h3>
+								</div>
+				        <div class="box-body" layout-xs=column layout=row layout-padding>
+				        	<div class="form-group required" flex>
+										<i-fa i=bell-o></i-fa>
+										<label translate>LB_AFFECT_EVENT</label>
+								    <select class="form-control" ng-model="frmParent.model.amenazas[key].amenaza_afecta" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+									</div>
+									<div class="form-group required" flex ng-if="frmParent.model.amenazas[key].amenaza_afecta=='SI'">
+										<i-fa i=level-up></i-fa>
+										<label translate>LB_LEVEL_THREAT</label>
+								    <select class="form-control" ng-model="frmParent.model.amenazas[key].amenaza_nivel" required ng-options="val as val for (key,val) in string2JSON('levelLabel')"></select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class=no-padding>
+							<div class="box box-danger no-margin no-padding">
+								<div class="box-header with-border text-center">
+				        	<h3 class="box-title" translate>LB_CONFIRMATION</h3>
+								</div>
+				        <div class="box-body padding-all" layout=column layout-padding>
+									<md-checkbox 
+									    ng-model="frmParent.ocasional_amenazas"
+									    aria-label="Cambios en su cuenta"
+									    ng-true-value="'SI'"
+									    ng-false-value="'NO'"
+									    class="md-align-top-left no-padding">
+									  	<span translate>LB_THREATS</span><br/><span class="ipsum" ng-bind-html="trustAsHtml(paramsConf.OCCASIONAL_INFO_AMENAZAS)"></span>
+									</md-checkbox>
+				        </div>
+							</div>
+						</div>
+					</md-content>
+				</md-tab>
+				<md-tab label="{{'LB_INTERNAL_RESOURCES' | translate}}">
+					<md-content layout=column layout-padding>
+						<div class=no-padding>
+							<div class="callout callout-info no-margin" style="margin-bottom:8px!important;">
+							  <div class="text-center"><i class="icon fa fa-bell-o fa-2x faa-ring animated"></i></div>
+							  <p ng-bind-html="trustAsHtml(paramsConf.INFO_INTERNAL_OCCASIONALS)"></p>
+							</div>
+						</div>
+						<div class=no-padding ng-repeat="(key,row) in frmParent.model.internos">
+							<div class="box box-{{string2JSON('colorCss')[$index]}} no-margin no-padding" style="margin-bottom:8px!important;">
+								<div class="box-header with-border">
+				        	<h3 class="box-title">
+										{{$index+1}}. {{row.recurso_nombre}}
+				        	</h3>
+								</div>
+				        <div class="box-body" layout-xs=column layout=row layout-padding>
+				        	<div class="form-group required" flex>
+										<i-fa i=check></i-fa>
+										<label translate>LB_PRESENCE</label>
+								    <select class="form-control" ng-model="frmParent.model.internos[key].interno_presente" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+									</div>
+				        	<div class="form-group required" flex ng-if="frmParent.model.internos[key].interno_presente=='SI'">
+										<i-fa i=list-ol></i-fa>
+										<label translate>LB_QUANTITY</label>
+								    <input type="number" min=0 step="1" class="form-control" ng-model="frmParent.model.internos[key].interno_cantidad" required />
+									</div>
+									<div class="form-group required" flex ng-if="frmParent.model.internos[key].interno_presente=='SI'">
+										<i-fa i=flag></i-fa>
+										<label translate>LB_STATUS</label>
+								    <select class="form-control" ng-model="frmParent.model.internos[key].interno_estado" required ng-options="val as val for (key,val) in string2JSON('statusListLabel')"></select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class=no-padding>
+							<div class="box box-danger no-margin no-padding">
+								<div class="box-header with-border text-center">
+				        	<h3 class="box-title" translate>LB_CONFIRMATION</h3>
+								</div>
+				        <div class="box-body padding-all" layout=column layout-padding>
+									<md-checkbox 
+									    ng-model="frmParent.ocasional_rinternos"
+									    aria-label="Cambios en su cuenta"
+									    ng-true-value="'SI'"
+									    ng-false-value="'NO'"
+									    class="md-align-top-left no-padding">
+									  	<span translate>LB_INTERNAL_RESOURCES</span><br/><span class="ipsum" ng-bind-html="trustAsHtml(paramsConf.OCCASIONAL_INFO_RINTERNOS)"></span>
+									</md-checkbox>
+				        </div>
+							</div>
+						</div>
+					</md-content>
+				</md-tab>
+				<md-tab label="{{'LB_EXTERNAL_RESOURCES' | translate}}">
+					<md-content layout=column layout-padding>
+						<div class=no-padding>
+							<div class="callout callout-info no-margin" style="margin-bottom:8px!important;">
+							  <div class="text-center"><i class="icon fa fa-bell-o fa-2x faa-ring animated"></i></div>
+							  <p ng-bind-html="trustAsHtml(paramsConf.INFO_EXTERNAL_OCCASIONALS)"></p>
+							</div>
+						</div>
+						<div class=no-padding ng-repeat="(key,row) in frmParent.model.externos">
+							<div class="box box-{{string2JSON('colorCss')[$index]}} no-margin no-padding" style="margin-bottom:8px!important;">
+								<div class="box-header with-border">
+				        	<h3 class="box-title">
+										{{$index+1}}. {{row.recurso_nombre}}
+				        	</h3>
+								</div>
+				        <div class="box-body" layout=column layout-padding>
+				        	<div layout-xs=column layout=row layout-padding>
+				        		<div class="form-group required" flex>
+											<i-fa i=check></i-fa>
+											<label translate>LB_PRESENCE</label>
+									    <select class="form-control" ng-model="frmParent.model.externos[key].externo_presente" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+										</div>
+					        	<div class="form-group" ng-class="{'required':(frmParent.model.externos[key].recurso_detalles=='SI')}" flex ng-if="frmParent.model.externos[key].externo_presente=='SI'">
+											<i-fa i=ambulance></i-fa>
+											<label translate>LB_NAME</label>
+									    <input class="form-control" ng-model="frmParent.model.externos[key].externo_nombre" placeholder="Ej. CBSD X1" ng-required="(frmParent.model.externos[key].recurso_detalles=='SI')" />
+										</div>
+				        	</div>
+				        	<div layout-xs=column layout=row layout-padding ng-if="frmParent.model.externos[key].externo_presente=='SI' && frmParent.model.externos[key].recurso_detalles=='SI'">
+										<div class="form-group" flex>
+											<i-fa i=map-signs></i-fa>
+											<label translate>LB_ADDRESS</label>
+									    <input class="form-control" ng-model="frmParent.model.externos[key].externo_direccion" placeholder="Ej. Av. Jacinto Cortez" />
+										</div>
+										<div class="form-group" flex>
+											<i-fa i=phone></i-fa>
+											<label translate>LB_TEL</label>
+									    <input class="form-control" ng-model="frmParent.model.externos[key].externo_telefono" placeholder="Ej. 023959340" />
+										</div>
+										<div class="form-group" flex>
+											<i-fa i=user></i-fa>
+											<label translate>LB_CONTACT</label>
+									    <input class="form-control" ng-model="frmParent.model.externos[key].externo_contacto" placeholder="Ej. Jefatura Técnica de Prevención" />
+										</div>
+				        	</div>
+								</div>
+							</div>
+						</div>
+						<div class=no-padding>
+							<div class="box box-danger no-margin no-padding">
+								<div class="box-header with-border text-center">
+				        	<h3 class="box-title" translate>LB_CONFIRMATION</h3>
+								</div>
+				        <div class="box-body padding-all" layout=column layout-padding>
+									<md-checkbox 
+									    ng-model="frmParent.ocasional_rexternos"
+									    aria-label="Cambios en su cuenta"
+									    ng-true-value="'SI'"
+									    ng-false-value="'NO'"
+									    class="md-align-top-left no-padding">
+									  	<span translate>LB_EXTERNAL_RESOURCES</span><br/><span class="ipsum" ng-bind-html="trustAsHtml(paramsConf.OCCASIONAL_INFO_REXTERNOS)"></span>
+									</md-checkbox>
+				        </div>
+							</div>
+						</div>
+					</md-content>
+				</md-tab>
+			</md-tabs>
+								
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid || (frmParent.ocasional_amenazas=='NO' || frmParent.ocasional_rinternos=='NO' || frmParent.ocasional_rexternos=='NO')"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

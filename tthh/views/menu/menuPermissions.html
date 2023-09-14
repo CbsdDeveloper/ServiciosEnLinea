@@ -1,0 +1,62 @@
+<md-menu md-position-mode="target-right target" >
+  <md-button aria-label="Open demo menu" class="md-icon-button main-menu-icon" ng-click="$mdOpenMenu($event)">
+    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+  </md-button>
+  <md-menu-content width="5">
+    <md-menu-item ng-if="row.permiso_estado=='SOLICITUD GENERADA' || (session.puesto_direccion=='SI' || entityInfo.requestedpermissions>0) && (row.permiso_estado!='SOLICITUD NEGADA' && row.permiso_estado!='SOLICITUD REGISTRADA')">
+      <md-button aria-label="editar" ng-click="openModal(row)">
+          <div layout="row" flex>
+            <p flex translate>LB_EDIT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=edit></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="row.permiso_estado=='SOLICITUD GENERADA' && session.personal_id==row.fk_personal_id">
+      <md-button aria-label="editar" ng-click="openModal(mergeData(row,{permiso_estado:'SOLICITUD ANULADA'}))">
+          <div layout="row" flex>
+            <p class="text-warning text-bold" flex translate>LB_DELETE_REQUEST</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=delete></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="(session.puesto_direccion=='SI' || entityInfo.requestedpermissions>0) && (row.permiso_estado=='SOLICITUD GENERADA' || row.permiso_estado=='SOLICITUD NEGADA' || row.permiso_estado=='SOLICITUD AUTORIZADA')"></md-divider>
+    <md-menu-item ng-if="(session.puesto_direccion=='SI' || entityInfo.requestedpermissions>0) && (row.permiso_estado=='SOLICITUD GENERADA' || row.permiso_estado=='SOLICITUD NEGADA')">
+      <md-button aria-label="editar" ng-click="openModal(mergeData(row,{permiso_estado:'SOLICITUD AUTORIZADA'}))">
+          <div layout="row" flex>
+            <p class="text-success text-bold" flex translate>LB_VALIDATE_APPLICATION</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=check_circle c=text-success></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="(session.puesto_direccion=='SI' || entityInfo.requestedpermissions>0) && (row.permiso_estado=='SOLICITUD GENERADA' || row.permiso_estado=='SOLICITUD AUTORIZADA')">
+      <md-button aria-label="editar" ng-click="openModal(mergeData(row,{permiso_estado:'SOLICITUD NEGADA'}))">
+          <div layout="row" flex>
+            <p class="text-danger text-bold" flex translate>LB_DENY_APPLICATION</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=cancel c=text-danger></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    
+    <md-divider ng-if="row.permiso_estado=='SOLICITUD GENERADA' || (session.puesto_direccion=='SI' || entityInfo.requestedpermissions>0)"></md-divider>
+    <md-menu-item ng-if="row.permiso_estado!='SOLICITUD NEGADA'">
+      <md-button aria-label="editar" ng-click="exportWithDetail(row.permiso_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_PRINT_REQUEST</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=print></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

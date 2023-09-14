@@ -1,0 +1,68 @@
+<md-dialog aria-label="Dialog" class="modal-dialog" ng-controller="submodulesListCtrl">
+  <form name="formData" ng-submit="submitForm()">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+		 <md-button aria-label="btn" class="md-icon-button"><md-ico i=stop_screen_share></md-ico></md-button>
+			 <h2 class="md-flex" translate>TOOLBAR_ROUTES</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+		<md-content layout=column layout-padding>
+			<div class="form-group required">
+				<label translate>LB_MODULE</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=extension></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.fk_modulo_id"
+									ng-options="row.modulo_id as row.modulo_nombre for row in jsonList.modules"></select>
+				</div>
+			</div>
+			<div class="form-group required">
+				<label translate>LB_SUBMODULE</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=stars></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.fk_submodulo_id"
+									ng-options="row.submodulo_id as row.submodulo_nombre for row in jsonList.submodules[frmParent.fk_modulo_id]"></select>
+				</div>
+			</div>
+			<div layout-xs=column layout=row layout-padding>
+				<div class="form-group required" flex>
+					<label translate>LB_ROUTES</label>
+					<div class="input-group">
+				    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=link></md-ico></div></div> 
+				    <input type="text" ng-model="frmParent.ruta_url" class="form-control" placeholder="Ej. admin.users" required>
+				  </div>
+				</div>
+				<div class="form-group required" flex>
+					<label translate>LB_PERMIT</label>
+					<div class="input-group">
+				    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=stars></md-ico></div></div> 
+				    <input type="text" ng-model="frmParent.ruta_permiso" class="form-control" placeholder="Ej. 200" required>
+				  </div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label translate>LB_DESCRIPTION</label>
+				<div class="input-group">
+			    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+			    <textarea ng-model="frmParent.ruta_descripcion" class="form-control" placeholder="Ej. Administrar usuarios"></textarea>
+			  </div>
+			</div>
+			<div class="form-group required" ng-if="toogleEditMode">
+				<label translate>LB_STATUS</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.ruta_estado"
+									ng-options="val as val for (key,val) in string2JSON('statusType')"></select>
+				</div>
+			</div>
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

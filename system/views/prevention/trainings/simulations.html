@@ -1,0 +1,82 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=directions_run></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_SIMULATIONS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-divider ng-if="allow.permiso6111"></md-divider>
+	<md-toolbar  ng-if="allow.permiso6111">
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><i-fa i=barcode s=lg></i-fa></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="{{'LB_CODE_REQUEST' | translate}}" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+	  </form>
+	</md-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="width:40%;">
+     	<col style="width:40%;">
+     	<col style="width:15%;">
+     	<col style="width:5%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_SIMULATIONS</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_STATUS</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<a ui-sref="prevention.detailSimulations({id:row.simulacro_id})" target="_balnk"><md-ico i=assignment_turned_in></md-ico></a><span ng-bind-html="highlight(row.simulacro_codigo)"></span> (<span ng-bind-html="highlight(row.simulacro_serie)"></span>)<br>
+						<div ng-if="row.simulacro_solicitud>0">
+							<md-ico i=confirmation_number></md-ico><span ng-bind-html="highlight(row.simulacro_solicitud)"></span>
+						</div>
+						<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.entidad_ruc)"></span><br>
+						<a ui-sref="src.detailEntities({entityId:row.fk_entidad_id})" target="_blank"><md-ico i={{string2JSON('mdIconList')[row.entidad_contribuyente]}}></md-ico></a><span ng-bind-html="highlight(row.entidad_razonsocial)"></span>
+						<div ng-if="row.simulacro_estado=='EVALUADA'" class="text-green text-large text-bold">
+							<md-ico i=school></md-ico><span translate>LB_SCORE</span>: {{row.score | number:2}}
+						</div>
+						<div ng-if="row.simulacro_estado=='PENDIENTE' || row.simulacro_estado=='ANULADA'" class="text-red text-bold">
+							<md-ico i=event_busy></md-ico><span ng-bind-html="highlight(row.simulacro_confirmacion)"></span>
+						</div>
+						<div class="text-uppercase" ng-if="row.entidad_contribuyente!='natural' && row.entidad_contribuyente!='CEDULA'">
+							<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.persona_doc_identidad)"></span><br>
+							<md-ico i=person_outline></md-ico><span ng-bind-html="highlight(row.coordinador)"></span><br>
+						</div>
+						<div>
+							<md-ico i=mail></md-ico><span ng-bind-html="highlight(row.persona_correo)"></span><br>
+							<md-ico i=phone></md-ico><span ng-bind-html="highlight(row.persona_telefono)"></span>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=book></md-ico><span ng-bind-html="highlight(row.simulacro_tema)"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.simulacro_fecha)"></span><br>
+						<md-ico i=directions></md-ico><span ng-bind-html="highlight(row.simulacro_principal+' y '+row.simulacro_secundaria)"></span>
+					</td>
+					<!-- <td md-cell>
+						<md-ico i=assistant_photo></md-ico><span ng-bind-html="highlight(row.estacion_nombre)"></span><br>
+						<md-ico i=person_outline></md-ico> <span ng-bind-html="highlight(row.responsable)"></span>
+					</td> -->
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.simulacro_estado]"></span><br>
+						<div ng-if="row.simulacro_estado=='PENDIENTE' || row.simulacro_estado=='ANULADA'">
+							<small><md-ico i=event_busy></md-ico><span ng-bind-html="highlight(row.simulacro_confirmacion)"></span></small>
+						</div>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.simulacro_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+					</td>
+					<td md-cell class="table-menu text-center"><menu-simulations></menu-simulations></td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

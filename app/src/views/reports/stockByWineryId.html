@@ -1,0 +1,33 @@
+<style>{{css}}p{font-size:14px;}table tbody th{background:#008000;}table td,table th{border-color:#222d32;}.table td{padding:6px;}</style>
+<page backtop="{{margin_top}}mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	
+	<!-- HEADER PROCESS CBSD -->
+	{{HEADER_PROCESS_CBSD}}
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE}}
+	<!-- CUERPO DE REPORTE -->
+	<div class="title-single text-center">{{informe}}<BR>{{bodega_nombre}}</div>
+	
+	<!-- CUERPO DE REPORTE -->
+	<p>En la ciudad de Santo Domingo, a los {{stockDia}} días del mes de {{stockMesAnio}} se presenta el stock de materiales prehospitalarios del equipamiento de la estación {{estacion_nombre}} -  {{estacion_nombre_alterno}}.</p>
+	
+	<table class="table table-bordered table-stripped">
+		<col style="width:10%;text-align:center;">
+   	<col style="width:45%;">
+   	<col style="width:15%;text-align:center;">
+   	<col style="width:15%;text-align:center;">
+   	<col style="width:15%;text-align:center;">
+		<thead>
+			<tr><th colspan="5">LISTADO DE MATERIALES PREHOSPITALARIOS</th></tr>
+			<tr>
+				<th>#</th>
+				<th>PRODUCTO SOLICITADO</th>
+				<th>PRESENTACIÓN</th>
+				<th>CONCENTRACIÓN</th>
+				<th>CANTIDAD</th>
+			</tr>
+		</thead>
+		<tbody>{{suppliesList}}</tbody>
+	</table>
+	
+</page>

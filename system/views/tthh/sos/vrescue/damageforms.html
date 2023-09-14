@@ -1,0 +1,49 @@
+<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=filter_none></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_FORMS_FOR_EVALUATION</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="allow.permiso82611" ng-click="openModal()">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<datatable-toolbar></datatable-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="">
+     	<col style="width:25%">
+     	<col style="width:5%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_FORM_NAME</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td md-cell>
+						<span ng-bind-html="highlight(row.formulario_nombre)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.formulario_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.formulario_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.user.person.persona_apellidos+' '+row.user.person.persona_nombres)"></span>
+					</td>
+					<td md-cell>
+						<menu-damage-forms ng-if="(allow.permiso82612 || allow.permiso82613)"></menu-damage-forms>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<datatable-footer></datatable-footer>
+</md-card>

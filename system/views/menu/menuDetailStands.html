@@ -1,0 +1,74 @@
+<md-menu md-position-mode="target-right target" >
+  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+    <md-ico i=menu></md-ico>
+    <md-tooltip><span translate>LB_MENU</span></md-tooltip>
+  </md-button>
+  <md-menu-content width="5">
+    <md-menu-item ng-if="allow.permiso60811 && (entity.stand_estado=='CONFIRMADO' || entity.stand_estado=='REAGENDADA')">
+      <md-button aria-label="editar" ng-click="openModal('Stands',mergeData(entity,{stand_estado:'REAGENDADA'}))">
+          <div layout="row" flex>
+            <p flex translate>LB_SCHEDULE</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=event_note s=18></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="allow.permiso6082 && (entity.stand_estado=='CONFIRMADO' || entity.stand_estado=='REAGENDADA')">
+      <md-button aria-label="editar" ng-click="openModal('Capacitadores',mergeData(entity,{entity:'stands',entityId:entity.stand_id,edit:false}))">
+          <div layout="row" flex>
+            <p flex translate>LB_EXHIBITORS</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=person_add></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item  ng-if="allow.permiso6085">
+      <md-button aria-label="editar" ng-click="openModal('Gallery',{edit:false,fk_table:'stands',fk_id:entity.stand_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_UPLOAD_FILES</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=file_upload></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+  	<md-divider  ng-if="entity.stand_estado=='EVALUADA'"></md-divider>
+    <md-menu-item  ng-if="entity.stand_estado=='EVALUADA'">
+      <md-button aria-label="editar" ng-click="downloadEvaluation(entity.evaluacion_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_PRINT_EVALUATION</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=card_membership></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+  	
+  	<md-divider ng-if="allow.permiso6083 && (entity.stand_estado=='CONFIRMADO' || entity.stand_estado=='REAGENDADA')"></md-divider>
+    <md-menu-item ng-if="allow.permiso6083 && (entity.stand_estado=='CONFIRMADO' || entity.stand_estado=='REAGENDADA')">
+      <md-button aria-label="editar" ng-click="openModal('Stands',entity)">
+          <div layout="row" flex>
+            <p flex translate>LB_REVIEW</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=done_all></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+  	<md-divider></md-divider>
+    <md-menu-item>
+      <md-button aria-label="editar" ng-click="exportWithDetail(entity.stand_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_PRINT_REQUEST</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=file_download></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

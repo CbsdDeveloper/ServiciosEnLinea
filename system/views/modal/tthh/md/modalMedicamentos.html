@@ -1,0 +1,67 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=healing></md-ico></md-button>
+			<h2 translate>TOOLBAR_MEDICINES</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout-padding layout=column>
+			<div layout-xs=column layout=row layout-padding>
+	    	<div class="form-group required" flex>
+					<label translate>LB_CODE</label>
+				  <div class="input-group">
+				    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=fingerprint></md-ico></div></div> 
+				    <input class="form-control" ng-model="frmParent.medicamento_codigo" placeholder="Ej. MED101" required >
+				  </div>
+				</div>
+	    	<div class="form-group required" flex>
+					<label translate>LB_PRESENTATION</label>
+				  <div class="input-group">
+				    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+				    <select class="form-control" ng-model="frmParent.medicamento_presentacion" ng-options="val as val for (key,val) in string2JSON('MEDICAL_MEDICINE_PRESENTATION')" required></select>
+				  </div>
+				</div>
+			</div>
+    	<div class="form-group required">
+				<label translate>LB_MEDICALLY</label>
+			  <div class="input-group">
+			    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=healing></md-ico></div></div> 
+			    <input class="form-control" ng-model="frmParent.medicamento_nombre" placeholder="Ej. Paracetamol" required >
+			  </div>
+			</div>
+			<div layout-xs=column layout=row layout-padding>
+	    	<div class="form-group required" flex>
+					<label translate>LB_DOSE</label>
+				  <div class="input-group">
+				    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=colorize></md-ico></div></div> 
+				    <input class="form-control" ng-model="frmParent.medicamento_dosis" placeholder="Ej. mg" required >
+				  </div>
+				</div>
+	    	<div class="form-group required" flex>
+					<label translate>LB_ROUTE_OF_ADMINISTRATION</label>
+				  <div class="input-group">
+				    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=share></md-ico></div></div> 
+				    <select class="form-control" ng-model="frmParent.medicamento_via_administracion" ng-options="val as val for (key,val) in string2JSON('MEDICAL_MEDICINE_VIAS_ADMINISTRACION')" required></select>
+				  </div>
+				</div>
+			</div>
+    	<div class="form-group">
+				<label translate>GENERIC_NAME</label>
+			  <div class="input-group">
+			    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=security></md-ico></div></div> 
+			    <input class="form-control" ng-model="frmParent.medicamento_generico" placeholder="Ej. Acetaminofén" >
+			  </div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

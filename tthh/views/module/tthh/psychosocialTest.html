@@ -1,0 +1,90 @@
+<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		
+		<card-profile-home class="card-information" ng-if="detailConfig.show" flex></card-profile-home>
+		
+		<form name="formData" flex>
+			<md-card class="no-margin">
+
+				<md-toolbar ng-hide="filter.show">
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=filter_none></md-ico></md-button>
+						<h2 class="md-flex" translate>LB_FORM_QUESTIONS</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				
+				<!-- FORMULARIO DE ROLES -->
+				<ul class="timeline margin-top font-12">
+				
+					<li ng-repeat="data in questionnaire">
+						<i class="fa fa-info bg-{{string2JSON('colorName')[$index]}}"></i>
+					  <div class="timeline-item">
+					     <div class="timeline-body no-padding" layout-padding>
+						
+									<div class="box box-{{string2JSON('colorCss')[$index]}} no-margin">
+										<div class="box-header with-border">
+											<h3 class="box-title">{{data.section.seccion_index}}. {{data.section.seccion_nombre}}</h3>
+										</div>
+										<div class="box-body">
+											
+												<div class="padding-all" ng-repeat="item in data.questions">
+											    
+											    	<h3 class="timeline-header no-margin" layout=column>
+											    		<b>{{item.question.pregunta_index}}. {{item.question.question.recurso_nombre}}</b>
+											    		<br>
+											    		<div ng-if="item.question.ranking.recurso_nombre!=='COMPLETAR LA RESPUESTA'">
+												    		<md-radio-group ng-model="frmParent.test[item.question.pregunta_id].respuesta_puntuacion" layout=row required>
+														      <md-radio-button class="md-warn" ng-value="k" ng-repeat="(k,v) in item.question.ranking.recurso_descripcion">{{v}}</md-radio-button>
+														    </md-radio-group>
+											    		</div>
+											    		<div ng-if="item.question.ranking.recurso_nombre=='COMPLETAR LA RESPUESTA'">
+												    		<textarea class="form-control" ng-model="frmParent.test[item.question.pregunta_id].respuesta_resultado" required></textarea>
+											    		</div>
+											    		<br>
+											    	</h3>
+											    	
+												</div>
+											
+										</div>
+									</div>
+								
+							</div>
+						</div>
+						
+					
+					</li>
+					
+					<li>
+						<i class="fa fa-paper-plane-o bg-red"></i>
+					   <div class="timeline-item">
+					     <div class="timeline-body" layout-xs=column layout=row layout-padding>
+					      <div flex>
+									<a ui-sref="main.psychosocialEvaluations" class="btn btn-warning btn-block">
+										<i-fa i=angle-double-left></i-fa> <span translate>BTN_CANCEL</span>
+									</a>
+								</div>
+								<div flex>
+									<button type="button" ng-click="submitForm()" class="btn btn-success btn-block" ng-disabled="formData.$invalid">
+										<span translate>BTN_SUBMIT</span> <i-fa i=angle-double-right></i-fa>
+									</button>
+								</div>
+					     </div>
+						</div>
+					</li>
+					
+					<li><i class="fa fa-clock-o bg-gray"></i></li>
+					
+				</ul>
+					
+					
+					
+			</md-card>	
+		</form>
+		
+	</div>
+</div>

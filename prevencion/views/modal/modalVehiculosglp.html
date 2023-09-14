@@ -1,0 +1,180 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=local_shipping></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_GLP_VEHICLES</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=close></md-ico></md-button>
+    </div>
+  </md-toolbar>
+	<md-dialog-content>
+		<md-content layout=column layout-padding>
+			<!-- FORMULARIO DE DATOS DE PROPIETARIO -->
+			<div class="box box-primary no-padding no-margin">
+				<div class="box-header text-center">
+				  <h3 class="box-title" translate>LB_OWNER_INFORMATION</h3>
+				</div>
+				<div class="box-body md-padding" layout=column layout-padding>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_IDENTIFICATION_TYPE</label>
+							<div class="input-group" flex>
+								<span class="input-group-addon"><i-fa i=id-card-o></i-fa></span>
+								<select class="form-control" ng-model="frmParent.persona_tipo_doc" required
+											ng-options="key as val for (key,val) in string2JSON('identificationType')"></select>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+						  <label translate>LB_IDENTIFICATION_NUMBER</label>
+						  <div class="input-group">
+						    <div class="input-group-addon"><i-fa i=id-card></i-fa></div>
+						    <input ng-model="frmParent.persona_doc_identidad" class="form-control" placeholder="Ej. 1745893206" required />
+								<span class="input-group-btn"><button type="button" ng-click="searchPersonInformation(frmParent.persona_doc_identidad,'frmParent')" class="btn btn-info btn-flat"><i-fa i=search></i-fa></button></span>
+						  </div>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+						  <label translate>LB_LASTNAME</label>
+						  <div class="input-group">
+						    <div class="input-group-addon"><i-fa i=user></i-fa></div>
+						    <input ng-model="frmParent.persona_apellidos" class="form-control" placeholder="Ej. Pinargote Bayas" required />
+						  </div>
+						</div>
+						<div class="form-group required" flex>
+						  <label translate>LB_NAME</label>
+						  <div class="input-group">
+						    <div class="input-group-addon"><i-fa i=user-o></i-fa></div>
+						    <input ng-model="frmParent.persona_nombres" class="form-control" placeholder="Ej. ANTONIO EMILIANO" required />
+						  </div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- FORMULARIO DE DATOS DE VEHICULO -->
+			<div class="box box-warning no-padding no-margin margin-top">
+				<div class="box-header text-center">
+				  <h3 class="box-title" translate>LB_VEHICLE_INFORMATION</h3>
+				</div>
+				<div class="box-body" layout=column layout-padding>
+					<div layout-xs=column layout=row layout-padding>
+			 			<div class="form-group required" flex>
+							<label translate>LB_YEAR</label>
+							<div class="input-group">
+								<div class="input-group-addon"><i-fa i=calendar></i-fa></div>
+								<input type=number min=1950 max=2050 step="1" parse-float class="form-control text-uppercase" ng-model="frmParent.vehiculo_anio" placeholder="Ej. 2018" required />
+							</div>
+						</div>
+			 			<div class="form-group required" ng-controller="transportTypeListCtrl" flex>
+							<label translate>LB_TYPE</label>
+							<div class="input-group">
+								<div class="input-group-addon"><i-fa i=car></i-fa></div>
+								<select class="form-control text-center" ng-model="frmParent.vehiculo_tipo" required 
+												ng-options="val as val for (key,val) in string2JSON('VEHICLES_TYPE_LIST')"></select>
+							</div>
+						</div>
+			   	</div>
+			   	
+					<div layout-xs=column layout=row layout-padding>
+			 			<div class="form-group required" flex ng-if="frmParent.vehiculo_tipo!='' && frmParent.vehiculo_tipo!='MOTOCICLETA'">
+							<label translate>LB_VEHICLE_CLASS</label>
+							<div class="input-group">
+								<div class="input-group-addon"><i-fa i=flag></i-fa></div>
+								<select class="form-control text-center" ng-model="frmParent.vehiculo_proposito" required 
+												ng-options="key as val for (key,val) in string2JSON('transportEntity')"></select>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_PLATE</label>
+							<div class="input-group">
+								<div class="input-group-addon"><i-fa i=credit-card-alt></i-fa></div>
+								<input class="form-control" ng-model="frmParent.vehiculo_placa" placeholder="Ej. OBJ0123" maxlength="7" required />
+							</div>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+			    	<div class="form-group required" flex>
+							<label translate>LB_CHASSIS</label>
+							<div class="input-group">
+								<div class="input-group-addon"><i-fa i=info></i-fa></div>
+								<input class="form-control" ng-model="frmParent.vehiculo_chasis" placeholder="Ej. XDS334DR" required />
+							</div>
+						</div>
+			    	<div class="form-group required" flex>
+							<label translate>LB_MOTOR</label>
+							<div class="input-group">
+								<div class="input-group-addon"><i-fa i=info></i-fa></div>
+								<input class="form-control" ng-model="frmParent.vehiculo_motor" placeholder="Ej. PO657J88" required />
+							</div>
+						</div>
+					</div>
+			    	
+					<div layout-xs=column layout=row layout-padding>
+			    	<div class="form-group required " flex ng-controller="brandsListCtrl">
+							<label translate>LB_BRAND</label>
+							<div class="input-group">
+								<div class="input-group-addon"><i-fa i=apple></i-fa></div>
+								<select class="form-control text-center" ng-model="frmParent.vehiculo_marca" required 
+												ng-options="row.brand_title as row.brand_title for row in jsonList"></select>
+							</div>
+						</div>
+			    	<div class="form-group required" flex>
+							<label translate>LB_MODEL</label>
+							<div class="input-group">
+								<div class="input-group-addon"><i-fa i=info></i-fa></div>
+								<input class="form-control text-uppercase" ng-model="frmParent.vehiculo_modelo" placeholder="Ej. Mazda 3" required />
+							</div>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+			    	<div class="form-group required" flex>
+							<label translate>LB_GAS_TYPE</label>
+							<div class="input-group">
+								<div class="input-group-addon"><md-ico i=local_gas_station></md-ico></div>
+								<select class="form-control text-center" ng-model="frmParent.vehiculo_combustible" required
+												ng-options="val as val for (key,val) in string2JSON('gasType')"></select>
+							</div>
+						</div>
+			    	<div class="form-group required" flex>
+							<label translate>LB_TONS</label>
+							<div class="input-group">
+								<div class="input-group-addon"><i-fa i=anchor></i-fa></div>
+								<input type=number min=0 max=100 step="0.01" parse-float class="form-control" ng-model="frmParent.vehiculo_toneladas" placeholder="Ej. 2" required />
+							</div>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+			    	<div class="form-group required" flex>
+							<label translate>LB_COLOR</label>
+							<div class="input-group">
+								<div class="input-group-addon"><i-fa i=paint-brush></i-fa></div>
+								<input class="form-control" ng-model="frmParent.vehiculo_color1" placeholder="Ej. BLANCO" required />
+							</div>
+						</div>
+			    	<div class="form-group required" flex>
+							<label translate>LB_COLOR_ALT</label>
+							<div class="input-group">
+								<div class="input-group-addon"><i-fa i=pencil></i-fa></div>
+								<input class="form-control" ng-model="frmParent.vehiculo_color2" placeholder="Ej. BLANCO" required />
+							</div>
+						</div>
+					</div>
+		    	<div class="form-group required">
+						<label translate>LB_ADDRESS</label>
+						<div class="input-group">
+							<div class="input-group-addon"><i-fa i=map-marker></i-fa></div>
+							<input class="form-control" ng-model="frmParent.vehiculo_direccion" placeholder="Ej. Av. Quevedo km 5" required />
+						</div>
+					</div>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

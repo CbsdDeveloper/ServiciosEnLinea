@@ -1,0 +1,59 @@
+<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=print></md-ico>
+				<md-tooltip><span translate>TOOLBAR_REPORTS</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.textFilter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_MAIN_TOOLBAR' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.textFilter!=''" ng-click="filterParent.textFilter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+	    
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<md-table-container>
+		<table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column md-order-by="reporte_nombre"><span translate>LB_REPORTS</span></th>
+					<th md-column md-order-by="reporte_jefatura"><span translate>LB_LEADERSHIP</span></th>
+					<th md-column><span translate>LB_PAPER</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td md-cell>
+						<md-ico i=fingerprint></md-ico><span ng-bind-html="highlight(row.reporte_id)"></span><br>
+						<md-ico i={{row.reporte_autodownload?'file_download':'remove_red_eye'}}></md-ico><span ng-bind-html="highlight(row.reporte_nombre)"></span><br>
+						<md-ico i=title></md-ico><span ng-bind-html="highlight(row.reporte_header)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=star></md-ico><span ng-bind-html="highlight(row.reporte_jefatura)"></span><br>
+						<md-ico i=star_half></md-ico><span ng-bind-html="highlight(row.reporte_departamento)"></span><br>
+						<md-ico i=star_border></md-ico><span ng-bind-html="highlight(row.responsable_cargo)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.responsable_nombre)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=book></md-ico><span ng-bind-html="highlight2JSON('paperReport',row.reporte_hoja)"></span><br>
+						<md-ico i=screen_lock_portrait></md-ico><span ng-bind-html="highlight2JSON('orientationPaper',row.reporte_orientacion)"></span><br>
+						<md-ico i=zoom_out_map></md-ico> [{{row.margin_top+' x '+row.margin_bottom+' x '+row.margin_left+' x '+row.margin_right}}]mm<br>
+						<md-ico i=content_copy></md-ico> <span ng-bind-html="highlight(row.reporte_template)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+						<menu-reports></menu-reports>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</md-table-container>
+	<datatable-footer></datatable-footer>
+</md-card>

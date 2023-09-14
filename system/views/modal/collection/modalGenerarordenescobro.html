@@ -1,0 +1,146 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg" ng-controller="ordersExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=attach_money></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_INVOICES</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-content layout=column layout-padding>
+			<!-- INFORMACION DE TRAMITE -->			
+			<card-occasional-information ng-if="frmParent.entity=='ocasionales'" layout-padding></card-occasional-information>
+			<card-permit-information ng-if="frmParent.entity=='duplicados'" layout-padding></card-permit-information>
+			<card-plan-information ng-if="frmParent.entity=='planesemergencia'" layout-padding></card-plan-information>
+			<card-vbp-information ng-if="frmParent.entity=='vbp'" layout-padding></card-vbp-information>
+			<card-habitability-information ng-if="frmParent.entity=='habitabilidad'" layout-padding></card-habitability-information>
+			<card-modification-information ng-if="frmParent.entity=='vbp_modifications'" layout-padding></card-modification-information>
+			<card-feasibility-information ng-if="frmParent.entity=='factibilidadglp'" layout-padding></card-feasibility-information>
+			<card-definitive-information ng-if="frmParent.entity=='definitivoglp'" layout-padding></card-definitive-information>
+			<!-- FORMULARIO DE REGISTRO -->
+			<div style="margin-top:8px;" layout-padding>
+				<div class="card card-outline card-primary no-margin">
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_BILLING</h3>
+					</div>
+					<div class="card-body" layout=column layout-padding>
+						<div layout-xs=column layout=row layout-padding>
+							<div class=form-group flex>
+								<label translate>LB_CODE</label>
+								<div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=code></md-ico></div></div> 
+							    <input ng-model="frmParent.order.orden_codigo" class="form-control" readonly="readonly" placeholder="Ej. CBSD17LAY001">
+							  </div>
+							</div>
+							<div class="form-group required" flex ng-if="frmParent.orden.orden_solicitud_requerida=='SI'">
+								<label translate>LB_REQUEST_NUMBER</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=fingerprint></md-ico></div></div> 
+									<input ng-model="frmParent.order.orden_solicitud" class="form-control" placeholder="Ej. 100023" required>
+								</div>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_IDENTIFICATION_TYPE</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=account_balance_wallet></md-ico></div></div> 
+									<select class="form-control select2" ng-model="frmParent.order.orden_doc_type" required
+													ng-options="key as val for (key,val) in string2JSON('contribuyenteType')"></select>
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_IDENTIFICATION_NUMBER</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=credit_card></md-ico></div></div> 
+									<input ng-model="frmParent.order.orden_doc_identidad" class="form-control" placeholder="Ej. 1236587490" required maxlength="20">
+								</div>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_CUSTOMER</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=person></md-ico></div></div> 
+									<input ng-model="frmParent.order.orden_cliente_nombre" class="form-control" placeholder="Ej. Tipan Jaramillo" required>
+								</div>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_TEL</label>
+								<div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=phone></md-ico></div></div> 
+							    <input type="tel" ng-model="frmParent.order.orden_telefono" class="form-control" placeholder="Ej. 023741213" required>
+							  </div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_MAIL</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=mail></md-ico></div></div> 
+									<input type="email" ng-model="frmParent.order.orden_email" class="form-control" placeholder="Ej. correo@live.com" required>
+								</div>
+							</div>
+						</div>
+						<div layout-xs=column layout=column layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_ADDRESS</label>
+								<div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+							    <input type="tel" ng-model="frmParent.order.orden_direccion" class="form-control" placeholder="Ej. Av. Chone y Calle Guayaquil" required>
+							  </div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_CONCEPT</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=description></md-ico></div></div> 
+									<textarea rows="4" ng-model="frmParent.order.orden_concepto" class="form-control" placeholder="Ej. Permiso ocasional XX" required></textarea>
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_AGREEMENT</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=filter_none></md-ico></div></div> 
+									<textarea rows="4" ng-model="frmParent.order.orden_acuerdo" class="form-control" placeholder="Ej. Según ordenanza XX" required></textarea>
+								</div>
+							</div>
+						</div>
+						
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_ORDER_NUMBER</label>
+								<div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=attach_money></md-ico></div></div> 
+							    <input type="number" step="1" min=0 parse-float ng-model="frmParent.order.orden_serie" class="form-control" placeholder="Ej. 100">
+							  </div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_PERCENT</label>
+								<div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=attach_money></md-ico></div></div> 
+							    <input ng-model="frmParent.order.orden_porcentaje" class="form-control" readonly="readonly">
+							  </div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_TOTAL</label>
+								<div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=attach_money></md-ico></div></div> 
+							    <input ng-model="frmParent.order.orden_total" class="form-control" readonly="readonly">
+							  </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

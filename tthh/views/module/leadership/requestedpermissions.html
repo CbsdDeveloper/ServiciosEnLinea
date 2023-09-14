@@ -1,0 +1,51 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=thumb_up></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_PERMISSIONS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="">
+     	<col style="width:30%">
+     	<col style="width:5%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_SCHEDULED_DATE</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell class="text-uppercase">
+						<md-ico i=security></md-ico><span ng-bind-html="highlight(row.permiso_codigo)"></span> ({{row.permiso_serie}})<br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.s_titulo)"></span><br>
+						<md-ico i=wrap_text></md-ico><span ng-bind-html="highlight(row.s_puesto)"></span><br>
+						<md-ico i=event></md-ico><span>{{row.permiso_desde}} A {{row.permiso_hasta}}</span><br>
+						<md-ico i=info></md-ico><span ng-bind-html="highlight(row.permiso_cantidad)"></span> / <span ng-bind-html="highlight(row.permiso_motivo)"></span><br>
+						
+						<div ng-if="(row.permiso_estado=='SOLICITUD ANULADA' || row.permiso_estado=='SOLICITUD NEGADA') && row.permiso_observacion!=null" ng-class="[{'text-warning':row.permiso_estado=='SOLICITUD ANULADA'},{'text-danger':row.permiso_estado=='SOLICITUD NEGADA'}]">
+							<md-ico i=info_outline></md-ico><span ng-bind-html="highlight(row.permiso_observacion)"></span>
+						</div>
+						
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.permiso_estado]"></span><br>
+						<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.permiso_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <menu-permissions ng-if="row.permiso_estado!='SOLICITUD REGISTRADA' && row.permiso_estado!='SOLICITUD ANULADA'"></menu-permissions>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

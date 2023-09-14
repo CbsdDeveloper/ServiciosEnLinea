@@ -1,0 +1,118 @@
+﻿<div class=no-padding layout-xs=column layout=row layout-padding>
+	<card-part flex=25 hide-xs></card-part>
+	<card-part flex hide-gt-xs></card-part>
+	
+	<div flex>
+		<md-card class="no-margin">
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<md-button aria-label="btn" class="md-icon-button"><md-ico i=style></md-ico></md-button>
+					<h2>{{entity.parte_codigo}}</h2>
+				</div>
+			</md-toolbar>
+			<md-tabs md-dynamic-height md-border-bottom class="no-margin-bottom-input">
+				<!-- Open tab locals -->
+				<md-tab label="{{'LB_INFORMATION' | translate}}">
+					
+				</md-tab>
+				<!-- Open tab locals -->
+				<md-tab label="{{'LB_CATERED' | translate}}">
+					<div ng-controller="caretedCtrl">
+		        <md-content ng-controller="myTableCtrl">
+							<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+								<div class="md-toolbar-tools">
+									<md-button aria-label="btn" class="md-icon-button"><md-ico i={{filterInTab.mdIcon}}></md-ico></md-button>
+									<h2 translate>{{filterInTab.label}}</h2>
+									<span flex></span>
+									<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()" ng-if="filterInTab.search"><md-ico i=search></md-ico></md-button>
+									<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()" ><md-ico i=refresh></md-ico></md-button>
+									<md-button aria-label="btn" class="md-icon-button" ng-click="openModal(mergeData(entity,{fk_parte_id:entity.parte_id,edit:false}))" ng-if="filterInTab.showNew"><md-ico i=person_add></md-ico></md-button>
+								</div>
+							</md-toolbar>
+							<toolbar-filter></toolbar-filter>
+							<md-table-container>
+						    <table md-table class="md-primary table-hover" md-progress="deferred">
+						      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+										<tr md-row>
+											<th md-column md-order-by="atendido"><span translate>LB_CATERED</span></th>
+											<th md-column md-order-by="atendido_tipo"><span translate>LB_TYPE</span></th>
+											<th md-column md-order-by="atendido_edad"><span translate>LB_AGE</span></th>
+											<th md-column md-order-by="atendido_sintomas"><span translate>LB_SYMPTOMS</span></th>
+											<th md-column md-order-by="atendido_traslado"><span translate>LB_TRANSFER</span></th>
+											<th md-column><span translate>LB_MENU</span></th>
+										</tr>
+						      </thead>
+						      <tbody>
+										<tr md-row data-ng-repeat="row in rowsParent.data">
+											<td md-cell>
+												<span ng-bind-html="highlight(row.atendido)"></span>
+											</td>
+											<td md-cell>
+												<span ng-bind-html="highlight(row.atendido_tipo)"></span>
+											</td>
+											<td md-cell>
+												<span ng-bind-html="highlight(row.atendido_edad)"></span>
+											</td>
+											<td md-cell>
+												<span ng-bind-html="highlight(row.atendido_sintomas)"></span>
+											</td>
+											<td md-cell>
+												<span ng-bind-html="highlight(row.atendido_traslado)"></span>
+											</td>
+											<td md-cell class="table-menu text-center" layout=row>
+											  <menu-single></menu-single>
+											</td>
+										</tr>
+						      </tbody>
+						    </table>
+							</md-table-container>
+							<footer-table></footer-table>
+		        </md-content>
+					</div>
+	      </md-tab>
+	      <!-- Close tab locals -->
+	      
+	      <!-- Open tab history -->
+	      <md-tab label="{{'LB_HISTORY' | translate}}">
+					<md-content ng-controller="historyEntityCtrl">
+						<div ng-controller="myTableCtrl">
+							<toolbar-filter-in-tab></toolbar-filter-in-tab>
+							<toolbar-filter></toolbar-filter>
+							<md-table-container>
+						    <table md-table class="md-primary table-hover" md-progress="deferred">
+						      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+										<tr md-row>
+											<th md-column><span translate>LB_RUC</span></th>
+											<th md-column><span translate>LB_TRADENAME</span></th>
+											<th md-column><span translate>LB_AGENT</span></th>
+											<th md-column><span translate>LB_EVENT</span></th>
+										</tr>
+						      </thead>
+						      <tbody>
+										<tr md-row data-ng-repeat="row in rowsParent.data">
+											<td md-cell><span ng-bind-html="highlight(row.entidad_ruc)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.entidad_razonsocial)"></span></td>
+											<td md-cell>
+												<md-ico i=person s=18></md-ico><span ng-bind-html="highlight(row.representantelegal_nombre)"></span><br>
+												<div ng-if="row.representantelegal_ruc!=null">
+													<i-fa i=address-card></i-fa><span ng-bind-html="highlight(row.representantelegal_ruc)"></span>
+												</div>
+											</td>
+											<td md-cell>
+												<span ng-bind-html="highlight(row.entidad_registro)"></span><br>
+												<span ng-bind-html="highlight(row.usuario_login)"></span>
+											</td>
+										</tr>
+						      </tbody>
+						    </table>
+							</md-table-container>
+							<footer-table></footer-table>
+						</div>
+	        </md-content>
+				</md-tab>
+				<!-- Close tab history -->
+			</md-tabs>
+		</md-card>
+	</div>
+	
+</div>

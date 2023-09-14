@@ -1,0 +1,153 @@
+<div class="container">
+  <div class="center-block">
+    
+    <div class="col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-sm-12 col-xs-12 no-padding" style="z-index:1">
+      <!-- Slider -->
+      <div class="mlt-carousel">
+        <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            <div class="item" ng-class="[{'active':$first}]" ng-repeat="row in slides">
+              <img class="img-responsive center-block" ng-src="/app/src/img/gallery/{{row.slide_imagen}}" alt="step1">
+              <div class="item-content">
+                  <h3>{{row.slide_titulo}}</h3>
+                  <p>{{row.slide_descripcion}}</p>
+              </div>
+            </div>
+          </div>
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="{{$index}}" ng-class="[{'active':$first}]" ng-repeat="row in slides"></li>
+          </ol>
+        </div>
+        <!--mlt-carousel-->
+      </div>
+      <!-- Slider -->
+    </div>
+
+    <!-- Login -->
+    <div class="col-lg-6 col-lg-offset-right-1 col-md-6 col-md-offset-right-1 col-sm-12 col-xs-12 no-padding">
+      <div class="mlt-content">
+        <ul class="nav nav-tabs">
+					<li class="active"><a data-target="#login" data-toggle="tab" translate>LB_LOGIN</a></li>
+					<li><a data-target="#signup" data-toggle="tab" translate>LB_SIGN_UP</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content" ng-controller="signupCtrl">
+          <div class="tab-pane fade in active" id="login">
+						<form name="formClient" class="form-fa form-login" ng-submit="submitForm()">
+							<div class="box box-primary box-main">
+								<div class="box-header">
+							    <img alt="CBSD" src="/app/src/img/system/logo.png" class="img-responsive">
+								</div>
+								<div class="box-body" style="padding:8px 16px 0px">
+									<div class="form-group">
+										<i class="fa fa-address-card-o"></i>
+										<input class="form-control" placeholder="{{'LB_INPUT_LOGIN' | translate}}" maxlength=13 ng-model="frmParent.username" required autofocus />
+									</div>
+								</div>
+								<div class="box-footer" style="padding:8px 16px">
+									<button type="submit" class="btn btn-success btn-block">
+										<i class="fa fa-sign-in"></i> <span translate>BTN_LOGIN</span>
+									</button>
+								</div>
+								<div class="text-right option-link" style="padding-bottom:8px;">
+									<a class="md-padding" href="https://www.youtube.com/watch?v=DT_Xq15pC6Q" target="_blank">Aprende a usar la plataforma <i class="fa fa-info"></i></a>
+								</div>
+							</div>
+						</form>
+          </div>
+          <div class="tab-pane fade in" id="signup">
+						<form name="formSignUp" class="form-fa form-login" ng-submit="submitFormSignUp()">
+							<div class="box box-success no-margin">
+								<div class="box-header text-center text-uppercase">
+									<h3 class="box-title" translate>LB_MAIN_INFORMATION</h3>
+								</div>
+								<div class="box-body text-left" layout=column layout-padding>
+									<div layout-xs=column layout=row layout-padding>
+										<div class="form-group required" flex>
+											<label translate>LB_IDENTIFICATION_TYPE</label>
+									    <i-fa i=credit-card-alt></i-fa>
+									    <select class="form-control" ng-model="frmSignUp.entidad_contribuyente" required
+														ng-options="key as val for (key,val) in entityType"></select>
+										</div>
+										<div class="form-group required" flex ng-if=frmSignUp.entidad_contribuyente=='fiscal'>
+											<label translate>LB_AMIE</label>
+											<i-fa i=id-card></i-fa>
+											<input ng-model="frmSignUp.entidad_ruc" class="form-control" placeholder="Ej. 23H00052" required maxlength=10 />
+										</div>
+									</div>
+									<div class="form-group required" ng-if=frmSignUp.entidad_contribuyente=='fiscal'>
+										<label translate>LB_INSTITUTION_NAME</label>
+										<i-fa i=building></i-fa>
+										<input ng-model="frmSignUp.entidad_razonsocial" class="form-control" placeholder="Ej. U.E. Santo Domingo" required />
+									</div>
+								</div>
+							</div>
+							<div class="box box-danger">
+								<div class="box-header text-center text-uppercase">
+									<h3 class="box-title" ng-if=frmSignUp.entidad_contribuyente=='fiscal' translate>LB_INSTITUTION_DIRECTOR</h3>
+									<h3 class="box-title" ng-if=frmSignUp.entidad_contribuyente!='fiscal' translate>LB_PERSONAL_INFORMATION</h3>
+								</div>
+								<div class="box-body text-left" layout=column layout-padding>
+									<div layout-xs=column layout=row layout-padding>
+										<div class="form-group required" flex ng-if=frmSignUp.entidad_contribuyente=='fiscal'>
+											<label translate>LB_IDENTIFICATION_TYPE</label>
+											<i-fa i=credit-card></i-fa>
+											<select class="form-control" ng-model="frmSignUp.person.persona_tipo_doc" required
+														ng-options="key as val for (key,val) in identificationType"></select>
+										</div>
+										<div class="form-group required" flex>
+											<label translate>LB_IDENTIFICATION_NUMBER</label>
+											<i-fa i=id-card-o></i-fa>
+											<input ng-model="frmSignUp.person.persona_doc_identidad" class="form-control" placeholder="Ej. 1721953189" maxlength=13 required />
+										</div>
+									</div>
+									<div layout-xs=column layout=row layout-padding>
+										<div class="form-group required" flex>
+											<label translate>LB_LASTNAME</label>
+											<i-fa i=user></i-fa>
+											<input ng-model="frmSignUp.person.persona_apellidos" class="form-control" placeholder="Ej. Palacios Morales" required onkeypress="return alphaOnly(event)"  />
+										</div>
+										<div class="form-group required" flex>
+											<label translate>LB_NAME</label>
+											<i-fa i=user-o></i-fa>
+											<input ng-model="frmSignUp.person.persona_nombres" class="form-control" placeholder="Ej. Juan David" required onkeypress="return alphaOnly(event)"  />
+										</div>
+									</div>
+									<div class="form-group required">
+										<label translate>LB_MAIL</label>
+										<i-fa i=envelope-o></i-fa>
+										<input type=email ng-model="frmSignUp.person.persona_correo" class="form-control" placeholder="Ej. correo@live.com" required />
+									</div>
+									<div layout-xs=column layout=row layout-padding>
+										<div class=form-group flex>
+											<label translate>LB_TEL</label>
+									    <i-fa i=phone></i-fa>
+									    <input type="tel" ng-model="frmSignUp.person.persona_telefono" class="form-control" placeholder="Ej. 023741213" />
+										</div>
+										<div class="form-group required" flex>
+											<label translate>LB_MOBILE</label>
+									    <i-fa i=mobile></i-fa>
+									    <input type="tel" ng-model="frmSignUp.person.persona_celular" class="form-control" placeholder="Ej. 0985214763" required />
+										</div>
+									</div>
+								</div>
+								<div class="box-footer" style="padding:17px 17px 8px">
+									<button type="submit" class="btn btn-success btn-block" ng-disabled="formSignUp.$invalid">
+										<i class="fa fa-plus"></i> <span translate>LB_SIGN_UP</span>
+									</button>
+								</div>
+								<div class="text-right option-link" style="padding-bottom:8px;padding-right:17px;">
+									<a href="https://youtu.be/9miQSISkJ5E" target="_blank">Aprende a usar la plataforma <i class="fa fa-info"></i></a>
+								</div>
+							</div>
+						</form>
+          </div>
+        </div>
+      </div>
+      <!--Login-->
+      
+    </div>
+    <!--center-block-->
+  </div>
+  <!--container-->
+</div>

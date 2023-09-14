@@ -1,0 +1,41 @@
+<md-menu md-position-mode="target-right target" >
+  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+  </md-button>
+  <md-menu-content width="5">
+    <md-menu-item ng-if="row.permiso_estado=='SOLICITUD REGISTRADA' || row.permiso_estado=='SOLICITUD ANULADA' || row.permiso_estado=='SOLICITUD AUTORIZADA'">
+      <md-button aria-label="editar" ng-click="openParentModal('Personal_permisos',row)">
+          <div layout="row" flex>
+            <p flex translate>LB_EDIT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=edit></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="row.permiso_estado=='SOLICITUD REGISTRADA' || row.permiso_estado=='SOLICITUD AUTORIZADA'"></md-divider>
+    <md-menu-item ng-if="row.permiso_estado=='SOLICITUD REGISTRADA' || row.permiso_estado=='SOLICITUD AUTORIZADA'">
+      <md-button aria-label="editar" ng-click="openParentModal('Personal_permisos',mergeData(row,{permiso_estado:'SOLICITUD ANULADA'}))">
+          <div layout="row" flex>
+            <p class="text-danger text-bold" flex translate>LB_DELETE_REQUEST</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=delete></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="row.permiso_estado=='SOLICITUD REGISTRADA'"></md-divider>
+    <md-menu-item>
+      <md-button aria-label="editar" ng-click="exportWithDetail(row.permiso_id)">
+         <div layout="row" flex>
+           <p flex translate>LB_PRINT_SIMPLE_REQUEST</p>
+           <md-icon md-menu-align-target class="md-menu-btn-ico">
+             <md-ico i=print></md-ico>
+           </md-icon>
+         </div>
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

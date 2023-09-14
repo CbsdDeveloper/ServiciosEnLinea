@@ -1,0 +1,102 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitRequested()">
+	  <md-toolbar>
+	    <div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=money></md-ico></md-button>
+				<h2 class="md-flex" translate>MENU_TYPES_ADVANCES</h2>
+	      <span flex></span>
+	      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+	    </div>
+	  </md-toolbar>
+	  <md-dialog-content>
+	    <md-content layout=column layout-padding>
+	      
+				<!-- FORMULARIO DE REGISTRO -->
+				<div class="card card-outline card-dark no-margin" layout-padding>
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+					</div>
+					<div class="card-body padding-all" layout=column layout-padding>
+				    	
+				    	<div class="form-group required">
+								<label translate>LB_ADVANCE</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=money></md-ico></div></div> 
+							    <input class="form-control" ng-model="frmParent.tanticipo_nombre" placeholder="Ej. ANTICIPO 1" required />
+							  </div>
+							</div>
+							
+							<div class="form-group required" flex>
+								<label><span translate>LB_ENABLE_ADVANCE</span></label>
+								<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+						    	<select class="form-control" ng-model="frmParent.tanticipo_habilitado" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+						    </div>
+							</div>
+				    	
+				    	<div class="form-group required">
+								<label translate>LB_DETAIL</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+							    <textarea rows="3" class="form-control" ng-model="frmParent.tanticipo_detalle" placeholder="Ej. Permitir anticipos a personal con contrato" required></textarea>
+							  </div>
+							</div>
+							
+							<div layout=column layout-padding ng-if="frmParent.tanticipo_habilitado=='SI'">
+								
+					    	<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex>
+										<label><span translate>LB_WITHIN_THE_FISCAL_YEAR</span></label>
+										<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+								    	<select class="form-control" ng-model="frmParent.tanticipo_periodofiscal" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+								    </div>
+									</div>
+									<div class="form-group required" flex>
+										<label><span translate>LB_MONTHS_ALLOWED</span></label>
+										<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=format_list_numbered></md-ico></div></div> 
+								    	<input type="number" step="1" min="1" class="form-control" parse-float ng-model="frmParent.tanticipo_meses" placeholder="EJ. 12" required>
+								    </div>
+									</div>
+								</div>
+								
+								<div class="form-group required" flex>
+									<label><span translate>LB_ALLOW_COMMISSION_PAY</span></label>
+									<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=filter_list></md-ico></div></div> 
+							    	<select class="form-control" ng-model="frmParent.tanticipo_sueldoencargos" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+							    </div>
+								</div>
+								
+					    	<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex>
+										<label><span translate>LB_MINIMUM_SALARY_TO_APPLY</span></label>
+										<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+								    	<input type="number" step="1" min="0" class="form-control" parse-float ng-model="frmParent.tanticipo_sueldominimo" placeholder="EJ. 1" required>
+								    </div>
+									</div>
+									<div class="form-group required" flex>
+										<label><span translate>LB_MAXIMUM_SALARY_TO_APPLY</span></label>
+										<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+								    	<input type="number" step="1" min="0" class="form-control" parse-float ng-model="frmParent.tanticipo_sueldomaximo" placeholder="EJ. 5" required>
+								    </div>
+									</div>
+								</div>
+							
+							</div>
+							
+						</div>
+				</div>
+	    	
+	    </md-content>
+	  </md-dialog-content>
+	  <md-dialog-actions layout="row">
+			<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+			<span flex></span>
+			<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+		</md-dialog-actions>
+  </form>
+</md-dialog>

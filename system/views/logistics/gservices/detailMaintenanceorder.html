@@ -1,0 +1,258 @@
+﻿<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		
+		<card-maintenanceorder class="card-information" ng-if="detailConfig.show" flex></card-maintenanceorder>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=emoji_transportation></md-ico></md-button>
+						<h2><span translate="LB_ORDER_NUMBER_X" translate-values="{x:entity.orden_serie}"></span> [{{entity.orden_codigo}}]</h2>
+						
+						<span flex></span>
+						
+						<md-button aria-label="btn" class="md-icon-button" ng-click="reloadEntity()">
+							<md-ico i=refresh></md-ico>
+            	<md-tooltip><span translate>LB_REFRESH</span>
+						</md-button>
+						
+			      <md-button aria-label="btn" class="md-icon-button" ng-click="openModal('Gallery',{edit:false,fk_table:'ordenesmantenimiento',fk_id:entity.orden_id,media_tipo:'IMG'})">
+              <md-ico i=file_upload></md-ico>
+            	<md-tooltip><span translate>LB_UPLOAD_FILES</span>
+			      </md-button>
+						
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+            	<md-tooltip><span translate>LB_UPLOAD_FILES</span>
+						</md-button>
+						
+					</div>
+				</md-toolbar>
+				<md-tabs md-dynamic-height md-border-bottom>
+				
+					<!-- RESPONSABLES DEL REGISTRO -->
+					<md-tab label="{{'LB_REGISTRATION_APPROVAL' | translate}}">
+						<md-content layout=column layout-padding>
+							<div class="row no-margin no-padding">
+							
+							
+								<div class="col-md-4 col-xs-12">
+										<!-- DIRECTOR ADMINISTRATIVO -->
+										<div class="card card-outline card-primary text-center no-margin">
+											<div class="card-header text-center">
+												<h3 class="card-title" translate>LB_ADMINISTRATIVE_DIRECTOR</h3>
+											</div>
+											<div class="card-body card-entity-information">
+												<img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{entity.administrative.staff.person.persona_imagen}}" style="width:128px;height:128px;padding:5px;margin:auto" class="img-circle" alt="img" />
+												<h4>{{entity.administrative.staff.person.persona_apellidos}} {{entity.administrative.staff.person.persona_nombres}}</h4>
+												<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+										    <p class="text-muted">{{entity.administrative.staff.person.persona_doc_identidad}}</p>
+										    <hr>
+												<strong><md-ico i=wrap_text s=18></md-ico> <span translate>LB_JOB</span></strong>
+										    <p class="text-muted">{{entity.administrative.job.leadership.direccion_nombre}}<br>{{entity.administrative.job.puesto_nombre}}</p>
+											</div>
+										</div>
+								</div>
+								
+								<div class="col-md-4 col-xs-12">
+										<!-- SOLICITANTE -->
+										<div class="card card-outline card-primary text-center no-margin">
+											<div class="card-header text-center">
+												<h3 class="card-title" translate>LB_PERSON_REQUESTING</h3>
+											</div>
+											<div class="card-body card-entity-information">
+												<img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{entity.requested.staff.person.persona_imagen}}" style="width:128px;height:128px;padding:5px;margin:auto" class="img-circle" alt="img" />
+												<h4>{{entity.requested.staff.person.persona_apellidos}} {{entity.requested.staff.person.persona_nombres}}</h4>
+												<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+										    <p class="text-muted">{{entity.requested.staff.person.persona_doc_identidad}}</p>
+										    <hr>
+												<strong><md-ico i=wrap_text s=18></md-ico> <span translate>LB_JOB</span></strong>
+										    <p class="text-muted">{{entity.requested.job.leadership.direccion_nombre}}<br>{{entity.requested.job.puesto_nombre}}</p>
+											</div>
+										</div>
+								</div>
+								
+								<div class="col-md-4 col-xs-12">
+										<!-- RESPOSABLE DE REGISTRO -->
+										<div class="card card-outline card-primary text-center no-margin">
+											<div class="card-header text-center">
+												<h3 class="card-title" translate>LB_RESPONSIBLE_FOR_REGISTRATION</h3>
+											</div>
+											<div class="card-body card-entity-information">
+												<img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{entity.gservices.staff.person.persona_imagen}}" style="width:128px;height:128px;padding:5px;margin:auto" class="img-circle" alt="img" />
+												<h4>{{entity.gservices.staff.person.persona_apellidos}} {{entity.gservices.staff.person.persona_nombres}}</h4>
+												<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+										    <p class="text-muted">{{entity.gservices.staff.person.persona_doc_identidad}}</p>
+										    <hr>
+												<strong><md-ico i=wrap_text s=18></md-ico> <span translate>LB_JOB</span></strong>
+										    <p class="text-muted">{{entity.gservices.job.leadership.direccion_nombre}}<br>{{entity.gservices.job.puesto_nombre}}</p>
+											</div>
+										</div>
+								</div>
+								
+							</div>
+						</md-content>
+					</md-tab>
+				
+					<!-- DETALLE DEL MANTENIMIENTO -->
+					<md-tab label="{{'LB_MAINTENANCE_DETAIL' | translate}}">
+						<md-content layout=column layout-padding>
+							
+							<!-- TRABAJOS A REALIZAR -->
+							<div class="card card-outline card-primary no-margin" layout-padding>
+								<div class="card-header text-center">
+								  <h3 class="card-title" translate>LB_WORKS_TO_REALIZE</h3>
+								</div>
+								<div class="card-body no-padding">
+						    	<table class="table table-condensed no-margin">
+						    		<thead>
+						    			<tr>
+						    				<th class="text-center" style="width:50px"><span>#</span></th>
+						    				<th><span translate>LB_DETAIL</span></th>
+						    				<th class="text-center" style="width:60px;"><span translate>LB_ACTION</span></th>
+						    			</tr>
+						    		</thead>
+						    		<tbody>
+						    			<tr ng-repeat="(key,item) in entity.performed">
+							    			<td class="text-center">{{key + 1}}</td>
+							    			<td><input type="text" class="form-control input-sm" ng-model="item.trabajo_descripcion" placeholder="Ej. Revisión de bomba de cebado" required /></td>
+							    			<td><button type="button" class="btn btn-danger btn-sm" ng-click="removeItem(item,'actionsList')"><i-fa i=trash></i-fa></button></td>
+							    		</tr>
+						    		</tbody>
+						    	</table>
+								</div>
+								<div class="card-footer text-right">
+									<button type="button" class="btn btn-primary btn-sm" ng-click="addJobToDo('actionsList')"><i-fa i=plus></i-fa> <span translate>LB_NEW</span></button>
+								</div>
+							</div>
+							
+							<!-- TRABAJOS SUGERIDOS POR EL CONTRATISTA -->
+							<div class="card card-outline card-primary no-margin margin-top" layout-padding>
+								<div class="card-header text-center">
+								  <h3 class="card-title" translate>LB_SUGGESTED_WORK_BY_CONTRACTOR</h3>
+								</div>
+								<div class="card-body no-padding">
+						    	<table class="table table-condensed no-margin">
+						    		<thead>
+						    			<tr>
+						    				<th class="text-center" style="width:50px"><span>#</span></th>
+						    				<th><span translate>LB_DETAIL</span></th>
+						    				<th class="text-center" style="width:60px;"><span translate>LB_ACTION</span></th>
+						    			</tr>
+						    		</thead>
+						    		<tbody>
+						    			<tr ng-repeat="(key,item) in entity.suggested">
+							    			<td class="text-center">{{key + 1}}</td>
+							    			<td><input type="text" class="form-control input-sm" ng-model="item.trabajo_descripcion" placeholder="Ej. Revisión de bomba de cebado" required /></td>
+							    			<td><button type="button" class="btn btn-danger btn-sm" ng-click="removeItem(item,'suggestedList')"><i-fa i=trash></i-fa></button></td>
+							    		</tr>
+						    		</tbody>
+						    	</table>
+								</div>
+								<div class="card-footer text-right">
+									<button type="button" class="btn btn-primary btn-sm" ng-click="addJobToDo('suggestedList')"><i-fa i=plus></i-fa> <span translate>LB_NEW</span></button>
+								</div>
+							</div>
+							
+						</md-content>
+					</md-tab>
+					
+					<!-- ANEXOS Y PAGO -->
+					<md-tab label="{{'LB_ANNEXES_AND_PAYMENT' | translate}}">
+						<md-content layout=column layout-padding>
+						
+						
+								<!-- ANEXOS -->
+								<div class="card card-outline card-primary no-margin" layout-padding>
+									<div class="card-header text-center">
+									  <h3 class="card-title" translate>LB_ANNEXES</h3>
+									</div>
+									<div class="card-body no-padding">
+							    	<table class="table table-condensed no-margin">
+							    		<thead>
+							    			<tr>
+							    				<th class="text-center" style="width:50px"><span>#</span></th>
+							    				<th><span translate>LB_DETAIL</span></th>
+							    				<th class="text-center" style="width:60px;"><span translate>LB_ACTION</span></th>
+							    			</tr>
+							    		</thead>
+							    		<tbody>
+							    			<tr ng-repeat="(key,item) in entity.annexxes">
+								    			<td class="text-center">{{key + 1}}</td>
+								    			<td><input type="text" class="form-control input-sm" ng-model="item.anexo_descripcion" placeholder="Ej. Revisión de bomba de cebado" required /></td>
+								    			<td><button type="button" class="btn btn-danger btn-sm" ng-click="removeItem(item,'anexxesList')"><i-fa i=trash></i-fa></button></td>
+								    		</tr>
+							    		</tbody>
+							    	</table>
+									</div>
+									<div class="card-footer text-right">
+										<button type="button" class="btn btn-primary btn-sm" ng-click="addJobToDo('anexxesList')"><i-fa i=plus></i-fa> <span translate>LB_NEW</span></button>
+									</div>
+								</div>
+								
+						
+						</md-content>
+					</md-tab>
+					
+					<!-- ANEXO FOTOGRAFICO -->
+					<md-tab label="{{'LB_PHOTO_ANNEX' | translate}}">
+						<div class="md-padding gallery-columns" layout-padding>
+						
+									<div class="figure-gallery" ng-repeat="row in entity.gallery">
+										<div class="card card-outline card-info no-margin">
+											
+											<div class="card-header with-border">
+					              
+					              <div class="user-block">
+					                <img class="img-circle" src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{row.user.person.persona_imagen}}" alt="User Image">
+					                <span class="username">
+					                	<a href="#">{{row.user.usuario}}</a><br>
+					                	<small class="text-muted"><i-fa i=clock-o></i-fa> {{row.media_registro}}</small>
+					                </span>
+					              </div>
+					              
+					              <div class="card-tools padding-all">
+				                	<button type="button" class="btn btn-tool" ng-click="openModal('Gallery',row)" ng-if="allow.permiso60671">
+				                		<md-ico i=edit s=18></md-ico>
+				                	</button>
+				                	<button type="button" class="btn btn-tool" ng-click="openModal('Gallery',row)" ng-if="allow.permiso60671">
+				                		<md-ico i=delete s=18></md-ico>
+				                	</button>
+					              </div>
+					              
+					            </div>
+					            
+					            <div class="card-body text-center no-padding">
+					            	<div ng-if="row.media_tipo=='IMG'">
+						              <img class="img-responsive pad" ng-src="/app/src/img/gallery/{{row.media_nombre}}" alt="Photo">
+					            	</div>
+					            	<div ng-if="row.media_tipo!='IMG'" class="md-padding">
+						              <a target="_blank" ng-href="{{setting.uri.img}}gallery/{{row.media_nombre}}" alt="Photo">
+					            			<i-fa i={{string2JSON('iFaIconList')[row.media_tipo]}} s=4x></i-fa><br> 
+						              	{{string2JSON('fileTypeList')[row.media_tipo]}}
+						              </a>
+					            	</div>
+					            </div>
+					            
+					            <div class="card-footer box-comments">
+					              <div class="box-comment">
+					                <div class="comment-text text-justify no-margin ">
+			                      <md-ico i=flag s=18></md-ico> <span>{{row.media_titulo}}</span>
+			                      <br>
+			                  		<i>{{row.media_descripcion}}</i>
+					                </div>
+					              </div>
+					            </div>
+					            
+					          </div>
+									</div>
+						
+						</div>
+					</md-tab>
+										
+				</md-tabs>
+			</md-card>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,26 @@
+<div class="container-img-user">
+	<img class="profile-user-img img-responsive" src="/app/src/img/users/default.png" alt="profile">
+</div>
+<hr>
+<strong><i-fa i=user></i-fa> <span translate>LB_FULLNAME</span></strong>
+<p>{{entity.persona_apellidos}} {{entity.persona_nombres}}</p>
+<hr>
+<strong><i-fa i=id-card-o></i-fa> <span translate>LB_IDENTIFICATION_TYPE</span></strong>
+<p>{{string2JSON('identificationType')[entity.persona_tipo_doc]}}</p>
+<hr>
+<strong><i-fa i=id-card></i-fa> <span translate>LB_IDENTIFICATION_NUMBER</span></strong>
+<p>{{entity.persona_doc_identidad}}</p>
+<hr>
+<strong><i-fa i=signal></i-fa> <span translate>LB_TITLE_LEVEL</span></strong>
+<p>{{academicLevelList[entity.formacion_nivel]}}</p>
+<hr>
+<strong><i-fa i=university></i-fa> <span translate>LB_INSTITUTION</span></strong>
+<p>{{entity.formacion_institucion}}</p>
+<div ng-if="entity.formacion_nivel!='BACHILLER' && entity.formacion_nivel!=null">
+	<hr>
+	  <strong><i-fa i=mortar-board></i-fa> <span translate>LB_TITLE_NAME</span></strong>
+	  <p>{{entity.formacion_titulo}}</p>
+	<hr>
+	  <strong><i-fa i=copyright></i-fa> <span translate>LB_TITLE_SENESCYT</span></strong>
+	  <p>{{entity.formacion_senescyt}}</p>
+</div>

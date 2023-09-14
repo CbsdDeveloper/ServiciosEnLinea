@@ -1,0 +1,80 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg" ng-controller="guardsExtendsCtrl">
+  <form name="formData">
+	<md-toolbar>
+	  <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=how_to_reg></md-ico></md-button>
+			<h2 translate>TOOLBAR_GUARDS</h2>
+	    <span flex></span>
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+	  </div>
+	</md-toolbar>
+	<md-dialog-content>
+		<md-content layout=column layout-padding>		
+					
+				<!-- FORMULARIO DE REGISTRO -->
+				<div class="box box-success no-margin" layout-padding>
+					<div class="box-header text-center">
+					  <h3 class="box-title" translate>LB_REGISTRATION_FORM</h3>
+					</div>
+					<div class="box-body padding-all" layout=column layout-padding>
+						
+			    	<div layout-xs=column layout=row layout-padding>
+			    		<div class="form-group required" flex>
+								<label translate>LB_PLATOON</label>
+								<div class="input-group">
+									<span class="input-group-addon"><md-ico i=nature_people></md-ico></span>
+									<select class="form-control" ng-model="frmParent.fk_peloton_id" required ng-options="row.fk_dist_pelo_id as (row.estacion_nombre+' '+row.peloton_nombre) for row in frmParent.distribution"></select>
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_REGISTRE_DATE</label>
+								<div class="input-group">
+									<span class="input-group-addon"><md-ico i=account_circle></md-ico></span>
+									<select class="form-control" ng-model="frmParent.guardia_fecha_tipo" required ng-options="key as val for (key,val) in string2JSON('inputDataType')"></select>
+								</div>
+							</div>
+				    	<div class="form-group required" flex ng-if="frmParent.guardia_fecha_tipo=='MANUAL' || toogleEditMode">
+				    		<label translate>LB_REGISTRE_DATE</label>
+							  <div class="input-group" max-date="today" start-view="day" moment-picker="frmParent.guardia_fecha" format="YYYY-MM-DD">
+									<span class="input-group-addon"><md-ico i=event></md-ico></span>
+									<input class="form-control" ng-model="frmParent.guardia_fecha" ng-model-options="{ updateOn: 'blur' }" required>
+								</div>
+				    	</div>
+				    </div>
+
+			    	<div layout-xs=column layout=row layout-padding ng-if="frmParent.fk_peloton_id>0">
+							<div class="form-group required" flex>
+								<label translate>LB_GUARDIAN_RESPONSIBLE</label>
+								<div class="input-group">
+									<span class="input-group-addon"><md-ico i=nature_people></md-ico></span>
+									<select class="form-control" ng-model="frmParent.fk_responsable_guardia" required ng-options="row.ppersonal_id as row.personal_nombre for row in frmParent.staff[frmParent.fk_peloton_id]"></select>
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_GUARD_SUBALTER</label>
+								<div class="input-group">
+									<span class="input-group-addon"><md-ico i=nature_people></md-ico></span>
+									<select class="form-control" ng-model="frmParent.fk_subalterno_guardia" ng-options="row.ppersonal_id as row.personal_nombre for row in frmParent.staff[frmParent.fk_peloton_id]"></select>
+								</div>
+							</div>
+						</div>
+						
+			    	<div class="form-group required">
+			    		<label translate>LB_NEWS</label>
+						  <div class="input-group">
+								<span class="input-group-addon"><md-ico i=comment></md-ico></span>
+								<textarea rows="10" class="form-control" ng-model="frmParent.guardia_novedades" required></textarea>
+							</div>
+			    	</div>
+					</div>
+				</div>
+				
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="button" ng-click="submitForm()" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

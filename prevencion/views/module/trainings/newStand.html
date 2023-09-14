@@ -1,0 +1,184 @@
+<!-- PASO 1 -->
+<div layout-padding>
+	<div flex class="box box-primary collapsed-box no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+			<div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+	     </div>
+		</div>
+		<div class="box-body box-bg-info">
+			<div ng-bind-html="trustAsHtml(paramsConf.INFO_NEW_STAND)"></div>
+		</div>
+	</div>
+</div>
+<form name="formData" class=no-padding layout-xs=column layout=row layout-padding ng-submit="submitForm()">
+	
+	<!-- INFORMACION DE SOLICITUD -->
+	<div flex>
+		
+		<!-- INFORMACION DE STAND -->
+		<div class="box box-info no-margin">
+			<div class="box-header text-center">
+				<h3 class="box-title" translate>LB_STAND_INFORMATION</h3>
+			</div>
+			<div class="box-body md-padding" layout=column layout-padding>
+				<div class="form-group required" flex>
+					<label translate>LB_NAME_OF_THE_APPLICANT_ENTITY</label>
+					<div class="input-group" flex>
+						<span class="input-group-addon"><md-ico i=business></md-ico></span>
+				    <input ng-model="frmParent.stand.stand_entidad" class="form-control" placeholder="Ej. U.E. Santo Domingo" required>
+					</div>
+				</div>
+				<div class="form-group required" flex>
+					<label translate>LB_THEME_TO_SOCIALIZE</label>
+					<div class="input-group" flex>
+						<span class="input-group-addon"><md-ico i=book></md-ico></span>
+				    <input ng-model="frmParent.stand.stand_tema" class="form-control" placeholder="Ej. Demostración del control de Incendios en lugares cerrados" required>
+					</div>
+				</div>
+				<div class="form-group required" flex>
+					<label translate>LB_DESCRIPTION</label>
+					<div class="input-group" flex>
+						<span class="input-group-addon"><md-ico i=comment></md-ico></span>
+				    <textarea ng-model="frmParent.stand.stand_descripcion" class="form-control" placeholder="Ej. Describa las actividades que desea sean realizadas por el Cuerpo de Bomberos SD" required></textarea>
+					</div>
+				</div>
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_EVENT_PEOPLE</label>
+						<div class="input-group" flex>
+							<span class="input-group-addon"><md-ico i=people></md-ico></span>
+					    <input parse-float type="number" step="1" min=1 max=1000 class="form-control" ng-model="frmParent.stand.stand_auditorio" placeholder="Ej. 80" required>
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_CHOOSE_TIME</label>
+						<div class="input-group" flex>
+							<span class="input-group-addon"><md-ico i=access_time></md-ico></span>
+							<select class="form-control select2" ng-model="frmParent.date" required ng-options="val as val.stand_fecha for (key,val) in dataEntity"></select>
+						</div>
+					</div>
+				</div>
+				<div class="form-group required" flex>
+					<label translate>LB_PARISH</label>
+					<div class="input-group" flex>
+						<span class="input-group-addon"><md-ico i=public></md-ico></span>
+						<select class="form-control select2" ng-model="frmParent.stand.stand_parroquia" required ng-options="val as val for (key,val) in string2JSON('parishesList')"></select>
+					</div>
+				</div>
+				<div class="form-group required" flex>
+					<label translate>LB_ADDRESS</label>
+					<div class="input-group" flex>
+						<span class="input-group-addon"><md-ico i=directions></md-ico></span>
+				    <input ng-model="frmParent.stand.stand_direccion" class="form-control" placeholder="Ej. Av. Quevedo" required>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- INFORMACION DE COORDINADOR -->
+		<div class="box box-info no-margin margin-top">
+			<div class="box-header text-center">
+				<h3 class="box-title" translate>LB_COORDINATOR</h3>
+			</div>
+			<div class="box-body" layout-padding>
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_IDENTIFICATION_TYPE</label>
+						<div class="input-group" flex>
+							<span class="input-group-addon"><md-ico i=flag></md-ico></span>
+							<select class="form-control select2" ng-model="frmParent.coordinator.persona_tipo_doc" required ng-options="key as val for (key,val) in string2JSON('identificationType')"></select>
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_IDENTIFICATION_NUMBER</label>
+						<div class="input-group" flex>
+							<span class="input-group-addon"><md-ico i=credit_card></md-ico></span>
+							<input ng-model="frmParent.coordinator.persona_doc_identidad" class="form-control" placeholder="Ej. 230005478961" required>
+							<span class="input-group-btn"><button type="button" ng-click="searchPersonInformation(frmParent.coordinator.persona_doc_identidad,'frmParent','coordinator')" class="btn btn-info btn-flat"><i-fa i=search></i-fa></button></span>
+						</div>
+					</div>
+				</div>
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_LASTNAME</label>
+						<div class="input-group" flex>
+							<span class="input-group-addon"><md-ico i=person></md-ico></span>
+							<input ng-model="frmParent.coordinator.persona_apellidos" class="form-control" placeholder="Ej. Pinargote Bayas" required>
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_NAME</label>
+						<div class="input-group" flex>
+							<span class="input-group-addon"><md-ico i=person_outline></md-ico></span>
+					    <input ng-model="frmParent.coordinator.persona_nombres" class="form-control" placeholder="Ej. Julian Emiliano" required>
+						</div>
+					</div>
+				</div>
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_CELL_PHONE</label>
+						<div class="input-group" flex>
+							<span class="input-group-addon"><md-ico i=phone_iphone></md-ico></span>
+							<input ng-model="frmParent.coordinator.persona_celular" class="form-control" placeholder="Ej. 0987456321" required maxlength=13>
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_MAIL</label>
+						<div class="input-group" flex>
+							<span class="input-group-addon"><md-ico i=mail></md-ico></span>
+							<input type="email" ng-model="frmParent.coordinator.persona_correo" class="form-control" placeholder="Ej. cooreeo@live.com" required>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<!-- INFORMACION DE FORMULARIIO -->
+	<div flex>
+		<div class="box box-danger text-center no-margin">
+			<div class="box-header">
+				<h3 class="box-title"><i-fa i=info-circle s=2x></i-fa></h3>
+			</div>
+			<div class="box-body">
+		    <strong><i-fa i=calendar></i-fa> <span translate>LB_DATE</span></strong>
+		    <p class="text-muted"><div ng-bind-html="frmParent.date.stand_fecha"></div></p>
+		    <hr>
+		    <strong><i-fa i=calendar-times-o></i-fa> <span translate>LB_CONFIRMATION_DATE</span></strong>
+		    <p class="text-muted text-capitalize faa-ring faa-slow animated"><label class="label label-danger">{{frmParent.date.stand_confirmacion | date: 'fullDate'}}</label></p>
+		    <hr>
+		    <strong><i-fa i=building></i-fa> <span translate>LB_ENTITY</span></strong>
+		    <p class="text-muted"><div ng-bind-html="frmParent.stand.stand_entidad"></div></p>
+		    <hr>
+		    <strong><i-fa i=book></i-fa> <span translate>LB_TOPIC</span></strong>
+		    <p class="text-muted"><div ng-bind-html="frmParent.stand.stand_tema"></div></p>
+		    <hr>
+		    <strong><i-fa i=comments></i-fa> <span translate>LB_DESCRIPTION</span></strong>
+		    <p class="text-muted"><div ng-bind-html="frmParent.stand.stand_descripcion"></div></p>
+		    <hr>
+		    <strong><i-fa i=globe></i-fa> <span translate>LB_PARRISH</span></strong>
+		    <p class="text-muted"><div ng-bind-html="(frmParent.stand.stand_parroquia)"></div></p>
+		    <hr>
+		    <strong><i-fa i=map-signs></i-fa> <span translate>LB_ADDRESS</span></strong>
+		    <p class="text-muted"><div ng-bind-html="(frmParent.stand.stand_direccion)"></div></p>
+		    <hr>
+		    <strong><i-fa i=user-o></i-fa> <span translate>LB_COORDINATOR</span></strong>
+		    <p class="text-muted"><div ng-bind-html="(frmParent.coordinator.persona_apellidos+' '+frmParent.coordinator.persona_nombres)"></div></p>
+			</div>
+			<div class="box-footer">
+				<button class="btn btn-success btn-block" type="submit" ng-disabled="formData.$invalid" ng-click="saveEntity()">
+					<i class="fa fa-save fa-fw"></i>
+					<span translate>LB_SAVE</span>
+				</button>
+				<button class="btn btn-warning btn-block" type="button" ng-click="exitEntity()">
+					<i class="fa fa-undo fa-fw"></i>
+					<span translate>BTN_CANCEL</span>
+				</button>
+			</div>
+		</div>
+	</div>
+
+</form>

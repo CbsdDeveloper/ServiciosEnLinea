@@ -1,0 +1,93 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitFormFile()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button class="md-icon-button"><md-ico i=school></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_ACADEMIC_TRAINING</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	<div class="form-group required">
+				<label translate>LB_TITLE_LEVEL</label>
+			  <div class="input-group">
+			    <span class="input-group-addon"><md-ico i=school></md-ico></span>
+			    <select class="form-control" ng-model="frmParent.formacion_nivel" required
+									ng-options="key as val for (key,val) in string2JSON('academicLevelList')"></select>
+			  </div>
+			</div>
+    	<div class="form-group required">
+				<label translate>LB_TITLE_NAME</label>
+			  <div class="input-group">
+			    <span class="input-group-addon"><md-ico i=fingerprint></md-ico></span>
+					<input class="form-control" ng-model="frmParent.formacion_titulo" placeholder="Ej. Ingeniero Civil" required />
+			  </div>
+			</div>
+    	<div class="form-group required">
+				<label translate>LB_INSTITUTION</label>
+			  <div class="input-group">
+			    <span class="input-group-addon"><md-ico i=business></md-ico></span>
+			    <input class="form-control" ng-model="frmParent.formacion_institucion" placeholder="Ej. Universidad Central" required >
+			  </div>
+			</div>
+			<div class="form-group required" flex>
+				<label translate>LB_STATUS</label>
+			  <div class="input-group">
+					<span class="input-group-addon"><md-ico i=flag></md-ico></span>
+					<select class="form-control" ng-model="frmParent.formacion_estado" required
+									ng-options="val as val for (key,val) in string2JSON('academicTrainingStatus')"></select>
+				</div>
+			</div>
+    	<div layout-xs=column layout=row layout-padding ng-if="frmParent.formacion_estado=='FINALIZADO'">
+	    	<div class="form-group required" flex>
+	    		<label ng-if="frmParent.formacion_nivel=='BACHILLER'"><a href="http://servicios.educacion.gob.ec/titulacion25-web/faces/paginas/consulta-titulos-refrendados.xhtml" target="blank_" translate>LB_REFLECTION_BACHILLER</a></label>
+	    		<label ng-if="frmParent.formacion_nivel!='' && frmParent.formacion_nivel!='BACHILLER'"><a href="http://www.senescyt.gob.ec/web/guest/consultas" target="blank_" translate>LB_TITLE_SENESCYT</a></label>
+				  <div class="input-group">
+				    <span class="input-group-addon"><md-ico i=copyright></md-ico></span>
+				    <input class="form-control" ng-model="frmParent.formacion_senescyt" placeholder="Ej. 2365478912" required />
+				  </div>
+				</div>
+				<div class="form-group required" flex >
+					<label ng-if="frmParent.formacion_nivel=='BACHILLER'" translate>LB_DATE_DEGREE</label>
+					<label ng-if="frmParent.formacion_nivel!='' && frmParent.formacion_nivel!='BACHILLER'" translate>LB_REGISTRE_DATE</label>
+					<div class="input-group" moment-picker="frmParent.formacion_fregistro" format="YYYY-MM-DD" max-date="today" min-date="frmParent.formacion_fsalida">
+						<span class="input-group-addon"><md-ico i=event></md-ico></span>
+						<input ng-model="frmParent.formacion_fregistro" ng-model-options="{ updateOn: 'blur' }" class="form-control" placeholder="Ej. 2017-07-07" required />
+					</div>
+				</div>
+    	</div>
+    	<div layout-xs=column layout=row layout-padding>
+				<div class="form-group" flex>
+					<label translate>LB_BEGIN_STUDY</label>
+				  <div class="input-group" moment-picker="frmParent.formacion_fingreso" format="YYYY-MM-DD" max-date="today">
+						<span class="input-group-addon"><md-ico i=event_note></md-ico></span>
+						<input ng-model="frmParent.formacion_fingreso" ng-model-options="{ updateOn: 'blur' }" class="form-control" placeholder="Ej. 2017-07-07" />
+					</div>
+				</div>
+				<div class="form-group" flex ng-if="frmParent.formacion_estado=='FINALIZADO'">
+					<label translate>LB_END_STUDY</label>
+					<div class="input-group" moment-picker="frmParent.formacion_fsalida" format="YYYY-MM-DD" max-date="today">
+						<span class="input-group-addon"><md-ico i=event_available></md-ico></span>
+						<input ng-model="frmParent.formacion_fsalida" ng-model-options="{ updateOn: 'blur' }" class="form-control" placeholder="Ej. 2017-07-07" />
+					</div>
+				</div>
+			</div>
+			
+	    <div class="form-group" ng-class="{'required':!toogleEditMode}" ng-if="frmParent.formacion_estado=='FINALIZADO'">
+				<label translate>LB_VERIFICATION_SOURCE</label>
+		    <div class="input-group">
+		      <span class="input-group-addon"><md-ico i=attachment></md-ico></span>
+		      <input uploader-model="frmParent.formacion_file" type="file" accept="{{string2JSON('fileTypeMime')['PDF']}}" class="form-control" ng-required="!toogleEditMode" />
+		    </div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

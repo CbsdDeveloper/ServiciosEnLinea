@@ -1,0 +1,97 @@
+<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+	
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=receipt_long></md-ico>
+				<md-tooltip><span translate>LB_FIRE_EXTINGUISHER_INSPECTION</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.textFilter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_MAIN_TOOLBAR' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.textFilter!=''" ng-click="filterParent.textFilter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()" ng-if="true">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="">
+     	<col style="">
+     	<col style="width:20%">
+     	<col style="width:3%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_EQUIPMENTS</span></th>
+					<th md-column><span translate>LB_RESPONSIBILITY</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td md-cell class="text-uppercase">
+						<div>
+							<md-ico i=receipt_long></md-ico> <span ng-bind-html="highlight(row.inspeccion_codigo)"></span>
+							<md-tooltip>{{'LB_CODE' | translate}}</md-tooltip>
+						</div>
+						
+						<div>
+							<md-ico i=event></md-ico> {{row.inspeccion_fecha | date:'fullDate'}}
+							<md-tooltip>{{'LB_REGISTRE_DATE' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=class></md-ico> <span ng-bind-html="highlight(row.inspeccion_periodo)"></span>
+							<md-tooltip>{{'LB_PERIOD' | translate}}</md-tooltip>
+						</div>
+						
+						<div>
+							<md-ico i=assistant_photo></md-ico> <span ng-bind-html="highlight(row.station.estacion_nombre+' - '+row.station.estacion_nombre_alterno)"></span>
+							<md-tooltip>{{'LB_STATION' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=person></md-ico> <span ng-bind-html="highlight(row.stationresponsible.staff.person.persona_apellidos+' '+row.stationresponsible.staff.person.persona_nombres)"></span><br>
+							<md-ico i=wrap_text></md-ico> <span ng-bind-html="highlight(row.stationresponsible.job.puesto_nombre)"></span>
+							<md-tooltip>{{'LB_STATION_MANAGER' | translate}} {{row.station.estacion_nombre}}</md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+					
+						<div>
+							<md-ico i=person></md-ico> <span ng-bind-html="highlight(row.sos.staff.person.persona_apellidos+' '+row.sos.staff.person.persona_nombres)"></span><br>
+							<md-ico i=wrap_text></md-ico> <span ng-bind-html="highlight(row.sos.job.puesto_nombre)"></span>
+							<md-tooltip>{{'LB_SOS_ANALYST' | translate}}</md-tooltip>
+						</div>
+					
+						<div>
+							<md-ico i=person></md-ico> <span ng-bind-html="highlight(row.registre.staff.person.persona_apellidos+' '+row.registre.staff.person.persona_nombres)"></span><br>
+							<md-ico i=wrap_text></md-ico> <span ng-bind-html="highlight(row.registre.job.puesto_nombre)"></span>
+							<md-tooltip>{{'LB_RESPONSIBLE_FOR_REGISTRATION' | translate}}</md-tooltip>
+						</div>
+						
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.inspeccion_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.inspeccion_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.user.person.persona_apellidos+' '+row.user.person.persona_nombres)"></span>
+					</td>
+					<td md-cell>
+						<menu-inspection-fextinguisher></menu-inspection-fextinguisher>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	
+	<footer-table></footer-table>
+	
+</md-card>

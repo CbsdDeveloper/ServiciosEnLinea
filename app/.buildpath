@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="api"/>
+	<buildpathentry kind="src" path="controller"/>
+	<buildpathentry kind="src" path="service"/>
+	<buildpathentry kind="src" path="model"/>
+</buildpath>

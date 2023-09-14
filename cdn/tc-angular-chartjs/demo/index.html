@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html data-ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>tc-angular-chartjs</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <style>
+    .tc-chart-js-legend {
+      list-style-type: none;
+      padding-left: 0px;
+    }
+    .tc-chart-js-legend li {
+      display: block;
+      padding:10px;
+    }
+    .tc-chart-js-legend li span {
+      width:25px;
+      height:25px;
+      display:block;
+      float:left;
+      margin-right:10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>tc-angular-chartjs</h1>
+
+  <hr>
+
+  <div class="row" ng-controller="LineController">
+    <div class="col-md-12">
+      <h2>Line Chart</h2>
+    </div>
+    <div class="col-md-8">
+      <canvas
+        tc-chartjs-line
+        chart-data="chartData"
+        chart-options="chartOptions"
+        chart-click="onChartClick(event)"
+        chart-legend="lineChart"
+      ></canvas>
+    </div>
+    <div class="col-md-4">
+      <div tc-chartjs-legend chart-legend="lineChart" class="tc-chart-js-legend"></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row" ng-controller="BarController">
+    <div class="col-md-12">
+      <h2>Bar Chart</h2>
+    </div>
+    <div class="col-md-8">
+      <canvas
+        tc-chartjs-bar
+        chart-data="chartData"
+        chart-options="chartOptions"
+        chart-click="onChartClick(event)"
+        chart-legend="barChart"
+      ></canvas>
+    </div>
+    <div class="col-md-4">
+      <div tc-chartjs-legend chart-legend="barChart" class="tc-chart-js-legend"></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row" ng-controller="BarController">
+    <div class="col-md-12">
+      <h2>Horizontal Bar Chart</h2>
+    </div>
+    <div class="col-md-8">
+      <canvas
+        tc-chartjs-horizontalbar
+        chart-data="chartData"
+        chart-options="chartOptions"
+        chart-click="onChartClick(event)"
+        chart-legend="horizontalBarChart"
+      ></canvas>
+    </div>
+    <div class="col-md-4">
+      <div tc-chartjs-legend chart-legend="horizontalBarChart" class="tc-chart-js-legend"></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row" ng-controller="BubbleController">
+    <div class="col-md-12">
+      <h2>Bubble Chart</h2>
+    </div>
+    <div class="col-md-8">
+      <canvas
+        tc-chartjs-bubble
+        chart-data="chartData"
+        chart-options="chartOptions"
+        chart-click="onChartClick(event)"
+        chart-legend="bubbleChart"
+      ></canvas>
+    </div>
+    <div class="col-md-4">
+      <div tc-chartjs-legend chart-legend="bubbleChart" class="tc-chart-js-legend"></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row" ng-controller="RadarController">
+    <div class="col-md-12">
+      <h2>Radar Chart</h2>
+    </div>
+    <div class="col-md-8">
+      <canvas
+        tc-chartjs-radar
+        chart-data="chartData"
+        chart-options="chartOptions"
+        chart-click="onChartClick(event)"
+        chart-legend="radarChart"
+      ></canvas>
+    </div>
+    <div class="col-md-4">
+      <div tc-chartjs-legend chart-legend="radarChart" class="tc-chart-js-legend"></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row" ng-controller="PieDoughnutController">
+    <div class="col-md-12">
+      <h2>Pie Chart</h2>
+    </div>
+    <div class="col-md-8">
+      <canvas
+        tc-chartjs-pie
+        chart-data="chartData"
+        chart-options="chartOptions"
+        chart-click="onChartClick(event)"
+        chart-legend="pieChart"
+      ></canvas>
+    </div>
+    <div class="col-md-4">
+      <div tc-chartjs-legend chart-legend="pieChart" class="tc-chart-js-legend"></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row" ng-controller="PieDoughnutController">
+    <div class="col-md-12">
+      <h2>Doughnut Chart</h2>
+    </div>
+    <div class="col-md-8">
+      <canvas
+        tc-chartjs-doughnut
+        chart-data="chartData"
+        chart-options="chartOptions"
+        chart-click="onChartClick(event)"
+        chart-legend="doughnutChart"
+      ></canvas>
+    </div>
+    <div class="col-md-4">
+      <div tc-chartjs-legend chart-legend="doughnutChart" class="tc-chart-js-legend"></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row" ng-controller="PolarController">
+    <div class="col-md-12">
+      <h2>Polar Area Chart</h2>
+    </div>
+    <div class="col-md-8">
+      <canvas
+        tc-chartjs-polararea
+        chart-data="chartData"
+        chart-options="chartOptions"
+        chart-click="onChartClick(event)"
+        chart-legend="polarareaChart"
+      ></canvas>
+    </div>
+    <div class="col-md-4">
+      <div tc-chartjs-legend chart-legend="polarareaChart" class="tc-chart-js-legend"></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="../node_modules/chart.js/dist/Chart.js"></script>
+<script src="../node_modules/angular/angular.js"></script>
+<script src="../src/tc-angular-chartjs.js"></script>
+<script src="index.js"></script>
+</body>
+</html>

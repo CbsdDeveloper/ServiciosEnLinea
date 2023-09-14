@@ -1,0 +1,109 @@
+{
+	"checkingModel":{
+		"edit":false,
+		"checking_entidad":"",
+		"fk_direccion_id":"",
+		"fk_externo_id":"",
+		"checking_asunto":"",
+		"checking_ingreso":""
+	},
+	
+	"statusParam":{
+		"PENDIENTE":"bg-warning",
+		"SOLICITUD GENERADA":"bg-warning",
+		"INGRESADO":"bg-warning",
+		"REAGENDADA":"bg-info",
+		"ORDEN DE COBRO GENERADA":"bg-info",
+		"ASIGNADO":"bg-primary",
+		"CONFIRMADO":"bg-primary",
+		"DESPACHADA":"bg-success",
+		"PAGADO":"bg-success",
+		"APROBADO":"bg-success",
+		"EVALUADA":"bg-success",
+		"ANULADA":"bg-danger",
+		"VENCIDO":"bg-danger",
+		"CANCELADA":"bg-danger",
+		"holiday":"bg-danger prevention-holiday-item faa-pulse animated text-center text-bold text-primary",
+		"blocked":"bg-danger prevention-holiday-item faa-pulse animated text-center text-bold",
+		"busy":"bg-danger",
+		"free":"bg-info"
+	},
+	"statusIcon":{
+		"PENDIENTE":"spinner fa-pulse",
+		"SOLICITUD GENERADA":"spinner fa-pulse",
+		"REAGENDADA":"calendar-plus-o",
+		"CONFIRMADO":"calendar-check-o",
+		"INGRESADO":"calendar-check-o",
+		"ASIGNADO":"user",
+		"ORDEN DE COBRO GENERADA":"user",
+		"DESPACHADA":"thumbs-up",
+		"APROBADO":"thumbs-up",
+		"EVALUADA":"star",
+		"ANULADA":"thumbs-down",
+		"VENCIDO":"thumbs-down",
+		"CANCELADA":"trash",
+		"holiday":"gift fa-3x text-nowrap",
+		"blocked":"ban fa-3x text-nowrap",
+		"busy":"calendar-times-o",
+		"free":"calendar-o"
+	},
+	"calendarEntity":{
+		"salacapacitaciones":{
+			"bg":"bg-primary text-danger text-bold",
+			"icon":"account_balance",
+			"code":"reservacion_codigo",
+			"status":"reservacion_estado",
+			"open":"open_time",
+			"close":"close_time",
+			"responsable":"solicitante",
+			"statusRequest":"reservacion_estado",
+			"descripcion":"reservacion_motivo"
+		}
+	},
+	
+	"labels":{
+			"flotasvehiculares":"FLOTA VEHICULAR",
+			"abastecimiento":"ABASTECIMIENTO",
+			"mantenimientosvehiculares":"MANTENIMIENTO",
+			"revisionvehicular":"REVISION"
+	},
+	"trackingOLD":{
+		"flotasvehiculares":{
+			"entities":{
+				"abastecimiento":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_abastecimiento)",
+				"mantenimientosvehiculares":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_mantenimiento)",
+				"revisionvehicular":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_revisionvehicular)"
+			}
+		},
+		"abastecimiento":{
+			"entities":{
+				"flotasvehiculares":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_tracking)",
+				"mantenimientosvehiculares":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_mantenimiento)",
+				"revisionvehicular":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_revisionvehicular)"
+			}
+		},
+		"mantenimientosvehiculares":{
+			"entities":{
+				"flotasvehiculares":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_tracking)",
+				"abastecimiento":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_abastecimiento)",
+				"revisionvehicular":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_revisionvehicular)"
+			}
+		},
+		"revisionvehicular":{
+			"entities":{
+				"flotasvehiculares":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_tracking)",
+				"abastecimiento":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_abastecimiento)",
+				"mantenimientosvehiculares":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_mantenimiento)"
+			}
+		}
+	},
+	"tracking":{
+		"flotasvehiculares":{
+			"entities":{
+				"abastecimiento":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_abastecimiento)",
+				"mantenimientosvehiculares":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_mantenimiento)",
+				"revisionvehicular":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_revisionvehicular)"
+			}
+		}
+	}
+} 

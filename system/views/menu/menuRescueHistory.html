@@ -1,0 +1,32 @@
+<md-menu md-position-mode="target-right target">
+  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+  </md-button>
+  <md-menu-content width="5">
+    
+    <md-menu-item ng-if="allow.permiso82642">
+      <md-button aria-label="editar" ng-click="goUI('tthh.sos.vrescue.equipmentUsagedition',{entityId:row.registro_id,equipmentId:row.fk_equipo_id,formId:row.fk_formulario_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_EDIT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=edit></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="allow.permiso82644"></md-divider>
+    
+    <md-menu-item ng-if="allow.permiso82644">
+      <md-button aria-label="editar" ng-click="exportById('registrosrescatevertical',row.registro_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_PRINT_REPORT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=person_add></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+  </md-menu-content>
+</md-menu>

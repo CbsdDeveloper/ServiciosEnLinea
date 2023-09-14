@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="{{dev_lang}}" ng-app="{{dev_app}}App">
+<head>
+	<meta charset="utf-8">
+	<title>{{dev_title}}</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="author" content="{{dev_meta_author}}">
+	<meta name="keywords" content="{{dev_meta_keywords}}">
+	<meta name="description" content="{{dev_meta_description}}">
+	<link rel="alternate" hreflang="es" href="{{dev_hreflang}}" />
+	<link rel="icon" type="image/x-icon" href="favicon.ico" />
+	<!-- Angular Material -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Roboto+Mono:400,500|Material+Icons">
+	<link rel="stylesheet" href="http://servicios.cbsd.gob.ec/cdn/custom/googlefonts.css">
+	<link rel="stylesheet" href="http://servicios.cbsd.gob.ec/cdn/angular-material/1.1.22/angular-material.min.css">
+	<!-- Font awesome -->
+	<link rel="stylesheet" href="http://servicios.cbsd.gob.ec/cdn/font-awesome-4.7.0/css/font-awesome.min.css">
+	<!-- Material Icon -->
+	<link rel="stylesheet" href="http://servicios.cbsd.gob.ec/cdn/Material-icon/icon.css">
+	
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="http://servicios.cbsd.gob.ec/cdn/AdminLTE-3.0.4/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+	<link rel="stylesheet" href="http://servicios.cbsd.gob.ec/cdn/animate/animate.min.css">
+	<!-- TEMPLATE CSS -->
+	<link rel="stylesheet" href="http://servicios.cbsd.gob.ec/cdn/AdminLTE-3.0.4/dist/css/adminlte.min.css">
+	<!-- overlayScrollbars -->
+	<link rel="stylesheet" href="http://servicios.cbsd.gob.ec/cdn/AdminLTE-3.0.4/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  
+	<!-- ui-select -->
+	<link rel="stylesheet" href="http://servicios.cbsd.gob.ec/cdn/ui-select-0.19.8/dist/select.min.css" />
+	<!-- jsoneditor -->
+	<link rel="stylesheet" href="http://servicios.cbsd.gob.ec/cdn/jsoneditor-master/dist/jsoneditor.min.css" />
+	<!-- MATERIAL TABLE -->
+	<link rel="stylesheet" href="http://servicios.cbsd.gob.ec/cdn/md-data-table-master/dist/md-data-table.min.css"/>
+	<!-- Angular Calendar -->
+	<link rel="stylesheet" href="http://servicios.cbsd.gob.ec/cdn/angular-material-calendar-master/dist/angular-material-calendar.css"/>
+	<!-- Angular Moment Picker -->
+	<link rel="stylesheet" href="http://servicios.cbsd.gob.ec/cdn/angular-moment-picker-master/dist/angular-moment-picker.min.css"/>
+	<link rel="stylesheet" href="http://servicios.cbsd.gob.ec/cdn/angular-moment-picker-master/dist/themes/material-ui.css"/>
+	<!-- loading-bar -->
+	<link rel="stylesheet" href="http://servicios.cbsd.gob.ec/cdn/angular-loading-bar/build/loading-bar.min.css">
+	<!-- NOTIFY -->
+	<link rel="stylesheet" href="http://servicios.cbsd.gob.ec/cdn/angular-growl-2/angular-growl.min.css" />
+	<link rel="stylesheet" href="http://servicios.cbsd.gob.ec/cdn/sweetalert/dist/sweetalert.css" />
+	<!-- CUSTOM -->
+	<link rel="stylesheet" href="http://servicios.cbsd.gob.ec/cdn/custom/custom-md-table.css"/>
+	<link rel="stylesheet" href="{{dev_path}}styles/custom.css"/>
+	<!-- UI-ROUTER: CUSTOM ROUTE -->
+	<base href="{{dev_path}}">
+</head>
+<!-- layout-fixed -->
+<body class="sidebar-mini">
+	<!-- wrapper -->
+	<div class="wrapper wow fadeIn" data-wow-delay="1.5s">
+		<div ui-view class="body-view"></div>
+		<div growl></div>
+	</div>
+	
+	<!-- jQuery -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/AdminLTE-3.0.4/plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/AdminLTE-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- Angular - Components -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/angular-1.7.8/angular.min.js"></script>
+	<script src="http://servicios.cbsd.gob.ec/cdn/angular/angular-locale_es-ec.min.js"></script>
+	<script src="http://servicios.cbsd.gob.ec/cdn/angular-translate-2.18.1/angular-translate.min.js"></script>
+	<script src="http://servicios.cbsd.gob.ec/cdn/angular-1.7.8/angular-animate.min.js"></script>
+	<script src="http://servicios.cbsd.gob.ec/cdn/angular-1.7.8/angular-aria.min.js"></script>
+	<script src="http://servicios.cbsd.gob.ec/cdn/angular-1.7.8/angular-cookies.min.js"></script>
+	<script src="http://servicios.cbsd.gob.ec/cdn/angular-1.7.8/angular-resource.min.js"></script>
+	<script src="http://servicios.cbsd.gob.ec/cdn/angular-1.7.8/angular-sanitize.min.js"></script>
+	
+	
+	<!-- overlayScrollbars -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/AdminLTE-3.0.4/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+	<!-- AdminLTE -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/AdminLTE-3.0.4/dist/js/adminlte.min.js"></script>
+	<!-- Chart -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/Chart.js/Chart.min.js"></script>
+	<!-- Moment -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/moment/moment-with-locales.js"></script>
+	
+	<!-- Angular - ui-Router -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/ui-router-0.4.0/release/angular-ui-router.min.js"></script>
+	<!-- Angular - Material -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/angular-material/1.1.22/angular-material.min.js"></script>
+	<!-- Angular - Calendar -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/angular-material-calendar-master/dist/angular-material-calendar.js"></script>
+	<!-- Angular Moment Picker -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/angular-moment-picker-master/dist/angular-moment-picker.min.js"></script>
+	<!-- MATERIAL TABLE -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/md-data-table-master/dist/md-data-table.min.js"></script>
+	<!-- NOTIFY -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/angular-growl-2/angular-growl.min.js"></script>
+	<!-- sweet alert -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="http://servicios.cbsd.gob.ec/cdn/ngSweetAlert/SweetAlert.min.js"></script>
+	<!-- loading-bar -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/angular-loading-bar/build/loading-bar.min.js"></script>
+	<!-- ui-select -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/ui-select-0.19.8/dist/select.min.js"></script>
+	<!-- angular-crop-img -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/angular-img-cropper-master/src/angular-img-cropper.js"></script>
+	<!-- jsoneditor -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/jsoneditor-master/dist/jsoneditor.min.js"></script>
+	<script src="http://servicios.cbsd.gob.ec/cdn/ng-jsoneditor-master/ng-jsoneditor.min.js"></script>
+	<!-- angular-drag-and-drop-lists -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/angular-drag-and-drop-lists-master/angular-drag-and-drop-lists.min.js"></script>
+	<!-- TEMPLATE -->
+	<!-- Wow -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/WOW/wow.min.js"></script>
+	<!-- ckeditor -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/ckeditor/ckeditor.js"></script>
+	<script src="http://servicios.cbsd.gob.ec/cdn/ng-ckeditor/ng-ckeditor.min.js"></script>
+	<!-- tc-angular-chartjs -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/tc-angular-chartjs/dist/tc-angular-chartjs.min.js"></script>
+	<!-- previo img -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/angular-media-preview/dist/angular-media-preview.min.js"></script>
+	<!-- checklist -->
+	<script src="http://servicios.cbsd.gob.ec/cdn/checklist-model-master/checklist-model.js"></script>
+	<!-- Custom -->
+ 	<script src="/app/src/js/lang-app.js"></script>
+ 	<script src="scripts/directives/var.config.js"></script>
+	<script src="scripts/app.js"></script>
+	<script src="scripts/directives/views.js"></script>
+	<!-- Breadcrumbs -->
+	<script src="/app/src/js/directives/uiBreadcrumbs.js"></script>
+	<!-- MINIFY -->
+	<script src="scripts/services/resource.js"></script>
+	<script src="scripts/controllers/request.js"></script>
+	<script src="scripts/controllers/extends.js"></script>
+	<script src="scripts/controllers/main.js"></script>
+	<script src="scripts/controllers/sudo.js"></script>
+	<script src="scripts/controllers/admin.js"></script>
+	<script src="scripts/controllers/tthh.js"></script>
+	<script src="scripts/controllers/system.js"></script>
+	<script src="scripts/controllers/financial.js"></script>
+	<script src="scripts/controllers/prevention.js"></script>
+	<script src="scripts/controllers/logistics.js"></script>
+	<script type="text/javascript">
+		new WOW().init();
+	</script>
+</body>
+</html>

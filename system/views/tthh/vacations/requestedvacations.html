@@ -1,0 +1,91 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=flight_takeoff></md-ico>
+				<md-tooltip><span translate>TOOLBAR_VACATIONS</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.filter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_MAIN_TOOLBAR' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.filter!=''" ng-click="filterParent.filter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openParentModal('Vacaciones_solicitadas')">
+				<md-ico i=file_upload></md-ico><md-tooltip><span translate>LB_REQUESTED_HOLIDAYS</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+
+	<md-divider ng-if="allow.permiso802411"></md-divider>
+	<md-toolbar  ng-if="allow.permiso802411">
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><i-fa i=barcode s=lg></i-fa></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="{{'LB_CODE_REQUEST' | translate}}" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+	  </form>
+	</md-toolbar>
+
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="width:37%;">
+     	<col style="width:35%;">
+     	<col style="width:25%;">
+     	<col style="width:3%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_REQUEST_INFORMATION</span></th>
+					<th md-column><span translate>LB_APPROVAL</span></th>
+					<th md-column><span translate>LB_STATUS</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell class="text-uppercase">
+						<md-ico i=security></md-ico><span ng-bind-html="highlight(row.vacacion_codigo)"></span> ({{row.vacacion_serie}})<br>
+						<md-ico i=event_available></md-ico><span>{{row.vacacion_fecha_desde | date:'fullDate'}}</span><br>
+						<md-ico i=event_busy></md-ico><span>{{row.vacacion_fecha_hasta | date:'fullDate'}}</span><br>
+						<md-ico i=info></md-ico><span ng-bind-html="highlight(row.vacacion_dias)"></span> <span translate>LB_DAYS</span>
+						<div ng-if="row.vacacion_estado=='SOLICITUD NEGADA'">
+							<md-ico i=cancel></md-ico><span class="text-danger text-bold" ng-bind-html="highlight(row.vacacion_observacion)"></span>
+						</div>
+					</td>
+					<td md-cell class="text-uppercase">
+						<div>
+							<md-ico i=done></md-ico><span ng-bind-html="highlight(row.s_titulo)"></span><br>
+							<md-ico i=event></md-ico>{{row.vacacion_solicitud | date:'fullDate'}}<br>
+							<md-tooltip><span class="text-uppercase" translate>LB_REGISTRE_DATE</span> - {{row.s_puesto}}</md-tooltip>
+						</div>
+						<div ng-if="row.vacacion_estado=='SOLICITUD AUTORIZADA' || row.vacacion_estado=='SOLICITUD REGISTRADA'">
+							<md-ico i=check_circle_outline></md-ico><span ng-bind-html="highlight(row.jf_titulo)"></span><br>
+							<md-ico i=event></md-ico>{{row.vacacion_sumillado | date:'fullDate'}}<br>
+							<md-tooltip><span class="text-uppercase" translate>LB_APPROVAL</span> - {{row.jf_puesto}}</md-tooltip>
+						</div>
+						<div class="text-success text-bold" ng-if="row.vacacion_estado=='SOLICITUD REGISTRADA'">
+							<md-ico i=check_circle></md-ico><span ng-bind-html="highlight(row.th)"></span><br>
+							<md-ico i=event></md-ico>{{row.vacacion_aprobado | date:'fullDate'}}
+							<md-tooltip><span class="text-uppercase" translate>LB_APPROVED</span> - {{row.th_puesto}}</md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.vacacion_estado]"></span><br>
+						<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.vacacion_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+					</td>
+					<td md-cell>
+						<menu-requested-vacations></menu-requested-vacations>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

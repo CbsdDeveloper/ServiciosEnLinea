@@ -1,0 +1,95 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg" ng-controller="typeactionsExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=gavel></md-ico></md-button>
+			<h2 translate>TOOLBAR_LEGAL_BASE</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+			
+			<!-- SELECCIÓN DE REPORTE -->
+			<div class="card card-outline card-success no-margin" layout-padding>
+				<div class="card-header text-center">
+					<h3 class="card-title no-margin" translate>LB_REPORTS_ENTITY</h3>
+				</div>
+				<div class="card-body" layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_REPORTS_MODULE</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+							<select ng-model="frmParent.type" class="form-control" required ng-options="resources as key for (key,resources) in jsonList"></select>
+						</div>
+					</div>
+					<div class="form-group" flex>
+						<label translate>LB_SEARCH</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=search></md-ico></div></div> 
+							<input ng-model="frmParent.filter" class="form-control" placeholder="Ej. 1236587490">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-if="frmParent.filter!=''" ng-click="frmParent.filter=''"><md-ico i=clear></md-ico></button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- LISTADO DE RECURSOS -->
+			<div class="card card-outline card-warning collapsed-card no-margin no-padding margin-top" layout-padding>
+				<div class="card-header text-center">
+					<h3 class="card-title no-margin" translate>LB_SELECTED_ARTICLES</h3>
+					<div class="card-tools">
+						<button type="button" class="btn btn-tool" data-card-widget="collapse">
+							<i class="fa fa-plus"></i><md-tooltip><span translate>LB_VIEW_HIDE_DETAIL</span></md-tooltip>
+						</button>
+					</div>
+				</div>
+				<div class="card-body">
+					<ul class="todo-list">
+	          <li ng-repeat="item in regulationsList">
+	            <small class="text">{{item.reglamento_clasificacion}}<br>{{item.reglamento_articulo}}</small>
+	          </li>
+	        </ul>
+				</div>
+			</div>
+			
+			<!-- LISTADO DE RECURSOS -->
+			<div class="card card-outline card-primary no-margin no-padding margin-top" layout-padding>
+				<div class="card-header text-center">
+					<h3 class="card-title no-margin" translate>LB_ARTICLES</h3>
+					<div class="card-tools">
+						<button type="button" class="btn btn-tool" data-card-widget="collapse">
+							<i class="fa fa-minus"></i><md-tooltip><span translate>LB_VIEW_HIDE_DETAIL</span></md-tooltip>
+						</button>
+					</div>
+				</div>
+				<div class="card-body">
+					<!-- ARTÍCULOS -->
+					<div class="col-md-6 col-xs-12 md-2-line contact-item margin-bottom" ng-repeat="item in frmParent.type | filter : frmParent.filter">
+			       <label class="label">
+					    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.selected" checklist-value="item.reglamento_id" />
+					    <span class="label__text">
+					      <span class="label__check">
+					        <i class="fa fa-check icon"></i>
+					      </span>
+					    </span>
+					  </label>
+			       <div class="md-list-item-text compact">
+			        	<span class="text-bold text-justify" style="font-size:11px;white-space:pre-line;" ng-bind-html="highlight(item.reglamento_articulo,frmParent.filter)"></span>
+			       </div>
+					</div>
+				</div>
+			</div>
+							
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

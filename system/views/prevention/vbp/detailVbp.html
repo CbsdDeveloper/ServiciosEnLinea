@@ -1,0 +1,91 @@
+﻿<div layout-padding hide-gt-xs></div>
+
+<div layout-xs=column layout=row layout-padding>
+	<card-project hide-xs flex=30></card-project>
+	<card-project hide-gt-xs flex></card-project>
+	<div flex>
+		<md-card class="no-margin">
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<md-button aria-label="btn" class="md-icon-button"><i-fa i=object-group></i-fa></md-button>
+					<h2>{{entity.proyecto_nombre}} ({{entity.proyecto_codigo}})</h2>
+					<span flex></span>
+					<span ng-bind-html="statusLabel[entity.vbp_estado]"></span>
+				</div>
+			</md-toolbar>
+			<md-tabs md-dynamic-height md-border-bottom>
+				<md-tab label="{{'LB_INFORMATION' | translate}}">
+					<div layout-xs=column layout=row layout-padding layout-wrap>
+						<div flex>
+							<div class="card card-outline card-info box-profile text-center">
+								<div class="card-header">
+								  <h3 class="card-title" translate>LB_OWNER</h3>
+								</div>
+								<card-people class="card-body md-padding" ng-controller="ownerCtrl"></card-people>
+								<div class="card-footer">
+									<a ng-click="openModal('Owner',mergeData({proyecto_id:entity.proyecto_id},entity.owner))" class="btn btn-primary btn-block"><b translate>LB_EDIT</b></a>
+								</div>
+							</div>
+						</div>
+						<div flex>
+							<div class="card card-outline card-warning box-profile text-center">
+								<div class="card-header">
+								  <h3 class="card-title" translate>LB_DESIGNER</h3>
+								</div>
+								<card-people class="card-body md-padding" ng-controller="designerCtrl"></card-people>
+								<div class="card-footer">
+									<a ng-click="openModal('Designer',mergeData({proyecto_id:entity.proyecto_id},entity.designer))" class="btn btn-primary btn-block"><b translate>LB_EDIT</b></a>
+								</div>
+							</div>
+						</div>
+						<div flex>
+							<div class="card card-outline card-danger box-profile text-center">
+								<div class="card-header">
+								  <h3 class="card-title" translate>LB_RPMCI</h3>
+								</div>
+								<card-people class="card-body md-padding" ng-controller="rpmciCtrl"></card-people>
+								<div class="card-footer">
+									<a ng-click="openModal('Rpmci',mergeData({proyecto_id:entity.proyecto_id},entity.rpmci))" class="btn btn-primary btn-block"><b translate>LB_EDIT</b></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</md-tab>
+				<md-tab label="{{'LB_ACTIVITY_LOG' | translate}}">
+					<md-content ng-controller="historyEntityCtrl">
+						<div ng-controller="myTableCtrl">
+							<toolbar-filter-in-tab></toolbar-filter-in-tab>
+							<toolbar-filter></toolbar-filter>
+							<md-table-container>
+						    <table md-table class="md-primary table-hover" md-progress="deferred">
+						      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+										<tr md-row>
+											<th md-column md-numeric md-order-by="vbp_solicitud"><span translate>LB_REQUEST_NUMBER</span></th>
+											<th md-column md-order-by="vbp_estado"><span translate>LB_STATUS</span></th>
+											<th md-column md-order-by="vbp_registro"><span translate>LB_REGISTRE_DATE</span></th>
+											<th md-column md-order-by="vbp_obervacion"><span translate>LB_OBSERVATION</span></th>
+										</tr>
+						      </thead>
+						      <tbody>
+										<tr md-row data-ng-repeat="row in rowsParent.data">
+											<td md-cell><span ng-bind-html="highlight(row.vbp_solicitud)"></span> <md-ico i=confirmation_number s=18></md-ico></td>
+											<td md-cell><span ng-bind-html="highlight(statusLabel[row.vbp_estado])"></span></td>
+											
+											<td md-cell>
+												<md-ico i=event s=18></md-ico> <span ng-bind-html="highlight(row.vbp_registro)"></span><br>
+												<md-ico i=person s=18></md-ico> <span ng-bind-html="highlight(row.usuario)"></span>
+											</td>
+											
+											<td md-cell><span ng-bind-html="highlight(row.vbp_obervacion)"></span></td>
+										</tr>
+						      </tbody>
+						    </table>
+							</md-table-container>
+							<footer-table></footer-table>
+						</div>
+					</md-content>
+				</md-tab>
+			</md-tabs>
+		</md-card>
+	</div>
+</div>

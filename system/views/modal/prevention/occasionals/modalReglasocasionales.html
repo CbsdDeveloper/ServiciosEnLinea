@@ -1,0 +1,97 @@
+<md-dialog aria-label="Form Data" class="modal-dialog">
+  <form name="formData" ng-submit="submitFormFile()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=settings></md-ico></md-button>
+			<h2 translate>TOOLBAR_RULES</h2>
+      <span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	<div class="form-group required" flex ng-controller="resourcesPOFList">
+				<label translate>LB_RESOURCES</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=lightbulb_outline></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.fk_recurso_id" required
+									ng-options="row.recurso_id as row.recurso_nombre for row in list"></select>
+				</div>
+			</div>
+			<div class="form-group required" flex>
+				<label translate>LB_PARAM</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=view_agenda></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.regla_parametro" required
+									ng-options="key as val for (key,val) in string2JSON('rulesTypePOF')"></select>
+				</div>
+			</div>
+			<div layout-xs=column layout=row layout-padding>
+				<div class="form-group required" flex>
+					<label translate>LB_INDEX</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=format_list_numbered></md-ico></div></div> 
+				    <input type="number" min="1" step="1" parse-float ng-model="frmParent.regla_index" class="form-control" required>
+					</div>
+				</div>
+				<div class="form-group required" flex>
+					<label translate>LB_CONDITION</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=call_merge></md-ico></div></div> 
+				    <select class="form-control" ng-model="frmParent.regla_condicion_multiple">
+				    	<option value="AND">Y (AND)</option>
+				    	<option value="OR">O (OR)</option>
+				    </select>
+					</div>
+				</div>
+			</div>
+			<div layout-xs=column layout=row layout-padding>
+				<div class="form-group required" flex>
+					<label translate>LB_TYPE</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=data_usage></md-ico></div></div> 
+						<select class="form-control text-uppercase" ng-model="frmParent.regla_tipo" required>
+				    	<option value="TEXTO" translate>LB_TEXT</option>
+				    	<option value="NUMERICO" translate>LB_NUMERIC</option>
+				    </select>
+					</div>
+				</div>
+				<div class="form-group required" flex>
+					<label translate>LB_COMPARATOR</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=view_agenda></md-ico></div></div> 
+						<select class="form-control text-uppercase" ng-model="frmParent.regla_comparador" required>
+				    	<option value=">" translate>LB_MAJOR</option>
+				    	<option value="<" translate>LB_MINOR</option>
+				    	<option value="<>" translate>LB_DISTINCT</option>
+				    	<option value="==" translate>LB_EQUAL</option>
+				    </select>
+					</div>
+				</div>
+			</div>
+			<div layout-xs=column layout=row layout-padding>
+				<div class="form-group required" flex>
+					<label translate>LB_VALUE</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=data_usage></md-ico></div></div> 
+						<input ng-model="frmParent.regla_valor" class="form-control" placeholder="Ej. 500" required />
+					</div>
+				</div>
+				<div class="form-group required" flex ng-if="toogleEditMode">
+					<label translate>LB_STATUS</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+						<select class="form-control" ng-model="frmParent.regla_estado"
+										ng-options="val as val for (key,val) in string2JSON('statusType')"></select>
+					</div>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

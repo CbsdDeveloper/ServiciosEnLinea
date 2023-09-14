@@ -1,0 +1,60 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitFormFile()">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=rowing></md-ico></md-button>
+			<h2 translate>TOOLBAR_LICENSES</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+    <md-content layout-padding>
+    	<!-- INFORMACIÓN DE PERSONAL -->
+			<div class="box box-success no-margin" layout-padding>
+				<div class="box-header text-center">
+				  <h3 class="box-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+				<div class="box-body" style="padding:8px" layout=column layout-padding>
+					<div class="form-group required" flex ng-controller="driversLicensesListCtrl">
+						<label><a href="https://sistemaunico.ant.gob.ec:5038/PortalWEB/paginas/clientes/clp_criterio_consulta.jsp" target="blank_" translate>LB_DRIVERS_LICENSES_TYPE</a></label>
+						<div class="input-group" flex>
+							<span class="input-group-addon"><md-ico i=assistant_photo></md-ico></span>
+							<select class="form-control" ng-model="frmParent.fk_licencia_id" required
+											ng-options="row.licencia_id as (row.licencia_categoria) for row in list"></select>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_VALID_FROM</label>
+							<div class="input-group" max-date="today" moment-picker="frmParent.conductor_licencia_emision" format="YYYY-MM-DD">
+								<span class="input-group-addon"><md-ico i=event_available></md-ico></span>
+						    <input class="form-control" ng-model="frmParent.conductor_licencia_emision" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_VALID_UNTIL</label>
+							<div class="input-group" moment-picker="frmParent.conductor_licencia_validez" format="YYYY-MM-DD">
+								<span class="input-group-addon"><md-ico i=event_busy></md-ico></span>
+						    <input class="form-control" ng-model="frmParent.conductor_licencia_validez" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required>
+							</div>
+						</div>
+					</div>
+			    <div class="form-group" ng-class="{'required':!toogleEditMode}">
+						<label translate>LB_VERIFICATION_SOURCE</label>
+				    <div class="input-group">
+				      <span class="input-group-addon"><md-ico i=attachment></md-ico></span>
+				      <input uploader-model="frmParent.conductor_file" type="file" accept="{{string2JSON('fileTypeMime')['PDF']}}" class="form-control" ng-required="!toogleEditMode" />
+				    </div>
+					</div>
+				</div>
+			</div>
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

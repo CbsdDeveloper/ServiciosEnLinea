@@ -1,0 +1,62 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=receipt></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_COURSES_COMPLETED</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="exportData({})">
+				<md-ico i=save_alt></md-ico><md-tooltip><span translate>LB_EXPORT</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+			<col style="width:25%">
+      <col style="">
+     	<col style="width:20%">
+     	<col style="width:5%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_DATE</span></th>
+					<th md-column><span translate>LB_DESTINATION</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<div><md-ico i=person_outline></md-ico><span ng-bind-html="highlight(row.personal_nombre)"></span><md-tooltip><span translate>LB_STAFF</span></md-tooltip></div>
+						<div><md-ico i=event_note></md-ico><span ng-bind-html="highlight(row.ruta_salida)"></span><md-tooltip><span translate>LB_DATE_TIME_DEPARTURE</span></md-tooltip></div>
+						<div ng-if="row.ruta_estado=='ACTIVIDAD FINALIZADA'">
+							<div><md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.ruta_llegada)"></span><md-tooltip><span translate>LB_DATE_TIME_RETURN</span></md-tooltip></div>
+							<div><md-ico i=schedule></md-ico><span ng-bind-html="highlight(row.tiempo)"></span><md-tooltip><span translate>LB_DURATION_ACTIVITY</span></md-tooltip></div>
+						</div>
+					</td>
+					<td md-cell>
+						<div><md-ico i=place></md-ico><span ng-bind-html="highlight(row.ruta_destino)"></span><md-tooltip><span translate>LB_PLACE_WHOM_ASSISTED</span></md-tooltip></div>
+						<div><md-ico i=highlight></md-ico><span ng-bind-html="highlight(row.ruta_motivo)"></span><md-tooltip><span translate>LB_REASON_EXIT</span></md-tooltip></div>
+						<div ng-if="row.ruta_observacion!='' && row.ruta_observacion!=null">
+							<md-ico i=comment></md-ico><span ng-bind-html="highlight(row.ruta_observacion)"></span><md-tooltip><span translate>LB_OBSERVATION</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.ruta_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.ruta_registro)"></span>
+					</td>
+					<td md-cell>
+						<menu-roadmap ng-if="allow.permiso804062 || allow.permiso804063"></menu-roadmap>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

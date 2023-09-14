@@ -1,0 +1,65 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog" ng-controller="guardsTurnsExtendsCtrl">
+  <form name="formData">
+	<md-toolbar>
+	  <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=how_to_reg></md-ico></md-button>
+			<h2 translate>TOOLBAR_GUARDS</h2>
+	    <span flex></span>
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+	  </div>
+	</md-toolbar>
+	<md-dialog-content>
+		<md-content layout=column layout-padding>		
+					
+				<!-- ANEXOS A REALIZAR -->
+				<div class="box box-info no-margin margin-top" layout-padding ng-repeat="(staffId,data) in frmParent.staffList">
+					<div class="box-header text-center">
+					  <h3 class="box-title">{{data.puesto_definicion}} - {{data.personal_nombre}}<br>{{data.tropa_cargo}}</h3>
+					</div>
+					<div class="box-body padding-all" layout-padding>
+							
+							<div layout-xs=column layout=row layout-padding>
+								<div class="form-group required" flex>
+									<label translate>LB_WORKDAY</label>
+									<div class="input-group">
+										<span class="input-group-addon"><md-ico i=flag></md-ico></span>
+										<select class="form-control" ng-model="frmParent.turns[staffId].turno_jornada" ng-options="val as val for (key,val) in string2JSON('GUARDS_LIST_TURNS')"></select>
+									</div>
+								</div>
+								<div class="form-group required" flex>
+									<label translate>LB_STATUS</label>
+									<div class="input-group">
+										<span class="input-group-addon"><md-ico i=flag></md-ico></span>
+										<select class="form-control" ng-model="frmParent.turns[staffId].turno_estado" ng-options="val as val for (key,val) in string2JSON('GUARDS_LIST_TURNS_STATUS')"></select>
+									</div>
+								</div>
+							</div>
+							<div layout-xs=column layout=row layout-padding ng-if="frmParent.turns[staffId].turno_estado=='ACTIVO'">
+								<div class="form-group required" flex>
+									<label translate>LB_OPENING_DATE</label>
+									<div class="input-group" min-date="frmParent.entity.guardia_fecha" moment-picker="frmParent.turns[staffId].turno_desde">
+										<span class="input-group-addon"><i-fa i=calendar-check-o></i-fa></span>
+								    <input class="form-control" ng-model="frmParent.turns[staffId].turno_desde"required>
+									</div>
+								</div>
+								<div class="form-group required" flex>
+									<label translate>LB_DEADLINE</label>
+									<div class="input-group" min-date="frmParent.turns[staffId].turno_desde" moment-picker="frmParent.turns[staffId].turno_hasta">
+										<span class="input-group-addon"><i-fa i=calendar-times-o></i-fa></span>
+								    <input class="form-control" ng-model="frmParent.turns[staffId].turno_hasta" required>
+									</div>
+								</div>
+							</div>
+			    	
+					</div>
+				</div>
+				
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="button" ng-click="submitForm()" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

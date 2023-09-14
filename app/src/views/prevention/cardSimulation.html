@@ -1,0 +1,42 @@
+<div class="box box-{{string2JSON('colorCss')[$index]}} text-center">
+	<div class="box-header">
+		<i-fa i=bullhorn s=3x></i-fa>
+	</div>
+	<div class="box-body">
+		<h3 class="profile-username">{{entity.simulacro_codigo}}</h3>
+    <hr>
+		<strong><i-fa i=book></i-fa> <span translate>LB_TOPIC</span></strong>
+    <p class="text-muted">{{entity.simulacro_tema}}</a></p>
+    <hr>
+		<strong><i-fa i=user-o></i-fa> <span translate>LB_COORDINATOR</span></strong>
+    <p class="text-muted">{{entity.persona_apellidos}} {{entity.persona_nombres}}</p>
+    <hr>
+		<strong><i-fa i=id-card-o></i-fa> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+    <p class="text-muted">{{string2JSON('identificationType')[entity.persona_tipo_doc]}} / {{entity.persona_doc_identidad}}</p>
+    <hr>
+		<strong><i-fa i=id-card-o></i-fa> <span translate>LB_MAIL</span></strong>
+    <p class="text-muted">{{entity.persona_correo}}</p>
+    <hr>
+		<strong><i-fa i=calendar-check-o></i-fa> <span translate>LB_DATE</span></strong>
+    <p class="text-muted">{{entity.simulacro_fecha}}</p>
+    <hr>
+    <div ng-if="entity.simulacro_estado=='PENDIENTE' || entity.simulacro_estado=='ANULADA'">
+			<strong><i-fa i=calendar-times-o></i-fa> <span translate>LB_CONFIRMATION_DATE</span></strong>
+	    <p class="text-muted text-capitalize"><label class="label label-danger">{{entity.simulacro_confirmacion | date: 'fullDate'}}</label></p>
+	    <hr>
+    </div>
+		<strong><i-fa i=map-marker></i-fa> <span translate>LB_ADDRESS</span></strong>
+    <p class="text-muted">{{entity.simulacro_principal}} y {{entity.simulacro_secundaria}}</p>
+    <hr>
+		<strong><i-fa i=flag></i-fa> <span translate>LB_STATUS</span></strong>
+    <p class="text-muted"><span ng-bind-html="statusLabel[entity.simulacro_estado]"></span></p>
+	</div>
+	<div class="box-footer" ng-if="entity.simulacro_estado=='PENDIENTE'">
+		<button class="btn btn-block btn-{{string2JSON('colorCss')[$index]}}" ng-click="openParentModal('Coordinador',entity)">
+			<i-fa i=user-o></i-fa> <span translate>LB_COORDINATOR</span>
+		</button>
+		<button class="btn btn-block btn-{{string2JSON('colorCss')[$index]}}" ng-click="exportWithDetail(entity.simulacro_id)" ng-if="entity.people_in_training>0">
+			<i-fa i=print></i-fa> <span translate>LB_PRINT_REQUEST</span>
+		</button>
+	</div>
+</div>

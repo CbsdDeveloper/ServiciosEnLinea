@@ -1,0 +1,126 @@
+{
+	"list":[
+		"especies",
+		"duplicados",
+		
+		"planesemergencia",
+		"ocasionales",
+		"vbp",
+		"habitabilidad",
+		"vbp_modificaciones",
+		"factibilidadglp",
+		"definitivoglp"
+	],
+	"entities":{
+		"especies":{
+			"orden_concepto":"",
+			"orden_acuerdo":""
+		},
+		"duplicados":{
+			"orden_concepto":"duplicado_detalle DE PERMISO DE FUNCIONAMIENTO <b>codigo_per</b>",
+			"orden_acuerdo":"SEGÚN ORDENANZA DE TASAS DE SERVICIOS QUE PRESTA EL CB-GADM-SD-ART. 15"
+		},
+		
+		"planesemergencia":{
+			"orden_concepto":"REVISIÓN DEL PLAN DE EMERGENCIA DEL ESTABLECIMIENTO/ACTIVIDAD ECONÓMICA <b>local_nombrecomercial</b>",
+			"orden_acuerdo":"SUSCRITO POR <b>entidad_razonsocial</b> ORDENANZA DE TASAS DE SERVICIOS QUE PRESTA EL CB-GADM-SD ART. 14, REVISION DE PLAN DE EMERGENCIA."
+		},
+		"ocasionales":{
+			"orden_concepto":"PERMISO OCASIONAL DE FUNCIONAMIENTO DE <b>ocasional_nombreevento</b>",
+			"orden_acuerdo":"SEGUN ORDENANZA DE TASAS DE SERVICIOS QUE PRESTA EL CB-GADM-SD ART. 8 - (<b>ocasional_aforo</b> PERSONAS <b>ocasional_lucro</b>)"
+		},
+		"vbp":{
+			"orden_concepto":"APROBACION DE PLANOS DEL PROYECTO <b>vbp_proyecto</b> DE <b>area_construccion</b> M2 DE CONSTRUCCIÓN (<b>vbp_es_tanques</b> TANQUES + <b>vbp_es_surtidores</b> SURTIDORES), ART 9. APROBACION DE PLANOS.",
+			"orden_acuerdo":"SEGUN ORDENANZA DE TASAS DE SERVICIOS QUE PRESTA EL CB-GADM-SD ART. 9 - APROBACION DE PLANOS DEL PROYECTO <b>vbp_proyecto</b> [$ 0.1/M2 CONSTRUCCIÓN + <b>vbp_es_tanques</b> TANQUES (8% SBU/CU) + <b>vbp_es_surtidores</b> SURTIDORES (15% SBU/CU)]"
+		},
+		"habitabilidad":{
+			"orden_concepto":"APROBACION DE PERMISO DE OCUPACIÓN Y HABITABILIDAD DEL PROYECTO <b>vbp_proyecto</b> DE <b>area_construccion</b> M2 DE CONSTRUCCIÓN, ART 341.",
+			"orden_acuerdo":"SEGUN ORDENANZA DE TASAS DE SERVICIOS QUE PRESTA EL CB-GADM-SD ART. 12"
+		},
+		"vbp_modificaciones":{
+			"orden_concepto":"MODIFICACIÓN DE PLANOS DEL PROYECTO <b>vbp_proyecto</b> DE <b>area_construccion</b> M2 A <b>modificacion_area_construccion</b> M2 DE CONSTRUCCIÓN, ART 9. APROBACION DE PLANOS.",
+			"orden_acuerdo":"SEGUN ORDENANZA DE TASAS DE SERVICIOS QUE PRESTA EL CB-GADM-SD ART. 9"
+		},
+		
+		"factibilidadglp":{
+			"orden_concepto":"PAGO DE PERMISO DE FACTIBILIDAD PARA LA IMPLANTACIÓN DEL SISTEMA DE OPERACIÓN CON GLP \"<b>factibilidad_proyecto</b>\", <b>tanques_total</b> TANQUE(S) DE tanques_capacidad respectivamente",
+			"orden_acuerdo":"SEGÚN ORDENANZA DE TASAS DE SERVICIOS QUE PRESTA EL CB-GADM-SD-ART. 10"
+		},
+		"definitivoglp":{
+			"orden_concepto":"PAGO DE CERTIFICADO DEFINITIVO PARA LA IMPLANTACION DEL SISTEMA DE OPERACIÓN CON GAS LICUADO DE PETROLEO DEL PROYECTO \"<b>factibilidad_proyecto</b>\"",
+			"orden_acuerdo":"SEGÚN ORDENANZA DE TASAS DE SERVICIOS QUE PRESTA EL CB-GADM-SD-ART. 11"
+		}
+	},
+	"justificacion":{
+		"especies":"",
+		"duplicados":"CORRESPONDIENTE AL {{orden_porcentaje}} % DEL SALARIO BÁSICO UNIFICADO ($ {{BASIC_SALARY}})",
+		"planesemergencia":"CORRESPONDIENTE AL {{orden_porcentaje}} % DEL SALARIO BÁSICO UNIFICADO ($ {{BASIC_SALARY}})",
+		"ocasionales":"CORRESPONDIENTE AL {{orden_porcentaje}} % DEL SALARIO BÁSICO UNIFICADO ($ {{BASIC_SALARY}})",
+		"vbp":"CORRESPONDIENTE A $ 0.10 POR M2 DE LOS {{area_construccion}} M2 DE CONSTRUCCIÓN",
+		"habitabilidad":"CORRESPONDIENTE AL {{orden_porcentaje}} % DEL SALARIO BÁSICO UNIFICADO ($ {{BASIC_SALARY}})",
+		"vbp_modificaciones":"CORRESPONDIENTE A $ 0.10 POR M2 DE LOS {{modificacion_area_construccion}} M2 DE CONSTRUCCIÓN (MODIFICACIÓN DE PLANOS)",
+		"factibilidadglp":"",
+		"definitivoglp":""
+	},
+	
+	"params":{
+		"duplicados":{
+			"entity":"entidades",
+			"fk_entity_id":"entidad_id",
+			
+			"code":"codigo_per",
+			"solicitud":"duplicado_solicitud"
+		},
+		"planesemergencia":{
+			"entity":"entidades",
+			"fk_entity_id":"fk_entidad_id",
+			
+			"code":"plan_codigo",
+			"solicitud":"plan_solicitud"
+		},
+		"ocasionales":{
+			"entity":"entidades",
+			"fk_entity_id":"fk_entidad_id",
+			
+			"code":"ocasional_codigo",
+			"solicitud":"ocasional_solicitud",
+			"ocasional_aforo":"NUMERICO",
+			"ocasional_finesdelucro":"TEXTO"
+		},
+		"vbp":{
+			"entity":"entidades",
+			"fk_entity_id":"facturacion_id",
+			
+			"code":"vbp_codigo",
+			"solicitud":"vbp_solicitud"
+		},
+		"habitabilidad":{
+			"entity":"entidades",
+			"fk_entity_id":"facturacion_id",
+			
+			"code":"habitabilidad_codigo",
+			"solicitud":"habitabilidad_solicitud"
+		},
+		"vbp_modificaciones":{
+			"entity":"entidades",
+			"fk_entity_id":"facturacion_id",
+			
+			"code":"modificacion_codigo",
+			"solicitud":"modificacion_solicitud"
+		},
+		"factibilidadglp":{
+			"entity":"entidades",
+			"fk_entity_id":"facturacion_id",
+			
+			"code":"factibilidad_codigo",
+			"solicitud":"factibilidad_solicitud"
+		},
+		"definitivoglp":{
+			"entity":"entidades",
+			"fk_entity_id":"facturacion_id",
+			
+			"code":"definitivo_codigo",
+			"solicitud":"definitivo_solicitud"
+		}
+	}
+}

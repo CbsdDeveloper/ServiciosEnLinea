@@ -1,0 +1,49 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+		 <md-button aria-label="btn" class="md-icon-button"><md-ico i=translate></md-ico></md-button>
+			 <h2 class="md-flex" translate>TOOLBAR_LABELS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+		<md-content layout=column layout-padding>
+			<div class="form-group" flex>
+				<label translate>LB_KEY</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=vpn_key></md-ico></div></div> 
+					<input ng-model="frmParent.label_key" class="form-control" required />
+				</div>
+			</div>
+			<div class="form-group" flex>
+				<label translate>LB_MODULE</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=track_changes></md-ico></div></div> 
+					<input ng-model="frmParent.label_module" class="form-control" required />
+				</div>
+			</div>
+			<div class="form-group" flex>
+				<label translate>LB_LANG_SPANISH</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=translate></md-ico></div></div> 
+					<textarea rows=3 ng-model="frmParent.label_es" class="form-control" required ></textarea>
+				</div>
+			</div>
+			<div class="form-group" flex>
+				<label translate>LB_LANG_ENGLISH</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=g_translate></md-ico></div></div> 
+					<textarea rows=3 ng-model="frmParent.label_en" class="form-control" required ></textarea>
+				</div>
+			</div>
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

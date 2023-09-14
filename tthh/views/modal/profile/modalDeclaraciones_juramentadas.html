@@ -1,0 +1,60 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitFormFile()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button class="md-icon-button"><md-ico i=folder></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_AFFIDAVITS</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout-padding layout=column>
+	    <div class="form-group required">
+				<label translate>LB_AFFIDAVIT</label>
+		    <div class="input-group">
+		      <span class="input-group-addon"><md-ico i=folder></md-ico></span>
+		      <select class="form-control" ng-model="frmParent.declaracion_tipo" required
+									ng-options="val as val for (key,val) in string2JSON('affidavitType')"></select>
+		    </div>
+			</div>
+    	<div class="form-group">
+				<label translate>LB_NOTARY</label>
+			  <div class="input-group">
+			    <span class="input-group-addon"><md-ico i=business></md-ico></span>
+			    <input class="form-control" ng-model="frmParent.declaracion_notaria" placeholder="Ej. NOTARIA CUARTA" >
+			  </div>
+			</div>
+    	<div layout-xs=column layout=row layout-padding>
+	    	<div class="form-group" flex>
+					<label translate>LB_NOTARY_DATE</label>
+				  <div class="input-group" moment-picker="frmParent.declaracion_fnotaria" format="YYYY-MM-DD" max-date="today">
+				    <span class="input-group-addon"><md-ico i=event></md-ico></span>
+				    <input class="form-control" ng-model="frmParent.declaracion_fnotaria" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2017-07-07" >
+				  </div>
+				</div>
+	    	<div class="form-group required" flex>
+					<label><a href="https://servicios.contraloria.gob.ec:4443/cge_arquitecturaonline_web/wFLogin.aspx?opc=1" target="blank_" translate>LB_COMPROLLER_DATE</a></label>
+				  <div class="input-group" moment-picker="frmParent.declaracion_fcontraloria" format="YYYY-MM-DD" max-date="today">
+				    <span class="input-group-addon"><md-ico i=event></md-ico></span>
+				    <input class="form-control" ng-model="frmParent.declaracion_fcontraloria" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2017-07-07" required >
+				  </div>
+				</div>
+    	</div>
+			
+	    <div class="form-group" ng-class="{'required':!toogleEditMode}">
+				<label translate>LB_FILE</label>
+		    <div class="input-group">
+		      <span class="input-group-addon"><md-ico i=attachment></md-ico></span>
+		      <input uploader-model="frmParent.declaracion_file" type="file" accept="{{string2JSON('fileTypeMime')['PDF']}}" class="form-control" ng-required="!toogleEditMode" />
+		    </div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

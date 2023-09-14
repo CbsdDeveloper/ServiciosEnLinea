@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /app/
+#SERVER
+RewriteCond %{SCRIPT_FILENAME} !-d  
+RewriteCond %{SCRIPT_FILENAME} !-f
+# Quitar el www del nombre de dominio  
+RewriteCond %{HTTP_HOST} ^www\.cbsd.lalytto.com\.com$ [NC]  
+RewriteRule ^((?s).*)$ http://cbsd.lalytto.com/?_url=/$1 [R=301,QSA,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^((?s).*)$ index.php?_url=/$1 [QSA,L]
+</IfModule>

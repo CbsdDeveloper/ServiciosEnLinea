@@ -1,0 +1,212 @@
+﻿<form name="formData" layout-padding>
+
+	<md-toolbar layout-padding>
+		<div class="md-toolbar-tools">
+		  	<md-button aria-label="btn" class="md-icon-button"><md-ico i=store_mall_directory></md-ico></md-button>
+		  	<h2>{{dataEntity.i.inspeccion_codigo}}. {{dataEntity.i.local_nombrecomercial}}</h2>
+		    <span flex></span>
+		    <span>{{toolbar}}</span>
+		</div>
+	</md-toolbar>
+	
+	<!-- FORMULARIO DE ROLES -->
+	<div class="margin-top font-12" ng-repeat="(key, resources) in dataEntity.src.list" layout-padding>
+		
+		<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} no-margin" flex>
+			
+			<div class="card-header with-border text-center">
+				<h3 class="card-title">{{key}}</h3>
+        <div class="card-tools">
+	        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+				</div>
+			</div>
+			
+			<div class="card-body" style="background:#e5e9ee;">
+				
+				<div class="timeline no-margin">
+					<div ng-repeat="(key, list) in resources">
+						<i class="fa fa-{{dataEntity.src.icon[key]}} bg-{{string2JSON('colorName')[$index+$parent.$index]}}"></i>
+				    
+				    <div class="timeline-item">
+				    	
+				    	<!-- ENCABEZADO -->
+				    	<h3 class="timeline-header" layout=row layout-wrap>
+				    		<b>{{key}}</b>
+				    		<span flex></span>
+				    		<md-radio-group ng-model="dataEntity.comments[dataEntity.src.comments[key]].comentario_require" layout=row layout-wrap>
+						      <md-radio-button value="SI" class="md-primary">SI CUMPLE</md-radio-button>
+						      <md-radio-button value="NO" class="md-warn">NO CUMPLE</md-radio-button>
+						      <md-radio-button value="NA" class="md-accent">NO APLICA</md-radio-button>
+						    </md-radio-group>
+				    	</h3>
+				    	
+				    	<!-- CUERPO DE FORMULARIO -->
+				      <div class="timeline-body" ng-if="dataEntity.comments[dataEntity.src.comments[key]].comentario_require=='NO'" layout-xs=column layout=row layout-wrap layout-padding>
+								
+									<!-- TIPOS DE PREGUNTAS -->
+									<div class="margin-top" style="min-width:50%" ng-repeat="item in list" layout-padding flex>
+										
+										<div ng-if="dataEntity.src.info[item].src_type=='CONTROL' || dataEntity.src.info[item].src_type=='AUMENTAR' || dataEntity.src.info[item].src_type=='MANTENIMIENTO'" layout-padding flex>
+											<span><b>{{item}}. {{dataEntity.src.info[item].src_name}}</b></span>
+											<div ng-if="dataEntity.src.info[item].src_type=='CONTROL' || dataEntity.src.info[item].src_type=='AUMENTAR'">
+												<md-radio-group ng-model="dataEntity.model[item].incrementar_recurso" layout=row layout-wrap>
+										      <md-radio-button value="NO" class="md-primary">SI CUMPLE</md-radio-button>
+										      <md-radio-button value="SI" class="md-warn">NO CUMPLE</md-radio-button>
+										      <md-radio-button value="NA" class="md-accent">NA</md-radio-button>
+										    </md-radio-group>
+											  <div ng-if="dataEntity.model[item].incrementar_recurso=='SI'">
+											  	<div class="form-group required margin-top" flex>
+														<div class="input-group">
+															<div class="input-group-prepend"><div class="input-group-text">INCREMENTAR</div></div>
+															<input class="form-control" ng-model="dataEntity.model[item].incrementar_recurso_cantidad" placeholder="Ej. 2 CO2 .... " />
+														</div>
+													</div>
+											  </div>
+											</div>
+										</div>
+										
+										<div ng-if="dataEntity.src.info[item].src_type=='CUMPLE'" layout-padding flex>
+											<span><b>{{item}}. {{dataEntity.src.info[item].src_name}}</b></span>
+							    		<md-radio-group ng-model="dataEntity.model[item].cumple_recurso" layout=row layout-wrap>
+									      <md-radio-button value="SI" class="md-primary">SI CUMPLE</md-radio-button>
+									      <md-radio-button value="NO" class="md-warn">NO CUMPLE</md-radio-button>
+									    </md-radio-group>
+										</div>
+										
+										<div ng-if="dataEntity.src.info[item].src_type=='IMPLEMENTAR'" layout-padding flex>
+											<span><b>{{item}}. {{dataEntity.src.info[item].src_name}}</b></span>
+							    		<md-radio-group ng-model="dataEntity.model[item].implementar_recurso" layout=row layout-wrap>
+									      <md-radio-button value="NO" class="md-primary">SI CUMPLE</md-radio-button>
+									      <md-radio-button value="SI" class="md-warn">NO CUMPLE</md-radio-button>
+									      <md-radio-button value="NA" class="md-accent">NA</md-radio-button>
+									    </md-radio-group>
+										  <div style="padding-top:0px;" ng-if="dataEntity.model[item].implementar_recurso=='SI'">
+										  	<div class="form-group required" flex>
+													<div class="input-group">
+														<div class="input-group-prepend"><div class="input-group-text"><span translate>LB_OBSERVATION</span></div></div>
+														<input class="form-control" ng-model="dataEntity.model[item].incrementar_recurso_cantidad" placeholder="Ej. 2 CO2 .... " />
+													</div>
+												</div>
+										  </div>
+										</div>
+										
+										<div ng-if="dataEntity.src.info[item].src_type=='INFORME'" layout-padding flex>
+											<span><b>{{item}}. {{dataEntity.src.info[item].src_name}}</b></span>
+							    		<md-radio-group ng-model="dataEntity.model[item].informe_tecnico" layout=row layout-wrap>
+									      <md-radio-button value="SI" class="md-warn">PRESENTAR</md-radio-button>
+									      <md-radio-button value="NA" class="md-accent">NA</md-radio-button>
+									    </md-radio-group>
+										</div>
+										
+										<div ng-if="dataEntity.src.info[item].src_type=='ACTUALIZAR'" layout-padding flex>
+											
+											<div class="text-uppercase" ng-repeat="(localId,plan) in dataEntity.plans">
+												<span ng-if="plan==null"><b>{{localId}}-{{item}}. {{dataEntity.src.info[item].src_name}}</b></span>
+												<span ng-if="plan!=null"><b>{{localId}}-{{item}}. {{dataEntity.src.info[item].src_name}} - {{plan.plan_codigo}}</b></span>
+												
+								    		<md-radio-group ng-model="dataEntity.model[item]['locals'][localId].implementar_recurso" layout=row layout-wrap>
+										      <md-radio-button value="EN TRAMITE" class="md-warn">EN TRAMITE</md-radio-button>
+										      <md-radio-button value="IMPLEMENTAR" class="md-warn">IMPLEMENTAR</md-radio-button>
+										      <md-radio-button value="ACTUALIZAR" class="md-warn">ACTUALIZAR</md-radio-button>
+										      <md-radio-button value="VIGENTE" class="md-primary">VIGENTE</md-radio-button>
+										      <md-radio-button value="NO APLICA" class="md-accent">NO APLICA</md-radio-button>
+										    </md-radio-group>
+											</div>
+											
+									    <!-- INFORMACIÓN FORMULARIO -->
+											<div class="text-uppercase" layout-padding ng-repeat="(localId,plan) in dataEntity.plans">
+									    	
+									    	<div class="card card-outline card-info no-margin margin-top" layout-padding ng-if="plan!=null">
+													<div class="card-header text-center">
+													  <h3 class="card-title"><b>{{plan.plan_codigo}}. {{plan.local_nombrecomercial}}</b></h3>
+													  <div class="card-tools">
+						                  <span ng-bind-html="statusLabel[plan.plan_estado]"></span>
+						                </div>
+													</div>
+													<div class="card-body padding-all" layout=row layout-padding>
+														
+												    <div class="text-left" flex>
+												    	<p class="no-margin"><md-ico i=store_mall_directory></md-ico> <b translate>LB_COMERTIAL</b>: {{plan.local_nombrecomercial}}<br>
+												    		 <md-ico i=group></md-ico> <b translate>LB_AFORO</b>: {{plan.plan_aforo}}<br>
+												    		 <md-ico i=business></md-ico> <b translate>LB_FLOORS</b>: {{plan.plan_plantas}}<br>
+												    		 <md-ico i=center_focus_strong></md-ico> <b translate>LB_AREA</b>: {{plan.plan_area}}</p>
+												    	<p class="no-margin" ng-if="plan.plan_estado=='APROBADO'"><md-ico i=event></md-ico> <b translate>LB_DATE_ELABORATION</b>: {{plan.plan_elaborado | date:'fullDate'}}<br>
+												    		 <md-ico i=event_available></md-ico> <b translate>LB_APPROVAL_DATE</b>: {{plan.plan_aprobado | date:'fullDate'}}<br>
+												    		 <md-ico i=event_busy></md-ico> <b translate>LB_VALID_UNTIL</b>: {{plan.plan_caduca | date:'fullDate'}}</p>
+												    </div>
+												    
+														<div layout=column layout-padding flex ng-if="!(plan.plan_estado=='PENDIENTE' || plan.plan_estado=='INGRESADO' || plan.plan_estado=='APROBADO' || plan.plan_estado=='PAGADO' || plan.plan_estado=='ORDEN DE COBRO GENERADA')">
+															
+															<div class="form-group required" ng-if="plan.plan_estado!='APROBADO'" flex>
+																<label translate>LB_STATUS</label>
+																<div class="input-group">
+																	<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+																		<select class="form-control" ng-model="plan.plan_estado" ng-options="key as val for (key,val) in string2JSON('reviewStatusSelfprotectionPlansList')" required></select>
+																</div>
+															</div>
+															
+															<div class="form-group required">
+																<label translate>LB_OBSERVATION</label>
+																<div class="input-group">
+																	<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+																		<textarea class="form-control" ng-model="plan.plan_observacion" required></textarea> 
+																</div>
+															</div>
+															
+														</div>
+														
+														
+													</div>
+												</div>
+												
+											</div>
+											
+										</div>
+										
+										<div ng-if="dataEntity.src.comments[key]==9" layout-padding flex></div>
+										
+									</div>
+							
+							</div>
+				      
+							<!-- DESCRIPCION O COMENTARIO DE INFORMACION -->
+				      <div class="timeline-footer no-padding-top" ng-if="dataEntity.comments[dataEntity.src.comments[key]].comentario_require=='NO'" layout=column layout-padding>
+								
+								<div class="form-group required">
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+										<textarea class="form-control" ng-model="dataEntity.comments[dataEntity.src.comments[key]].comentario_descripcion"></textarea>
+									</div>
+								</div>
+				      
+				      </div>
+							
+						</div>
+						
+					</div>
+					
+				  <div><i class="fa fa-clock-o bg-gray"></i></div>
+				  
+				</div>
+				
+			</div>
+			
+		</div>
+		
+	</div>
+	
+	<!-- BOTONES -->
+	<div layout-xs=column layout=row layout-padding>
+		<div flex>
+			<a class="btn btn-warning btn-block btn-sm" ui-sref="prevention.inspections.inspections">
+				<i-fa i=angle-double-left></i-fa> <span translate>BTN_PREV</span>
+			</a>
+		</div>
+		<div flex>
+			<button class="btn btn-success btn-block btn-sm" type="button" ng-click="submitForm()" ng-disabled="formData.$invalid">
+				<span translate>LB_SAVE_CHANGES</span> <i-fa i=angle-double-right></i-fa>
+			</button>
+		</div>
+  </div>
+
+</form>

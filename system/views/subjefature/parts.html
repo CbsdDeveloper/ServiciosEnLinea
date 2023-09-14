@@ -1,0 +1,47 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=style></md-ico></md-button>
+			<h2 translate>TOOLBAR_PARTS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()"><md-ico i=add></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column md-numeric md-order-by="parte_codigo"><span translate>LB_CODE</span></th>
+					<th md-column md-order-by="parte_tipo"><span translate>LB_TYPE</span></th>
+					<th md-column md-order-by="estacion_nombre"><span translate>LB_STATION</span></th>
+					<th md-column md-order-by="parte_estado"><span translate>LB_STATUS</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<span ng-bind-html="highlight(row.parte_codigo)"></span> <md-ico i=style s=18></md-ico>
+					</td>
+					<td md-cell>
+						<span ng-bind-html="highlight(row.parte_tipo)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=assistant_photo s=18></md-ico> <span ng-bind-html="highlight(row.estacion_nombre)"></span>
+					</td>
+					<td md-cell>
+						<span ng-bind-html="statusLabel[row.parte_estado]"></span><br>
+						<md-ico i=event s=18></md-ico> <span ng-bind-html="highlight(row.parte_registro)"></span>
+					</td>
+					<td md-cell class="table-menu text-center" layout="row">
+					  <menu-parts></menu-parts>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

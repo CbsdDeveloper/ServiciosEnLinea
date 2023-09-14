@@ -1,0 +1,51 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg" ng-controller="assignmentInspectorExtendsCtrl">
+  <form name="formData" ng-submit="customSubmitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="btn" class="md-icon-button"><md-ico i=transfer_within_a_station></md-ico></md-button>
+			<h2 translate>TOOLBAR_ASSGIN</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-content layout=column layout-padding>
+			<!-- ITERACIÓN DE PASAJEROS -->
+    	<card-plan-information layout-padding ng-if="frmParent.tb=='planesemergencia'"></card-plan-information>
+    	<card-vbp-information layout-padding ng-if="frmParent.tb=='vbp'"></card-vbp-information>
+    	<card-habitability-information layout-padding ng-if="frmParent.tb=='habitabilidad'"></card-habitability-information>
+    	<card-modification-information layout-padding ng-if="frmParent.tb=='vbp_modificaciones'"></card-modification-information>
+			<card-feasibility-information ng-if="frmParent.tb=='factibilidadglp'" layout-padding></card-feasibility-information>
+			<card-definitive-information ng-if="frmParent.tb=='definitivoglp'" layout-padding></card-definitive-information>
+			<card-glp-transport-information ng-if="frmParent.tb=='transporteglp'" layout-padding></card-glp-transport-information>
+			<!-- LISTADO DE CAPACITADORES -->
+			<div class="card card-outline card-info no-margin margin-top no-padding">
+				<div class="card-header with-border text-center">
+					<h3 class="card-title no-margin" translate>LB_ASSIGNMENT_INSPECTOR</h3>
+				</div>
+				<div class="card-body">
+					<div class="col-md-6 col-xs-12 md-2-line contact-item" ng-repeat="item in frmParent.list">
+		        <label class="label">
+					    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.selected" checklist-value="item.ppersonal_id" />
+					    <span class="label__text">
+					      <span class="label__check">
+					        <i class="fa fa-check icon"></i>
+					      </span>
+					    </span>
+					  </label>
+		        <div class="md-list-item-text compact">
+	          	<span class="text-bold" ng-bind-html="highlight(item.personal_nombre)"></span>
+		          <p style="font-size:11px;" ng-bind-html="highlight(item.puesto_nombre)"></p>
+		        </div>
+					</div>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

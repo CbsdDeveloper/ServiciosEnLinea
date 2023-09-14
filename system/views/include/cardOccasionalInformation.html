@@ -1,0 +1,23 @@
+<div class="card card-outline card-danger no-margin text-center card-entity-information">
+  <div class="card-header with-border">
+    <h3 class="card-title">{{frmParent.ocasional_codigo}}</h3>
+  </div>
+  <div class="card-body row">
+    <div class="col-md-3">
+    	<p><img src="/app/src/img/entities/default.png" style="width:128px;margin:auto" class="img-responsive"/></p>
+    </div>
+    <div class="col-md-9 text-left">
+    	<p><md-ico i=credit_card></md-ico> <b translate>LB_ENTITY</b>: {{frmParent.entidad_ruc}}</p>
+    	<p><md-ico i=account_balance></md-ico> <b translate>LB_TAXPAYER_TYPE</b>: {{string2JSON('contribuyenteType')[frmParent.entidad_contribuyente]}}</p>
+    	<p><md-ico i=credit_card></md-ico> <b translate>LB_IDENTIFICATION_TYPE</b>: {{frmParent.persona_doc_identidad}}</p>
+    	<p><md-ico i=person></md-ico> <b translate>LB_PRESIDENT_COMMITTEE</b>: {{frmParent.persona_apellidos}} {{frmParent.persona_nombres}}</p>
+    	
+    	<p><md-ico i=directions_bike></md-ico> <b translate>LB_EVENT_NAME</b>: {{frmParent.ocasional_nombreevento}}</p>
+    	<p><md-ico i=event></md-ico> <b translate>LB_DATE</b>: {{frmParent.ocasional_fecha_inicio}} / {{frmParent.ocasional_fecha_cierre}}</p>
+    	<p><md-ico i=group></md-ico> <b translate>LB_EVENT_PEOPLE</b>: {{frmParent.ocasional_aforo}}</p>
+    	<p><md-ico i=monetization_on></md-ico> <b translate>LB_PROFIT</b>: {{frmParent.ocasional_finesdelucro}}</p>
+    	<p><md-ico i=settings></md-ico> <b translate>LB_HAS_PLATFORMS</b>: {{frmParent.ocasional_instalacionesmontables}}</p>
+    	<p><md-ico i=place></md-ico> <b translate>LB_EVENT_PLACE</b>: {{frmParent.lugar_evento}}</p>
+    </div>
+  </div>
+</div>

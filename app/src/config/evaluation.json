@@ -1,0 +1,29 @@
+{
+	"entities":{
+		"stands":{
+			"score":"score",
+			
+			"fecha":"stand_fecha",
+			"codigo":"stand_codigo",
+			"solicitud":"CASA ABIERTA"
+		},
+		"visitas":{
+			"score":"score",
+			
+			"fecha":"visita_fecha",
+			"codigo":"visita_codigo",
+			"solicitud":"VISITA AL CUERPO DE BOMBEROS"
+		},
+		"simulacros":{
+			"score":"score",
+			
+			"fecha":"simulacro_fecha",
+			"codigo":"simulacro_codigo",
+			"solicitud":"SIMULACRO DE EMERGENCIA"
+		}
+	},
+	"direccion":{
+		"stands":["stand_parroquia","stand_direccion"],
+		"simulacros":["simulacro_principal","simulacro_secundaria"]
+	}
+}

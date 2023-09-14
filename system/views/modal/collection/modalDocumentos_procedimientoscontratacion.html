@@ -1,0 +1,50 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg" ng-controller="requirementsContractingProceduresExtndsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=format_list_bulleted></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_CONTRACTING_PROCEDURES</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+			
+			<!-- TRABAJOS A REALIZAR -->
+			<div class="card card-outline card-primary no-margin" layout-padding>
+				<div class="card-header text-center">
+				  <h3 class="card-title" translate>LB_REQUIREMENTS</h3>
+				</div>
+				<div class="card-body no-padding">
+		    	<table class="table table-condensed no-margin">
+		    		<thead>
+		    			<tr>
+		    				<th class="text-center" style="width:75px"><span>#</span></th>
+		    				<th><span translate>LB_DETAIL</span></th>
+		    				<th class="text-center" style="width:60px;"><span translate>LB_ACTION</span></th>
+		    			</tr>
+		    		</thead>
+		    		<tbody>
+		    			<tr ng-repeat="(key,item) in frmParent.selected | orderBy:'documento_index'">
+			    			<td><input type="number" min="0" step="1" class="form-control input-sm" ng-model="item.documento_index" required /></td>
+			    			<td><select class="form-control input-sm" ng-model="item.fk_recurso_id" ng-options="src.recurso_id as src.recurso_nombre for src in requirementList" required></select></td>
+			    			<td><button type="button" class="btn btn-danger btn-sm" ng-click="removeItem(item,'selected')"><i-fa i=trash></i-fa></button></td>
+			    		</tr>
+		    		</tbody>
+		    	</table>
+				</div>
+				<div class="card-footer text-right">
+					<button type="button" class="btn btn-primary btn-sm" ng-click="addJobToDo('selected')"><i-fa i=plus></i-fa> <span translate>LB_NEW</span></button>
+				</div>
+			</div>
+    	
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

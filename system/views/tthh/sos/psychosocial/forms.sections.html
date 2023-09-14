@@ -1,0 +1,64 @@
+<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		<card-psychosocial-form class="card-information" ng-if="detailConfig.show" flex></card-psychosocial-form>
+		
+		<div class="no-padding" flex>
+			
+			<md-card ng-controller="myTableCtrl">
+
+				<md-toolbar ng-hide="filter.show">
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=filter_none></md-ico></md-button>
+						<h2 class="md-flex" translate>LB_FORM_SECTIONS</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+							<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+						</md-button>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+							<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+						</md-button>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="openParentModal('Formulariosriesgopsicosocial_secciones',{edit:false,fk_formulario_id:dataEntity.formulario_id})">
+							<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+						</md-button>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<toolbar-filter></toolbar-filter>
+				<md-table-container>
+			    <table md-table class="md-primary table-hover" md-progress="deferred">
+			     	<col style="">
+			     	<col style="width:35%">
+			     	<col style="width:5%">
+			      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+							<tr md-row>
+								<th md-column><span translate>LB_SECTIONS</span></th>
+								<th md-column><span translate>LB_DETAIL</span></th>
+								<th md-column><span translate>LB_MENU</span></th>
+							</tr>
+			      </thead>
+			      <tbody>
+							<tr md-row data-ng-repeat="row in rowsParent.data">
+								<td md-cell>
+									<span ng-bind-html="highlight(row.seccion_index+'. '+row.seccion_nombre)"></span>
+								</td>
+								<td md-cell>
+									<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.seccion_estado]"></span><br>
+									<md-ico i=event></md-ico><span ng-bind-html="highlight(row.seccion_registro)"></span><br>
+									<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+								</td>
+								<td md-cell>
+									<menu-psychosocial-forms-sections></menu-psychosocial-forms-sections>
+								</td>
+							</tr>
+			      </tbody>
+			    </table>
+				</md-table-container>
+				<footer-table></footer-table>
+			</md-card>
+			
+		</div>
+	</div>
+</div>

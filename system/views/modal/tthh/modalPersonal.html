@@ -1,0 +1,163 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog" style="width:90%">
+  <form name="formData" ng-submit="submitForm()">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=group_outline></md-ico></md-button>
+			<h2 translate>TOOLBAR_STAFF</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+		<md-content class="no-padding" layout-xs=column layout=row layout-padding>
+			
+    	<!-- INFORMACIÓN PERSONAL -->
+			<div class="padding-all" layout=column layout-padding flex>
+				<frm-personas-advanced layout-padding></frm-personas-advanced>
+			</div>
+			
+    	<!-- INFORMACIÓN DE PERSONAL -->
+			<div class="padding-all" layout=column layout-padding flex>
+				<div class="card card-outline card-success no-margin" layout-padding ng-controller="jobsListCtrl">
+					<div class="card-header with-border text-center">
+					  <h3 class="card-title" translate>LB_JOB_PROFILE</h3>
+					</div>
+					<div class="card-body padding-all" layout=column layout-padding>
+						<div layout-xs=column layout=row layout-padding>
+				    	<div class="form-group required" flex>
+								<label translate>LB_LABOR_REGIME</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=style></md-ico></div></div> 
+							    <select class="form-control" ng-model="frmParent.personal_regimen_laboral" ng-options="val as val for (key,val) in string2JSON('TTHH_LABOR_REGIME')" required></select>
+							  </div>
+							</div>
+				    	<div class="form-group required" flex>
+								<label translate>LB_DEFINE_LEGAL_BASE</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=gavel></md-ico></div></div> 
+							    <input class="form-control" ng-model="frmParent.personal_baselegal" placeholder="Ej. MEMORANDO / DECRETO / ORDENANZA" required >
+							  </div>
+							</div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_STATIONS</label>
+							<div class="input-group" flex ng-controller="stationsListCtrl">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assistant_photo></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.fk_estacion_id" required ng-options="row.estacion_id as (row.estacion_nombre+' - '+row.estacion_nombre_alterno) for row in list"></select>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_LEADERSHIPS</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=account_balance></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.fk_direccion_id" required ng-options="row.direccion_id as row.direccion_nombre for row in jobsList.leaderships"></select>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_JOBS</label>
+							<div class="input-group" flex>
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=wrap_text></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.fk_puesto_id" required ng-options="row.puesto_id as (row.puesto_nombre+' - $'+row.puesto_remuneracion) for row in jobsList.jobs[frmParent.fk_direccion_id]"></select>
+							</div>
+						</div>
+						
+						<div layout-xs=column layout=row layout-padding>
+				    	<div class="form-group required" ng-controller="workdaysListCtrl" flex>
+								<label translate>LB_WORKDAY</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=access_time></md-ico></div></div> 
+							    <select class="form-control" ng-model="frmParent.fk_jornada_id" required ng-options="row.jornada_id as row.jornada_nombre for row in jsonList"></select>
+							  </div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_DEFINITION</label>
+								<div class="input-group" flex>
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=wrap_text></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.personal_definicion" required ng-options="val as val for (key,val) in string2JSON('TTHH_STAFF_OWNERSHIP')"></select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="form-group required">
+							<label translate>LB_CONTRACT_TYPE</label>
+							<div class="input-group" flex>
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=photo_filter></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.personal_contrato" required ng-options="val as val for (key,val) in string2JSON('contractType')"></select>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" ng-if="toogleEditMode" flex>
+								<label translate>LB_STATUS</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.ppersonal_estado" ng-options="val as val for (key,val) in string2JSON('TTHH_PERSONAL_STATUS')" required></select>
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_REGISTRE_DATE</label>
+								<div class="input-group" moment-picker="frmParent.personal_fecha_registro" format="YYYY-MM-DD">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+									<input class="form-control" ng-model="frmParent.personal_fecha_registro" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required >
+								</div>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_DATE_CONTRACT</label>
+								<div class="input-group" moment-picker="frmParent.personal_fecha_ingreso" format="YYYY-MM-DD">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_available></md-ico></div></div> 
+									<input class="form-control" ng-model="frmParent.personal_fecha_ingreso" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required >
+								</div>
+							</div>
+							<div class="form-group required" ng-if="frmParent.ppersonal_estado=='PASIVO' || (frmParent.personal_contrato!='NOMBRAMIENTO' && frmParent.personal_contrato!='LIBRE NOMBRAMIENTO Y REMOCION')" flex>
+								<label translate>LB_TERMINATION_CONTRACT</label>
+								<div class="input-group" moment-picker="frmParent.personal_fecha_salida" format="YYYY-MM-DD">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_busy></md-ico></div></div> 
+									<input class="form-control" ng-model="frmParent.personal_fecha_salida" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required >
+								</div>
+							</div>
+						</div>
+						<div class="form-group required" ng-if="frmParent.personal_estado=='SUSPENDIDO'" flex>
+							<label translate>LB_OBSERVATION</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comments></md-ico></div></div> 
+								<textarea class="form-control" ng-model="frmParent.personal_motivo_salida"></textarea>
+							</div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_INSTITUTIONAL_MAIL</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=contact_mail></md-ico></div></div> 
+								<input type="mail" class="form-control" ng-model="frmParent.personal_correo_institucional" placeholder="Ej. correo@domain.com" required >
+							</div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_BIOMETRIC_CODE</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=access_time></md-ico></div></div> 
+								<input type="number" min="1" step="1" class="form-control" ng-model="frmParent.biometrico_id" placeholder="Ej. 16" required >
+							</div>
+						</div>
+	          <div class="form-group required">
+	            <label translate>LB_CHOOSE_FILE</label>
+	            <div class="input-group">
+	              <div class="input-group-prepend"><div class="input-group-text"><i-fa i=image></md-ico></div></div> 
+	              <input type="file" accept="image/*" class="form-control" img-cropper-fileread image="frmParent.persona_file" />
+	            </div>
+	          </div>
+		        <div class="text-center" ng-if="frmParent.persona_file!='' && frmParent.persona_file!=null">
+	            <canvas width="500" height="300" id="canvas" image-cropper image="frmParent.persona_file" cropped-image="frmParent.persona_imagen" crop-width="400" crop-height="600" keep-aspect="true" touch-radius="30" crop-area-bounds="bounds"></canvas>
+		        </div>
+					</div>
+				</div>
+			</div>
+		
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,26 @@
+<div class="card card-outline card-dark no-margin text-center card-entity-information" layout-padding>
+  <div class="card-header with-border">
+    <h3 class="card-title" translate>LB_PERSONAL_INFORMATION</h3>
+		<div class="card-tools">
+			<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+		</div>
+  </div>
+  <div class="card-body">
+  	<div class="row">
+	    <div class="col-md-3 no-padding">
+	    	<div class="container-profile small">
+		    	<img src="/app/src/img/users/default.png" ng-src="{{paramsConf.uri.img}}users/{{frmParent.person.persona_imagen}}" />
+	    	</div>
+	    </div>
+	    <div class="col-md-9 text-left">
+				<p><span><md-ico i=credit_card></md-ico> <b translate>LB_DOC_IDENTIFICATION</b>: {{frmParent.person.persona_doc_identidad}}</p>
+				<p><span><md-ico i=person></md-ico> <b translate>LB_NAME</b>: {{frmParent.person.persona_apellidos}} {{frmParent.person.persona_nombres}}</p>
+				<p><span><md-ico i=mail></md-ico> <b translate>LB_MAIL</b>: {{frmParent.person.persona_correo}}</p>
+				<p><span><md-ico i=phone></md-ico> <b translate>LB_TEL</b>: {{frmParent.person.persona_telefono}}</p>
+				<p><span><md-ico i=phone_iphone></md-ico> <b translate>LB_CELL_PHONE</b>: {{frmParent.person.persona_celular}}</p>
+				<p><span><md-ico i=cake></md-ico> <b translate>LB_TEL</b>: {{frmParent.person.persona_fnacimiento | date:'fullDate'}}</p>
+				<p><span><md-ico i=opacity></md-ico> <b translate>LB_BLOOD_TYPE</b>: {{frmParent.person.persona_tiposangre}}</p>
+	  	</div>
+    </div>
+  </div>
+</div>

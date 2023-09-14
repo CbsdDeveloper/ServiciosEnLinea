@@ -1,0 +1,184 @@
+/* ************** HTML - CUSTOM ************** */
+*:required span.btn.btn-default.form-control.ui-select-toggle,*:required{border:1px solid #f15656}
+
+@font-face{
+ font-family:'digital-clock-font';
+ src:url('../../cdn/font/digital-7/digital-7.ttf');
+}
+.form-digital input[type=number],
+.font-digital{font-family:'digital-clock-font'!important;font-size:22px;text-align:center}
+
+/* ************** MATERIAL DESIGN - ANGULAR ************** */
+.media-container img{width:100%;}
+
+/* ************** TEMPLATE ************** */
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header{height:auto!important;min-height:175px;}
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header>p{margin-bottom:0px;}
+.pull-left.info p,.pull-left.info a {width:164px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pull-right.profile-img{width:44px;height:44px;margin-top:-11px;}
+.pull-right.profile-img img{width:100%;height:auto;}
+.pull-left.image {width:45px;height:45px;}
+.pull-left.image,.pull-right.profile-img {overflow:hidden;border-radius:50%;}
+.container-img-user{width:159px;height:159px;margin:auto;border-radius:50%;overflow:hidden;border-color:rgba(255,255,255,0.2);background:white;}
+.profile-user-img{width:100%;height:auto;max-width:164px;vertical-align:middle;border:0;padding:0px;}
+.box-bg-info{
+	background:url(http://localhost/app/src/img/system/logo.png) no-repeat;
+	padding:0px;background-size:contain;background-position:center center;
+}
+.box-bg-info > div{padding:20px;background:rgba(255,255,255,0.95)}
+.form-content-alt md-content{background:#f1f1f1;}
+/** WRAPPER **/
+.w-100{width:100%}
+.img-logo{padding:12px 25px;max-width:512px;margin:auto}
+.img-logo img {max-width: 256px;margin:0px auto;}
+.widget-user .widget-user-image > div.bk-img{height:90px;width:90px;margin-top:10px;background:#fefaca}
+.widget-user .widget-user-image > div.bk-img > span{font-size:33px;display:inline-block;margin-top:20px;}
+.wrapper{background:#ecf0f5!important;}
+.content-wrapper{margin-bottom:-10px;margin-top:-10px;padding-top:10px;padding-bottom:60px;}
+/*.main-footer{position:absolute;bottom:0px;width:calc(100% - 230px);}*/
+@media (min-width:768px){
+	.sidebar-collapse .main-footer{width:calc(100% - 50px)!important;}
+}
+@media (max-width:767px){
+	.main-footer{width:100%;text-align:center;}
+}
+@media (max-width:991px){
+	.navbar-custom-menu > .navbar-nav > li > .dropdown-menu {right:0;}
+}
+
+/** MENSAJES - NOTIFICACIONES MENU **/
+.pull-left.img-circle {overflow:hidden;height:48px;width:48px;border:1px solid #ccc;margin-right:5px;}
+.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a > div > img {margin:auto;width:auto;height:auto;}
+.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a > p {white-space:normal;}
+
+/** MENU **/
+ul.nav.navbar-nav {height:51px;}
+li.messages-menu a {padding-top:14px;padding-bottom:10px;}
+@media (min-width:768px){
+	.sidebar-mini.sidebar-collapse .sidebar-menu > li:hover > a > span:not(.pull-right), 
+	.sidebar-mini.sidebar-collapse .sidebar-menu > li:hover > .treeview-menu {
+	    width:256px!important;
+	}
+}
+.md-dialog-container{z-index:1080;background:rgba(0, 0, 0, 0.41);}
+textarea{resize:none;}
+
+/* FORMS */
+input.form-control + input.form-control {margin-top:-1px;}
+.layout-padding div.form-group{margin:0px}
+.input-group .material-icons {font-size:18px;}
+.form-uppercase input,.form-uppercase textarea,.form-uppercase select{text-transform:uppercase;}
+
+/* MATERIAL-TABLE */
+table.button-icon button.md-button .fa, table.button-icon button.md-button .material-icons {
+    font-size: 18px!important;
+}
+
+/* SWEET ALERT */
+img.swal2-image{height:128px}
+.main-sidebar, .left-side{z-index:70;}
+.box{margin:0px;margin-bottom:20px;}
+.box-m-0{margin:0px;}
+
+/** GROWL **/
+.growl-item.alert.ng-scope.alert-error.alert-danger {border-left:5px solid #c23321;}
+.growl-item.alert.alert-success {border-left:5px solid #00733e;}
+
+/** PROFILES **/
+.widget-user-2 .widget-user-image > img {height:65px;}
+.pull-right .table-menu{margin-top:-10px}
+.box-footer {border:1px solid #f4f4f4!important;}
+
+.selectdemoSelectHeader {
+  /* Please note:All these selectors are only applied to children of elements with the 'selectdemoSelectHeader' class */ }
+  .selectdemoSelectHeader .demo-header-searchbox {
+    border:none;
+    outline:none;
+    height:100%;
+    width:100%;
+    padding:0; }
+  .selectdemoSelectHeader .demo-select-header {
+    box-shadow:0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+    padding-left:10.667px;
+    height:48px;
+    cursor:pointer;
+    position:relative;
+    display:flex;
+    align-items:center;
+    width:auto; }
+	.selectdemoSelectHeader md-content._md {max-height:240px;}
+	
+.input-group md-select {margin:0px;border:1px solid #ccc;}
+.input-group md-select.md-default-theme .md-select-value, md-select .md-select-value{border-bottom-color:transparent;padding-bottom:5px;padding-left:13px;}
+
+/** LOADING BAR **/
+#loading-bar-spinner .spinner-icon{width:30px;height:30px;color:red}
+#loading-bar .bar {background:#ff0000;}
+#loading-bar-spinner .spinner-icon {border-top-color:#ff0000;border-left-color:#ff0000;}
+#loading-bar .peg {
+  -moz-box-shadow:#00AC34 1px 0 6px 1px;
+  -ms-box-shadow:#00AC34 1px 0 6px 1px;
+  -webkit-box-shadow:#00AC34 1px 0 6px 1px;
+  box-shadow:#00AC34 1px 0 6px 1px;
+}
+.loading-spinner {
+  -webkit-animation:spin 1s linear infinite;
+  -moz-animation:spin 1s linear infinite;
+  animation:spin 1s linear infinite;
+}
+
+/** STATS **/
+.info-box-icon .material-icons{vertical-align:middle}
+
+.required .form-control.ui-select-toggle{border:1px solid red!important;}
+
+/* 
+ * ****** LOGISTICA ******
+ */
+/* FLOTAS VEHICULARES - PASAJEROS */
+.md-list-item-text.compact{width:calc(100% - 50px);overflow:hidden;text-overflow:ellipsis;}
+.md-list-item-text.compact p, .md-list-item-text.compact span{white-space:nowrap;font-size:13px;overflow:hidden;text-overflow:ellipsis;}
+.contact-item img {width:40px;height:40px;margin-right:5px;}
+.md-2-line.contact-item {display:inline-flex;}
+
+/* HTML - CHECKBOX */
+.label__checkbox {display:none;}
+.label__check {
+  display:inline-block;border-radius:50%;border:4px solid rgb(60, 141, 188);background:white;vertical-align:middle;width:3.3em;height:3.3em;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border .3s ease;
+  i.icon {opacity:0.2;font-size:~'calc(1rem + 1vw)';color:transparent;transition:opacity .3s .1s ease;-webkit-text-stroke:3px rgba(0,0,0,.5);}
+  &:hover {border:5px solid rgba(0,0,0,0.2);}
+}
+.label__checkbox:checked + .label__text .label__check {
+  animation:check .5s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
+  .icon {opacity:1;transform:scale(0);color:white;-webkit-text-stroke:0;animation:icon .3s cubic-bezier(1.000, 0.008, 0.565, 1.650) .1s 1 forwards;}
+}
+@keyframes icon {
+  from {opacity:0;transform:scale(0.3);}
+  to {opacity:1;transform:scale(1);}
+}
+@keyframes check {
+  0% {width:2.4em;height:2.4em;border-width:5px;}
+  10% {width:2.4em;height:2.4em;opacity:0.1;background:rgba(0,0,0,0.2);border-width:15px;}
+  12% {width:2.4em;height:2.4em;opacity:0.4;background:rgba(0,0,0,0.1);border-width:0;}
+  50% {width:3.3em;height:3.3em;background:#00d478;border:0;opacity:0.6;}
+  100% {width:3.3em;height:3.3em;background:#00d478;border:0;opacity:1;}
+}
+
+.list-personal .ui-select-choices-row-inner > *{display:inline-block;vertical-align:top;line-height:15px;}
+
+/*
+ * MODALES
+ */
+.sidebar-menu li a span{font-size:9px;}
+.modal-dialog, .modal-dialog button, .modal-dialog input, .modal-dialog textarea, .modal-dialog select, .modal-dialog .ui-select, .modal-dialog span.ui-select-match-text{font-size:12px;}
+.modal-dialog label{font-size:11px;margin-bottom:3px;}
+.layout-padding, .layout-padding-gt-sm, .layout-padding-gt-sm>*, .layout-padding-md, .layout-padding-md>*, .layout-padding>*, .layout-padding>.flex, .layout-padding>.flex-gt-sm, .layout-padding>.flex-md{padding:5px;}
+.box-header{padding:10px;}
+.box-header .box-title{font-size:15px;}
+
+
+/* CUSTOM */
+.material-13i .material-icons{font-size:13px!important;}
+.material-14i .material-icons{font-size:14px!important;}
+.material-15i .material-icons{font-size:15px!important;}
+.material-16i .material-icons{font-size:16px!important;}

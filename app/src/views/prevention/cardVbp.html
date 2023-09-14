@@ -1,0 +1,38 @@
+<div class="box box-{{string2JSON('colorCss')[$index]}} text-center">
+	<div class="box-header">
+		<i-fa i=map s=3x></i-fa>
+	</div>
+	<div class="box-body">
+		<h3 class="profile-username">{{entity.vbp_codigo}}</h3>
+    <hr>
+		<strong><i-fa i=building></i-fa> <span translate>LB_RUC</span></strong>
+		<p class="text-muted">{{entity.entidad_ruc}}</p>
+		<hr>
+		<strong><i-fa i=building></i-fa> <span translate>LB_TRADENAME</span></strong>
+		<p class="text-muted">{{entity.entidad_razonsocial}}</p>
+		<hr>
+		<strong><i-fa i=object-group></i-fa> <span translate>LB_PROJECT_NAME</span></strong>
+    <p class="text-muted">{{entity.vbp_proyecto}}</p>
+    <hr>
+		<strong><i-fa i=rss></i-fa> <span translate>LB_BUILDING_PURPOSE</span></strong>
+    <p class="text-muted">{{entity.actividad_nombre}}</p>
+    <hr>
+		<strong><i-fa i=rss></i-fa> <span translate>LB_BUILDING_TYPE</span></strong>
+    <p class="text-muted">{{entity.vbp_tipo}}</p>
+    <hr>
+		<strong><i-fa i=map-marker></i-fa> <span translate>LB_ADDRESS</span></strong>
+    <p class="text-muted">{{entity.vbp_parroquia}}<br>{{entity.vbp_principal}} y {{entity.vbp_secundaria}}</p>
+    <hr>
+		<strong><i-fa i=key></i-fa> <span translate>LB_CATASTRAL_KEY</span></strong>
+    <p class="text-muted">{{entity.vbp_clavecatastral}}</p>
+    <hr>
+		<strong><i-fa i=university></i-fa> <span translate>LB_NUMBER_BUILDINGS</span></strong>
+    <p class="text-muted">{{entity.vbp_edificaciones}}</p>
+    <hr>
+		<strong><i-fa i=calendar></i-fa> <span translate>LB_DATE_ELABORATION</span></strong>
+    <p class="text-muted">{{entity.vbp_elaborado}}</p>
+	</div>
+	<div class="box-footer">
+		
+	</div>
+</div>

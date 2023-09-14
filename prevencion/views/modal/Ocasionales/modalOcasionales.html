@@ -1,0 +1,147 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg form-fa" ng-controller="occasionalExtendsCtrl">
+  <form name="formData" ng-submit="submitCustomForm()">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=directions_bike></md-ico></md-button>
+			<h2 translate>TOOLBAR_OCCASIONALS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="closeDialog()"><md-ico i=close></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+	
+			<md-tabs md-dynamic-height md-border-bottom>
+				<md-tab label="{{'LB_EVENT_INFORMATION' | translate}}">
+					<md-content layout=column layout-padding>
+					
+							<div class="box box-info form-fa no-margin margin-bottom" layout-padding>
+								<div class="box-header with-border text-center">
+									<h3 class="box-title" translate>LB_OCCASIONAL_INFO</h3>
+								</div>
+								<div class="box-body padding-all" layout=column layout-padding>
+									<div class="form-group required" flex>
+										<i-fa i=hashtag></i-fa>
+										<label translate>LB_EVENT_NAME</label>
+								    <input ng-model="frmParent.ocasional_nombreevento" class="form-control" placeholder="Ej. Gran Bingo Bailable" required>
+									</div>
+									<div layout-xs=column layout=row layout-padding>
+										<div class="form-group required" flex min-date="today" moment-picker="frmParent.ocasional_fecha_inicio">
+											<i-fa i=calendar-check-o></i-fa>
+											<label translate>LB_OPENING_DATE</label>
+									    <input class="form-control" ng-model="frmParent.ocasional_fecha_inicio" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2018-01-10" required>
+										</div>
+										<div class="form-group required" flex min-date="frmParent.ocasional_fecha_inicio" moment-picker="frmParent.ocasional_fecha_cierre">
+											<i-fa i=calendar-times-o></i-fa>
+											<label translate>LB_DEADLINE</label>
+									    <input class="form-control" ng-model="frmParent.ocasional_fecha_cierre" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2018-02-25" required>
+										</div>
+									</div>
+									<div layout-xs=column layout=row layout-padding>
+										<div class="form-group required" flex>
+											<i-fa i=users></i-fa>
+											<label translate>LB_EVENT_PEOPLE</label>
+									    <input type="number" min=0 step=1 class="form-control" ng-model="frmParent.ocasional_aforo" placeholder="Ej. 500" required />
+										</div>
+										<div class="form-group required" flex>
+											<i-fa i=money></i-fa>
+											<label translate>LB_PROFIT</label>
+									    <select class="form-control" ng-model="frmParent.ocasional_finesdelucro" required ng-options="key as val for (key,val) in string2JSON('profitType')"></select>
+										</div>
+									</div>
+									<div layout-xs=column layout=row layout-padding>
+										<div class="form-group required" flex>
+											<i-fa i=hashtag></i-fa>
+											<label translate>LB_HAS_PLATFORMS</label>
+									    <select class="form-control" ng-model="frmParent.ocasional_instalacionesmontables" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+										</div>
+										<div class="form-group required" flex>
+											<i-fa i=fire></i-fa>
+											<label translate>LB_HAS_PYROTECHNY</label>
+									    <select class="form-control" ng-model="frmParent.ocasional_fuegosartificiales" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+										</div>
+									</div>
+									<div layout-xs=column layout=row layout-padding>
+										<div class="form-group required" flex>
+											<i-fa i=building></i-fa>
+											<label translate>LB_EVENT_PLACE</label>
+									    <select class="form-control" ng-model="frmParent.ocasional_lugar" required ng-options="val as val for (key,val) in string2JSON('eventPlaces')"></select>
+										</div>
+										<div class="form-group required" flex ng-if="frmParent.ocasional_lugar=='ESTABLECIMIENTO'">
+											<i-fa i=shield></i-fa>
+											<label translate>LB_PERMIT_NUMBER</label>
+									    <input class="form-control" ng-model="frmParent.ocasional_permiso" placeholder="Ej. 2017PER0001" required />
+										</div>
+										<div class="form-group required" flex ng-if="frmParent.ocasional_lugar=='OTRO'">
+											<i-fa i=map-signs></i-fa>
+											<label translate>LB_PLACE_NAME</label>
+									    <input class="form-control" ng-model="frmParent.ocasional_nombrelugar" placeholder="Ej. Cancha Comunal Juan Eulogio" required />
+										</div>
+									</div>
+								</div>
+							</div>
+						
+							<frm-personas-basic layout-padding></frm-personas-basic>
+					
+					</md-content>
+				</md-tab>
+				<md-tab label="{{'LB_OCCASIONAL_ADDRESS' | translate}}">
+					<md-content layout=column layout-padding>
+					
+								<div class="box box-success form-fa no-margin margin-bottom" ng-if="frmParent.ocasional_lugar!='ESTABLECIMIENTO'" layout-padding>
+									<div class="box-header with-border text-center">
+										<h3 class="box-title" translate>LB_OCCASIONAL_ADDRESS</h3>
+									</div>
+									<div class="box-body padding-all" layout=column layout-padding>
+										<div class="form-group required" flex>
+											<i-fa i=globe></i-fa>
+											<label translate>LB_PARRISH</label>
+											<select class="form-control" ng-model="frmParent.ocasional_parroquia" required ng-options="val as val for (key,val) in string2JSON('parishesList')"></select>
+										</div>
+										<div layout-xs=column layout=row layout-padding>
+											<div class="form-group required" flex>
+												<i-fa i=location-arrow></i-fa>
+												<label translate>LB_FIRST_LINE</label>
+										    <input ng-model="frmParent.ocasional_principal" class="form-control" placeholder="Ej. Av. Quevedo y Av. Coperativismo" required />
+											</div>
+											<div class="form-group required" flex>
+												<i-fa i=map-signs></i-fa>
+												<label translate>LB_SECOND_LINE</label>
+										    <input ng-model="frmParent.ocasional_secundaria" class="form-control" placeholder="Ej. Coop. El Proletariado" required />
+											</div>
+										</div>
+										<div layout-xs=column layout=row layout-padding>
+											<div class="form-group required" flex>
+												<i-fa i=hourglass-start></i-fa>
+												<label translate>LB_EVENT_CONCENTRATION</label>
+										    <input class="form-control" ng-model="frmParent.ocasional_concentracion" placeholder="Ej. Movimiento Juan XXIII" required />
+											</div>
+											<div class="form-group" flex>
+												<i-fa i=hand-paper-o></i-fa>
+												<label translate>LB_EVENT_ARRIVAL</label>
+										    <input class="form-control" ng-model="frmParent.ocasional_llegada" placeholder="Ej. Cancha de la Tri" />
+											</div>
+										</div>
+									</div>
+								</div>
+							
+								<div class="box box-primary no-margin no-padding">
+									<div class="box-header with-border text-center">
+										<h3 class="box-title no-margin" translate>LB_CROQUIS_OF_THE_PLACE</h3>
+									</div>
+									<div class="box-body" style="zoom:110%;">
+										<leaflet id="myOSM" lf-center="myOSM" layers="layers" controls="controls" markers="markers" defaults="defaults" height="480px" width="100%"></leaflet>
+									</div>
+								</div>
+					
+					</md-content>
+				</md-tab>
+			</md-tabs>
+	
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

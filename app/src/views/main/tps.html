@@ -1,0 +1,21 @@
+<!-- MENU DE NAVEGACIÓN -->
+<view-menu></view-menu>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+	<!-- breadcrumbs -->
+	<ui-breadcrumbs displayname-property="data.displayName" abstract-proxy-property="data.breadcrumbProxy"></ui-breadcrumbs>
+  <!-- Main content -->
+  <section class="content">
+		<!-- CONTAINER -->
+		<div ui-view class="div-container"></div>
+	</section>
+	<!-- /.content -->
+</div>
+<!-- FOOTER -->
+<footer class="main-footer text-center">
+	<small>
+		<span ng-bind-html="paramsConf.dev_license"></span>
+		<br><span ng-bind-html="paramsConf.sistema_footer"></span>
+		<br><b>{{paramsConf.dev_version}}</b>
+	</small>
+</footer>

@@ -1,0 +1,53 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar  ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=assignment></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_RESOURCES</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()" ng-if="allow.permiso10441"><md-ico i=add></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openParentModal('Recursos_entidades',{types:''})"><md-ico i=playlist_add></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+			<table md-table class="md-primary table-hover" md-progress="deferred">
+	      <col style="">
+	      <col style="">
+	     	<col style="width:20%">
+	     	<col style="width:5%">
+				<thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+					<tr md-row>
+						<th md-column><span translate>LB_CODE</span></th>
+						<th md-column><span translate>LB_MODULES</span></th>
+						<th md-column><span translate>LB_DETAIL</span></th>
+						<th md-column><span translate>LB_MENU</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr md-row data-ng-repeat="row in rowsParent.data">
+						<td md-cell>
+							<img src="/app/src/img/src/default.png" ng-src="/app/src/img/src/{{row.recurso_imagen}}"
+							 		 style="width:48px;height:48px;padding:5px" class="img-circle" alt="img" />
+							<md-tooltip>{{row.recurso_id}}</md-tooltip>
+						</td>
+						<td md-cell>
+							<md-ico ng-if="row.recurso_icon_tipo=='materialIconList'" i={{row.recurso_icon}}></md-ico>
+							<i-fa ng-if="row.recurso_icon_tipo=='fontAwesomeList'" i={{row.recurso_icon}}></i-fa>
+							<span ng-bind-html="highlight(row.recurso_nombre)"></span>
+						</td>
+						<td md-cell>
+							<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.recurso_estado]"></span><br>
+							<md-ico i=event></md-ico><span ng-bind-html="highlight(row.recurso_registro)"></span><br>
+							<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+						</td>
+						<td md-cell class="table-menu text-center">
+						  <menu-mini ng-if="allow.permiso10442"></menu-mini>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</md-table-container>
+		<footer-table></footer-table>
+</md-card>

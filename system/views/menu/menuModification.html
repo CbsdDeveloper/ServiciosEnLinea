@@ -1,0 +1,119 @@
+<md-menu md-position-mode="target-right target">
+  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+  </md-button>
+  <md-menu-content width="5">
+    <md-menu-item ng-if="allow.permiso6047">
+      <md-button aria-label="editar" ng-click="openModal(row)">
+          <div layout="row" flex>
+            <p flex translate>LB_EDIT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=edit></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="(row.modificacion_estado=='REVISADO' || row.modificacion_estado=='APROBADO')"></md-divider>
+    <md-menu-item ng-if="(row.modificacion_estado=='REVISADO' || row.modificacion_estado=='APROBADO')">
+      <md-button aria-label="editar" ng-click="openParentModal('Files',{edit:false,fk_table:'vbp_modificaciones',fk_id:row.modificacion_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_UPLOAD_FILES</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=file_upload></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider></md-divider>
+    <md-menu-item ng-if="allow.permiso6047">
+      <md-button aria-label="editar" ng-click="openParentModal('Profesionales',row)">
+          <div layout="row" flex>
+            <p flex translate>LB_PROFESSIONALS</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=school></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="row.modificacion_estado=='ASIGNADO' && allow.permiso6043"></md-divider>
+    <md-menu-item ng-if="row.modificacion_estado=='ASIGNADO'">
+      <md-button aria-label="editar" ng-click="openParentModal('Asignacion',mergeData(row,{tb:'vbp_modificaciones'}))">
+          <div layout="row" flex>
+            <p flex translate>LB_ASSIGN_INSPECTOR</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=group_add></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="(row.modificacion_estado=='ASIGNADO' || row.modificacion_estado=='REVISION' || row.modificacion_estado=='CORRECCION' || row.modificacion_estado=='PAGADO' || row.modificacion_estado=='APROBADO') && (allow.permiso6044 || allow.permiso6046)"></md-divider>
+    <md-menu-item ng-if="(row.modificacion_estado=='ASIGNADO' || row.modificacion_estado=='REVISION' || row.modificacion_estado=='CORRECCION') && allow.permiso6044">
+      <md-button aria-label="editar" ng-click="openModal(row)">
+          <div layout="row" flex>
+            <p flex translate>LB_REVIEW</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=done></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="(row.modificacion_estado=='ASIGNADO' || row.modificacion_estado=='REVISION' || row.modificacion_estado=='CORRECCION') && allow.permiso6044">
+      <md-button aria-label="editar" ng-click="openParentModal('Revisiones_procesos',{fk_entidad:'vbp',fk_entidad_id:row.modificacion_id,edit:false})">
+          <div layout="row" flex>
+            <p flex translate>LB_REGISTER_CORRECTIONS</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=assignment></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-menu-item ng-if="(row.modificacion_estado=='PAGADO' || row.modificacion_estado=='APROBADO') && allow.permiso6046">
+      <md-button aria-label="editar" ng-click="exportById(row.modificacion_id)">
+          <div layout="row" flex>
+            <p flex translate>{{row.modificacion_estado=='APROBADO'?'LB_PRINT_PERMISSION':'LB_APPROVE_PRINT'}}</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=beenhere></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="(row.modificacion_estado=='CORRECCION')">
+      <md-button aria-label="editar" ng-click="exportById(row.modificacion_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_PRINT_REPORT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=bug_report></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider></md-divider>
+    <md-menu-item>
+      <md-button aria-label="editar" ng-click="exportWithDetail(row.modificacion_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_PRINT_REQUEST</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=print></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-divider></md-divider>
+    <md-menu-item>
+      <md-button aria-label="editar" ng-click="goEntity({id:row.modificacion_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_DETAIL</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=zoom_out_map></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

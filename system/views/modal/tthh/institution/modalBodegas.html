@@ -1,0 +1,60 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=home_work></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_WINERIES</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+		<md-content layout=column layout-padding>
+			<div class="card card-outline card-primary no-padding no-margin">
+				<div class="card-header text-center">
+				  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+				<div class="card-body" layout=column layout-padding>
+					
+	    	<div class="form-group required">
+					<label translate>LB_CELLAR_NAME</label>
+				  <div class="input-group">
+				    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=healing></md-ico></div></div> 
+				    <input class="form-control" ng-model="frmParent.bodega_nombre" placeholder="Ej. Bodega X2" required >
+				  </div>
+				</div>
+				
+					<div class="form-group required" flex>
+		    		<label translate>LB_STATION</label>
+					  <div class="input-group" flex ng-controller="stationsListCtrl">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assistant_photo></md-ico></div></div> 
+							<select class="form-control" ng-model="frmParent.fk_estacion_id" required ng-options="row.estacion_id as (row.estacion_nombre+' - '+row.estacion_nombre_alterno) for row in list"></select>
+						</div>
+		    	</div>
+		    	
+		    	<div class="form-group required" flex>
+						<label translate>LB_TRANSACTION_TYPE</label>
+					  <div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+					    <select class="form-control" ng-model="frmParent.bodega_modalidad" ng-options="val as val for (key,val) in string2JSON('TTHH_WINERIES_MODALITY')" required></select>
+					  </div>
+					</div>
+					
+					<div class="form-group required" ng-if="toogleEditMode">
+						<label translate>LB_STATUS</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+							<select class="form-control" ng-model="frmParent.bodega_estado" ng-options="val as val for (key,val) in string2JSON('statusType')"></select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

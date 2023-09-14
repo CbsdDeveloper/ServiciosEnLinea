@@ -1,0 +1,265 @@
+<!-- PASO 1 -->
+<div layout-padding>
+	<div flex class="box collapsed-box no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate="LB_STEP" translate-values="{val:1}"></h3>
+			<div class="box-tools pull-right">
+	       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+	     </div>
+		</div>
+		<div class="box-body box-bg-info">
+			<div ng-bind-html="trustAsHtml(paramsConf.INFO_NEW_TRAINING_S1)"></div>
+		</div>
+	</div>
+</div>
+<div class=no-padding layout-xs=column layout=row layout-padding layout-wrap>
+	<div flex>
+		<div class="box box-info text-center no-margin">
+			<div class="box-header">
+				<h3 class="box-title" translate>LB_CHOOSE_TIME</h3>
+			</div>
+			<div class="box-body md-padding">
+				<div ng-repeat="row in dataEntity" layout-padding>
+					<button class="btn btn-{{string2JSON('colorCss')[$index]}} btn-block" ng-click="setDate(row)">
+						{{row.capacitacion_fecha | date: 'fullDate'}}
+					</button>
+				</div>
+			</div>
+			<div ng-if="toggle.date" class="box-footer">
+				<p ng-bind-html="trustAsHtml(paramsConf.INFO_NEW_RECORD_CONFIRMATION)"></p>
+			</div>
+		</div>
+	</div>
+	<div flex>
+		<div class="box box-danger text-center no-margin">
+			<div class="box-header">
+				<h3 class="box-title"><i-fa i=calendar s=2x></i-fa></h3>
+			</div>
+			<div class="box-body md-padding">
+				<strong><i-fa i=calendar-check-o></i-fa> <span translate>LB_OPENING</span></strong>
+		    <p class="text-muted">{{frmParent.date.capacitacion_fecha}}</p>
+				<hr>
+				<strong><i-fa i=calendar-times-o></i-fa> <span translate>LB_ENDING</span></strong>
+		    <p class="text-muted">{{frmParent.date.close}}</p>
+		    <hr>
+		    <strong><i-fa i=calendar-minus-o></i-fa> <span translate>LB_CONFIRMATION_DATE</span></strong>
+		    <p class="text-muted text-capitalize faa-ring faa-slow animated"><label class="label label-danger" style="padding:3px 5px;">{{frmParent.date.capacitacion_confirmacion | date: 'EEEE, d-MMMM-y h:mm a'}}</label></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- PASO 2 -->
+<div layout-padding ng-if="toggle.date">
+	<div class="box box-info collapsed-box no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate="LB_STEP" translate-values="{val:2}"></h3>
+			<div class="box-tools pull-right">
+	       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+	     </div>
+		</div>
+		<div class="box-body box-bg-info">
+			<div ng-bind-html="trustAsHtml(paramsConf.INFO_NEW_TRAINING_S2)"></div>
+		</div>
+	</div>
+</div>
+<div class=no-padding layout-xs=column layout=row layout-padding layout-wrap ng-if="toggle.date">
+	<div flex>
+		<div class="box box-info text-center no-margin">
+			<div class="box-header">
+				<h3 class="box-title" translate>LB_CHOOSE_TOPIC</h3>
+			</div>
+			<div class="box-body md-padding" layout-padding>
+				<div ng-repeat="row in topics">
+					<button class="btn btn-{{string2JSON('colorCss')[$index]}} btn-block" ng-click="setTopic(row)">
+						{{row.tema_nombre}}
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div flex>
+		<div class="box box-danger no-margin">
+			<div class="box-header text-center">
+				<h3 class="box-title"><i-fa i=book s=2x></i-fa></h3>
+			</div>
+			<div class="box-body md-padding">
+				<div class="text-center">
+					{{frmParent.topic.tema_nombre}}
+				</div>
+				<hr>
+		    <p class="text-muted"><div ng-bind-html="frmParent.topic.tema_descripcion"></div></p>
+		    <hr>
+				<div class=text-center><strong><i-fa i=check-square-o></i-fa> <span translate>LB_REQUIREMENTS</span></strong></div>
+		    <p class="text-muted"><div ng-bind-html="frmParent.topic.tema_recursos"></div></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- PASO 3 -->
+<div layout-padding ng-if="toggle.topic">
+	<div class="box box-info collapsed-box no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate="LB_STEP" translate-values="{val:3}"></h3>
+			<div class="box-tools pull-right">
+	       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+	     </div>
+		</div>
+		<div class="box-body box-bg-info">
+			<div ng-bind-html="trustAsHtml(paramsConf.INFO_NEW_TRAINING_S3)"></div>
+		</div>
+	</div>
+</div>
+<form name="formData" class=no-padding layout=column layout-padding ng-submit="submitForm()" ng-if="toggle.topic">
+	<!-- CROQUIS DEL LUGAR -->
+	<div layout-xs=column layout=row layout-padding>
+		<div flex>
+			<div class="box box-primary no-margin no-padding">
+				<div class="box-header with-border text-center">
+					<h3 class="box-title no-margin" translate>LB_CROQUIS_OF_THE_PLACE</h3>
+				</div>
+				<div class="box-body" style="zoom:110%;">
+					<leaflet id="myOSM" lf-center="myOSM" layers="layers" controls="controls" markers="markers" defaults="defaults" height="480px" width="100%"></leaflet>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div layout-xs=column layout=row layout-padding>
+		
+		<!-- DIRECCION DE LA CAPACITACION -->
+		<div flex>
+			<div class="box box-success no-margin margin-bottom">
+				<div class="box-header text-center">
+					<h3 class="box-title" translate>LB_ADDRESS</h3>
+				</div>
+				<div class="box-body" layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_INSTITUTION_NAME</label>
+						<div class="input-group" flex>
+							<span class="input-group-addon"><md-ico i=business></md-ico></span>
+							<input ng-model="frmParent.training.capacitacion_entidad" class="form-control" placeholder="Ej. Unidad Educativa Santo Domingo" required>
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_PARISH</label>
+						<div class="input-group" flex>
+							<span class="input-group-addon"><md-ico i=public></md-ico></span>
+							<select class="form-control select2" ng-model="frmParent.training.capacitacion_parroquia" required ng-options="val as val for (key,val) in string2JSON('parishesList')"></select>
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_FIRST_LINE</label>
+						<div class="input-group" flex>
+							<span class="input-group-addon"><md-ico i=directions></md-ico></span>
+					    <input ng-model="frmParent.training.capacitacion_principal" class="form-control" placeholder="Ej. Av. Quevedo km 5" required>
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_SECOND_LINE</label>
+						<div class="input-group" flex>
+							<span class="input-group-addon"><md-ico i=near_me></md-ico></span>
+					    <input ng-model="frmParent.training.capacitacion_secundaria" class="form-control" placeholder="Ej. Av. El Cooperativismo" required>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+			<!-- DATOS DEL COORDINADOR -->
+			<div class="box box-info no-margin">
+				<div class="box-header text-center">
+					<h3 class="box-title" translate>LB_COORDINATOR</h3>
+				</div>
+				<div class="box-body" layout-padding>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_IDENTIFICATION_TYPE</label>
+							<div class="input-group" flex>
+								<span class="input-group-addon"><md-ico i=flag></md-ico></span>
+								<select class="form-control select2" ng-model="frmParent.coordinator.persona_tipo_doc" required ng-options="key as val for (key,val) in string2JSON('identificationType')"></select>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_IDENTIFICATION_NUMBER</label>
+							<div class="input-group" flex>
+								<span class="input-group-addon"><md-ico i=credit_card></md-ico></span>
+								<input ng-model="frmParent.coordinator.persona_doc_identidad" class="form-control" placeholder="Ej. 230005478961" required>
+								<span class="input-group-btn"><button type="button" ng-click="searchPersonInformation(frmParent.coordinator.persona_doc_identidad,'frmParent','coordinator')" class="btn btn-info btn-flat"><i-fa i=search></i-fa></button></span>
+							</div>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_LASTNAME</label>
+							<div class="input-group" flex>
+								<span class="input-group-addon"><md-ico i=person></md-ico></span>
+								<input ng-model="frmParent.coordinator.persona_apellidos" class="form-control" placeholder="Ej. Pinargote Bayas" required>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_NAME</label>
+							<div class="input-group" flex>
+								<span class="input-group-addon"><md-ico i=person_outline></md-ico></span>
+						    <input ng-model="frmParent.coordinator.persona_nombres" class="form-control" placeholder="Ej. Julian Emiliano" required>
+							</div>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_CELL_PHONE</label>
+							<div class="input-group" flex>
+								<span class="input-group-addon"><md-ico i=phone_iphone></md-ico></span>
+								<input ng-model="frmParent.coordinator.persona_celular" class="form-control" placeholder="Ej. 0987456321" required maxlength=13>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_MAIL</label>
+							<div class="input-group" flex>
+								<span class="input-group-addon"><md-ico i=mail></md-ico></span>
+								<input type="email" ng-model="frmParent.coordinator.persona_correo" class="form-control" placeholder="Ej. cooreeo@live.com" required>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- INFORMACION DE LA SOLICITUD -->
+		<div flex>
+			<div class="box box-danger text-center no-margin">
+				<div class="box-header">
+					<h3 class="box-title"><i-fa i=info-circle s=2x></i-fa></h3>
+				</div>
+				<div class="box-body">
+			    <strong><i-fa i=calendar></i-fa> <span translate>LB_DATE</span></strong>
+			    <p class="text-muted"><div ng-bind-html="frmParent.date.capacitacion_fecha"></div></p>
+			    <hr>
+			    <strong><i-fa i=calendar-minus-o></i-fa> <span translate>LB_CONFIRMATION_DATE</span></strong>
+			    <p class="text-muted text-capitalize faa-ring faa-slow animated"><label class="label label-danger" style="padding:3px 5px;">{{frmParent.date.capacitacion_confirmacion | date: 'EEEE, d-MMMM-y h:mm a'}}</label></p>
+			    <hr>
+			    <strong><i-fa i=book></i-fa> <span translate>LB_TOPIC</span></strong>
+			    <p class="text-muted"><div ng-bind-html="frmParent.topic.tema_nombre"></div></p>
+			    <hr>
+			    <strong><i-fa i=user-o></i-fa> <span translate>LB_COORDINATOR</span></strong>
+			    <p class="text-muted"><div ng-bind-html="(frmParent.coordinator.persona_apellidos+' '+frmParent.coordinator.persona_nombres)"></div></p>
+			    <hr>
+			    <strong><i-fa i=map-signs></i-fa> <span translate>LB_ADDRESS</span></strong>
+			    <p class="text-muted"><div ng-bind-html="(frmParent.training.capacitacion_principal+', '+frmParent.training.capacitacion_secundaria)"></div></p>
+				</div>
+				<div class="box-footer">
+					<button class="btn btn-success btn-block" type="submit" ng-disabled="formData.$invalid || !(toggle.topic && toggle.date)" ng-click="saveEntity()">
+						<i class="fa fa-save fa-fw"></i>
+						<span translate>LB_SAVE</span>
+					</button>
+					<button class="btn btn-warning btn-block" type="button" ng-click="exitEntity()">
+						<i class="fa fa-undo fa-fw"></i>
+						<span translate>BTN_CANCEL</span>
+					</button>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+</form>

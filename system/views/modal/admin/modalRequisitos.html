@@ -1,0 +1,45 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg" ng-controller="requirementsExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="btn" class="md-icon-button"><md-ico i=print></md-ico></md-button>
+			<h2 translate>TOOLBAR_REQUIREMENTS</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-content layout=column layout-padding>
+			<!-- ITERACIÓN DE PASAJEROS -->
+			<card-report-information layout-padding></card-report-information>
+			<!-- ASIGNAR INSPECTOR -->
+			<div class="card card-outline card-success no-margin margin-top" layout-padding>
+				<div class="card-header text-center">
+				  <h3 class="card-title" translate>TOOLBAR_REQUIREMENTS</h3>
+				</div>
+				<div class="card-body padding-all" layout-padding>
+					<div class="col-md-12 md-2-line contact-item" ng-repeat="item in frmParent.resources">
+		        <label class="label">
+					    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.model" checklist-value="item.recurso_id" />
+					    <span class="label__text">
+					      <span class="label__check">
+					        <i class="fa fa-check icon"></i>
+					      </span>
+					    </span>
+					  </label>
+		        <div class="">
+	          	<span ng-bind-html="highlight(item.recurso_id+'. '+item.recurso_nombre)"></span>
+		          <p style="font-size:11px;" ng-bind-html="highlight(item.recurso_descripcion)"></p>
+		        </div>
+					</div>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

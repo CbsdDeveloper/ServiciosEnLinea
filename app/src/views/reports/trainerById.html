@@ -1,0 +1,59 @@
+<style>{{css}}td{padding:2px 2px 0px!important;font-size:10px}</style>
+<page backtop="{{margin_top}}mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	<!-- HEADER DE SOLICITUD -->
+	<div class="header">
+		<table>
+			<tr>
+				<td style="width:100%;text-align:center;" class="headerLogo">
+					<img src="{{REPORT_HEADER_IMG_PATH}}" style="width:256px;margin:auto">
+				</td>
+			</tr>
+		</table>
+	</div>
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE}}
+	<!-- CUERPO DE REPORTE -->
+	<h2 class="report-title text-center" style="font-size:22px;">{{informe}}</h2>
+	<table class="table table-bordered text-uppercase">
+		<col style="width:30%">
+		<col style="width:70%">
+		<thead><tr><th colspan="2">DATOS DE LA ENTIDAD SOLICITANTE</th></tr></thead>
+		<tbody>
+			<tr><td>RAZÓN SOCIAL</td><td>{{entidad_ruc}} - {{entidad_razonsocial}}</td></tr>
+			<tr><td>REPRESENTANTE LEGAL</td><td>C.C.: {{representantelegal_ruc}} - {{representantelegal_nombre}}</td></tr>
+			<tr class=subheader><td colspan="2" class="text-center">LUGAR Y FECHA DE LA CAPACITACIÓN</td></tr>
+			<tr><td>CAPACITACIÓN / TEMA</td><td>{{capacitacion_codigo}} [{{capacitacion_serie}}] - {{tema_nombre}}</td></tr>
+			<tr><td>FECHA</td><td>{{capacitacion_fecha}}</td></tr>
+			<tr><td>DIRECCIÓN</td><td>{{capacitacion_principal}} y {{capacitacion_secundaria}}</td></tr>
+		</tbody>
+	</table>
+	<br>
+	<table class="table table-bordered text-uppercase" style="">
+		<col style="width:30%">
+		<col style="width:70%">
+		<thead><tr><th colspan="2">DATOS DEL CAPACITADOR</th></tr></thead>
+		<tbody>
+			<tr><td>NOMBRE</td><td>C.C.: {{persona_doc_identidad}} - {{personal_nombre}}</td></tr>
+			<tr><td>CONTACTO</td><td>Tel: {{persona_telefono}} - Email: {{persona_correo}}</td></tr>
+			<tr><td>PERFIL</td><td>{{direccion_nombre}} / {{puesto_nombre}}</td></tr>
+		</tbody>
+	</table>
+	<br>
+	<table class="table table-bordered text-uppercase">
+		<col style="width:5%">
+		<col style="width:80%">
+		<col style="width:15%;text-align:center">
+		<thead>
+			<tr><th colspan=3>EVALUACIÓN DE SATISFACCIÓN</th></tr>
+			<tr>
+				<th>#</th>
+				<th>ASPECTO A EVALUAR</th>
+				<th>CALIFICACIÓN</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{tbScore}}
+			<tr><td colspan=2 class=text-right><b>PROMEDIO DE EVALUACIÓN</b></td><td><b>{{score}}</b></td></tr>
+		</tbody>
+	</table>
+</page>

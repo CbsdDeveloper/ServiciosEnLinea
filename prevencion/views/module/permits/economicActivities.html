@@ -1,0 +1,98 @@
+<div layout-padding>
+	<div class="box box-info collapsed-box no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+			<div class="box-tools pull-right">
+	       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+	     </div>
+		</div>
+		<div class="box-body box-bg-info" layout=column layout-wrap>
+			<div ng-bind-html="$parent.trustAsHtml(paramsConf.SELFINSPECTION_LOCALS)"></div>
+		</div>
+	</div>
+</div>
+
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="button"><md-ico i=store_mall_directory></md-ico></md-button>
+			<h2 hide-xs><span translate>TOOLBAR_LOCALS</span></h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+	    <table md-table class="md-primary table-hover" md-progress="deferred">
+	    	<col style="">
+	    	<col style="">
+	    	<col style="width:15%">
+	    	<col style="width:3%">
+	      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+					<tr md-row>
+						<th md-column><span translate>LB_COMERTIAL_ACTIVITY</span></th>
+						<th md-column><span translate>LB_PARISH</span> / <span translate>LB_ADDRESS</span> / <span translate>LB_CONTACT</span></th>
+						<th md-column><span translate>LB_DETAIL</span></th>
+						<th md-column><span translate>LB_MENU</span></th>
+					</tr>
+				</thead>
+			  <tbody>
+					<tr md-row data-ng-repeat="row in rowsParent.data">
+						<td md-cell class="text-uppercase" >
+							<div>
+								<md-ico i=bookmark></md-ico><span ng-bind-html="highlight(row.actividad_nombre)"></span>
+								<md-tooltip><span translate>LB_COMERCIAL_ACTIVITY</span></md-tooltip>
+							</div>
+							<div>
+								<md-ico i=store_mall_directory></md-ico><b ng-bind-html="highlight(row.local_numeroestablecimiento)"></b>. <span ng-bind-html="highlight(row.local_nombrecomercial)"></span>
+								<md-tooltip><span translate>LB_ESTABLISHMENT_NUMBER_SRI</span> / <span translate>LB_COMERTIAL</span></md-tooltip>
+							</div>
+							<div ng-if="row.local_aperturasri!=null">
+								<md-ico i=event_available></md-ico><span>{{row.local_aperturasri | date:'fullDate'}}</span>
+								<md-tooltip><span translate>LB_ACTIVITY_START_DATE_SRI</span></md-tooltip>
+							</div>
+							<md-ico i={{row.local_establecimiento=='NO'?'domain_disabled':'business'}}></md-ico><span class="badge bg-{{row.local_establecimiento=='SI'?'yellow':'aqua-active'}}" translate="LB_HAVE_ESTABLISHMENT_X" translate-values="{x:row.local_establecimiento}"></span>
+						</td>
+						<td md-cell>
+							<md-ico i=public></md-ico><span ng-bind-html="highlight(row.local_parroquia)"></span><br>
+							<md-ico i=directions></md-ico><span ng-bind-html="highlight(row.local_principal+', '+row.local_secundaria)"></span><br>
+							<md-ico i=phone></md-ico><span ng-bind-html="highlight(row.local_telefono)"></span>
+						</td>
+						<td md-cell>
+							<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.local_estado]"></span><br>
+							<md-ico i=event></md-ico><span ng-bind-html="row.local_registro"></span>
+							
+							<div ng-if="row.permiso_id>0">
+								<md-ico i=assignment_turned_in></md-ico>
+								<span class="badge bg-blue" ng-bind-html="highlight(row.codigo_per)"></span>
+								<md-tooltip>{{'LB_PERMIT_INFORMATION' | translate}}: {{row.permiso_periodo}}</md-tooltip>
+							</div>
+							<div ng-if="row.prorroga_id>0">
+								<md-ico i=event_available></md-ico>
+								<span class="badge bg-green" ng-bind-html="highlight(row.prorroga_code)"></span>
+							</div>
+							<div ng-if="row.inspeccion_id>0">
+								<md-ico i=transfer_within_a_station></md-ico>
+								<span class="badge" ng-class="{'bg-orange':row.inspeccion_status!='APROBADO','bg-green':row.inspeccion_status=='APROBADO'}" ng-bind-html="highlight(row.inspeccion_code)"></span>
+								<md-tooltip>{{'LB_INSPECTION' | translate}}: {{row.inspeccion_status}}</md-tooltip>
+							</div>
+							<div ng-if="row.plan_id>0">
+								<md-ico i=security></md-ico>
+								<span class="badge" ng-class="{'bg-orange':row.plan_status!='APROBADO','bg-green':row.plan_status=='APROBADO'}" ng-bind-html="highlight(row.plan_code)"></span>
+								<md-tooltip>{{'LB_EMERGENCY_PLAN' | translate}}: {{row.plan_status}}</md-tooltip>
+							</div>
+						</td>
+						<td md-cell class="table-menu text-center">
+							<menu-economic-activities ng-if="(row.local_estado=='ACTIVO')"></menu-economic-activities>
+						</td>
+					</tr>
+	      </tbody>
+	    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

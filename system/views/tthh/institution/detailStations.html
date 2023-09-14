@@ -1,0 +1,89 @@
+﻿<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		<card-station class="card-information" ng-if="detailConfig.show" flex></card-station>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=flag></md-ico></md-button>
+						<h2>{{dataEntity.estacion_nombre}} - {{dataEntity.estacion_nombre_alterno}}</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<md-tabs md-dynamic-height md-border-bottom>
+						<md-tab label="{{'LB_STAFF' | translate}}">
+							<md-content>
+									<div class="md-toolbar-tools">
+										<md-button aria-label="btn" class="md-icon-button"><md-ico i=school></md-ico></md-button>
+										<h2 translate>TOOLBAR_UTILS</h2>
+									</div>
+									<md-divider></md-divider>
+									<div class="md-padding gallery-columns-3" layout-wrap>
+										<div class="figure-gallery" ng-repeat="row in dataEntity.staff">
+											<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+												<div class="card-header" style="padding-bottom:0px">
+													<div class="container-profile small">
+											    	<img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{row.persona_imagen}}" alt="profile">
+											    </div>
+												</div>
+												<div class="card-body" style="padding-top:0px;padding-bottom:0px">
+													<h3 class="profile-username" ng-bind-html="highlight(row.personal_nombre,filterParent.filter)"></h3>
+											    <span class="text-muted">{{row.puesto_nombre}}</span>
+											    <hr>
+													<strong><i-fa i=id-card></i-fa> <span translate>LB_DATE_ADMISSION</span></strong>
+											    <p class="text-muted">{{row.personal_fecha_ingreso}}</p>
+											    <hr>
+													<strong><md-ico i=flag s=18></md-ico> <span translate>LB_STATUS</span></strong>
+											    <p class="text-muted"><span ng-bind-html="statusLabel[row.personal_estado]"></span></p>
+												</div>
+											</div>
+										</div>
+									</div>
+							</md-content>
+						</md-tab>
+						<md-tab label="{{'LB_UNITS' | translate}}">
+							<md-content>
+									<div class="md-toolbar-tools">
+										<md-button aria-label="btn" class="md-icon-button"><md-ico i=receipt></md-ico></md-button>
+										<h2 translate>TOOLBAR_UTILS</h2>
+									</div>
+									<md-divider></md-divider>
+									<div class="md-padding gallery-columns-3" layout-wrap>
+										<div class="figure-gallery" ng-repeat="row in dataEntity.units">
+											<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+												<div class="card-header" style="padding-bottom:0px">
+													<div class="container-img-user">
+											    	<img class="profile-user-img img-responsive" src="/app/src/img/vehicles/default.png" ng-src="/app/src/img/vehicles/{{row.vehiculo_imagen}}" alt="profile">
+											    </div>
+												</div>
+												<div class="card-body" style="padding-top:0px;padding-bottom:0px">
+													<h3 class="profile-username" ng-bind-html="highlight(row.unidad_nombre,filterParent.filter)"></h3>
+											    <span class="text-muted">{{row.vehiculo_placa}}</span>
+													<hr>
+													<strong><md-ico i=directions_car s=18></md-ico> <span translate>LB_BRAND</span></strong>
+													<p class="text-muted text-center">{{row.vehiculo_marca}} [{{row.vehiculo_modelo}}]</p>
+													<hr>
+													<strong><md-ico i=fingerprint></md-ico> <span translate>LB_CHASSIS</span> / <span translate>LB_MOTOR</span></strong>
+													<p class="text-muted text-center">{{row.vehiculo_chasis}} / {{row.vehiculo_motor}}</p>
+													<hr>
+													<strong><md-ico i=directions_car s=18></md-ico> <span translate>LB_TYPE</span></strong>
+													<p class="text-muted text-center">{{row.vehiculo_tipo}} [{{row.vehiculo_proposito}}]</p>
+											    <hr>
+													<strong><md-ico i=flag s=18></md-ico> <span translate>LB_STATUS</span></strong>
+											    <p class="text-muted"><span ng-bind-html="statusLabel[row.unidad_estado]"></span></p>
+												</div>
+											</div>
+										</div>
+									</div>
+							</md-content>
+						</md-tab>
+				</md-tabs>
+			</md-card>
+		</div>
+	</div>
+</div>

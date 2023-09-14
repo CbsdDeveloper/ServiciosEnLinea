@@ -1,0 +1,157 @@
+<!-- PASO 1 -->
+<div layout-padding>
+	<div flex class="box box-primary collapsed-box no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title faa-pulse animated" translate>LB_INSTRUCTIONS</h3>
+			<div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus faa-ring animated"></i></button>
+	     </div>
+		</div>
+		<div class="box-body box-bg-info">
+			<div ng-bind-html="trustAsHtml(paramsConf.INFO_NEW_PERMISSION)"></div>
+		</div>
+	</div>
+</div>
+<form name="formData" class=no-padding layout-xs=column layout=row layout-padding>
+
+	<!-- FORMULARIO DE REGISTRO -->
+	<div layout=column layout-padding class="padding-all" flex>
+	
+		<!-- INFORMACIÓN DE VACACIONES Y PERMISOS ACTUALES -->
+		<div class="box box-widget widget-user-2 no-padding no-margin">
+      <div class="widget-user-header bg-yellow text-uppercase">
+        <div class="widget-user-image">
+          <img class="img-circle"  src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{dataEntity.persona_imagen}}" style="width:64px;height:64px;padding:5px" alt="img" />
+        </div>
+        <h3 class="widget-user-username">{{dataEntity.personal_titulo}}</h3>
+        <h6 class="widget-user-desc"><b translate>LB_GENERATED_HOLIDAYS</b>: {{dataEntity.vacations | date:'fullDate'}}<br><b translate>LB_PROFILE</b>: {{dataEntity.puesto_definicion}}</h6>
+      </div>
+      <div class="box-footer no-padding">
+        <ul class="nav nav-stacked">
+          <li><a href="#"><md-ico i=flight_takeoff></md-ico> <span translate>LB_GENERATED_HOLIDAYS</span> <span class="pull-right badge bg-blue">{{entity.vacation.total_vg_dias | number:2}} {{'LB_DAYS' | translate}}</span></a></li>
+          <li><a href="#"><md-ico i=flight_takeoff></md-ico> <span translate>LB_REQUESTED_HOLIDAYS</span> <span class="pull-right badge bg-aqua">{{entity.vacation.total_vs_dias | number:2}} {{'LB_DAYS' | translate}}</span></a></li>
+          <li><a href="#"><md-ico i=thumb_up></md-ico> <span translate>LB_REQUESTED_PERMITS</span> <span class="pull-right badge bg-green">{{entity.vacation.total_ps_horas | number:2}} {{'LB_HOURS' | translate}} = {{entity.vacation.total_ps_dias | number:2}} {{'LB_DAYS' | translate}}</span></a></li>
+          <li><a href="#"><md-ico i=timer_off></md-ico> <span translate>LB_ARREARS</span> <span class="pull-right badge bg-warning">{{entity.vacation.total_a_horas | number:2}} {{'LB_HOURS' | translate}} = {{entity.vacation.total_a_dias | number:2}} {{'LB_DAYS' | translate}}</span></a></li>
+          <li><a href="#"><md-ico i=touch_app></md-ico> <span translate>LB_HOLIDAY_BALANCE</span> <span class="pull-right badge bg-red">{{entity.vacation.saldo_dias | number:2}} {{'LB_DAYS' | translate}}</span></a></li>
+        </ul>
+      </div>
+    </div>
+		
+		<!-- FORMULARIO DE PERMISO -->
+		<div class="box box-info no-margin margin-top">
+			<div class="box-header with-border text-center">
+				<h3 class="box-title" translate>LB_REGISTRATION_FORM</h3>
+			</div>
+			<div class="box-body md-padding" layout=column layout-padding>
+	    	<div class="form-group required">
+					<label translate>LB_REASON</label>
+					<div class="input-group">
+						<span class="input-group-addon"><md-ico i=info></md-ico></span>
+				    <input class="form-control" ng-model="frmParent.permiso_motivo" readonly="readonly">
+					</div>
+				</div>
+				
+	    	<div class="form-group required" flex>
+					<label translate>LB_SELECT_PERMIT_TYPE</label>
+					<div class="input-group">
+						<span class="input-group-addon"><md-ico i=format_list_bulleted></md-ico></span>
+						<select class="form-control select2" ng-model="frmParent.permiso_parametro" required ng-options="key as val for (key,val) in string2JSON('TTHH_PERMISSION_SECTION')"></select>
+					</div>
+				</div>
+				
+				<div layout-xs=column layout=row layout-padding ng-if="frmParent.permiso_parametro=='HORAS'">
+					<div class="form-group required" flex>
+						<label translate>LB_FROM_TIME</label>
+						<div class="input-group" min-date="today" moment-picker="frmParent.permiso_desde" format="YYYY-MM-DD HH:mm" min-view="month" max-view="hour">
+						<span class="input-group-addon"><md-ico i=event_available></md-ico></span>
+				    	<input class="form-control" ng-model="frmParent.permiso_desde" ng-model-options="{ updateOn: 'blur' }" placeholder="EJ. 08:00" required>
+				    </div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_UNTIL_TIME</label>
+						<div class="input-group" min-date="frmParent.permiso_desde" moment-picker="frmParent.permiso_hasta" format="YYYY-MM-DD HH:mm" min-view="month" max-view="hour">
+						<span class="input-group-addon"><md-ico i=event_busy></md-ico></span>
+				    	<input class="form-control" ng-model="frmParent.permiso_hasta" ng-model-options="{ updateOn: 'blur' }" placeholder="EJ. 12:00" required>
+				    </div>
+					</div>
+				</div>
+				
+				<div layout-xs=column layout=row layout-padding ng-if="frmParent.permiso_parametro=='DIAS'">
+					<div class="form-group required" flex>
+						<label translate>LB_FROM_DAY</label>
+						<div class="input-group" moment-picker="frmParent.permiso_desde" format="YYYY-MM-DD" min-date="today">
+						<span class="input-group-addon"><md-ico i=event_available></md-ico></span>
+				    	<input class="form-control" ng-model="frmParent.permiso_desde" ng-model-options="{ updateOn: 'blur' }" placeholder="EJ. 2017-03-13" required>
+				    </div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_UNTIL_DAY</label>
+						<div class="input-group" moment-picker="frmParent.permiso_hasta" format="YYYY-MM-DD" min-date="frmParent.permiso_desde">
+						<span class="input-group-addon"><md-ico i=event_busy></md-ico></span>
+				    	<input class="form-control" ng-model="frmParent.permiso_hasta" ng-model-options="{ updateOn: 'blur' }" placeholder="EJ. 2017-07-27" required>
+				    </div>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer" layout-xs=column layout=row layout-padding>
+				<div flex>
+					<a class="btn btn-warning btn-block" ng-click="exitEntity()">
+				  	<i-fa i=angle-double-left></i-fa> <span translate>LB_DISCARD_CHANGES</span>
+					</a>
+				</div>
+				<div flex>
+					<button class="btn btn-success  btn-block" ng-click="saveEntity()" ng-disabled="formData.$invalid">
+						<span translate>LB_SAVE_CHANGES</span> <i-fa i=angle-double-right></i-fa>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- INFORMACIÓN DE PUESTO -->
+	<div layout=column layout-padding class="padding-all" flex>
+		
+		<div class="box box-danger no-margin margin-bottom text-center text-uppercase" ng-if="entity.encargadoestacion!=null">
+			<div class="box-body box-profile">
+			  <img class="profile-user-img img-responsive img-circle" src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{entity.concede.persona_imagen}}" style="height:96px;width:96px;" alt="img" />
+			  <h3 class="profile-username text-center">{{entity.encargadoestacion.personal_nombre}}</h3>
+			  <span class="text-muted text-center">{{entity.encargadoestacion.puesto_definicion}}</span><br>
+			  <span class="text-muted text-center text-bold">{{entity.encargadoestacion.encargado_estacion}}<br>CONCEDE</span>
+			</div>
+		</div>
+		
+		<div class="box box-danger no-margin margin-bottom text-center text-uppercase" ng-if="entity.concede!=null && entity.encargadoestacion==null">
+			<div class="box-body box-profile">
+			  <img class="profile-user-img img-responsive img-circle" src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{entity.concede.persona_imagen}}" style="height:96px;width:96px;" alt="img" />
+			  <h3 class="profile-username text-center">{{entity.concede.personal_titulo}}</h3>
+			  <span class="text-muted text-center">{{entity.concede.puesto_definicion}}<br>CONCEDE</span>
+			</div>
+		</div>
+		
+		<div class="box box-warning no-margin margin-bottom text-center text-uppercase" ng-if="entity.revisa!=null">
+			<div class="box-body box-profile">
+			  <img class="profile-user-img img-responsive img-circle" src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{entity.revisa.persona_imagen}}" style="height:96px;width:96px;" alt="img" />
+			  <h3 class="profile-username text-center">{{entity.revisa.personal_titulo}}</h3>
+			  <span class="text-muted text-center">{{entity.revisa.puesto_definicion}}<br>REVISA</span>
+			</div>
+		</div>
+		
+		<div class="box box-success no-margin margin-bottom text-center text-uppercase" ng-if="entity.autoriza!=null">
+			<div class="box-body box-profile">
+			  <img class="profile-user-img img-responsive img-circle" src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{entity.autoriza.persona_imagen}}" style="height:96px;width:96px;" alt="img" />
+			  <h3 class="profile-username text-center">{{entity.autoriza.personal_nombre}}</h3>
+			  <span class="text-muted text-center">{{entity.autoriza.puesto_definicion}}<br>AUTORIZA</span>
+			</div>
+		</div>
+		
+		<div class="box box-success no-margin margin-top text-center text-uppercase">
+			<div class="box-body box-profile">
+			  <img class="profile-user-img img-responsive img-circle" src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{entity.tthh.persona_imagen}}" style="height:96px;width:96px;" alt="img" />
+			  <h3 class="profile-username text-center">{{entity.tthh.personal_nombre}}</h3>
+			  <span class="text-muted text-center text-bold">{{entity.tthh.puesto_definicion}}</span>
+			</div>
+		</div>
+		
+	</div>
+	
+</form>

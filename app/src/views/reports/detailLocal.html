@@ -1,0 +1,26 @@
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+	<table class="table table-bordered text-uppercase">
+		<col style="width:30%">
+		<col style="width:70%">
+		<thead><tr><th colspan="2">{{local_nombrecomercial}}</th></tr></thead>
+		<tbody>
+			<tr><td>REGISTRO UNICO DE CONTRIBUYENTE (RUC)</td><td>{{entidad_ruc}}</td></tr>
+			<tr><td>RAZÓN SOCIAL</td><td>{{entidad_razonsocial}}</td></tr>
+			<tr><td>REPRESENTANTE LEGAL</td><td>{{representantelegal_ruc}} - {{representantelegal_nombre}}</td></tr>
+			<tr><td>NOMBRE COMERCIAL / ACTIVIDAD ECONÓMICA</td><td>{{local_nombrecomercial}}</td></tr>
+			<tr><td>PARROQUIA</td><td>{{local_parroquia}}</td></tr>
+			<tr><td>CALLE PRINCIPAL</td><td>{{local_principal}}</td></tr>
+			<tr><td>CALLE SECUNDARIA</td><td>{{local_secundaria}}</td></tr>
+			<tr><td>REFERENCIA</td><td>{{local_referencia}}</td></tr>
+			<tr><td>CONTACTO</td><td>Telefono: {{local_telefono}}  <br>Correo: {{representantelegal_email}}</td></tr>
+			<tr><td>MACROACTIVIDAD</td><td>{{actividad_nombre}}</td></tr>
+			<tr><td>ACTIVIDAD CIIU v4</td><td>{{ciiu_codigo}} - {{ciiu_nombre}}</td></tr>
+			<!-- <tr><td>TASA ECONOMICA</td><td>{{tasa_nombre}}</td></tr>
+			<tr><td>VALOR DE TASA</td><td>{{tasa_riesgomoderado}}% SBU</td></tr>
+			<tr><td>COSTO PERMISO ANUAL DE FUNCIONAMIENTO</td><td><a>$ {{pago_permiso}}</a></td></tr>-->
+		</tbody>
+	</table>

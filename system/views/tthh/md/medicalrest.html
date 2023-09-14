@@ -1,0 +1,125 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=hotel></md-ico>
+				<md-tooltip><span translate>TOOLBAR_MEDICALREST</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.filter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_INPUT' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.filter!=''" ng-click="filterParent.filter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="goUI('tthh.medical.recipientsrest')">
+				<md-ico i=record_voice_over></md-ico><md-tooltip><span translate>LB_RECIPIENTS</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<md-divider ng-if="allow.permiso8211"></md-divider>
+	<md-toolbar  ng-if="allow.permiso8211">
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><md-ico i=credit_card></md-ico></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="Ingrese el número de cédula para registrar un nuevo certificado" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+	  </form>
+	</md-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover table-striped" md-progress="deferred">
+			<col style="width:25%;">
+     	<col style="">
+     	<col style="width:20%;">
+     	<col style="width:3%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_CERTIFICATE_DATA</span></th>
+					<th md-column><span translate>LB_OBSERVATIONS</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell class="text-uppercase">
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.tipo]"></span>
+						<div>
+							<md-ico i=credit_card></md-ico><span ng-bind-html="row.paciente_cc"></span><br>
+							<md-ico i=person></md-ico><span ng-bind-html="row.paciente + ' ( ' + row.serie + ' )'"></span>
+							<md-tooltip><span translate>LB_PATIENT</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=event></md-ico><span ng-bind-html="row.fecha_emision"></span>
+							<md-tooltip><span translate>LB_DATE_ISSUE_CERTIFICATE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=comment></md-ico><span ng-bind-html="row.descripcion"></span>
+							<md-tooltip><span translate>LB_REASON_FOR_CONSULTATION</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell class="text-uppercase">
+						<div>
+							<i-fa i=hospital-o></i-fa><span ng-bind-html="row.certificado_entidad"></span>
+							<md-tooltip><span translate>LB_ISSUING_ENTITY</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=record_voice_over></md-ico><span ng-bind-html="row.certificado_doctor"></span>
+							<md-tooltip><span translate>LB_PERSON_WHO_IS_EMITTING</span></md-tooltip>
+						</div>
+						<div ng-if="row.reposo=='SI'">
+							<md-ico i=event></md-ico><span ng-bind-html="row.reposo_desde"> A <span ng-bind-html="row.reposo_hasta"></span>
+							<md-tooltip><span translate>LB_STANDBY_JUSTIFICATION_PERIOD</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=comment></md-ico><span ng-bind-html="row.indicaciones"></span>
+							<md-tooltip><span translate>LB_OBSERVATIONS</span></md-tooltip>
+						</div>
+						<div class="padding-all" ng-if="row.tipo=='CERTIFICADO EXTERNO'">
+							<div class="card collapsed-card no-padding" flex>
+	            	<div class="card-header with-border">
+	                <h4 class="card-title">
+	                  <small class="text-info text-bold" translate>LB_REGISTRATION_DETAIL</small>
+	                </h4>
+	                <div class="card-tools">
+										<button type="button" class="btn btn-tool" data-card-widget="collapse">
+											<i class="fa fa-plus"></i><md-tooltip md-direction='left'><span translate>LB_VIEW_HIDE_DETAIL</span></md-tooltip>
+										</button>
+									</div>
+	              </div>
+	              <div class="card-body no-padding text-uppercase font-10">
+	              	<md-ico i=event s=12></md-ico> {{row.fecha_registro}}<br>
+	              	<md-ico i=person s=12></md-ico> {{row.registra}}<br>
+	              	<md-ico i=school s=12></md-ico> {{row.registra_puesto}}
+	              	<div ng-if="row.adjunto!='' && row.adjunto!=null">
+										<a href="/app/src/tthh/{{row.adjunto}}" target="_blank"><i-fa i=download></i-fa><b translate>LB_DOWNLOAD_CERTIFICATE</b></a>
+									</div>
+	              </div>
+	            </div>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="row.registro"></span><br>
+						<md-ico i=people></md-ico><span ng-bind-html="row.responsable"></span>
+					</td>
+					<td md-cell class="table-menu text-right">
+						<menu-medicalrest ng-if="(row.tipo=='CERTIFICADO EXTERNO' && (allow.permiso82112 || allow.permiso82111)) || 
+																		 (row.tipo=='CERTIFICADO INTERNO' && (allow.permiso8212 || allow.permiso82121 || allow.permiso8215))"></menu-medicalrest>
+																		 <!-- 
+						<menu-medicalrest ng-if="(row.tipo=='CERTIFICADO EXTERNO' && row.estado=='VALIDACION PENDIENTE' && (allow.permiso82112 || allow.permiso82111)) || 
+																		 (row.tipo=='CERTIFICADO INTERNO' && (allow.permiso8212 || allow.permiso82121 || allow.permiso8215))"></menu-medicalrest>
+																		  -->
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

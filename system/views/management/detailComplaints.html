@@ -1,0 +1,78 @@
+<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		<card-person class="card-information" ng-if="detailConfig.show" flex></card-person>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button" ui-sref="management.complaints"><md-ico i=backspace></md-ico></md-button>
+						<h2>{{dataEntity.denuncia_codigo}}</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="exportWithDetail('denunciasenlinea',dataEntity.mensaje_id)" ng-if="allow.permiso7224">
+							<md-ico i=print></md-ico>
+							<md-tooltip><span translate>LB_PRINT</span></md-tooltip>
+						</md-button>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<md-divider></md-divider>
+
+            <div class="card-body no-padding">
+              <div class="mailbox-read-info">
+                <h3>{{dataEntity.mensaje_asunto}}</h3>
+                <h5><b translate>LB_FROM</b>: {{dataEntity.mensaje_email}}
+                  <span class="mailbox-read-time pull-right">{{dataEntity.denuncia_iniciada}}</span></h5>
+              </div>
+              <div class="mailbox-read-message margin-top">
+                <p><span translate>APP_NAME</span>,</p>
+                <br>
+                
+                <p ng-bind-html="trustAsHtml(dataEntity.mensaje_detalle)"></p>
+
+                <br>
+                <p>{{dataEntity.mensaje_nombre}}</p>
+              </div>
+            </div>
+            
+            <div class="card-footer">
+              <table class="table table-hover table-bordered">
+              	<thead class="text-uppercase font-12">
+              		<tr>
+              			<th colspan="3" class="text-center"><span translate="LB_ATTACHED_FILES_X" translate-values="{x:dataEntity.attached.list.length}"></span></th>
+              		</tr>
+              		<tr>
+              			<th><span translate>LB_ATTACHED_FILES</span></th>
+              			<th><span translate>LB_MENU</span></th>
+              		</tr>
+              	</thead>
+              	<tbody class="font-11">
+              		<tr ng-repeat="item in dataEntity.attached.list">
+              			<td>
+              				<a href="{{dataEntity.attached.url}}{{item.media_nombre}}" target="_blank">{{item.media_nombre}}</a>
+             				</td>
+              			<td></td>
+              		</tr>
+              	</tbody>
+              </table>
+            </div>
+            
+            <div class="card-footer">
+              <button type="button" class="btn btn-default" ng-click="exportWithDetail('denunciasenlinea',dataEntity.mensaje_id)" ng-if="allow.permiso7224">
+              	<md-ico i=print s=15></md-ico> <span translate>LB_PRINT</span>
+              </button>
+              <button type="button" class="btn btn-default" ng-click="openModal('Files',{edit:false,fk_table:'denuncias',fk_id:dataEntity.mensaje_id})" ng-if="allow.permiso7225">
+              	<md-ico i=file_upload s=15></md-ico> <span translate>LB_UPLOAD_EVIDENCE</span>
+              </button>
+              <button type="button" class="btn btn-default" ng-click="$parent.downloadAttachmentsFolder('denunciasenlinea',dataEntity.mensaje_id)" ng-if="allow.permiso722512">
+              	<md-ico i=cloud_download s=15></md-ico> <span translate>LB_DOWNLOAD_ATTACHED</span>
+              </button>
+            </div>
+          
+			</md-card>
+		</div>
+	</div>
+</div>

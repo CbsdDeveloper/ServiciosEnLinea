@@ -1,0 +1,55 @@
+<md-menu md-position-mode="target-right target" >
+  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+  </md-button>
+  <md-menu-content width="5">
+  	
+    <md-menu-item ng-if="allow.permiso5052">
+      <md-button aria-label="editar" ng-click="oModal(row)">
+          <div layout="row" flex>
+            <p flex translate>LB_EDIT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=edit></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="row.entidad_estado=='ACTIVO' && row.entidad_usuario=='SI' && allow.permiso5053"></md-divider>
+    <md-menu-item ng-if="row.entidad_estado=='ACTIVO' && row.entidad_usuario=='SI' && allow.permiso5053">
+      <md-button aria-label="editar" ng-click="oParentModal('Entidades_credenciales',mergeData(row,{type:'restoreAccount'}))">
+          <div layout="row" flex>
+            <p flex translate>LB_RESTORE_CREDENTIALS</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=lock_open></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="row.entidad_estado=='ACTIVO' && allow.permiso5061"></md-divider>
+    <md-menu-item ng-if="row.entidad_estado=='ACTIVO' && allow.permiso5061">
+      <md-button aria-label="editar" ng-click="oParentModal('Locales',mergeData(row,{edit:false,item:row.entidad_razonsocial,fk_entidad_id:row.entidad_id}))">
+          <div layout="row" flex>
+            <p flex translate>LB_LOCALS</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=store_mall_directory></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider></md-divider>
+    <md-menu-item>
+      <md-button aria-label="editar" ng-click="goUI('src.detailEntities',{entityId:row.entidad_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_DETAIL</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=zoom_out_map></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+  </md-menu-content>
+</md-menu>

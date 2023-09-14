@@ -1,0 +1,116 @@
+<div class="form-group required">
+	<label translate>LB_COMERTIAL_ACTIVITY</label>
+	<div class="input-group" flex>
+		<span class="input-group-addon"><i-fa i=book></i-fa></span>
+		<select class="form-control" ng-model="frmParent.ciiu.taxe.fk_actividad_id" required ng-change="getFKs()" ng-options="row.actividad_id as (row.actividad_id+'. '+row.actividad_nombre) for row in activitiesList"></select>
+	</div>
+</div>
+<div class="form-group required" ng-if="frmParent.ciiu.taxe.fk_actividad_id>0">
+	<label translate>LB_COMERTIAL_ACTIVITY_CIIU</label>
+	<div class="input-group">
+      <span class="input-group-addon"><i-fa i=book></i-fa></span>
+      <ui-select ng-model="frmParent.fk_ciiu" ng-change="changeFK('fk_ciiu_id')" theme="" reset-search-input="false">
+         <ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.ciiu.ciiu_nombre,'Seleccione una actividad económica')  | translate}}">
+           {{$select.selected.ciiu_nombre}}
+         </ui-select-match>
+         <ui-select-choices repeat="item in FKList" refresh="getFKs($select.search)" refresh-delay="1000">
+          <div ng-bind-html="item.ciiu_nombre | highlight: $select.search"></div>
+         </ui-select-choices>
+      </ui-select>
+    </div>
+</div>
+
+<div class="form-group required">
+	<label translate>LB_COMERTIAL</label>
+	<div class="input-group">
+		<span class="input-group-addon"><i-fa i=building></i-fa></span>
+		<input class="form-control" name="local_nombrecomercial" ng-model="frmParent.local_nombrecomercial" placeholder="Ej. Tienda de abarrotes" required />
+	</div>
+	<field-validation field="formData.local_nombrecomercial"></field-validation>
+</div>
+	
+<div layout-xs=column layout=row layout-padding>
+	<div class="form-group required" flex>
+	  <label translate>LB_ACTIVITY_START_DATE_SRI</label>
+		<div class="input-group" moment-picker="frmParent.local_aperturasri" format="YYYY-MM-DD" max-date="today">
+			<span class="input-group-addon"><md-ico i=event_available></md-ico></span>
+			<input class="form-control" name="local_aperturasri" ng-model="frmParent.local_aperturasri" ng-model-options="{ updateOn: 'blur' }" required />
+		</div>
+		<field-validation field="formData.local_aperturasri"></field-validation>
+	</div>
+	
+	<div class="form-group required" flex>
+		<label translate>LB_ESTABLISHMENT_NUMBER_SRI</label>
+		<div class="input-group">
+			<span class="input-group-addon"><i-fa i=list-ol></i-fa></span>
+			<input class="form-control" type="number" step="1" min="1" max="2000" name="local_numeroestablecimiento" ng-model="frmParent.local_numeroestablecimiento" parse-float placeholder="Ej. 1" required />
+		</div>
+		<field-validation field="formData.local_numeroestablecimiento" min=1 max=2000></field-validation>
+	</div>
+</div>
+	
+<!-- <div class="form-group required margin-top" flex layout-padding> -->
+<!-- 	<label class="no-padding no-margin" translate>LB_CERTIFICATE_ESTABLISHMENT</label> -->
+<!-- 	<div layout-xs=column layout=row layout-padding> -->
+<!-- 		<div flex> -->
+<!-- 			<button type="button" class="btn btn-info btn-block" ng-click="openParentModal('Anexos',mergeData(frmParent,{typeFile:'local_file',fileNameUpload:'establecimiento',tbEntity:'locales_anexos'}))"> -->
+<!-- 	  		<i-fa i=upload></i-fa> <span translate>LB_CLICK_UPLOADED_CERTIFICATE</span> -->
+<!-- 	  	</button> -->
+<!-- 		</div> -->
+<!-- 		<div flex ng-if="isSetFile(frmParent.local_certificadostablecimiento)"> -->
+<!-- 			<a type="button" class="btn btn-warning btn-block" href="/app/src/attachments/locals/{{frmParent.local_id}}/{{frmParent.local_certificadostablecimiento}}" download target="_blank"> -->
+<!-- 	  		<i-fa i=download></i-fa> <span translate>LB_SEE_UPLOADED_DOCUMENT</span> -->
+<!-- 	  	</a> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- </div> -->
+
+<div class="form-group required" flex>
+	<label translate>LB_PARISH</label>
+	<div class="input-group">
+		<span class="input-group-addon"><i-fa i=globe></i-fa></span>
+		<select class="form-control" ng-model="frmParent.local_parroquia" required ng-options="val as val for (key,val) in string2JSON('parishesList')"></select>
+	</div>
+</div>
+
+<div class="form-group required">
+	<label translate>LB_FIRST_LINE</label>
+	<div class="input-group">
+		<span class="input-group-addon"><i-fa i=location-arrow></i-fa></span>
+		<input class="form-control" name="local_principal" ng-model="frmParent.local_principal" placeholder="Ej. Av. Quevedo y Av. Coperativismo" required />
+	</div>
+	<field-validation field="formData.local_principal"></field-validation>
+</div>
+<div class="form-group required">
+	<label translate>LB_SECOND_LINE</label>
+	<div class="input-group">
+		<span class="input-group-addon"><i-fa i=map-signs></i-fa></span>
+		<input class="form-control" name="local_secundaria" ng-model="frmParent.local_secundaria" placeholder="Ej. Coop. El Proletariado" required />
+	</div>
+	<field-validation field="formData.local_secundaria"></field-validation>
+</div>
+<div class="form-group required">
+	<label translate>LB_REFERENCE</label>
+	<div class="input-group">
+		<span class="input-group-addon"><i-fa i=map-marker></i-fa></span>
+		<textarea class="form-control" rows="2" name="local_referencia" ng-model="frmParent.local_referencia" placeholder="Ej. Al frente de nuevo HINO" required></textarea>
+	</div>
+	<field-validation field="formData.local_referencia"></field-validation>
+</div>
+
+<div class="form-group required" flex>
+	<label translate>LB_TEL</label>
+	<div class="input-group">
+		<span class="input-group-addon"><i-fa i=phone></i-fa></span>
+		<input class="form-control" name="local_telefono" ng-model="frmParent.local_telefono" placeholder="Ej. 0234567891" required />
+	</div>
+  <field-validation field="formData.local_telefono" required="LB_THIS_FIELD_IS_REQUIRED"></field-validation>
+</div>
+
+<div class="form-group required" flex>
+	<label translate>LB_DO_YOU_HAVE_AN_ESTABLISHMENT</label>
+	<div class="input-group">
+		<span class="input-group-addon"><i-fa i=flag></i-fa></span>
+		<select class="form-control" ng-model="frmParent.local_establecimiento" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+	</div>
+</div>

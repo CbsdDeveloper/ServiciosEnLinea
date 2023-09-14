@@ -1,0 +1,82 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=markunread_mailbox></md-ico></md-button>
+			<h2 translate>TOOLBAR_WEBMAIL</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+		<md-content layout=column layout-padding>
+			<div layout-xs=column layout=row layout-padding>
+				<div class="form-group required" flex>
+					<label translate>LB_ACCOUNT</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=markunread_mailbox></md-ico></div></div> 
+						<input ng-model="frmParent.webmail_name" class="form-control" placeholder="Ej. Lalytto | Información" required />
+					</div>
+				</div>
+				<div class="form-group required" flex>
+					<label translate>SMTP</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=public></md-ico></div></div> 
+						<input ng-model="frmParent.webmail_host" class="form-control" placeholder="Ej. smtp.lalytto.com" required />
+					</div>
+				</div>
+			</div>
+			<div layout-xs=column layout=row layout-padding>
+				<div class="form-group required" flex>
+					<label translate>LB_PORT</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=portable_wifi_off></md-ico></div></div> 
+						<input ng-model="frmParent.webmail_puerto" class="form-control" placeholder="Ej. 587" required />
+					</div>
+				</div>
+				<div class="form-group required" flex>
+					<label translate>LB_ENCRYPTION</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=security></md-ico></div></div> 
+						<input ng-model="frmParent.webmail_seguridad" class="form-control" placeholder="Ej. SSl, TLS" required />
+					</div>
+				</div>
+			</div>
+					
+			<div class="form-group required">
+				<label translate>LB_USER</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=person></md-ico></div></div> 
+					<input ng-model="frmParent.webmail_usuario" class="form-control" placeholder="Ej. Información" required />
+				</div>
+			</div>
+			<div class="form-group required">
+				<label translate>LB_MAIL</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=markunread_mailbox></md-ico></div></div> 
+					<input type="mail" ng-model="frmParent.webmail_mail" class="form-control" placeholder="Ej. info@live.com" required />
+				</div>
+			</div>
+			<div class="form-group required">
+				<label translate>LB_PASS</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=lock></md-ico></div></div> 
+					<input type="password" ng-model="frmParent.webmail_password" class="form-control" placeholder="Confirmar contraseña ***" required />
+				</div>
+			</div>
+			<div class="form-group required">
+				<label translate>LB_NEW_PASSWORD</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=lock_outline></md-ico></div></div> 
+					<input type="password" ng-model="frmParent.webmail_new_password" class="form-control" placeholder="Nueva contraseña (Opcional para cambio)" />
+				</div>
+			</div>
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout=row>
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

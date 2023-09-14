@@ -1,0 +1,75 @@
+﻿<div class="w-100 no-padding" layout=row layout-padding layout-wrap>
+	<card-person flex=25 hide-xs></card-person>
+	<card-person flex hide-gt-xs></card-person>
+	<div flex>
+		<md-card class="no-margin">
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<md-button aria-label="btn" class="md-icon-button"><md-ico i=person></md-ico></md-button>
+					<h2>{{dataEntity.persona_apellidos}} {{dataEntity.persona_nombres}}</h2>
+				</div>
+			</md-toolbar>
+			<md-tabs md-dynamic-height md-border-bottom>
+					<md-tab label="{{'LB_REQUIREMENTS' | translate}}">
+						<md-content layout=column layout-padding layout-wrap>
+							<div ng-repeat="(key, json) in dataEntity.listCertificados">
+								<div class="info-box bg-{{colorName[$index+1]}}">
+						      <span class="info-box-icon">
+						      	<a style="color:white!important" target="_blank" href="{{paramsConf.URL_PATH_MAIN}}app/src/img/gallery/{{json.media_nombre}}">
+							      	<i-fa i=download></i-fa>
+						      	</a>
+						      </span>
+						      <div class="info-box-content">
+						        <span class="info-box-text" style="white-space:normal;font-size:19px;">{{key}}</span>
+						      </div>
+						    </div>
+							</div>
+						</md-content>
+					</md-tab>
+					
+					<md-tab label="{{'LB_ACADEMIC_TRAINING' | translate}}">
+						<md-content ng-controller="academicFormationCtrl">
+							<div ng-controller="myTableCtrl">
+								<div class="md-toolbar-tools">
+									<md-button aria-label="btn" class="md-icon-button"><md-ico i=school></md-ico></md-button>
+									<h2 translate>TOOLBAR_UTILS</h2>
+									<span flex></span>
+									<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+									<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+									<md-button aria-label="btn" class="md-icon-button" ng-click="openModal(mergeData(dataEntity,{fk_persona_id:dataEntity.persona_id,edit:false}))"><md-ico i=add></md-ico></md-button>
+								</div>
+								<toolbar-filter></toolbar-filter>
+								<md-divider></md-divider>
+								<div layout-xs=column layout=row layout-padding layout-wrap>
+									<div flex ng-repeat="row in rowsParent.data">
+										<div class="card card-outline card-{{string2JSON('colorCss')[$index]}}">
+										  <div class="card-body box-profile text-center">
+										    <md-ico i=school s=64></md-ico>
+												<h3 class="profile-username text-center">{{row.formacion_titulo}}</h3>
+										    <hr>
+												<strong><md-ico i=business></md-ico><br> <span translate>LB_INSTITUTION</span></strong>
+										    <p class="text-muted text-center">{{row.formacion_institucion}}</p>
+										    <hr>
+										    <strong><md-ico i=school></md-ico><br> <span translate>LB_TITLE_LEVEL</span></strong>
+										    <p class="text-muted text-center">{{row.formacion_nivel}}</p>
+										    <hr>
+										    <strong><md-ico i=copyright></md-ico><br> <a href="http://www.senescyt.gob.ec/web/guest/consultas" target="blank_" translate>LB_TITLE_SENESCYT</a></strong>
+										    <p class="text-muted text-center">{{row.formacion_senescyt}}</p>
+										    <hr>
+										    <strong><md-ico i=event></md-ico><br> <span translate>LB_DATE</span></strong>
+										    <p class="text-muted text-center">{{row.formacion_fingreso}}, {{row.formacion_fsalida}}</p>
+										  </div>
+											<div class="card-footer">
+										    <a ng-click="openModal(row)" class="btn btn-primary btn-block"><b translate>BTN_UPDATE</b></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<footer-table></footer-table>
+							</div>
+						</md-content>
+					</md-tab>
+			</md-tabs>
+		</md-card>
+	</div>
+</div>

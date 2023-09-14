@@ -1,0 +1,53 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=nature_people></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_CANDIDATES</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column md-order-by="persona_apellidos"><span translate>LB_FULLNAME</span></th>
+					<th md-column md-order-by="persona_fnacimiento"><span translate>LB_DETAIL</span></th>
+					<th md-column md-order-by="aspirante_registro"><span translate>LB_REGISTRE_DATE</span></th>
+					<th md-column md-order-by="requerimientos"><span translate>LB_REQUIREMENTS</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.persona_doc_identidad)"></span><br>
+						<a ui-sref="tthh.detailCandidates({id:row.aspirante_id})"><i-fa i={{string2JSON('iFaIconList')[row.persona_sexo]}}></i-fa></a><span ng-bind-html="highlight(row.persona_apellidos+' '+row.persona_nombres)"></span><br>
+						<i-fa i=graduation-cap></i-fa><span ng-bind-html="highlight(row.titulo)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=email></md-ico><span ng-bind-html="highlight(row.persona_correo)"></span><br>
+						<md-ico i=phone></md-ico><span ng-bind-html="highlight(row.persona_telefono)"></span> - <span ng-bind-html="highlight(row.persona_celular)"></span><br>
+						<i-fa i=birthday-cake></i-fa> <span ng-bind-html="highlight(row.persona_fnacimiento+' ('+row.edad+')')"></span><br>
+						<md-ico i=place></md-ico><span ng-bind-html="highlight(row.persona_nacionalidad)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.aspirante_registro)"></span><br>
+						<md-ico i=flag></md-ico><span ng-bind-html="highlight(row.aspirante_concurso)"></span>
+					</td>
+					<td md-cell>
+						<a ng-click="donwloadCertificates(row.aspirante_id)">
+							<i-fa i=file-archive-o s=fw></i-fa><span ng-bind-html="highlight(row.requerimientos)"></span>
+						</a>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <menu-candidates></menu-candidates>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

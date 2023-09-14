@@ -1,0 +1,52 @@
+<html ng-app="demoapp">
+  <head>
+    <title>Mapbox Basic Example</title>
+    <meta charset="utf-8">
+
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/leaflet/dist/leaflet.js"></script>
+    <script src="../bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
+    <script src="../bower_components/ui-leaflet/dist/ui-leaflet.js"></script>
+    <script src="../dist/ui-leaflet-layers.js"></script>
+
+    <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css" />
+
+    <script>
+      var app = angular.module("demoapp", ['ui-leaflet']);
+      app.controller('MapboxBasicExample', function($scope, $timeout, leafletLayersLogger) {
+          leafletLayersLogger.currentLevel = leafletLayersLogger.LEVELS.debug;
+          angular.extend($scope, {
+              center: {
+                lat: 38.91275,
+                lng: -77.032194,
+                zoom: 8
+              },
+              layers: {
+                baselayers: {
+                  mapbox_basic: {
+                    name: 'Mapbox Basic',
+                    type: 'mapbox',
+                    key: 'citng102800332hphzmbjudn7',
+                    user: 'elesdoar',
+                    apiKey: 'pk.eyJ1IjoiZWxlc2RvYXIiLCJhIjoiY2l0bmcwaDNpMDQzMTJvbDRpaTltN2dlbiJ9.KDnhRVh9St6vpQovMI7iLg'
+                  },
+                  mapbox_outdoors: {
+                    name: 'Mapbox Outdoors',
+                    type: 'mapbox',
+                    key: 'citng3g0g003s2it88y9lg769',
+                    user: 'elesdoar',
+                    apiKey: 'pk.eyJ1IjoiZWxlc2RvYXIiLCJhIjoiY2l0bmcwaDNpMDQzMTJvbDRpaTltN2dlbiJ9.KDnhRVh9St6vpQovMI7iLg'
+                  }
+                },
+                overlays: {}
+              }
+            });
+        });
+    </script>
+  </head>
+
+  <body ng-controller="MapboxBasicExample">
+    <h2>Mapbox Basic Example</h2>
+    <leaflet lf-center="center" layers="layers" height="480px" width="100%"></leaflet>
+  </body>
+</html>

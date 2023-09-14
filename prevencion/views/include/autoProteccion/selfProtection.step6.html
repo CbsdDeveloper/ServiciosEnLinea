@@ -1,0 +1,134 @@
+<div layout-xs=column layout=row layout-padding>
+	<div class=column flex>
+		
+		<ul class="timeline margin-top">
+			<li class="time-label text-uppercase">
+        <span class="bg-orange padding-all" translate>LB_SELFPROTECTION_STEP6</span>
+      </li>
+      
+			<!-- INSTRUCCIONES -->
+			<li>
+				<i class="fa fa-info bg-orange"></i>
+		    <div class="timeline-item">
+						<div class="box box-danger no-margin">
+							<div class="box-header with-border text-center">
+								<h3 class="box-title text-danger text-bold" translate>LB_INSTRUCTIONS</h3>
+								<div class="box-tools pull-right">
+						       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+						     </div>
+							</div>
+							<div class="box-body">
+								<div ng-bind-html="$parent.trustAsHtml(paramsConf.SELFPROTECTION_STEP6)"></div>
+							</div>
+						</div>
+		  	</div>
+		  </li>
+		  
+			<li>
+				<i class="fa fa-history bg-purple"></i>
+		    <div class="timeline-item">
+		      <div class="timeline-body row">
+			      <div class="col-md-6 col-xs-12 margin-top" ng-repeat="(type,item) in frmParent.resources">
+							<div class="box box-{{string2JSON('colorCss')[$index]}}">
+								<div class="box-header with-border text-center" layout=row layout-wrap>
+								  <h3 class="box-title">{{item.recurso_id}}. {{item.recurso_nombre}}</h3>
+								</div>
+								<div class="box-body" layout=column layout-padding>
+									
+									<div class="form-group required" flex>
+										<label translate>LB_APPLY_THIS_MAINTENANCE</label>
+										<div class="input-group">
+									    <span class="input-group-addon"><md-ico i=flag></md-ico></span>
+									    <select class="form-control" ng-model="frmParent.model[item.recurso_id].mantenimiento_aplicacion" ng-options="val as val for (key,val) in string2JSON('LIST_APPLY_LIST')" required></select>
+									  </div>
+									</div>
+									
+									<div layout=column layout-padding ng-if="frmParent.model[item.recurso_id].mantenimiento_aplicacion=='SI APLICA'">
+										
+										<div class="form-group required" flex>
+											<label translate>LB_ACTIVITIES_PERFORMED</label>
+											<div class="input-group">
+										    <span class="input-group-addon"><md-ico i=format_list_numbered></md-ico></span>
+										    <textarea rows="4" ng-model="frmParent.model[item.recurso_id].mantenimiento_actividad" class="form-control" required></textarea>
+										  </div>
+										</div>
+										<div class="form-group required" flex>
+											<label translate>LB_REVIEW_DATE</label>
+											<div class="input-group" max-date="today" moment-picker="frmParent.model[item.recurso_id].mantenimiento_fecha" format="YYYY-MM-DD">
+										    <span class="input-group-addon"><md-ico i=event></md-ico></span>
+										    <input ng-model-options="{ updateOn: 'blur' }" ng-model="frmParent.model[item.recurso_id].mantenimiento_fecha" class="form-control" required >
+										  </div>
+										</div>
+										
+										<div class="form-group required" flex>
+											<label translate>LB_RESPONSIBLE_FOR_MAINTENANCE</label>
+										  <div class="input-group">
+										    <span class="input-group-addon"><i-fa i=wrench></i-fa></span>
+												<select class="form-control" ng-model="frmParent.model[item.recurso_id].mantenimiento_responsable_tipo" required ng-options="val as val for (key,val) in string2JSON('SELFPROTECTION_6_RESPONSABLE_MANTENIMIENTOS')"></select>
+											</div>
+										</div>
+										<div class="form-group required" flex ng-if="frmParent.model[item.recurso_id].mantenimiento_responsable_tipo=='PROFESIONAL O EMPRESA CONTRATADO EXTERNAMENTE'">
+											<label translate>LB_DATA_RESPONSIBLE_FOR_MAINTENANCE</label>
+										  <div class="input-group">
+										    <span class="input-group-addon"><i-fa i=credit-card></i-fa></span>
+												<input ng-model="frmParent.model[item.recurso_id].profesional_ruc" class="form-control" placeholder="Ej. 1721953189001" maxlength="13" />
+												<span class="input-group-btn"><button type="button" ng-click="searchRucInformation(frmParent.model[item.recurso_id].profesional_ruc,item.recurso_id)" class="btn btn-info btn-flat"><i-fa i=search></i-fa></button></span>
+											</div>
+										</div>
+										
+										<div class="row no-margin" layout-padding ng-if="frmParent.model[item.recurso_id].mantenimiento_responsable_tipo=='PROFESIONAL O EMPRESA CONTRATADO EXTERNAMENTE'  && !(frmParent.model[item.recurso_id].professional | isEmpty)">
+											<div class="col-md-3">
+									  		<p><img src="/app/src/img/entities/default.png" style="width:128px;margin:auto" class="img-responsive"/></p>
+									    </div>
+									    <div class="col-md-9 text-left">
+									    	<p><b translate>LB_TRADENAME</b>: {{frmParent.model[item.recurso_id].professional.entidad_razonsocial}}</p>
+									    	<p><b translate>LB_TAXPAYER_TYPE</b>: {{string2JSON('contribuyenteType')[frmParent.model[item.recurso_id].professional.entidad_contribuyente]}}</p>
+									    	<p><b translate>LB_RUC</b>: {{frmParent.model[item.recurso_id].professional.entidad_ruc}}</p>
+									    	<div ng-if="!(frmParent.model[item.recurso_id].professional.entidad_contribuyente=='natural' || frmParent.model[item.recurso_id].professional.entidad_contribuyente=='cedula')">
+										    	<p><b translate>LB_AGENT</b>: {{frmParent.model[item.recurso_id].professional.person.persona_apellidos+' '+frmParent.model[item.recurso_id].professional.person.persona_nombres}}</p>
+										    	<p><b translate>LB_IDENTIFICATION_NUMBER</b>: {{frmParent.model[item.recurso_id].professional.person.persona_doc_identidad}}</p>
+									    	</div>
+									    	<p><b translate>LB_TEL</b>: {{frmParent.model[item.recurso_id].professional.person.persona_telefono}} - {{frmParent.model[item.recurso_id].professional.person.persona_celular}}</p>
+									    	<p><b translate>LB_MAIL</b>: {{frmParent.model[item.recurso_id].professional.person.persona_correo}}</p>
+									    </div>
+										</div>
+
+										<!-- 
+										<div class="form-group required" flex>
+											<label translate>LB_ANNEX_CERTIFICATE</label>
+										  <div class="input-group">
+										    <span class="input-group-addon"><i-fa i=paperclip></i-fa></span>
+												<input type="file" accept="application/pdf" class="form-control" uploader-model="frmParent.model[item.recurso_id].media_file" />
+											</div>
+										</div>
+										 -->
+										
+									</div>
+								</div>
+							</div>
+						</div>
+		      </div>
+		   	</div>
+		  </li>
+			<li>
+				<i class="fa fa-paper-plane bg-red"></i>
+		    <div class="timeline-item">
+		      <div class="timeline-body" layout=row layout-padding layout-align="space-between center">
+			      <div flex>
+							<button type="button" ng-click="goUI('permits.editSelfProtection.step5',{planId:frmParent.plan_id})" class="btn btn-warning btn-block">
+								<i-fa i=angle-double-left></i-fa> <span translate>BTN_CANCEL</span>
+							</button>
+							</div>
+						<div flex>
+							<button type="button" ng-click="submitForm()" class="btn btn-success btn-block" ng-disabled="formData.$invalid">
+								<span translate>BTN_NEXT</span> <i-fa i=angle-double-right></i-fa>
+							</button>
+						</div>
+		      </div>
+		  	</div>
+		  </li>
+		  <li><i class="fa fa-clock-o bg-gray"></i></li>
+		</ul>
+		
+	</div>
+</div>

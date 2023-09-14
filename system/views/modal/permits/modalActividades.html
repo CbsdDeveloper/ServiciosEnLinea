@@ -1,0 +1,37 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="btn" class="md-icon-button"><md-ico i=import_contacts></md-ico></md-button>
+			<h2 translate>TOOLBAR_ACTIVITIES</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content class="my-dialog-content">
+    <md-content layout-padding layout=column layout-wrap>
+	    <div class="input-group">
+		    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=fingerprint></md-ico></div></div> 
+		    <input type="text" ng-model="frmParent.actividad_codigo" maxlength="4" class="form-control" placeholder="{{'LB_CODE' | translate}}" required>
+		  </div>
+		  <div class="input-group">
+		    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=import_contacts></md-ico></div></div> 
+		    <input type="text" ng-model="frmParent.actividad_nombre" class="form-control" placeholder="{{'LB_COMERTIAL_ACTIVITY' | translate}}" required>
+		  </div>
+		  <div class="input-group">
+		    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+		    <textarea rows=3 type="text" ng-model="frmParent.actividad_descripcion" class="form-control" placeholder="{{'LB_DESCRIPTION' | translate}}"></textarea>
+		  </div>
+		  <div class="input-group" ng-if="toogleEditMode" flex>
+				<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+				<select class="form-control" ng-model="frmParent.actividad_estado" ng-options="val as val for (key,val) in string2JSON('statusType')"></select>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

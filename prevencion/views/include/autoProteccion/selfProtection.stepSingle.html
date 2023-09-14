@@ -1,0 +1,319 @@
+<div layout-xs=column layout=row layout-padding>
+	
+	<div layout=column flex>
+		<ul class="timeline margin-top">
+			
+			<!-- INFORMACION -->
+			<li class="time-label text-uppercase">
+        <span class="bg-maroon padding-all" translate>LB_RESPONSIBLE_PROCEDURE</span>
+      </li>
+			
+			<!-- RESPONSABLE DEL PLAN DE AUTOPROTECCION -->
+			<li>
+				<i class="fa fa-user bg-green"></i>
+		    <div class="timeline-item">
+					<div class="box box-warning no-margin">
+						<div class="box-header with-border text-center">
+							<h3 class="box-title" translate>LB_SELFPROTECTION_RESPONSIBLE</h3>
+						</div>
+						<div class="box-body" layout-padding>
+						
+							<div class="form-group required" flex>
+							  <label translate>LB_PROFESSIONAL_OF_SECURITY_FUNCTION</label>
+							  <div class="input-group">
+							    <div class="input-group-addon"><md-ico i=info_outline></md-ico></div>
+							    <select class="form-control" ng-model="frmParent.plan_sos" required ng-options="val as val for (key,val) in string2JSON('PROFESSIONAL_OF_SECURITY_FUNCTION')"></select>
+							  </div>
+							</div>
+							
+							<div layout=column layout-padding ng-if="frmParent.plan_sos!=null && frmParent.plan_sos!='REPRESENTANTE LEGAL'">
+								<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex>
+										<label translate>LB_IDENTIFICATION_TYPE</label>
+										<div class="input-group">
+											<span class="input-group-addon"><md-ico i=account_balance_wallet></md-ico></span>
+											<select class="form-control select2" ng-model="frmParent.sos.persona_tipo_doc" required ng-options="key as val for (key,val) in string2JSON('identificationType')"></select>
+										</div>
+									</div>
+									<div class="form-group required" flex>
+										<label translate>LB_IDENTIFICATION_NUMBER</label>
+										<div class="input-group">
+											<span class="input-group-addon"><md-ico i=credit_card></md-ico></span>
+											<input ng-model="frmParent.sos.persona_doc_identidad" class="form-control" required maxlength="20">
+											<span class="input-group-btn"><button type="button" ng-click="findSOS({academicTraining:frmParent.sos.persona_doc_identidad})" class="btn btn-info btn-flat"><i-fa i=search></i-fa></button></span>
+										</div>
+									</div>
+								</div>
+								<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex>
+										<label translate>LB_LASTNAME</label>
+										<div class="input-group">
+											<span class="input-group-addon"><md-ico i=person></md-ico></span>
+											<input ng-model="frmParent.sos.persona_apellidos" class="form-control" required onkeypress="return alphaOnly(event)">
+										</div>
+									</div>
+									<div class="form-group required" flex>
+										<label translate>LB_NAME</label>
+										<div class="input-group">
+											<span class="input-group-addon"><md-ico i=person_outline></md-ico></span>
+									    <input ng-model="frmParent.sos.persona_nombres" class="form-control" required onkeypress="return alphaOnly(event)">
+										</div>
+									</div>
+								</div>
+								<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex>
+										<label translate>LB_MOBILE</label>
+										<div class="input-group">
+									    <span class="input-group-addon"><md-ico i=phone_iphone></md-ico></span>
+									    <input type="tel" ng-model="frmParent.sos.persona_celular" class="form-control" required>
+									  </div>
+									</div>
+									<div class="form-group required" flex>
+										<label translate>LB_MAIL</label>
+										<div class="input-group">
+											<span class="input-group-addon"><md-ico i=mail></md-ico></span>
+											<input type="email" ng-model="frmParent.sos.persona_correo" class="form-control" required>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div layout=column layout-padding ng-if="frmParent.plan_sos=='PROFESIONAL DE SEGURIDAD DE LA EMPRESA' || frmParent.plan_sos=='PROFESIONAL CONTRATADO EXTERNAMENTE POR LA EMPRESA'">
+								<div class="form-group required">
+									<label translate>LB_TITLE_LEVEL</label>
+									<div class="input-group">
+										<span class="input-group-addon"><i-fa i=signal></i-fa></span>
+										<select class="form-control" ng-model="frmParent.training.formacion_nivel" required ng-options="key as val for (key,val) in string2JSON('academicLevelList')"></select>
+									</div>
+								</div>
+								<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" ng-if="(frmParent.training.formacion_nivel!='BACHILLER' && frmParent.training.formacion_nivel!=null)" flex>
+										<label ng-if="row.formacion_nivel=='BACHILLER'">
+											<a href="http://servicios.educacion.gob.ec/titulacion25-web/faces/paginas/consulta-titulos-refrendados.xhtml" target="blank_" translate>LB_REFLECTION_BACHILLER</a>
+										</label>
+										<label ng-if="row.formacion_nivel!='' && row.formacion_nivel!='BACHILLER'">
+											<a href="http://www.senescyt.gob.ec/web/guest/consultas" target="blank_" translate>LB_TITLE_SENESCYT</a>
+										</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i-fa i=copyright></i-fa></span>
+											<input class="form-control" ng-model="frmParent.training.formacion_senescyt" required />
+										</div>
+									</div>
+									<div class="form-group required" flex>
+									  <label translate>LB_REGISTRE_DATE</label>
+										<div class="input-group" moment-picker="frmParent.training.formacion_fregistro" format="YYYY-MM-DD" max-date="today">
+											<span class="input-group-addon"><md-ico i=event></md-ico></span>
+											<input class="form-control padding-left" ng-model="frmParent.training.formacion_fregistro" ng-model-options="{ updateOn: 'blur' }" required />
+										</div>
+									</div>
+								</div>
+								<div class="form-group required" flex>
+									<label translate>LB_INSTITUTION</label>
+									<div class="input-group">
+										<span class="input-group-addon"><i-fa i=university></i-fa></span>
+										<input ng-model="frmParent.training.formacion_institucion" class="form-control" required>
+									</div>
+								</div>
+								<div class="form-group required" ng-if="(frmParent.training.formacion_nivel!='BACHILLER' && frmParent.training.formacion_nivel!=null)" flex>
+									<label translate>LB_TITLE_NAME</label>
+									<div class="input-group">
+										<span class="input-group-addon"><i-fa i=mortar-board></i-fa></span>
+										<input class="form-control" ng-model="frmParent.training.formacion_titulo"  required />
+									</div>
+								</div>
+							</div>
+							
+			      </div>
+					</div>
+				</div>
+			</li>
+		  
+			<!-- PERSONA QUE REALIZA EL TRAMITE -->
+      <li>
+				<i class="fa fa-user bg-maroon"></i>
+		    <div class="timeline-item">
+					<div class="box box-primary no-margin">
+						<div class="box-header with-border text-center">
+							<h3 class="box-title" translate>LB_RESPONSIBLE_FOR_THE_PROCESS_DATA</h3>
+						</div>
+						<div class="box-body" layout-padding>
+			      	<div class="form-group required" flex>
+								<label translate>LB_RESPONSIBLE_CHARGE</label>
+							  <div class="input-group">
+							    <span class="input-group-addon"><i-fa i=wrench></i-fa></span>
+									<select class="form-control" ng-model="frmParent.plan_responsable_tramite" required ng-options="val as val for (key,val) in string2JSON('SELFPROTECTION_RESPONSIBLE_CHARGE')"></select>
+								</div>
+							</div>
+							<div layout=column layout-padding ng-if="frmParent.plan_responsable_tramite!=null && frmParent.plan_responsable_tramite!='REPRESENTANTE LEGAL'">
+								<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex>
+										<label translate>LB_IDENTIFICATION_TYPE</label>
+										<div class="input-group">
+											<span class="input-group-addon"><md-ico i=account_balance_wallet></md-ico></span>
+											<select class="form-control select2" ng-model="frmParent.responsable.persona_tipo_doc" required ng-options="key as val for (key,val) in string2JSON('identificationType')"></select>
+										</div>
+									</div>
+									<div class="form-group required" flex>
+										<label translate>LB_IDENTIFICATION_NUMBER</label>
+										<div class="input-group">
+											<span class="input-group-addon"><md-ico i=credit_card></md-ico></span>
+											<input ng-model="frmParent.responsable.persona_doc_identidad" class="form-control" required maxlength="20">
+											<span class="input-group-btn"><button type="button" ng-click="searchEntityByURI('resources/persons/personByCC',{identityCard:frmParent.responsable.persona_doc_identidad},'frmParent','responsable')" class="btn btn-info btn-flat"><i-fa i=search></i-fa></button></span>
+										</div>
+									</div>
+								</div>
+								<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex>
+										<label translate>LB_LASTNAME</label>
+										<div class="input-group">
+											<span class="input-group-addon"><md-ico i=person></md-ico></span>
+											<input ng-model="frmParent.responsable.persona_apellidos" class="form-control" required onkeypress="return alphaOnly(event)">
+										</div>
+									</div>
+									<div class="form-group required" flex>
+										<label translate>LB_NAME</label>
+										<div class="input-group">
+											<span class="input-group-addon"><md-ico i=person_outline></md-ico></span>
+									    <input ng-model="frmParent.responsable.persona_nombres" class="form-control" required onkeypress="return alphaOnly(event)">
+										</div>
+									</div>
+								</div>
+								<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex>
+										<label translate>LB_MOBILE</label>
+										<div class="input-group">
+									    <span class="input-group-addon"><md-ico i=phone_iphone></md-ico></span>
+									    <input type="tel" ng-model="frmParent.responsable.persona_celular" class="form-control" required>
+									  </div>
+									</div>
+									<div class="form-group required" flex>
+										<label translate>LB_MAIL</label>
+										<div class="input-group">
+											<span class="input-group-addon"><md-ico i=mail></md-ico></span>
+											<input type="email" ng-model="frmParent.responsable.persona_correo" class="form-control" required>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+		      </div>
+				</div>
+			</li>
+			
+		  <!-- FIN -->
+		  <li><i class="fa fa-clock-o bg-gray"></i></li>
+		
+		</ul>
+	</div>
+	
+	<div layout=column flex>
+		<ul class="timeline margin-top">
+			
+			<!-- INFORMACION -->
+			<li class="time-label text-uppercase">
+        <span class="bg-blue padding-all" translate>LB_EXTRA_INFORMATION</span>
+      </li>
+      
+      <!-- DATOS PARA FACTURACION -->
+      <li>
+				<i class="fa fa-credit-card bg-blue"></i>
+		    <div class="timeline-item">
+					<div class="box box-danger no-margin">
+						<div class="box-header with-border text-center">
+							<h3 class="box-title" translate>LB_BILLING_INFORMATION</h3>
+						</div>
+						<div class="box-body" layout-padding>
+			      	<div class="form-group required" flex>
+								<label translate>LB_BILLING_TO</label>
+							  <div class="input-group">
+							    <span class="input-group-addon"><i-fa i=wrench></i-fa></span>
+									<select class="form-control" ng-model="frmParent.plan_facturacion" required ng-options="key as val for (key,val) in string2JSON('BILLING_TO')"></select>
+								</div>
+							</div>
+							<div class="form-group required" flex ng-if="frmParent.plan_facturacion=='OTRA'">
+								<label translate>LB_BILLING_RUC</label>
+							  <div class="input-group">
+							    <span class="input-group-addon"><i-fa i=credit-card></i-fa></span>
+									<input ng-model="frmParent.facturacion_ruc" class="form-control" placeholder="Ej. 1721953189001" maxlength="13" />
+									<span class="input-group-btn"><button type="button" ng-click="searchRucInformation(frmParent.facturacion_ruc,'frmParent','billing')" class="btn btn-info btn-flat"><i-fa i=search></i-fa></button></span>
+								</div>
+							</div>
+						</div>
+						<div class="box-footer row no-margin" ng-if="frmParent.plan_facturacion=='OTRA' && !(frmParent.billing | isEmpty)">
+					    <div class="col-md-12 text-left">
+					    	<p><md-ico i=credit_card s=18></md-ico> <b translate>LB_RUC</b>: {{frmParent.billing.entidad_ruc}} / {{string2JSON('contribuyenteType')[frmParent.billing.entidad_contribuyente]}}</p>
+					    	<p><md-ico i={{string2JSON('mdIconList')[frmParent.billing.entidad_contribuyente]}} s=18></md-ico> <b translate>LB_TRADENAME</b>: {{frmParent.billing.entidad_razonsocial}}</p>
+					    	<div ng-if="!(frmParent.billing.entidad_contribuyente=='natural' || frmParent.billing.entidad_contribuyente=='cedula')">
+						    	<p><md-ico i=person s=18></md-ico> <b translate>LB_AGENT</b>: {{frmParent.billing.person.persona_apellidos+' '+frmParent.billing.person.persona_nombres}} / {{frmParent.billing.person.persona_doc_identidad}}</p>
+					    	</div>
+					    	<p><md-ico i=directions s=18></md-ico> <b translate>LB_BILLING_ADDRESS</b>: {{frmParent.billing.entidad_direccionfacturacion}}</p>
+					    	<p><md-ico i=email s=18></md-ico> <b translate>LB_MAIL</b>: {{frmParent.billing.entidad_correo}}</p>
+					    	<p><md-ico i=phone_iphone s=18></md-ico> <b translate>LB_TEL</b>: {{frmParent.billing.person.persona_telefono}} - {{frmParent.billing.person.persona_celular}}</p>
+					    </div>
+						</div>
+		      </div>
+		    </div>
+			</li>
+			
+			<!-- FECHA DE REVISION -->
+			<li>
+				<i class="fa fa-bullhorn bg-purple"></i>
+		    <div class="timeline-item">
+					<div class="box box-default no-margin">
+						<div class="box-header with-border text-center">
+							<h3 class="box-title" translate>LB_EMERGENCY_PLAN</h3>
+						</div>
+						<div class="box-body" layout-padding>
+							<div layout=column layout-padding>
+								<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex>
+										<label translate>LB_DATE_ELABORATION</label>
+										<div class="input-group" moment-picker="frmParent.plan_elaborado" format="YYYY-MM-DD" max-date="today">
+		                  <span class="input-group-addon"><md-ico i=event></md-ico></span>
+		                  <input class="form-control" name="plan_elaborado" ng-model="frmParent.plan_elaborado" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2017-07-07" required />
+		                </div>
+		                <field-validation field="formData.plan_elaborado"></field-validation>
+									</div>
+								</div>
+								<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex>
+										<label translate>LB_CITY_OF_ELABORATION</label>
+										<div class="input-group">
+		                  <span class="input-group-addon"><md-ico i=public></md-ico></span>
+		                  <input class="form-control" name="plan_ciudad" ng-model="frmParent.plan_ciudad" placeholder="Ej. Santo Domingo - Ecuador" required />
+		                </div>
+		                <field-validation field="formData.plan_ciudad"></field-validation>
+									</div>
+								</div>
+							</div>
+						</div>
+		      </div>
+				</div>
+			</li>
+			
+			<!-- BOTONERA -->
+			<li>
+				<i class="fa fa-paper-plane-o bg-red"></i>
+		    <div class="timeline-item">
+		      <div class="timeline-body" layout-padding>
+			      <div flex>
+							<a ui-sref="permits.economicActivities" class="btn btn-warning btn-block">
+								<i-fa i=angle-double-left></i-fa> <span translate>BTN_CANCEL</span>
+							</a>
+						</div>
+						<div flex>
+							<button type="button" ng-click="submitFormSingle()" class="btn btn-success btn-block" ng-disabled="formData.$invalid">
+								<span translate>BTN_NEXT</span> <i-fa i=angle-double-right></i-fa>
+							</button>
+						</div>
+		      </div>
+				</div>
+			</li>
+		  
+		  <!-- FIN -->
+		  <li><i class="fa fa-clock-o bg-gray"></i></li>
+		  
+		</ul>
+	</div>
+	
+</div>

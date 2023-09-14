@@ -1,0 +1,230 @@
+﻿<form name="formData" layout-padding>
+<div class="no-padding" layout-xs=column layout=row layout-padding>
+	
+	<div flex>
+		<md-card class="no-margin">
+			
+			<!-- ENCABEZADO DE UI -->
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<md-button aria-label="btn" class="md-icon-button"><md-ico i=event></md-ico></md-button>
+					<h2>{{dataInfo.data.period.periodo_nombre}} - {{dataInfo.data.serie.codigo_archivo}}</h2>
+				</div>
+			</md-toolbar>
+			
+      <md-tabs md-dynamic-height md-border-bottom>
+					
+					<!-- INFORMACION -->
+					<md-tab label="{{'LB_INFORMATION' | translate}}">
+					
+							<!-- INFORMACION GENERAL -->
+						<div class="padding-all row no-margin" layout-padding>
+							
+							<!-- PERIODO -->
+							<div class="col-md-4 col-xs-12">
+								<div class="card card-outline card-dark text-center no-margin">
+									<div class="card-header with-border">
+										<h3 class="card-title" translate>LB_EVALUATION_PERIOD</h3>
+									</div>
+									<div class="card-body card-entity-information">
+										<strong><md-ico i=event s=18></md-ico> <span translate>LB_PERIOD</span></strong>
+								    <p class="text-muted">{{dataInfo.data.period.periodo_nombre}}</p>
+								    <hr>
+										<strong><md-ico i=event_available s=18></md-ico> <span translate>LB_START_PERIOD</span></strong>
+								    <p class="text-muted">{{dataInfo.data.period.periodo_inicio | date:'fullDate'}}</p>
+								    <hr>
+										<strong><md-ico i=event_busy s=18></md-ico> <span translate>LB_END_PERIOD</span></strong>
+								    <p class="text-muted">{{dataInfo.data.period.periodo_cierre | date:'fullDate'}}</p>
+								    <hr>
+										<strong><md-ico i=flag s=18></md-ico> <span translate>LB_STATUS</span></strong>
+								    <p class="text-muted">{{dataInfo.data.period.periodo_estado}}</p>
+									</div>
+								</div>
+							</div>
+							
+							<!-- SERIE -->
+							<div class="col-md-4 col-xs-12">
+								<div class="card card-outline card-dark text-center no-margin">
+									<div class="card-header with-border">
+										<h3 class="card-title" translate>LB_DOCUMENTARY_SERIE</h3>
+									</div>
+									<div class="card-body card-entity-information">
+										<strong><md-ico i=person s=18></md-ico> <span translate>LB_CODE</span></strong>
+								    <p class="text-muted">{{dataInfo.data.serie.codigo_archivo}}</p>
+								    
+								    <hr>
+										<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_SERIE</span></strong>
+								    <p class="text-muted">{{dataInfo.data.serie.serie_nombre}}</p>
+								    
+								    <hr>
+										<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_SUBSERIE</span></strong>
+								    <p class="text-muted">{{dataInfo.data.serie.subserie_nombre}}</p>
+								    
+								    <hr>
+										<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_SECTION</span></strong>
+								    <p class="text-muted">{{dataInfo.data.serie.section.direccion_nombre}}</p>
+								    
+								    <hr>
+										<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_SUBSECTION</span></strong>
+								    <p class="text-muted">{{dataInfo.data.serie.subsection.direccion_nombre}}</p>
+								    
+								    <hr>
+										<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+								    <p class="text-muted">{{dataInfo.data.serie.serie_}}</p>
+								    
+								    <hr>
+										<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+								    <p class="text-muted">{{dataInfo.data.serie.serie_disposicionfinal}}</p>
+								    
+								    <hr>
+										<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_STATUS</span></strong>
+								    <p class="text-muted">{{dataInfo.data.serie.serie_estado}}</p>
+								    
+								    <hr>
+										<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_STATUS</span></strong>
+								    <p class="text-muted">{{dataInfo.data.serie.serie_plazo_gestion}}</p>
+								    
+								    <hr>
+										<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_STATUS</span></strong>
+								    <p class="text-muted">{{dataInfo.data.serie.serie_plazo_central}}</p>
+								    
+									</div>
+								</div>
+							</div>
+							
+							<!-- ARCHIVO -->
+							<div class="col-md-4 col-xs-12">
+								<div class="card card-outline card-dark text-center no-margin">
+									<div class="card-header with-border">
+										<h3 class="card-title" translate>LB_INSTITUTIONAL_ARCHIVE</h3>
+									</div>
+									<div class="card-body card-entity-information">
+										<strong><md-ico i=person s=18></md-ico> <span translate>LB_NAME</span></strong>
+								    <p class="text-muted">{{dataInfo.sos.person.persona_apellidos}} {{dataInfo.sos.persona_nombres}}</p>
+								    <hr>
+										<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+								    <p class="text-muted">{{dataInfo.sos.persona_doc_identidad}}</p>
+									</div>
+								</div>
+							</div>
+						
+						</div>
+					
+					</md-tab>
+					
+					<!-- GESTION DOCUMENTAL -->
+					<md-tab label="{{'LB_DOCUMENTARY_MANAGEMENT' | translate}}">
+							
+		      		<div class="timeline timeline-inverse" layout=column ng-repeat="(key,rows) in dataInfo.serieList">
+		      			
+		        		<div class="time-label">
+		              <span class="bg-red">{{key}}</span>
+		            </div>
+		        	
+			        	<div ng-repeat="row in rows">
+									
+									<i class="fa fa-info bg-blue"></i>
+									
+									<div class="timeline-item pad-btm-10">
+										
+										<h3 class="timeline-header" layout=row layout-wrap>
+											<b>{{row.codigo_archivo}}. {{row.serie_nombre}}</b>
+							    		<span flex></span>
+							    		<md-radio-group ng-model="frmParent.model[row.serie_id].pserie_estado" layout=row layout-wrap>
+									      <md-radio-button value="ACTIVO" class="md-primary">ACTIVO</md-radio-button>
+									      <md-radio-button value="DESHABILITADO" class="md-warn">DESHABILITADO</md-radio-button>
+									      <md-radio-button value="NA" class="md-warn">NA</md-radio-button>
+									    </md-radio-group>
+										</h3>
+								    		
+										<div class="timeline-body" ng-if="(row.subserie_nombre!=null && row.subserie_nombre!='') || row.subsection!=null">
+											<div ng-if="row.subsection!=null">
+												<B translate>LB_SUBSECTION</B>: {{row.subsection.direccion_nombre}}
+											</div>
+											<div ng-if="row.subserie_nombre!=null && row.subserie_nombre!=''">
+												<B translate>LB_SUBSERIE</B>: {{row.subserie_nombre}}
+											</div>
+										</div>
+						    		
+									</div>
+									
+								</div>
+								
+								<div>
+		              <i class="fa fa-info bg-gray"></i>
+		            </div>
+								
+							</div>
+		      	
+						  
+							<!-- BOTONES -->
+							<div layout-xs=column layout=row layout-padding>
+								<div flex>
+									<a class="btn btn-sm btn-warning btn-block" ui-sref="logistics.archive.periods">
+										<i-fa i=angle-double-left></i-fa> <span translate>BTN_PREV</span>
+									</a>
+								</div>
+								<div flex>
+									<button class="btn btn-sm btn-success btn-block" type="button" ng-click="submitForm()" ng-disabled="formData.$invalid">
+										<span translate>LB_SAVE_CHANGES</span> <i-fa i=angle-double-right></i-fa>
+									</button>
+								</div>
+						  </div>  
+					
+					</md-tab>
+					
+					<!-- GESTION DOCUMENTAL -->
+					<md-tab label="{{'LB_DOCUMENTS' | translate}}">
+							
+		      		<div class="timeline timeline-inverse" layout=column ng-repeat="(key,rows) in dataInfo.serieList">
+		      			
+		        		<div class="time-label">
+		              <span class="bg-red">{{key}}</span>
+		            </div>
+		        	
+			        	<div ng-repeat="row in rows">
+									
+									<i class="fa fa-info bg-blue"></i>
+									
+									<div class="timeline-item pad-btm-10">
+										
+										<h3 class="timeline-header" layout=row layout-wrap>
+											<b>{{row.codigo_archivo}}. {{row.serie_nombre}}</b>
+							    		<span flex></span>
+							    		<md-radio-group ng-model="frmParent.model[row.serie_id].pserie_estado" layout=row layout-wrap>
+									      <md-radio-button value="ACTIVO" class="md-primary">ACTIVO</md-radio-button>
+									      <md-radio-button value="DESHABILITADO" class="md-warn">DESHABILITADO</md-radio-button>
+									      <md-radio-button value="NA" class="md-warn">NA</md-radio-button>
+									    </md-radio-group>
+										</h3>
+								    		
+										<div class="timeline-body" ng-if="(row.subserie_nombre!=null && row.subserie_nombre!='') || row.subsection!=null">
+											<div ng-if="row.subsection!=null">
+												<B translate>LB_SUBSECTION</B>: {{row.subsection.direccion_nombre}}
+											</div>
+											<div ng-if="row.subserie_nombre!=null && row.subserie_nombre!=''">
+												<B translate>LB_SUBSERIE</B>: {{row.subserie_nombre}}
+											</div>
+										</div>
+						    		
+									</div>
+									
+								</div>
+								
+								<div>
+		              <i class="fa fa-info bg-gray"></i>
+		            </div>
+								
+							</div>
+					
+					</md-tab>
+						
+      	
+      	
+      </md-tabs>
+	        
+		</md-card>
+	</div>
+	
+</div>
+</form>

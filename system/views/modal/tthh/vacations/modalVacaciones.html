@@ -1,0 +1,46 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=donut_large></md-ico></md-button>
+			<h2 translate>LB_ADJUSTMENT_VACATIONS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+		<md-content layout=column layout-padding>
+    	<!-- INFORMACIÓN DE USUARIO -->
+			<card-staff-information layout-padding></card-staff-information>
+			<!-- FORMULARIO DE DATOS -->
+			<div class="card card-outline card-primary no-padding no-margin margin-top">
+				<div class="card-header text-center">
+				  <h3 class="card-title" translate>LB_MAIN_INFORMATION</h3>
+				</div>
+				<div class="card-body" layout=column layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_TOTAL_VACATIONS</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=stars></md-ico></div></div> 
+				    	<input parse-float type="number" step="0.1" min=0 ng-model="frmParent.saldo_vacaciones_dias" class="form-control" placeholder="Ej. 10.2" required>
+							<span class="input-group-addon" translate>LB_DAYS</span>
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_DETAIL</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+							<textarea class="form-control" placeholder="Ej. Motivo de descuento de vacaciones" ng-model="frmParent.vacaciones_detalle" required></textarea>
+						</div>
+						</div>
+				</div>
+			</div>
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

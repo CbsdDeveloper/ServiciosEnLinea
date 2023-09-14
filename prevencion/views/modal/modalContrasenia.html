@@ -1,0 +1,50 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog" ng-controller="profileExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+	  <md-toolbar>
+	    <div class="md-toolbar-tools">
+	      <md-button aria-label="btn" class="md-icon-button"><md-ico i=verified_user></md-ico></md-button>
+				<h2 translate>LB_CHANGE_PASSWORD</h2>
+	      <span flex></span>
+	      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+	    </div>
+	  </md-toolbar>
+	  <md-dialog-content>
+			<md-content class="no-padding" layout=column layout-padding>
+	    
+				<!-- NOTIFICACIONES Y CONTRASEÑA -->
+				<div class="padding-all" layout=column layout-padding flex>
+				
+					<!-- INFORMACIÓN DE USUARIO :: CONTRASEÑA -->
+					<div class="box box-danger no-padding no-margin">
+						<div class="box-body" layout=column layout-padding>
+							<div class="form-group required">
+								<label translate>LB_ENTER_YOUR_CURRENT_PASSWORD</label>
+					      <div class="input-group">
+					        <span class="input-group-addon"><md-ico i=no_encryption></md-ico></span>
+					        <input type="password" ng-model="frmParent.entity_password" class="form-control" placeholder="Contraseña actual ** requerido" required>
+					      </div>
+				      </div>
+							<div class="form-group required">
+								<label translate>LB_ENTER_YOUR_NEW_PASSWORD</label>
+					      <div class="input-group">
+					        <span class="input-group-addon"><md-ico i=lock></md-ico></span>
+					        <input type="password" ng-model="frmParent.entity_new_password" class="form-control" placeholder="Nueva contraseña ** requerido" required>
+					      </div>
+				      </div>
+				     </div>
+						<div class="box-footer" layout-padding>
+							<div class="padding-all" ng-bind-html="trustAsHtml(paramsConf.PROFILE_ENTITY_NEW_PASSWORD_INFORMATION)"></div>
+						</div>
+					</div>
+				
+				</div>
+				
+	    </md-content>
+	  </md-dialog-content>
+	  <md-dialog-actions layout="row">
+			<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+			<span flex></span>
+			<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+		</md-dialog-actions>
+  </form>
+</md-dialog>

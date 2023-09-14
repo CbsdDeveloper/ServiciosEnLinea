@@ -1,0 +1,182 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg" ng-controller="fuelOrderExtendsCtrl">
+  <form name="formData">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=local_gas_station></md-ico></md-button>
+			<h2 translate>TOOLBAR_FUEL_ORDER</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content style="zoom:85%">
+		<md-content layout=column layout-padding>
+			
+			<!-- FORMULARIO DE REGISTRO -->
+			<div class="card card-outline card-primary no-padding no-margin">
+				<div class="card-header text-center">
+				  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+				<div class="card-body" layout=column layout-padding>
+								
+					<div class="form-group required" ng-controller="driversListCtrl">
+						<label translate>LB_OPERATOR</label>
+						<div class="input-group">
+				      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=person></md-ico></div></div> 
+				      <ui-select class="form-control" ng-model="frmParent.fk_operador_id" reset-search-input="false" required>
+			         	<ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.conductor,'Seleccione el operador')  | translate}}">
+									{{$select.selected.personal_nombre}}
+			         	</ui-select-match>
+								<ui-select-choices class="list-personal" repeat="item.conductor_id as item in jsonList | filter: { conductor: $select.search }">
+									<img src="/app/src/img/users/default.png" style="width:48px;height:48px;padding:3px" class="img-circle" alt="img" />
+									<div flex>
+										<div ng-bind-html="item.conductor | highlight: $select.search"></div>
+										<small ng-bind-html="'Tipo de licencia.: '+item.licencia_categoria+' ('+item.licencia_tipo+')'"></small><br>
+										<small translate>LB_STATUS</small> <label class="label" ng-class="[{'label-success':item.conductor_estado=='VIGENTE','label-danger':item.conductor_estado=='CADUCADA'}]">{{item.conductor_estado}}</label>
+									</div>
+								</ui-select-choices>
+				      </ui-select>
+				    </div>
+					</div>
+					
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_ORDER_OF_SUPPLY</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=security></md-ico></div></div>
+									<input class="form-control" ng-model="frmParent.orden_codigo" readonly="readonly" required />
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_PERSON_REQUESTING</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=person_outline></md-ico></div></div>
+									<input class="form-control" ng-model="frmParent.responsable" readonly="readonly" required />
+							</div>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_SERVICE_STATION</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_gas_station></md-ico></div></div>
+									<input class="form-control" ng-model="frmParent.orden_estacionservicio" required />
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_DATE</label>
+							<div class="input-group" max-date="maxDate" start-view="day" moment-picker="frmParent.orden_valdacion" format="YYYY-MM-DD">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+								<input class="form-control" ng-model="frmParent.orden_valdacion" ng-model-options="{ updateOn: 'blur' }" required>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="card-footer padding-all" layout-xs=column layout=row>
+					<button type="button" class="btn btn-warning" ng-click="addItem('units')" flex><md-ico i=add s=18></md-ico> <span translate>LB_ADD_NEW_UNIT</span></button>
+					<span flex></span>
+					<button type="button" class="btn btn-info" ng-click="addItem('canecas')" flex><md-ico i=add s=18></md-ico> <span translate>LB_ADD_CANECA</span></button>
+				</div>
+			</div>
+			
+			
+			<!-- FORMULARIO DE REGISTRO -->
+			<div class="card card-outline card-warning no-padding no-margin margin-top" ng-if="frmParent.units.length>0" ng-repeat="item in frmParent.units track by $index">
+				<div class="card-header text-center">
+				  <h3 class="card-title" translate>LB_UNITS</h3>
+				  <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-widget="remove" ng-click="removeItem('units',$index)"><i class="fa fa-times"></i></button>
+          </div>
+				</div>
+				<div class="card-body" layout=column layout-padding ng-controller="unitsListCtrl">
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_UNITS</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_shipping></md-ico></div></div> 
+								<select class="form-control" ng-model="item.fk_unidad_id" ng-options="item.unidad_id as item.unidad_nombre for item in jsonList"></select>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_MILEAGE</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=av_timer></md-ico></div></div> 
+								<input type=number min=0 step="1" parse-float class="form-control font-digital" ng-model="item.orden_kilometraje" required />
+							</div>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_GAS_TYPE</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_gas_station></md-ico></div></div>
+								<select class="form-control text-center" ng-model="item.orden_combustible" required ng-options="val as val for (key,val) in string2JSON('gasTypeList')"></select>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_GALLONS</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=battery_unknown></md-ico></div></div>
+								<input type=number min=0 step="0.01" parse-float class="form-control font-digital" ng-model="item.orden_galones" required />
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_TOTAL</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=attach_money></md-ico></div></div>
+								<input type=number min=0 step="0.01" parse-float class="form-control font-digital" ng-model="item.orden_total" required />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- FORMULARIO DE REGISTRO - CANECAS DIESEL -->
+			<div class="card card-outline card-success no-padding no-margin margin-top" ng-if="frmParent.canecas.length>0" ng-repeat="item in frmParent.canecas track by $index">
+				<div class="card-header text-center">
+				  <h3 class="card-title" translate>LB_FILLING_OF_CANCES</h3>
+				  <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-widget="remove" ng-click="removeItem('canecas',$index)"><i class="fa fa-times"></i></button>
+          </div>
+				</div>
+				<div class="card-body" layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_GAS_TYPE</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_gas_station></md-ico></div></div>
+							<select class="form-control text-center" ng-model="item.orden_combustible" required ng-options="val as val for (key,val) in string2JSON('gasTypeList')"></select>
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_NUMBER_OF_CANCES</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=filter_9_plus></md-ico></div></div>
+							<input type=number min=0 step="1" parse-float class="form-control font-digital" ng-model="item.orden_canecas" required />
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_GALLONS</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=battery_unknown></md-ico></div></div>
+							<input type=number min=0 step="0.01" parse-float class="form-control font-digital" ng-model="item.orden_galones" required />
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_TOTAL</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=attach_money></md-ico></div></div>
+							<input type=number min=0 step="0.01" parse-float class="form-control font-digital" ng-model="item.orden_total" required />
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="button" ng-click="submitForm()" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

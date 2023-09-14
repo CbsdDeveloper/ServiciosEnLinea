@@ -1,0 +1,55 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+		<md-toolbar ng-hide="filter.show">
+			<div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><i-fa i=hourglass-half s=lg></i-fa></md-button>
+				<h2 translate>TOOLBAR_EXTENSIONS</h2>
+				<span flex></span>
+				<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+				<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+			</div>
+		</md-toolbar>
+		<toolbar-filter></toolbar-filter>
+		<md-table-container>
+			<div class="md-padding" layout-xs=column layout=row layout-padding layout-wrap>
+				<div class="wow fadeInUp" style="min-width:350px;max-width:480px" ng-repeat="row in rowsParent.data" flex>
+					<div class="box box-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+						<div class="box-body no-padding-bottom">
+							<h3 class="profile-username">{{row.prorroga_codigo}}</h3>
+					    <hr>
+							<strong><i-fa i=user></i-fa> <span translate>LB_AUTHORIZED_BY</span></strong>
+					    <p class="text-muted">{{row.autoriza}}<br><small><b>{{row.autoriza_puesto}}<br>{{paramsConf.INSTITUTION_FULL_NAME}}</b></small></p>
+					    <hr>
+							<strong><i-fa i=calendar></i-fa> <span translate>LB_SCHEDULED_DATE</span></strong>
+					    <p class="text-muted text-uppercase">{{row.prorroga_desde | date:'fullDate'}}<br>{{row.prorroga_hasta | date:'fullDate'}}<br>
+					    	<span translate="LB_DAYS_TERM_X" translate-values="{x:row.prorroga_dias}"></span>
+					    </p>
+					    <hr>
+							<strong><i-fa i=user-o></i-fa> <span translate>LB_RESPONSABLE</span></strong>
+					    <p class="text-muted text-uppercase">{{row.solicitante}}<br><small><b>{{row.prorroga_solicitante_cargo}}<br>C.I: {{row.persona_doc_identidad}}<br>{{row.persona_celular}} - {{row.persona_correo}}</b></small></p>
+					    <hr>
+							<strong><i-fa i=building></i-fa> <span translate>LB_COMERTIAL</span></strong>
+					    <p class="text-muted">{{row.local_nombrecomercial}}</p>
+							<strong><i-fa i=map-signs></i-fa> <span translate>LB_ADDRESS</span></strong>
+					    <p class="text-muted">{{row.local_parroquia}} <br> {{row.local_principal}} y {{row.local_secundaria}}</p>
+							<strong><i-fa i=dot-circle-o></i-fa> <span translate>LB_INSPECTION</span></strong>
+					    <p class="text-muted text-uppercase">{{row.inspeccion_codigo}}<br>{{row.inspeccion_fecha_inspeccion | date:'fullDate'}}<br><span ng-bind-html="statusLabel[row.inspeccion_estado]"></span></p>
+							<strong><i-fa i=user></i-fa> <span translate>LB_INSPECTOR</span></strong>
+					    <p class="text-muted">{{row.inspector}}</p>
+					    <hr>
+					    <strong><i-fa i=hourglass-half></i-fa> <span translate>LB_STATUS_OF_APPLICATION</span></strong>
+					    <p class="text-muted text-uppercase"><span ng-bind-html="statusLabel[row.prorroga_estado]"></span></p>
+						</div>
+						<div class="box-footer" ng-if="row.prorroga_estado=='SOLICITUD GENERADA'">
+							<button class="btn btn-block btn-warning" ui-sref="main.newExtension({extensionId:row.prorroga_id})">
+								<i-fa i=edit s=fw></i-fa><span translate>LB_EDIT_DEADLINES</span>
+							</button>
+							<button class="btn btn-block btn-info" ng-click="exportWithDetail(row.prorroga_id)">
+								<i-fa i=print s=fw></i-fa><span translate>LB_PRINT_EXTENSION_APPLICATION</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</md-table-container>
+		<footer-table></footer-table>
+</md-card>

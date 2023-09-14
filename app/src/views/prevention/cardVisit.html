@@ -1,0 +1,36 @@
+<div class="box box-{{string2JSON('colorCss')[$index]}} text-center">
+	<div class="box-header">
+		<i-fa i=group s=3x></i-fa>
+	</div>
+	<div class="box-body">
+		<h3 class="profile-username">{{entity.visita_codigo}}</h3>
+    <hr>
+		<strong><i-fa i=user-o></i-fa> <span translate>LB_COORDINATOR</span></strong>
+    <p class="text-muted">{{entity.coordinador}}</p>
+    <hr>
+		<strong><i-fa i=id-card-o></i-fa> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+    <p class="text-muted">{{string2JSON('identificationType')[entity.persona_tipo_doc]}} / {{entity.persona_doc_identidad}}</p>
+    <hr>
+		<strong><i-fa i=id-card-o></i-fa> <span translate>LB_MAIL</span></strong>
+    <p class="text-muted">{{entity.persona_correo}}</p>
+    <hr>
+		<strong><i-fa i=users></i-fa> <span translate>LB_PEOPLE</span></strong>
+    <p class="text-muted">[{{entity.visita_aforo}}]</p>
+    <hr>
+		<strong><i-fa i=calendar-check-o></i-fa> <span translate>LB_DATE</span></strong>
+    <p class="text-muted">{{entity.visita_fecha}}</p>
+    <div ng-if="entity.visita_estado=='PENDIENTE' || entity.visita_estado=='ANULADA'">
+	    <hr>
+			<strong><i-fa i=calendar-times-o></i-fa> <span translate>LB_CONFIRMATION_DATE</span></strong>
+	    <p class="text-muted text-capitalize"><label class="label label-danger">{{entity.visita_confirmacion | date: 'fullDate'}}</label></p>
+    </div>
+    <hr>
+		<strong><i-fa i=flag></i-fa> <span translate>LB_STATUS</span></strong>
+    <p class="text-muted"><span ng-bind-html="statusLabel[entity.visita_estado]"></span></p>
+	</div>
+	<div class="box-footer" ng-if="entity.visita_estado=='PENDIENTE'">
+		<button class="btn btn-block btn-{{string2JSON('colorCss')[$index]}}" ng-click="exportWithDetail(entity.visita_id)">
+			<i-fa i=print></i-fa> <span translate>LB_PRINT_REQUEST</span>
+		</button>
+	</div>
+</div>

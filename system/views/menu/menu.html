@@ -1,0 +1,1498 @@
+<!-- MENU SUPERIOR -->
+<!-- <nav class="main-header navbar navbar-expand navbar-dark navbar-gray-dark"> -->
+<nav class="main-header navbar navbar-expand navbar-dark">
+  
+  <!-- BARS -->
+  <ul class="navbar-nav">
+	  <li class="nav-item">
+	    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
+	  </li>
+	</ul>
+  
+  <!-- HEADER -->
+  <ul class="navbar-nav ml-auto">
+  	<!-- ICONOS DE ACCESO -->
+		<li class="nav-item">
+			<a class="nav-link" target="_blank" href="https://mail.cbsd.gob.ec" aria-expanded="true">
+				<md-ico i=markunread_mailbox></md-ico>
+			 	<span class="badge badge-warning navbar-badge"><i-fa i=eye></i-fa></span>
+			</a>
+		 	<md-tooltip><span translate>LB_INSTITUTIONAL_MAIL</span></md-tooltip>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" target="_blank" href="http://servicios.cbsd.gob.ec" aria-expanded="true">
+				<md-ico i=important_devices></md-ico>
+			 	<span class="badge badge-success navbar-badge"><i-fa i=star></i-fa></span>
+			</a>
+		 	<md-tooltip><span translate>LB_ONLINE_SERVICES</span></md-tooltip>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" target="_blank" href="http://intranet.cbsd.gob.ec" aria-expanded="true">
+				<md-ico i=public></md-ico>
+			  <span class="badge badge-primary navbar-badge"><i-fa i=star></i-fa></span>
+			</a>
+		  <md-tooltip><span translate>LB_INTRANET</span></md-tooltip>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" target="_blank" href="http://servicios.cbsd.gob.ec/tthh" aria-expanded="true">
+				<md-ico i=verified_user></md-ico>
+			  <span class="badge bg-purple navbar-badge"><i-fa i=plus></i-fa></span>
+			</a>
+		  <md-tooltip><span translate>LB_TTHH</span></md-tooltip>
+		</li>
+     <!-- PERFIL -->
+		<li class="nav-item dropdown">
+			<a class="nav-link text-bold text-uppercase" data-toggle="dropdown" href="#" aria-expanded="false">
+				[ {{session.usuario_login}} ]
+				<md-ico i=person></md-ico>
+				<span class="badge badge-danger navbar-badge"><i-fa i=check></i-fa></span>
+		  	<md-tooltip><span translate>LB_PROFILE</span></md-tooltip>
+			</a>
+			<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+				<span class="dropdown-item dropdown-header">
+					<div class="img-circle container-profile">
+						<img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{session.persona_imagen}}" alt="User Image" />
+					</div>
+		  		{{session.usuario_nombre}}<br><small>[ <b>{{session.perfil_nombre}}</b> ]</small>
+		    </span>
+		    <div class="dropdown-divider"></div>
+		    <a ui-sref="control.profile" class="dropdown-item dropdown-footer"><span translate>LB_PROFILE</span></a>
+		    <div class="dropdown-divider"></div>
+		    <a ng-click="logoutSession()" class="dropdown-item dropdown-footer"><span translate>LB_LOGOUT</span> <i-fa i=sign-out></i-fa></a>
+		  </div>
+		</li>
+   </ul>
+
+</nav>
+
+<!-- MENU LATERAL IZQUIERDO -->
+<aside class="main-sidebar elevation-4 sidebar-dark-danger">
+	
+  <!-- INICIO -->
+  <a ui-sref="session" class="brand-link text-bold text-center">
+    <span class="brand-text text-bold" translate>APP_HEADER</span>
+	</a>
+	
+  <!-- sidebar: style can be found in sidebar.less -->
+  <div class="sidebar">
+		
+    <!-- MENÚ DE PERFIL -->
+    <div class="user-panel">
+		  <div class="image header-img-profile container-profile mini">
+		    <img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{session.persona_imagen}}" alt="User Image">
+		  </div>
+		  <div class="info">
+		    <a ui-sref="control.profile" class="d-block header-profile"><b>{{session.usuario_nombre}}</b><br><small>{{session.perfil_nombre}}</small></a>
+		  </div>
+		</div>
+		
+    <!-- Sidebar Menu -->
+		<nav class="mt-2">
+			<ul class="nav nav-pills nav-sidebar flex-column nav-flat nav-legacy text-uppercase" data-widget="treeview" data-accordion="true" role="menu">
+				
+				<!-- MENU: PRINIPAL -->
+				<li class="nav-item">
+	        <a class="nav-link" ui-sref-active="active" ui-sref=session>
+	        	<md-ico c=nav-icon i=home></md-ico> <p translate>MENU_HOME</p>
+	        </a>
+	      </li>
+	      
+	      <!-- MENU: ADMINISTRACIÓN -->
+				<li class="nav-item has-treeview" ui-sref-active="{'menu-open':'admin.**'}"
+			      ng-if="(allow.permiso1030 || allow.permiso1031 || allow.permiso1033 || allow.permiso1034 || allow.permiso1035 || allow.permiso1037) || 
+									(allow.permiso1041 || allow.permiso1042 || allow.permiso1043 || allow.permiso1044 || allow.permiso1036) || 
+									(allow.permiso100 || allow.permiso101 || allow.permiso102) || 
+									(allow.permiso81 || allow.permiso82 || allow.permiso83 || allow.permiso84 || allow.permiso86) || 
+									(allow.permiso87 || allow.permiso88 || allow.permiso89 || allow.permiso90)">
+	        <a href="" class="nav-link" ng-class="{active:$state.includes('admin')}">
+				    <nav-text-tree-view i=settings lbl=MENU_ADMIN></nav-text-tree-view>
+	        </a>
+	        <ul class="nav nav-treeview">
+	        
+	        	<!-- PARAMETRIZACIÓN DEL SISTEMA -->
+	        	<li class="nav-item has-treeview" ui-sref-active="{'menu-open':'admin.parametrization.**'}"
+								ng-if="(allow.permiso1030 || allow.permiso1031 || allow.permiso1033 || allow.permiso1034 || allow.permiso1035 || allow.permiso1037)">
+							<a href="" class="nav-link">
+				    		<nav-text-tree-view i=create_new_folder lbl=LB_PARAMETRIZATION></nav-text-tree-view>
+							</a>
+							<ul class="nav nav-treeview">
+				        <li class="nav-item" ng-if="allow.permiso1030">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=admin.parametrization.labels><nav-icon-text i=translate lbl=LB_LABELS></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ng-if="allow.permiso1031">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=admin.parametrization.parameters><nav-icon-text i=engineering lbl=LB_PARAMETERS></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ng-if="allow.permiso1033">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=admin.parametrization.reports><nav-icon-text i=print lbl=LB_REPORTERS></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ng-if="allow.permiso1037">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=admin.parametrization.dashboard><nav-icon-text i=bubble_chart lbl=LB_DASHBOARD></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ng-if="allow.permiso1034">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=admin.parametrization.webmail><nav-icon-text i=markunread_mailbox lbl=LB_WEBMAIL></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ng-if="allow.permiso1035">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=admin.parametrization.trash><nav-icon-text i=delete lbl=LB_TRASH></nav-icon-text></a>
+				        </li>
+							</ul>
+		        </li>
+		        
+		        <!-- ADMINISTRACIÓN DE USUARIOS -->
+	        	<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'admin.users.**'}"
+	        			ng-if="(allow.permiso100 || allow.permiso101 || allow.permiso102)">
+							<a href="" class="nav-link">
+				    		<nav-text-tree-view i=folder_shared lbl=MENU_USERS></nav-text-tree-view>
+							</a>
+							<ul class="nav nav-treeview">
+				        <li class="nav-item" ng-if="allow.permiso100">
+									<a class="nav-link" ui-sref-active="active" ui-sref=admin.users.roles><nav-icon-text i=stars lbl=LB_ROLES></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ng-if="allow.permiso101">
+									<a class="nav-link" ui-sref-active="active" ui-sref=admin.users.profiles><nav-icon-text i=star_half lbl=LB_PROFILES></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ng-if="allow.permiso102">
+									<a class="nav-link" ui-sref-active="active" ui-sref=admin.users.list><nav-icon-text i=group lbl=LB_USERS></nav-icon-text></a>
+				        </li>
+							</ul>
+		        </li>
+		        
+		        <!-- ADMINISTRACIÓN DE MÓDULOS -->
+	        	<li class="nav-item has-treeview" ui-sref-active="{'menu-open':'admin.modules.**'}"
+	        			ng-if="(allow.permiso1041 || allow.permiso1042 || allow.permiso1043 || allow.permiso1044 || allow.permiso1036)">
+							<a href="" class="nav-link">
+				    		<nav-text-tree-view i=web lbl=MENU_MODULES></nav-text-tree-view>
+							</a>
+							<ul class="nav nav-treeview">
+				        <li class="nav-item" ng-if="allow.permiso1041">
+									<a class="nav-link" ui-sref-active="active" ui-sref=admin.modules.modules><nav-icon-text i=web_asset lbl=LB_MODULES></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ng-if="allow.permiso1042">
+									<a class="nav-link" ui-sref-active="active" ui-sref=admin.modules.submodules><nav-icon-text i=extension lbl=LB_SUBMODULES></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ng-if="allow.permiso1043">
+									<a class="nav-link" ui-sref-active="active" ui-sref=admin.modules.tables><nav-icon-text i=view_quilt lbl=LB_TABLES_DB></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ng-if="allow.permiso1036">
+									<a class="nav-link" ui-sref-active="active" ui-sref=admin.modules.routes><nav-icon-text i=stop_screen_share lbl=LB_ROUTES></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ng-if="allow.permiso1044">
+									<a class="nav-link" ui-sref-active="active" ui-sref=admin.modules.resources><nav-icon-text i=assignment lbl=LB_RESOURCES></nav-icon-text></a>
+				        </li>
+							</ul>
+		        </li>
+	        	
+		        <!-- ADMINISTRACIÓN DE RECURSOS -->
+	        	<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'admin.resources.**'}"
+	        			ng-if="(allow.permiso81 || allow.permiso82 || allow.permiso83 || allow.permiso84 || allow.permiso86)">
+							<a href="" class="nav-link">
+				    		<nav-text-tree-view i=folder_special lbl=LB_RESOURCES></nav-text-tree-view>
+							</a>
+							<ul class="nav nav-treeview">
+				        <li class="nav-item" ng-if="allow.permiso81">
+									<a class="nav-link" ui-sref-active="active" ui-sref=admin.resources.countries><nav-icon-text i=public lbl=LB_COUNTRIES></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ng-if="allow.permiso82">
+									<a class="nav-link" ui-sref-active="active" ui-sref=admin.resources.brands><nav-icon-text i=directions_car lbl=LB_BRANDS></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ng-if="allow.permiso83">
+									<a class="nav-link" ui-sref-active="active" ui-sref=admin.resources.vehicles><nav-icon-text i=local_taxi lbl=LB_VEHICLES></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ng-if="allow.permiso84">
+									<a class="nav-link" ui-sref-active="active" ui-sref=admin.resources.people><nav-icon-text i=people lbl=LB_PEOPLE></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ng-if="allow.permiso86">
+									<a class="nav-link" ui-sref-active="active" ui-sref=admin.resources.driverslicenses><nav-icon-text i=credit_card lbl=LB_DRIVERS_LICENSES></nav-icon-text></a>
+				        </li>
+							</ul>
+		        </li>
+	        	
+	        	<!-- ADMINISTRACIÓN DE SERVICIOS -->
+	        	<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'admin.services.**'}" 
+								ng-if="(allow.permiso87 || allow.permiso88 || allow.permiso89 || allow.permiso90)">
+							<a href="" class="nav-link">
+				    		<nav-text-tree-view i=public lbl=LB_SERVICES></nav-text-tree-view>
+							</a>
+							<ul class="nav nav-treeview">
+				        <li class="nav-item" ng-if="allow.permiso89">
+									<a class="nav-link" ui-sref-active="active" ui-sref=admin.services.menu><nav-icon-text i=menu lbl=LB_MENU></nav-icon-text></a>
+				       	</li>
+				        <li class="nav-item" ng-if="allow.permiso90">
+									<a class="nav-link" ui-sref-active="active" ui-sref=admin.services.pages><nav-icon-text i=public lbl=LB_PAGES></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ng-if="allow.permiso87">
+									<a class="nav-link" ui-sref-active="active" ui-sref=admin.services.complaints><nav-icon-text i=markunread_mailbox lbl=LB_COMPLAINTS></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ng-if="allow.permiso86">
+									<a class="nav-link" ui-sref-active="active" ui-sref=admin.services.slides><nav-icon-text i=airplay lbl=LB_SLIDES></nav-icon-text></a>
+				        </li>
+							</ul>
+		        </li>
+		        
+	        </ul>
+				</li>
+	      
+	      <!-- MENU: DIRECCIÓN GENERAL -->
+				<li class="nav-item has-treeview" ui-sref-active="{'menu-open':'management.**'}" 
+	      		ng-if="(allow.permiso720 || allow.permiso7207221)">
+	        <a href="" class="nav-link" ui-sref-active="{active:'management.**'}">
+				    <nav-text-tree-view i=record_voice_over lbl=MENU_GENERAL_MANAGEMENT></nav-text-tree-view>
+	        </a>
+	        <ul class="nav nav-treeview">
+						<!-- INFORMACION -->
+						<li class="nav-item has-treeview" ui-sref-active="{'menu-open':'management.information.**'}" 
+		        		ng-if="(allow.permiso720 || allow.permiso7221)">
+		          <a href="" class="nav-link">
+				    		<nav-text-tree-view i=markunread_mailbox lbl=LB_INFORMATION></nav-text-tree-view>
+		          </a>
+		          <ul class="nav nav-treeview">
+				        <li class="nav-item" ng-if="allow.permiso720">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=management.information.checking><nav-icon-text i=folder_shared lbl=LB_ACTIVITY_LOG></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=management.information.documents><nav-icon-text i=folder_special lbl=LB_DOCUMENTS></nav-icon-text></a>
+				        </li>
+		          </ul>
+		        </li>
+		        <!-- ASUNTOS INTERNOS -->
+						<li class="nav-item has-treeview" ui-sref-active="{'menu-open':'management.iaffairs.**'}" 
+		        		ng-if="(allow.permiso7221)">
+		          <a href="" class="nav-link">
+				    		<nav-text-tree-view i=notifications_active lbl=LB_INTERNAL_AFFAIRS_UNIT></nav-text-tree-view>
+		          </a>
+		          <ul class="nav nav-treeview">
+				        <li class="nav-item" ng-if="(allow.permiso7221)">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=management.iaffairs.complaints><nav-icon-text i=move_to_inbox lbl=LB_COMPLAINTS_ONLINE></nav-icon-text></a>
+				        </li>
+		          </ul>
+		        </li>
+	        </ul>
+				</li>
+	      
+				<!-- MENU: SEGUNDA JEFATURA -->
+				<li class="nav-item has-treeview" ui-sref-active="{'menu-open':'subjefature.**'}" 
+			      ng-if="allow.permiso85 || (allow.permiso1004 || allow.permiso1003) || 
+			      			 allow.permiso1002 ||  
+			      			 (allow.permiso1000 || allow.permiso1001) || 
+			      			 (allow.permiso840 || allow.permiso841 || allow.permiso8417 || allow.permiso8418)">
+					<a href="" class="nav-link" ui-sref-active="{active:'subjefature.**'}">
+			    	<nav-text-tree-view i=folder_special lbl=MENU_SUBJEFATURE></nav-text-tree-view>
+			    </a>
+					<ul class="nav nav-treeview">
+						
+						<li class="nav-item" ng-if="allow.permiso85">
+				    	<a class="nav-link" ui-sref-active="active" ui-sref=subjefature.institucionalcodes><nav-icon-text i=code lbl=LB_INSTITUTIONAL_CODES></nav-icon-text></a>
+				    </li>
+				    
+	         	<li class="nav-item" ng-if="allow.permiso1002">
+			      	<a class="nav-link" ui-sref-active="active" ui-sref=subjefature.tracking><nav-icon-text i=gps_fixed lbl=LB_VEHICULAR_FLEETS></nav-icon-text></a>
+						</li>
+			         	
+	         	<!-- LIBRO DE NOVEDADES -->
+	         	<li class="nav-item has-treeview" 
+		        		ng-if="(allow.permiso1004 || allow.permiso1003)">
+		          <a href="" class="nav-link">
+		            <nav-text-tree-view i=folder_special lbl=LB_BINNACLE></nav-text-tree-view>
+		          </a>
+		          <ul class="nav nav-treeview">
+			         	<li class="nav-item" ng-if="allow.permiso1004">
+					      	<a class="nav-link" ui-sref-active="active" ui-sref=subjefature.guards><nav-icon-text i=how_to_reg lbl=LB_GUARDS></nav-icon-text></a>
+								</li>
+			         	<li class="nav-item" ng-if="allow.permiso1003">
+					      	<a class="nav-link" ui-sref-active="active" ui-sref=subjefature.binnacle><nav-icon-text i=chrome_reader_mode lbl=LB_NEWS_BOOK></nav-icon-text></a>
+								</li>
+							</ul>
+						</li>
+								
+						<!-- PARTES -->
+		        <li class="nav-item has-treeview" 
+		        		ng-if="(allow.permiso1000 || allow.permiso1001)">
+		          <a href="" class="nav-link">
+		            <nav-text-tree-view i=create_new_folder lbl=LB_PARTS></nav-text-tree-view>
+		          </a>
+		          <ul class="nav nav-treeview">
+		          	<li class="nav-item" ng-if="allow.permiso1000">
+					      	<a class="nav-link" ui-sref-active="active" ui-sref=subjefature.causes><nav-icon-text i=local_car_wash lbl=LB_CAUSES_INCIDENT></nav-icon-text></a>
+								</li>
+		          	<li class="nav-item" ng-if="allow.permiso1000">
+					      	<a class="nav-link" ui-sref-active="active" ui-sref=subjefature.nature><nav-icon-text i=domain_disabled lbl=LB_NATURE_INCIDENT></nav-icon-text></a>
+								</li>
+		          	<li class="nav-item" ng-if="allow.permiso1001">
+					      	<a class="nav-link" ui-sref-active="active" ui-sref=subjefature.parts><nav-icon-text i=style lbl=LB_PARTS></nav-icon-text></a>
+								</li>
+		          </ul>
+		        </li>
+				        
+	        	<!-- APH -->
+	        	<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'subjefature.aph.**'}" 
+	        		ng-if="(allow.permiso840 || allow.permiso841 || allow.permiso8417 || allow.permiso8418)">
+		          <a href="" class="nav-link" ui-sref-active="{'nav-link-active':'subjefature.aph.**'}">
+		            <nav-text-tree-view i=enhanced_encryption lbl=MENU_UNIDAD_APH></nav-text-tree-view>
+		          </a>
+		          <ul class="nav nav-treeview">
+								<li class="nav-item" ng-if="allow.permiso840">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=subjefature.aph.supplies><nav-icon-text i=healing lbl=LB_PREHOSPITAL_MATERIALS></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ng-if="allow.permiso841">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=subjefature.aph.supplycontrol><nav-icon-text i=import_export lbl=MENU_SUPPLY_CONTROL></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ng-if="allow.permiso8417">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=subjefature.aph.suppliesstock><nav-icon-text i=done_all lbl=LB_SUPPLIES_STOCK></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ng-if="allow.permiso8418">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=subjefature.aph.suppliesstations><nav-icon-text i=home_work lbl=LB_STATION_CONTROL></nav-icon-text></a>
+				        </li>
+		          </ul>
+						</li>
+								
+					</ul>
+				</li>
+						
+				<!-- MENU: DIRECCIÓN DE PLANIFICACIÓN -->
+				<li class="nav-item has-treeview" ui-sref-active="{'menu-open':'planing.**'}" 
+	      		ng-if="(allow.permiso4101 || allow.permiso4102)">
+	        <a href="" class="nav-link" ng-class="{active:$state.includes('planing')}">
+	          <nav-text-tree-view i=folder_open lbl=MENU_PLANING_DIRECTION></nav-text-tree-view>
+	        </a>
+	        <ul class="nav nav-treeview">
+	         	<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'planing.**'}"
+		        		ng-if="(allow.permiso4101 || allow.permiso4102)">
+		          <a href="" class="nav-link">
+		            <nav-text-tree-view i=create_new_folder lbl=MENU_POA></nav-text-tree-view>
+		          </a>
+		          <ul class="nav nav-treeview">
+			         	<li class="nav-item" ng-if="allow.permiso4101">
+					      	<a class="nav-link" ui-sref-active="active" ui-sref=planing.programs><nav-icon-text i=class lbl=LB_POA_PROGRAMS></nav-icon-text></a>
+								</li>
+			         	<li class="nav-item" ng-if="allow.permiso4102">
+					      	<a class="nav-link" ui-sref-active="active" ui-sref=planing.poa><nav-icon-text i=chrome_reader_mode lbl=LB_POA></nav-icon-text></a>
+								</li>
+							</ul>
+						</li>
+	        </ul>
+				</li>
+			  
+				<!-- MENU: TALENTO HUMANO -->
+				<li class="nav-item has-treeview" ui-sref-active="{'menu-open':'tthh.**'}" 
+						ng-if="(allow.permiso8101 || allow.permiso8102 || allow.permiso8103 || allow.permiso8104 || allow.permiso8105 || allow.permiso8106 || allow.permiso8107 || allow.permiso80421) ||  
+									 (allow.permiso1032 || allow.permiso8011 || allow.permiso8012 || allow.permiso8013) ||  
+									 (allow.permiso8001 || allow.permiso8002 || allow.permiso8003 || allow.permiso8004) ||
+									 (allow.permiso8021 || allow.permiso8029 || allow.permiso8030 || allow.permiso8031 || allow.permiso8026 || allow.permiso8037) || 
+									 (allow.permiso8022 || allow.permiso8027 || allow.permiso8014) || 
+			      			 (allow.permiso80331 || allow.permiso80332 || allow.permiso80334 || allow.permiso80335 || allow.permiso80336) || 
+			      			 (allow.permiso80230 || allow.permiso8023 || allow.permiso8024) || 
+			      			 (allow.permiso80401 || allow.permiso80402 || allow.permiso80403 || allow.permiso80404 || allow.permiso80405 || allow.permiso80406 || allow.permiso80407 || allow.permiso80408) ||
+			      			 (allow.permiso80421 || allow.permiso80422 || allow.permiso8041) || 
+			      			 (allow.permiso817 || allow.permiso815 || allow.permiso816 || allow.permiso819 || allow.permiso820 || allow.permiso821) || 
+			      			 (allow.permiso8251 || allow.permiso8252) ||
+      						 (allow.permiso8261 || allow.permiso8263 || allow.permiso8264) || 
+			      			 (allow.permiso80340 || allow.permiso8034 || allow.permiso8035 || allow.permiso8036) || 
+			      				allow.permiso805">
+			        <a href="" class="nav-link" ui-sref-active="{active:'tthh.**'}">
+			          <nav-text-tree-view i=group lbl=MENU_TTHH_MANAGEMENT></nav-text-tree-view>
+			        </a>
+			        <ul class="nav nav-treeview">
+			        	
+			        	<!-- PARAMETRIZACION -->
+			        	<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'tthh.settings.**'}"
+			        		ng-if="(allow.permiso8101 || allow.permiso8102 || allow.permiso8103 || allow.permiso8104 || allow.permiso8105 || allow.permiso8106 || allow.permiso8107 || allow.permiso80421)">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=create_new_folder lbl=LB_PARAMETRIZATION></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+						        <li class="nav-item" ng-if="allow.permiso8101">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.settings.activities><nav-icon-text i=accessible lbl=LB_ACTIVITIES_JOBS></nav-icon-text></a>
+						        </li>
+						        <li class="nav-item" ng-if="allow.permiso8102">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.settings.competences><nav-icon-text i=accessibility lbl=LB_COMPETENCES_JOBS></nav-icon-text></a>
+						        </li>
+						        <li class="nav-item" ng-if="allow.permiso8103">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.settings.regulations><nav-icon-text i=format_line_spacing lbl=LB_REGULATIONS></nav-icon-text></a>
+						        </li>
+						        <li class="nav-item" ng-if="allow.permiso8104">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.settings.typeactions><nav-icon-text i=gavel lbl=LB_TYPES_ACTIONS></nav-icon-text></a>
+						        </li>
+						        <li class="nav-item" ng-if="allow.permiso8105">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.settings.workdays><nav-icon-text i=access_time lbl=MENU_WORKDAYS></nav-icon-text></a>
+						        </li>
+						        <li class="nav-item" ng-if="allow.permiso8106">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.settings.typeadvances><nav-icon-text i=money lbl=MENU_TYPES_ADVANCES></nav-icon-text></a>
+						        </li>
+						        <li class="nav-item" ng-if="allow.permiso8107">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.settings.typecontracts><nav-icon-text i=photo_filter lbl=MENU_TYPES_CONTRACTS></nav-icon-text></a>
+						        </li>
+						        <li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.settings.occupationalgroups><nav-icon-text i=star_half lbl=MENU_OCCUPATIONAL_GROUPS></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso80421">
+							        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.settings.ratings><nav-icon-text i=style lbl=LB_RATING_SYSTEM></nav-icon-text></a>
+							      </li>
+				          </ul>
+				        </li>
+				       	
+				       	<!-- PARAMETRIZACION - INSTITUCION -->
+				       	<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'tthh.institution.**'}"
+			      				ng-if="(allow.permiso8001 || allow.permiso8002 || allow.permiso8003 || allow.permiso8004) || 
+			      							 (allow.permiso1032 || allow.permiso8011 || allow.permiso8012 || allow.permiso8013)">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=folder_open lbl=LB_INSTITUTION></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+						        <li class="nav-item has-treeview" 
+					      				ng-if="(allow.permiso8001 || allow.permiso8002 || allow.permiso8003 || allow.permiso8004)">
+						          <a href="" class="nav-link">
+						            <nav-text-tree-view i=event_note lbl=LB_CALENDAR></nav-text-tree-view>
+						          </a>
+						          <ul class="nav nav-treeview">
+												<li class="nav-item" ng-if="allow.permiso8001">
+								          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.institution.calendar><nav-icon-text i=notifications_active lbl=LB_CALENDAR></nav-icon-text></a>
+								        </li>
+												<li class="nav-item" ng-if="allow.permiso8002">
+								          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.institution.emergency><nav-icon-text i=event_seat lbl=LB_STATE_OF_EMERGENCY></nav-icon-text></a>
+								        </li>
+												<li class="nav-item" ng-if="allow.permiso8003">
+								          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.institution.events><nav-icon-text i=access_alarm lbl=LB_EVENTS></nav-icon-text></a>
+								        </li>
+												<li class="nav-item" ng-if="allow.permiso8004">
+								          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.institution.holidays><nav-icon-text i=event_busy lbl=LB_HOLIDAYS></nav-icon-text></a>
+								        </li>
+											</ul>
+										</li>
+										<li class="nav-item" ng-if="allow.permiso1032">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.institution.system><nav-icon-text i=settings lbl=LB_SYSTEM></nav-icon-text></a>
+						        </li>
+						        <li class="nav-item" ng-if="allow.permiso8011">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.institution.stations><nav-icon-text i=assistant_photo lbl=LB_STATIONS></nav-icon-text></a>
+						        </li>
+						        <li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.institution.wineries><nav-icon-text i=home_work lbl=LB_WINERIES></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso8012">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.institution.leaderships><nav-icon-text i=account_balance lbl=LB_LEADERSHIPS></nav-icon-text></a>
+						        </li>
+						        <li class="nav-item" ng-if="allow.permiso8013">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.institution.jobs><nav-icon-text i=wrap_text lbl=LB_JOBS></nav-icon-text></a>
+						        </li>
+				          </ul>
+				        </li>
+			        	
+			        	<!-- PERSONAL -->
+			        	<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'tthh.staff.**'}"
+			        		ng-if="(allow.permiso8021 || allow.permiso8029 || allow.permiso8030 || allow.permiso8031 || allow.permiso8026 || allow.permiso8037)">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=folder_shared lbl=MENU_STAFF></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+										<li class="nav-item" ng-if="allow.permiso8021">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.staff.staff><nav-icon-text i=groups lbl=LB_STAFF></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso8031">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.staff.staffactions><nav-icon-text i=perm_contact_calendar lbl=LB_STAFF_ACTIONS></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso8037">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.staff.delegations><nav-icon-text i=low_priority lbl=LB_DELEGATIONS></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso8029">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.staff.operators><nav-icon-text i=rowing lbl=LB_OPERATORS></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso8030">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.staff.performances><nav-icon-text i=assignment_ind lbl=LB_PERFORMANCE_EVALUATION></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso8026">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.staff.sanctions><nav-icon-text i=thumb_down lbl=LB_SANCTIONS></nav-icon-text></a>
+						        </li>
+				          </ul>
+				        </li>
+				        
+				        <!-- PERSONAL OPERATIVO -->
+			        	<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'tthh.operationalStaff.**'}"
+			        		ng-if="(allow.permiso8022 || allow.permiso8027 || allow.permiso8014)">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=supervised_user_circle lbl=LB_OPERATIONAL_AREA></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+						        <li class="nav-item" ng-if="allow.permiso8014">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.operationalStaff.platoons><nav-icon-text i=nature lbl=LB_PLATOONS></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso8027">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.operationalStaff.distribution><nav-icon-text i=loupe lbl=LB_DISTRIBUTIVE></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso8022">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.operationalStaff.platoonsStaff><nav-icon-text i=how_to_reg lbl=LB_PLATOONS></nav-icon-text></a>
+						        </li>
+				          </ul>
+								</li>
+					      
+								<!-- CONTROL BIOMETRICO -->
+					      <li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'tthh.attendance.**'}" 
+					      	ng-if="(allow.permiso80331 || allow.permiso80332 || allow.permiso80334 || allow.permiso80335 || allow.permiso80336)">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=how_to_reg lbl=LB_ASSIST_CONTROL></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+										<li class="nav-item" ng-if="allow.permiso80331">
+							        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.attendance.biometriccodes><nav-icon-text i=nature_people lbl=LB_USER_CODES></nav-icon-text></a>
+							      </li>
+										<li class="nav-item" ng-if="allow.permiso80332">
+							        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.attendance.biometricperiods><nav-icon-text i=event lbl=LB_MONTHLY_RECORD></nav-icon-text></a>
+							      </li>
+										<li class="nav-item" ng-if="allow.permiso80334">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.attendance.arrears><nav-icon-text i=timer_off lbl=LB_ARREARS></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso80335">   
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.attendance.ranches><nav-icon-text i=local_cafe lbl=LB_RANCHES></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso80336">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.attendance.absences><nav-icon-text i=alarm_off lbl=LB_ABSENCES></nav-icon-text></a>
+						        </li>
+				          </ul>
+				        </li>
+								
+								<!-- VACACIONES -->
+			        	<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'tthh.vacations.**'}"
+			        			ng-if="(allow.permiso80230 || allow.permiso8023 || allow.permiso8024)">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=folder_special lbl=LB_VACATIONS></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+										<li class="nav-item" ng-if="allow.permiso80230">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.vacations.generated><nav-icon-text i=beach_access lbl=LB_VACATION_BALANCES></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso8023">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.vacations.requestedvacations><nav-icon-text i=flight_takeoff lbl=LB_REQUESTED_HOLIDAYS></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso8024">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.vacations.requestedpermissions><nav-icon-text i=thumb_up lbl=LB_REQUESTED_PERMITS></nav-icon-text></a>
+						        </li>
+				          </ul>
+								</li>
+								
+								<!-- ANALISTAS DE TALENTO HUMANO -->	
+			        	<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'tthh.staffInfo.**'}"
+			        		ng-if="(allow.permiso80401 || allow.permiso80402 || allow.permiso80403 || allow.permiso80404 || allow.permiso80405 || allow.permiso80406 || allow.permiso80407 || allow.permiso80408)">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=create_new_folder lbl=LB_HUMAN_TALENT_ANALYST></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+								      <li class="nav-item" ng-if="allow.permiso80406">
+								        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.staffInfo.roadmap><nav-icon-text i=touch_app lbl=LB_ROADMAP></nav-icon-text></a>
+								      </li>
+											<li class="nav-item" ng-if="allow.permiso80407">
+								        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.staffInfo.dailyactivities><nav-icon-text i=transfer_within_a_station lbl=LB_DAILY_ACTIVITIES></nav-icon-text></a>
+								      </li>
+							        <li class="nav-item" ng-if="allow.permiso80401">
+							          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.staffInfo.academicTraining><nav-icon-text i=school lbl=LB_ACADEMIC_TRAINING></nav-icon-text></a>
+							        </li>
+											<li class="nav-item" ng-if="allow.permiso80408">
+							          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.staffInfo.awards><nav-icon-text i=star_border lbl=LB_AWARDS></nav-icon-text></a>
+							        </li>
+											<li class="nav-item" ng-if="allow.permiso80402">
+								        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.staffInfo.coursescompleted><nav-icon-text i=receipt lbl=LB_COURSES_COMPLETED></nav-icon-text></a>
+								      </li>
+											<li class="nav-item" ng-if="allow.permiso80403">
+							          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.staffInfo.employments><nav-icon-text i=assignment_ind lbl=LB_EMPLOYMENT_HISTORY></nav-icon-text></a>
+							        </li>
+				          		<li class="nav-item" ng-if="allow.permiso80405">
+							          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.staffInfo.affidavits><nav-icon-text i=folder lbl=LB_AFFIDAVITS></nav-icon-text></a>
+							        </li>
+											<li class="nav-item" ng-if="allow.permiso80404">
+							          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.staffInfo.familiars><nav-icon-text i=group lbl=LB_FAMILY_RESPONSIBILITIES></nav-icon-text></a>
+							        </li>
+				        	</ul>
+								</li>
+								
+								
+								<!-- ANTICIPOS DE REMUNERACION -->
+			        	<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'tthh.advances.**'}"
+			        		ng-if="(allow.permiso80340 || allow.permiso8034 || allow.permiso8035 || allow.permiso8036)">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=account_balance_wallet lbl=LB_ADVANCES_OF_REMUNERATION></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+				          	
+										<li class="nav-item" ng-if="allow.permiso80340">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.advances.parametrization><nav-icon-text i=engineering lbl=LB_PARAMETRIZATION></nav-icon-text></a>
+						        </li>
+						        
+										<li class="nav-item" ng-if="allow.permiso8035">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.advances.banks><nav-icon-text i=account_balance lbl=LB_BANK_ACCOUNTS></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso8036">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.advances.garants><nav-icon-text i=voice_over_off lbl=LB_GARANTS></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso8034">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.advances.advances><nav-icon-text i=money lbl=LB_APPLICATIONS_FOR_ADVANCES></nav-icon-text></a>
+						        </li>
+									</ul>
+								</li>
+								
+								
+								<!-- EVALUACIONES -->	
+			        	<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'tthh.surveys.**'}"
+			        		ng-if="(allow.permiso80422 || allow.permiso8041)">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=create_new_folder lbl=LB_SURVEYS></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+										<li class="nav-item" ng-if="allow.permiso80422">
+							        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.surveys.forms><nav-icon-text i=filter_none lbl=LB_FORMS_FOR_EVALUATION></nav-icon-text></a>
+							      </li>
+										<li class="nav-item" ng-if="allow.permiso8041">
+							        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.surveys.evaluations><nav-icon-text i=spellcheck lbl=MENU_SURVEYS></nav-icon-text></a>
+							      </li>
+				        	</ul>
+								</li>
+			        	
+			        	
+			        	<!-- UNIDAD DE SEGURIDAD Y SALUD OCUPACIONAL -->
+			        	<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'tthh.sos.**'}" 
+			        			ng-if="(allow.permiso8251 || allow.permiso8252) || 
+			        						 (allow.permiso8261 || allow.permiso8263 || allow.permiso8264)">
+				          <a href="" class="nav-link" ui-sref-active="{'nav-link-active':'tthh.sos.**'}">
+				            <nav-text-tree-view i=create_new_folder lbl=LB_UNIDAD_SEGURIDAD></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+															      
+							      <!-- USO DE LA CASCADA -->
+							      <li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'tthh.sos.waterfall.**'}"
+					        		ng-if="(allow.permiso8251 || allow.permiso8252)">
+						          <a href="" class="nav-link">
+						            <nav-text-tree-view i=create_new_folder lbl=LB_USE_WATERFALL></nav-text-tree-view>
+						          </a>
+						          <ul class="nav nav-treeview">
+												<li class="nav-item" ng-if="allow.permiso8251">
+									        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.sos.waterfall.filters><nav-icon-text i=delete lbl=LB_FILTERS_WATERFALL></nav-icon-text></a>
+									      </li>
+												<li class="nav-item" ng-if="allow.permiso8252">
+									        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.sos.waterfall.waterfall><nav-icon-text i=wifi_tethering lbl=LB_USE_WATERFALL></nav-icon-text></a>
+									      </li>
+											</ul>
+										</li>
+						
+																			
+										
+										<!-- RESCATE VERTICAL -->
+										<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'tthh.sos.vrescue.**'}"
+					        			ng-if="(allow.permiso8261 || allow.permiso8263 || allow.permiso8264)">
+						          <a href="" class="nav-link">
+						            <nav-text-tree-view i=create_new_folder lbl=LB_VERTICAL_RESCUE></nav-text-tree-view>
+						          </a>
+						          <ul class="nav nav-treeview">
+												<li class="nav-item" ng-if="allow.permiso8261">
+									        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.sos.vrescue.damageforms><nav-icon-text i=filter_none lbl=LB_FORMS_FOR_EVALUATION></nav-icon-text></a>
+									      </li>
+												<li class="nav-item" ng-if="allow.permiso8263">
+									        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.sos.vrescue.equipments><nav-icon-text i=engineering lbl=LB_VERTICAL_RESCUE_EQUIPMENTS></nav-icon-text></a>
+									      </li>
+												<li class="nav-item" ng-if="allow.permiso8264">
+									        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.sos.vrescue.verticalrescue><nav-icon-text i=history_toggle_off lbl=LB_EQUIPMENT_HISTORY></nav-icon-text></a>
+									      </li>
+											</ul>
+										</li>
+										
+										
+										
+										<!-- RESCATE VERTICAL -->
+										<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'tthh.sos.fireextinguisher.**'}"
+					        			ng-if="true">
+						          <a href="" class="nav-link">
+						            <nav-text-tree-view i=create_new_folder lbl=LB_FIRE_EXTINGUISHER_INSPECTION></nav-text-tree-view>
+						          </a>
+						          <ul class="nav nav-treeview">
+												<li class="nav-item" ng-if="true">
+									        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.sos.fireextinguisher.list><nav-icon-text i=fire_extinguisher lbl=LB_FIRE_EXTINGUISHERS></nav-icon-text></a>
+									      </li>
+												<li class="nav-item" ng-if="true">
+									        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.sos.fireextinguisher.inspections><nav-icon-text i=receipt_long lbl=LB_INSPECTIONS></nav-icon-text></a>
+									      </li>
+											</ul>
+										</li>
+										
+										
+										
+										
+										<!-- EVALUACION DE RIESGO PSICOSOCIAL -->
+										<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'tthh.sos.psychosocial.**'}"
+					        		ng-if="(true)">
+						          <a href="" class="nav-link">
+						            <nav-text-tree-view i=create_new_folder lbl=MENU_PSYCHOSOCIAL_RISK></nav-text-tree-view>
+						          </a>
+						          <ul class="nav nav-treeview">
+												<li class="nav-item" ng-if="true">
+									        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.sos.psychosocial.ratings><nav-icon-text i=style lbl=LB_RATING_SYSTEM></nav-icon-text></a>
+									      </li>
+												<li class="nav-item" ng-if="true">
+									        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.sos.psychosocial.questions><nav-icon-text i=chrome_reader_mode lbl=LB_LIST_OF_QUESTIONS></nav-icon-text></a>
+									      </li>
+												<li class="nav-item" ng-if="true">
+									        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.sos.psychosocial.forms><nav-icon-text i=filter_none lbl=LB_FORMS_FOR_EVALUATION></nav-icon-text></a>
+									      </li>
+												<li class="nav-item" ng-if="true">
+									        <a class="nav-link" ui-sref-active="active" ui-sref=tthh.sos.psychosocial.evaluations><nav-icon-text i=playlist_add_check lbl=LB_EVALUATIONS_CARRIED_OUT></nav-icon-text></a>
+									      </li>
+										 										
+									</ul>
+								</li>
+								
+								<!-- EVALUACION DE ACONDICIONAMIENTO FISICO -->
+								<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'tthh.sos.conditioning**'}"
+								ng-if="(true)">
+							  <a href="" class="nav-link">
+								<nav-text-tree-view i=create_new_folder lbl=MENU_PHYSICAL_CONDITIONING></nav-text-tree-view>
+							  </a>
+							  <ul class="nav nav-treeview">
+											<li class="nav-item" ng-if="true">
+										<a class="nav-link" ui-sref-active="active" ui-sref=tthh.sos.conditioning.ratings><nav-icon-text i=style lbl=LB_RATING_SYSTEM></nav-icon-text></a>
+									  </li>
+											<li class="nav-item" ng-if="true">
+										<a class="nav-link" ui-sref-active="active" ui-sref=tthh.sos.conditioning.questions><nav-icon-text i=chrome_reader_mode lbl=LB_LIST_OF_QUESTIONS></nav-icon-text></a>
+									  </li>
+											<li class="nav-item" ng-if="true">
+										<a class="nav-link" ui-sref-active="active" ui-sref=tthh.sos.conditioning.forms><nav-icon-text i=filter_none lbl=LB_FORMS_FOR_EVALUATION></nav-icon-text></a>
+									  </li>
+											<li class="nav-item" ng-if="true">
+										<a class="nav-link" ui-sref-active="active" ui-sref=tthh.sos.conditioning.evaluations><nav-icon-text i=playlist_add_check lbl=LB_EVALUATIONS_CARRIED_OUT></nav-icon-text></a>
+									  </li>
+										</ul>
+									</li>
+									
+								</ul>
+							</li>
+							
+								
+								
+								<!-- DEPARTAMENTO MEDICO -->
+			        	<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'tthh.medical.**'}" 
+			        		ng-if="(allow.permiso817 || allow.permiso815 || allow.permiso816 || allow.permiso819 || allow.permiso820 || allow.permiso821)">
+				          <a href="" class="nav-link" ui-sref-active="{'nav-link-active':'tthh.medical.**'}">
+				            <nav-text-tree-view i=enhanced_encryption lbl=LB_UNIDAD_ENFERMERIA></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+										<li class="nav-item" ng-if="allow.permiso815">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.medical.medicalhistories><nav-icon-text i=person_add lbl=LB_MEDICAL_HISTORIES></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso816">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.medical.medicalconsultations><nav-icon-text i=add_alert lbl=LB_ATTENTION_RECORDS></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso817">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.medical.cie><nav-icon-text i=format_list_numbered lbl=LB_CIE_10></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso821">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.medical.medicalrest><nav-icon-text i=hotel lbl=MENU_MEDICALREST></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso820">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.medical.medicalprescriptions><nav-icon-text i=list_alt lbl=MENU_MEDICALPRESCRIPTION></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso819">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.medical.inventoryMedicines><nav-icon-text i=healing lbl=LB_PHARMACY></nav-icon-text></a>
+						        </li>
+				          </ul>
+								</li>
+					      
+					      
+					      <!-- PRUEBAS DE INGRESO -->
+								<li class="nav-item" ng-if="allow.permiso805">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=tthh.candidates><nav-icon-text i=nature_people lbl=LB_CANDIDATES></nav-icon-text></a>
+				        </li>
+								
+			        </ul>
+				</li>
+			     
+				<!-- MENU: DIRECCIÓN ADMINISTRATIVA -->
+				<li class="nav-item has-treeview" ui-sref-active="{'menu-open':'logistics.**'}" 
+			      		ng-if="(allow.permiso7240 || allow.permiso7241) || 
+			      					 (allow.permiso709 || allow.permiso721 || allow.permiso7210) || 
+			      					 (allow.permiso7230 || allow.permiso7231 || allow.permiso7232 || allow.permiso7233 || allow.permiso7234 || allow.permiso7235 || allow.permiso7236) || 
+			      					 (allow.permiso706 || allow.permiso708 || allow.permiso709 || allow.permiso710 || allow.permiso711 || allow.permiso712 || allow.permiso713 || allow.permiso714 || allow.permiso715 || allow.permiso716)">
+			        <a href="" class="nav-link" ui-sref-active="{'active':'logistics.**'}">
+			          <nav-text-tree-view i=dvr lbl=MENU_LOGISTICS_MANAGEMENT></nav-text-tree-view>
+			        </a>
+			        <ul class="nav nav-treeview">
+								
+								<!-- ARCHIVO -->
+			          <li class="nav-item has-treeview" ui-sref-active="{'menu-open':'logistics.edoc.**'}" 
+				        		ng-if="(allow.permiso7240 || allow.permiso7241)">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=create_new_folder lbl=LB_ELECTRONIC_DOCUMENTATION></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+										<li class="nav-item" ng-if="allow.permiso7240">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=logistics.edoc.inbox><nav-icon-text i=inbox lbl=LB_INBOX></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso7241">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=logistics.edoc.deleted><nav-icon-text i=delete_sweep lbl=LB_REMOVED></nav-icon-text></a>
+						        </li>
+				          </ul>
+								</li>
+								
+								<!-- ARCHIVO -->
+			          <li class="nav-item has-treeview" ui-sref-active="{'menu-open':'logistics.archive.**'}" 
+				        		ng-if="(allow.permiso7230 || allow.permiso7231 || allow.permiso7232 || allow.permiso7233 || allow.permiso7234 || allow.permiso7235 || allow.permiso7236)">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=create_new_folder lbl=MENU_ARCHIVE></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+					          
+					          <li class="nav-item" ng-if="allow.permiso7230">
+					            <a class="nav-link" ui-sref-active="active" ui-sref=logistics.archive.series><nav-icon-text i=style lbl=LB_DOCUMENTARY_SERIES	></nav-icon-text></a>
+					          </li>
+					          
+					          <li class="nav-item" ng-if="true">
+					            <a class="nav-link" ui-sref-active="active" ui-sref=logistics.archive.periods><nav-icon-text i=event lbl=LB_DOCUMENTARY_MANAGEMENT	></nav-icon-text></a>
+					          </li>
+					          
+					          <li class="nav-item" ng-if="allow.permiso7235">
+					            <a class="nav-link" ui-sref-active="active" ui-sref=logistics.archive.reviews><nav-icon-text i=spellcheck lbl=LB_ARCHIVE_FILE_REVIEWS	></nav-icon-text></a>
+					          </li>
+					          
+					          
+					          <li class="nav-item" ng-if="allow.permiso7231">
+					            <a class="nav-link" ui-sref-active="active" ui-sref=logistics.archive.shelvings><nav-icon-text i=vertical_split lbl=LB_SHELVINGS	></nav-icon-text></a>
+					          </li>
+					          
+					          <li class="nav-item" ng-if="allow.permiso7232">
+					            <a class="nav-link" ui-sref-active="active" ui-sref=logistics.archive.boxes><nav-icon-text i=archive lbl=LB_ARCHIVE_BOXES	></nav-icon-text></a>
+					          </li>
+					          
+					          <li class="nav-item" ng-if="allow.permiso7233">
+					            <a class="nav-link" ui-sref-active="active" ui-sref=logistics.archive.folders><nav-icon-text i=perm_media lbl=LB_ARCHIVE_FOLDERS	></nav-icon-text></a>
+					          </li>
+					          
+					          <li class="nav-item" ng-if="allow.permiso7234">
+					            <a class="nav-link" ui-sref-active="active" ui-sref=logistics.archive.documentation><nav-icon-text i=library_books lbl=LB_ARCHIVE_DOCUMENTS	></nav-icon-text></a>
+					          </li>
+					          
+									</ul>
+								</li>
+								
+								<!-- MANTENIMIENTOS -->
+								<li class="nav-item has-treeview" ui-sref-active="{'menu-open':'logistics.maintenance.**'}"
+				        		ng-if="true">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=business_center lbl=LB_VEHICULAR_MAINTENANCES></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+						        
+						        <li class="nav-item" ui-sref-active="active">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=logistics.maintenance.resourcesabc><nav-icon-text i=lightbulb_outline lbl=LB_SPARE_PARTS_AND_LABOR></nav-icon-text></a>
+						        </li>
+						        <li class="nav-item" ui-sref-active="active">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=logistics.maintenance.plansabc><nav-icon-text i=local_taxi lbl=LB_MAINTENANCE_MODELS></nav-icon-text></a>
+						        </li>
+						        <li class="nav-item" ui-sref-active="active">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=logistics.maintenance.rulesabc><nav-icon-text i=settings lbl=LB_PARAMETRIZATION></nav-icon-text></a>
+						        </li>
+						        
+				          	<li class="nav-item" ng-if="true">
+							      	<a class="nav-link" ui-sref-active="active" ui-sref=logistics.maintenance.maintenances><nav-icon-text i=settings lbl=LB_MAINTENANCES></nav-icon-text></a>
+										</li>
+				          	<li class="nav-item" ng-if="true">
+							      	<a class="nav-link" ui-sref-active="active" ui-sref=logistics.maintenance.premaintenances><nav-icon-text i=add_alert lbl=LB_SCHEDULED_MAINTENANCE></nav-icon-text></a>
+										</li>
+										
+				          </ul>
+				        </li>
+								
+						        
+						        <li class="nav-item" ng-if="false">
+							      	<a class="nav-link" ui-sref-active="active" ui-sref=logistics.maintenance.vehicularreview><nav-icon-text i=event_available lbl=LB_VEHICULAR_REVIEW></nav-icon-text></a>
+										</li>
+										
+										
+			          <!-- SERVICIOS GENERALES -->
+								<li class="nav-item has-treeview" ui-sref-active="{'menu-open':'logistics.gservices.**'}"
+				        		ng-if="(allow.permiso706 || allow.permiso708 || allow.permiso709 || allow.permiso710 || allow.permiso711 || allow.permiso712 || allow.permiso713 || allow.permiso714 || allow.permiso715 || allow.permiso716 || 
+				        					  allow.permiso717 || allow.permiso718)">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=create_new_folder lbl=LB_GENERAL_SERVICES></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+										
+				          	<li class="nav-item" ng-if="allow.permiso718">
+							      	<a class="nav-link" ui-sref-active="active" ui-sref=logistics.gservices.minortools><nav-icon-text i=handyman lbl=LB_MINOR_TOOLS></nav-icon-text></a>
+										</li>
+				          	<li class="nav-item" ng-if="allow.permiso717">
+							      	<a class="nav-link" ui-sref-active="active" ui-sref=logistics.gservices.engineering><nav-icon-text i=engineering lbl=LB_TOOL_MAINTENANCE></nav-icon-text></a>
+										</li>
+										
+				          	<li class="nav-item" ng-if="allow.permiso706">
+							      	<a class="nav-link" ui-sref-active="active" ui-sref=logistics.gservices.units><nav-icon-text i=local_shipping lbl=LB_AUTOMOTIVE_PARK></nav-icon-text></a>
+										</li>
+				          	<li class="nav-item" ng-if="allow.permiso712">
+							      	<a class="nav-link" ui-sref-active="active" ui-sref=logistics.gservices.maintenanceorder><nav-icon-text i=emoji_transportation lbl=LB_MAINTENANCE_ORDERS></nav-icon-text></a>
+										</li>
+				          	<li class="nav-item" ng-if="allow.permiso716">
+							      	<a class="nav-link" ui-sref-active="active" ui-sref=logistics.gservices.reportmaintenance><nav-icon-text i=receipt_long lbl=LB_MAINTENANCE_REPORTS></nav-icon-text></a>
+										</li>
+				          	<li class="nav-item" ng-if="allow.permiso713">
+							      	<a class="nav-link" ui-sref-active="active" ui-sref=logistics.gservices.mobilizationorder><nav-icon-text i=rv_hookup lbl=LB_MOBILIZATION_ORDER></nav-icon-text></a>
+										</li>
+				          	<li class="nav-item" ng-if="allow.permiso715">
+							      	<a class="nav-link" ui-sref-active="active" ui-sref=logistics.gservices.fuelorder><nav-icon-text i=local_gas_station lbl=LB_FUEL_ORDER></nav-icon-text></a>
+										</li>
+				          	<li class="nav-item" ng-if="allow.permiso714">
+							      	<a class="nav-link" ui-sref-active="active" ui-sref=logistics.gservices.workorder><nav-icon-text i=local_car_wash lbl=LB_WORK_ORDER></nav-icon-text></a>
+										</li>
+										
+										<!-- 
+				          	<li class="nav-item" ng-if="allow.permiso708">
+							      	<a class="nav-link" ui-sref-active="active" ui-sref=logistics.gservices.supplying><nav-icon-text i=local_gas_station lbl=LB_SUPPLYING></nav-icon-text></a>
+										</li>
+										-->
+										
+				          </ul>
+				        </li>
+			          
+			          <!-- SALA DE CAPACITACIONES -->
+			          <li class="nav-item has-treeview" 
+				        		ng-if="(allow.permiso721 || allow.permiso7210)">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=create_new_folder lbl=LB_TRAINING_ROOM></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+					          <li class="nav-item" ng-if="allow.permiso7210">
+					            <a class="nav-link" ui-sref-active="active" ui-sref=logistics.calendarTrainingroom><nav-icon-text i=event lbl=LB_CALENDAR	></nav-icon-text></a>
+					          </li>
+					          <li class="nav-item" ng-if="allow.permiso721">
+					            <a class="nav-link" ui-sref-active="active" ui-sref=logistics.trainingroom><nav-icon-text i=account_balance lbl=LB_LIST_APPLICATIONS></nav-icon-text></a>
+					          </li>
+									</ul>
+								</li>
+			        
+			        </ul>
+				</li>
+			      
+				<!-- MENU: DIRECCIÓN FINANCIERA -->
+				<li class="nav-item has-treeview" ui-sref-active="{'menu-open':'financial.**'}" 
+	      		ng-if="allow.permiso203 ||  
+	      					 (allow.permiso200 || allow.permiso201 || allow.permiso202) || 
+	      					 (allow.permiso2041 || allow.permiso2042)">
+	        <a href="" class="nav-link" ui-sref-active="{'active':'financial.**'}">
+	          <nav-text-tree-view i=local_atm lbl=MENU_FINANCIAL_MANAGEMENT></nav-text-tree-view>
+	        </a>
+	        <ul class="nav nav-treeview">
+						
+						<!-- EXENTOS DE PAGO -->
+						<li class="nav-item" ng-if="allow.permiso203">
+		          <a class="nav-link" ui-sref-active="active" ui-sref=financial.exemptpayment><nav-icon-text i=money_off lbl=LB_EXEMPT_FROM_PAYMENT></nav-icon-text></a>
+		        </li>
+		        
+		        <!-- RECAUDACION -->
+	        	<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'financial.collection.**'}"
+		        		ng-if="(allow.permiso200 || allow.permiso201 || allow.permiso202)	|| 
+		        					 (allow.permiso2041 || allow.permiso2042)">
+		          <a href="" class="nav-link">
+		            <nav-text-tree-view i=create_new_folder lbl=MENU_RECAUDATION></nav-text-tree-view>
+		          </a>
+		          <ul class="nav nav-treeview">
+								<li class="nav-item" ng-if="allow.permiso200">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=financial.collection.species><nav-icon-text i=filter_9_plus lbl=LB_SPECIES></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ng-if="allow.permiso201">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=financial.collection.invoices><nav-icon-text i=attach_money lbl=LB_ORDERS></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ng-if="allow.permiso202">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=financial.collection.dailyforms><nav-icon-text i=format_list_numbered lbl=LB_FORMS></nav-icon-text></a>
+				        </li>
+				        
+			        	<li class="nav-item has-treeview"  ui-sref-active="{'menu-open active':'financial.collection.arching.**'}"
+				        		ng-if="(allow.permiso2041 || allow.permiso2042)">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=create_new_folder lbl=LB_ARCHING></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+										<li class="nav-item" ng-if="allow.permiso2041">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.collection.arching.archingspecies><nav-icon-text i=filter_9_plus lbl=LB_SPECIES></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="allow.permiso2042">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.collection.arching.archinginvoices><nav-icon-text i=attach_money lbl=LB_ORDERS></nav-icon-text></a>
+						        </li>
+				          </ul>
+								</li>
+		          </ul>
+						</li>
+						
+						<!-- SISTEMA FINANCIERO -->
+						
+						<!-- PARAMETRIZACIÓN -->
+	        	<li class="nav-item has-treeview" 
+		        		ng-if="false">
+		          <a href="" class="nav-link">
+		            <nav-text-tree-view i=create_new_folder lbl=LB_INITIALIZATIONS></nav-text-tree-view>
+		          </a>
+		          <ul class="nav nav-treeview">
+								
+								<!-- INICIAILIZACIONES -->
+								<li class="nav-item has-treeview" 
+				        		ng-if="true">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=create_new_folder lbl=LB_PARAMETERS></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.accountcatalog><nav-icon-text i=file_copy lbl=LB_BOXES></nav-icon-text></a>
+						        </li>
+									</ul>
+								</li>
+								
+								<!-- CONTABILIDAD -->
+								<li class="nav-item has-treeview" 
+				        		ng-if="true">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=create_new_folder lbl=LB_ACCOUNTING></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.accountcatalog><nav-icon-text i=file_copy lbl=LB_CATALOG_OF_ACCOUNTING_ACCOUNTS></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=><nav-icon-text i=info lbl=LB_INITIAL_SEAT></nav-icon-text></a>
+						        </li>
+									</ul>
+								</li>
+								
+								<!-- PRESUPUESTO -->
+								<li class="nav-item has-treeview" 
+				        		ng-if="true">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=create_new_folder lbl=LB_BUDGET></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+						        
+						        <li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.programs><nav-icon-text i=public lbl=LB_PROGRAMS></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.subprograms><nav-icon-text i=layers lbl=LB_SUBPROGRAMS></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.projects><nav-icon-text i=nature lbl=LB_PROJECTS></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.activities><nav-icon-text i=nature_people lbl=LB_ACTIVITIES></nav-icon-text></a>
+						        </li>
+						        
+						        <li class="nav-item has-treeview" 
+						        		ng-if="true">
+						          <a href="" class="nav-link">
+						            <nav-text-tree-view i=create_new_folder lbl=LB_BUDGET_CLASSIFIER_OF_INCOME_AND_EXPENSES></nav-text-tree-view>
+						          </a>
+						          <ul class="nav nav-treeview">
+								        
+												<li class="nav-item" ng-if="true">
+								          <a class="nav-link" ui-sref-active="active" ui-sref=financial.budgetclassifier><nav-icon-text i=class lbl=LB_BUDGET_GROUPS></nav-icon-text></a>
+								        </li>
+												<li class="nav-item" ng-if="true">
+								          <a class="nav-link" ui-sref-active="active" ui-sref=financial.budgetitems><nav-icon-text i=class lbl=LB_BUDGET_ITEMS></nav-icon-text></a>
+								        </li>
+								        
+								      </ul>
+								    </li>
+										
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.activities><nav-icon-text i=info lbl=LB_BUDGET_CLASSIFIER></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.activities><nav-icon-text i=info lbl=LB_OPERATING_UNITS_AND_COST_CENTERS></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.activities><nav-icon-text i=info lbl=LB_SPENDING_MATCHES></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.activities><nav-icon-text i=info lbl=LB_INCOME_MATCHES></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.activities><nav-icon-text i=info lbl=LB_BUDGETARY_RELATIONSHIP_ACCOUNTING></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.activities><nav-icon-text i=info lbl=LB_INITIAL_LOAD_OF_CEDULES></nav-icon-text></a>
+						        </li>
+						        
+									</ul>
+								</li>
+								
+								<!-- TESORERÍA -->
+								<li class="nav-item has-treeview" 
+				        		ng-if="true">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=create_new_folder lbl=MENU_TREASURY></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.financialentities><nav-icon-text i=account_balance lbl=LB_FINANCIAL_ENTITIES></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.programs><nav-icon-text i=info lbl=LB_BANKS></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.programs><nav-icon-text i=info lbl=LB_CREDIT_LINES></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.programs><nav-icon-text i=info lbl=LB_LOAD_INITIAL_DOCUMENTS_NOT_CONCILIATED></nav-icon-text></a>
+						        </li>
+									</ul>
+								</li>
+								
+								<!-- VARIOS -->
+								<li class="nav-item has-treeview" 
+				        		ng-if="true">
+				          <a href="" class="nav-link">
+				            <nav-text-tree-view i=create_new_folder lbl=LB_VARIOUS></nav-text-tree-view>
+				          </a>
+				          <ul class="nav nav-treeview">
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.suppliers><nav-icon-text i=how_to_reg lbl=LB_SUPPLIERS></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.typedocuments><nav-icon-text i=style lbl=LB_TYPES_OF_DOCUMENTS></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.withholding><nav-icon-text i=pie_chart lbl=LB_WITHHOLDING></nav-icon-text></a>
+						        </li>
+										<li class="nav-item" ng-if="true">
+						          <a class="nav-link" ui-sref-active="active" ui-sref=financial.retentionclassifier><nav-icon-text i=bookmarks lbl=LB_SRI_RETENTION_CLASSIFIER></nav-icon-text></a>
+						        </li>
+									</ul>
+								</li>
+								
+							</ul>
+						</li>
+						
+						<!-- TESORERIA -->
+	        	<li class="nav-item has-treeview" 
+		        		ng-if="false">
+		          <a href="" class="nav-link">
+		            <nav-text-tree-view i=create_new_folder lbl=MENU_TREASURY></nav-text-tree-view>
+		          </a>
+		          <ul class="nav nav-treeview">
+								<li class="nav-item" ng-if="true">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=collection.species><nav-icon-text i=filter_9_plus lbl=LB_SPECIES></nav-icon-text></a>
+				        </li>
+							</ul>
+						</li>
+	        	
+	        	<!-- CONTROL PREVIO -->
+	        	<li class="nav-item has-treeview" 
+		        		ng-if="false">
+		          <a href="" class="nav-link">
+		            <nav-text-tree-view i=verified_user lbl=MENU_PRIOR_CONTROL></nav-text-tree-view>
+		          </a>
+		          <ul class="nav nav-treeview">
+								<li class="nav-item" ng-if="true">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=financial.justificationrequirements><nav-icon-text i=done_all lbl=LB_JUSTIFICATION_REQUIREMENTS></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ng-if="true">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=financial.contractingprocedures><nav-icon-text i=format_list_bulleted lbl=LB_CONTRACTING_PROCEDURES></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ng-if="true">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=financial.processcontracts><nav-icon-text i=chrome_reader_mode lbl=LB_PROCESSES_AND_CONTRACTS></nav-icon-text></a>
+				        </li>
+		          </ul>
+						</li>
+						
+					</ul>
+				</li>
+			  
+	      <!-- MENU: PERMISOS DE FUNCIONAMIENTO -->
+	      <li class="nav-item has-treeview" ui-sref-active="{'menu-open':'src.**'}" 
+	      		ng-if="(allow.permiso500 ||allow.permiso501 ||allow.permiso502 ||allow.permiso504 ||allow.permiso5044 ||
+	      						allow.permiso505 || allow.permiso506 || allow.permiso507 || allow.permiso508 || allow.permiso509)">
+	        <a href="" class="nav-link" ui-sref-active="{active:'src.**'}">
+	          <nav-text-tree-view i=emoji_transportation lbl=MENU_PERMITS></nav-text-tree-view>
+	        </a>
+	        <ul class="nav nav-treeview">
+	        	
+	        	<!-- PARAMETRIZACION -->
+	        	<li class="nav-item has-treeview" 
+		        		ng-if="(allow.permiso500 ||allow.permiso501 ||allow.permiso502 ||allow.permiso504 ||allow.permiso5044)">
+		          <a href="" class="nav-link">
+		            <nav-text-tree-view i=create_new_folder lbl=LB_FORMS></nav-text-tree-view>
+		          </a>
+		          <ul class="nav nav-treeview">
+				        <li class="nav-item" ng-if="allow.permiso500">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=src.activities><nav-icon-text i=import_contacts lbl=LB_ACTIVITIES></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ng-if="allow.permiso501">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=src.taxes><nav-icon-text i=monetization_on lbl=LB_TAXES></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ng-if="allow.permiso502">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=src.ciiu><nav-icon-text i=content_paste lbl=LB_CIIU></nav-icon-text></a>
+				        </li>
+		          	<li class="nav-item" ng-if="allow.permiso504">
+					      	<a class="nav-link" ui-sref-active="active" ui-sref=src.requirements><nav-icon-text i=spellcheck lbl=LB_REQUIREMENTS></nav-icon-text></a>
+								</li>
+		          	<li class="nav-item" ng-if="allow.permiso5044">
+					      	<a class="nav-link" ui-sref-active="active" ui-sref=src.mandatories><nav-icon-text i=device_hub lbl=LB_MANDATORY></nav-icon-text></a>
+								</li>
+		          </ul>
+						</li>
+						
+						<!-- ENTIDDADES Y DEMAS SERVICIOS -->
+						<li class="nav-item" ng-if="allow.permiso505">
+		          <a class="nav-link" ui-sref-active="active" ui-sref=src.entities><nav-icon-text i=business lbl=LB_ENTITIES></nav-icon-text></a>
+		        </li>
+						<li class="nav-item" ng-if="allow.permiso506">
+		          <a class="nav-link" ui-sref-active="active" ui-sref=src.locals><nav-icon-text i=store_mall_directory lbl=LB_LOCALS></nav-icon-text></a>
+		        </li>
+						<li class="nav-item" ng-if="allow.permiso507">
+		          <a class="nav-link" ui-sref-active="active" ui-sref=src.selfinspections><nav-icon-text i=spellcheck lbl=LB_SELFINSPECTIONS></nav-icon-text></a>
+		        </li>
+						<li class="nav-item" ng-if="allow.permiso508">
+		          <a class="nav-link" ui-sref-active="active" ui-sref=src.permits><nav-icon-text i=assignment_turned_in lbl=LB_PERMITS></nav-icon-text></a>
+		        </li>
+						<li class="nav-item" ng-if="allow.permiso509">
+		          <a class="nav-link" ui-sref-active="active" ui-sref=src.duplicates><nav-icon-text i=content_copy lbl=LB_DUPLICATES></nav-icon-text></a>
+		        </li>
+		        
+	    		</ul>
+		    </li>
+	      
+	      <!-- MENU: PREVENCIÓN -->
+	      <li class="nav-item has-treeview" ui-sref-active="{'menu-open':'prevention.**'}" 
+	      		ng-if="(allow.permiso600 || allow.permiso601 || allow.permiso602 || allow.permiso620 || allow.permiso607) ||
+	      					 (allow.permiso609 || allow.permiso6097 || allow.permiso6098 || allow.permiso6099) || 
+	      					 (allow.permiso603 || allow.permiso604 || allow.permiso613) ||
+	      					 (allow.permiso605 || allow.permiso617 || allow.permiso618) ||
+	      					 (allow.permiso606 || allow.permiso6068 || allow.permiso6069 || allow.permiso612 || allow.permiso6060 || allow.permiso608 || allow.permiso610 || allow.permiso611) ||
+	      					 (allow.permiso6161 || allow.permiso6162 || allow.permiso615)">
+	        <a href="" class="nav-link" ui-sref-active="{active:'prevention.**'}">
+	          <nav-text-tree-view i=security lbl=MENU_PREVENTION></nav-text-tree-view>
+	        </a>
+	        <ul class="nav nav-treeview">
+	        	
+	        	<!-- INSPECCIONES -->
+	        	<li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'prevention.inspections.**'}"
+			        		ng-if="(allow.permiso615 || allow.permiso600 || allow.permiso601 || allow.permiso602 || allow.permiso620 || allow.permiso607)">
+		          <a href="" class="nav-link">
+		            <nav-text-tree-view i=create_new_folder lbl=LB_INSPECTIONS></nav-text-tree-view>
+		          </a>
+		          <ul class="nav nav-treeview">
+	              <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso615">
+	                <a class="nav-link" ui-sref-active="active" ui-sref=prevention.inspections.forms><nav-icon-text i=format_list_numbered lbl=LB_INSPECTION_FORMS></nav-icon-text></a>
+	              </li>
+								<li class="nav-item" ui-sref-active="active" ng-if="allow.permiso601">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.inspections.inspections><nav-icon-text i=transfer_within_a_station lbl=LB_INSPECTIONS></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso600">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.inspections.sweeps><nav-icon-text i=directions_run lbl=LB_SWEEPS></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ui-sref-active="active" ng-if="allow.permiso602">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.inspections.citations><nav-icon-text i=clear lbl=LB_CITATIONS></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ui-sref-active="active" ng-if="allow.permiso620">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.inspections.extensions><nav-icon-text i=event_available lbl=LB_EXTENSIONS></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ui-sref-active="active" ng-if="allow.permiso607">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.inspections.selfprotectionsplans><nav-icon-text i=security lbl=LB_EMERGENCY_PLANS></nav-icon-text></a>
+				        </li>
+		          </ul>
+		        </li>
+		        
+		        <!-- PERMISOS OCASIONALES -->
+		        <li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'prevention.occasionals.**'}"
+		        		ng-if="(allow.permiso609 || allow.permiso6097 || allow.permiso6098 || allow.permiso6099)">
+		          <a href="" class="nav-link">
+		            <nav-text-tree-view i=create_new_folder lbl=LB_OCCASIONALS></nav-text-tree-view>
+		          </a>
+		          <ul class="nav nav-treeview">
+				        <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso6097">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.occasionals.resourcespof><nav-icon-text i=lightbulb_outline lbl=LB_RESOURCES></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso6098">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.occasionals.rulespof><nav-icon-text i=settings lbl=LB_RULES></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso609">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.occasionals.occasionals><nav-icon-text i=directions_bike lbl=LB_OCCASIONALS></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso6099">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.occasionals.calendarOccasionals><nav-icon-text i=event lbl=LB_CALENDAR></nav-icon-text></a>
+				        </li>
+		          </ul>
+		        </li>
+		        
+		        <!-- VISTO BUENO DE PLANOS -->
+		        <li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'prevention.vbp.**'}"  
+		        		ng-if="(allow.permiso603 || allow.permiso604 || allow.permiso613)">
+		          <a href="" class="nav-link">
+		            <nav-text-tree-view i=create_new_folder lbl=LB_CONSTRUCTION_PERMITS></nav-text-tree-view>
+		          </a>
+		          <ul class="nav nav-treeview">
+				        <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso603">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.vbp.vbp><nav-icon-text i=layers lbl=LB_VBP></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ui-sref-active="active" ng-if="allow.permiso604">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.vbp.modifications><nav-icon-text i=layers_clear lbl=LB_MODIFICATION_PLANS></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ui-sref-active="active" ng-if="allow.permiso613">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.vbp.habitability><nav-icon-text i=airline_seat_flat lbl=LB_HABITABILITY></nav-icon-text></a>
+				        </li>
+		          </ul>
+		        </li>
+		        
+		        <!-- PERMISOS DE USO DE GLP -->
+		        <li class="nav-item has-treeview" ui-sref-active="{'menu-open active':'prevention.glp.**'}" 
+		        		ng-if="(allow.permiso605 || allow.permiso617 || allow.permiso618)">
+		          <a href="" class="nav-link">
+		            <nav-text-tree-view i=create_new_folder lbl=LB_GLP_USE_PERMITS></nav-text-tree-view>
+		          </a>
+		          <ul class="nav nav-treeview">
+			         	<li class="nav-item" ui-sref-active="active" ng-if="allow.permiso605">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.glp.transport><nav-icon-text i=local_shipping lbl=LB_GLP_TRANSPORT></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso617">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.glp.feasibility><nav-icon-text i=whatshot lbl=LB_GLP_FEASIBILITY></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ui-sref-active="active" ng-if="allow.permiso618">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.glp.definitive><nav-icon-text i=beenhere lbl=LB_GLP_DEFINITIVE></nav-icon-text></a>
+				        </li>
+		          </ul>
+		        </li>
+		        
+		        <!-- CAPACITACIONES CIUDADANAS -->
+						<li class="nav-item has-treeview" ui-sref-active="{'menu-open':'prevention.trainings.**'}"
+		        		ng-if="(allow.permiso606 || allow.permiso6068 || allow.permiso6069 || allow.permiso612 || allow.permiso6060 || allow.permiso608 || allow.permiso610 || allow.permiso611)">
+		          <a href="" class="nav-link">
+		            <nav-text-tree-view i=create_new_folder lbl=LB_TRAININGS></nav-text-tree-view>
+		          </a>
+		          <ul class="nav nav-treeview">
+				        <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso6069">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.trainings.topics><nav-icon-text i=book lbl=LB_TOPICS></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso6068">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.trainings.poll><nav-icon-text i=assignment lbl=LB_POLL></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso6060">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.trainings.calendarTrainings><nav-icon-text i=event lbl=LB_CALENDAR></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso612">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.trainings.trainers><nav-icon-text i=record_voice_over lbl=LB_TRAINERS></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso606">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.trainings.trainings><nav-icon-text i=settings_input_antenna lbl=LB_TRAININGS></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso608">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.trainings.stands><nav-icon-text i=slideshow lbl=LB_STANDS></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso610">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.trainings.visits><nav-icon-text i=transfer_within_a_station lbl=LB_VISITS></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso611">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.trainings.simulations><nav-icon-text i=directions_run lbl=LB_SIMULATIONS></nav-icon-text></a>
+				        </li>
+		          </ul>
+		        </li>
+		        
+		        <!-- OTRAS ACTIVIDADES -->
+	          <li class="nav-item has-treeview" 
+	                ng-if="(allow.permiso6161 || allow.permiso6162)">
+	            <a href="" class="nav-link">
+	              <nav-text-tree-view i=create_new_folder lbl=LB_OTHER_ACTIVITIES></nav-text-tree-view>
+	            </a>
+	            <ul class="nav nav-treeview">
+	              <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso6161">
+	                <a class="nav-link" ui-sref-active="active" ui-sref=prevention.officework><nav-icon-text i=account_balance lbl=LB_OFFICE_WORK></nav-icon-text></a>
+	              </li>
+	              <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso6162">
+	                <a class="nav-link" ui-sref-active="active" ui-sref=prevention.usersupport><nav-icon-text i=folder_shared lbl=LB_USER_SUPPORT></nav-icon-text></a>
+	              </li>
+	            </ul>
+	          </li>
+		        
+		        <!-- REGISTROS MIGRADOS -->
+		        <li class="nav-item has-treeview"
+		        		ng-if="(allow.permiso603 || allow.permiso604 || allow.permiso613) || 
+		        					 (allow.permiso617 || allow.permiso618)">
+		          <a href="" class="nav-link">
+		            <nav-text-tree-view i=history lbl=LB_MIGRATED_RECORDS></nav-text-tree-view>
+		          </a>
+		          <ul class="nav nav-treeview">
+		          	<li class="nav-item" ui-sref-active="active" ng-if="allow.permiso603">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.migratedvbp><nav-icon-text i=layers lbl=LB_VBP></nav-icon-text></a>
+				        </li>
+				        <li class="nav-item" ui-sref-active="active" ng-if="allow.permiso617">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.migratedfeasibility><nav-icon-text i=whatshot lbl=LB_GLP_FEASIBILITY></nav-icon-text></a>
+				        </li>
+								<li class="nav-item" ui-sref-active="active" ng-if="allow.permiso618">
+				          <a class="nav-link" ui-sref-active="active" ui-sref=prevention.migrateddefinitive><nav-icon-text i=beenhere lbl=LB_GLP_DEFINITIVE></nav-icon-text></a>
+				        </li>
+		          </ul>
+		        </li>
+	      
+			      <!-- TRABAJOS INDIVIDUALES -->
+			      <li class="nav-item has-treeview"
+			      		ng-if="(allow.permiso601 || allow.permiso602 || allow.permiso605 || allow.permiso606 || allow.permiso607)">
+			        <a href="" class="nav-link">
+			          <nav-text-tree-view i=nature_people lbl=LB_MY_JOBS></nav-text-tree-view>
+			        </a>
+			        <ul class="nav nav-treeview">
+								<li class="nav-item" ui-sref-active="active" ng-if="allow.permiso601">
+									<a class="nav-link" ui-sref-active="active" ui-sref=prevention.myinspections><nav-icon-text i=transfer_within_a_station lbl=LB_INSPECTIONS></nav-icon-text></a>
+								</li>
+								<li class="nav-item" ui-sref-active="active" ng-if="allow.permiso602">
+									<a class="nav-link" ui-sref-active="active" ui-sref=prevention.mycitations><nav-icon-text i=clear lbl=LB_CITATIONS></nav-icon-text></a>
+								</li>
+							 	<li class="nav-item" ui-sref-active="active" ng-if="allow.permiso605">
+									<a class="nav-link" ui-sref-active="active" ui-sref=prevention.myglpTransport><nav-icon-text i=whatshot lbl=LB_GLP_TRANSPORT></nav-icon-text></a>
+								</li>
+								<li class="nav-item" ui-sref-active="active" ng-if="allow.permiso607">
+									<a class="nav-link" ui-sref-active="active" ui-sref=prevention.myplans><nav-icon-text i=security lbl=LB_EMERGENCY_PLAN></nav-icon-text></a>
+								</li>
+								<li class="nav-item" ui-sref-active="active" ng-if="allow.permiso606">
+									<a class="nav-link" ui-sref-active="active" ui-sref=prevention.mytrainings><nav-icon-text i=settings_input_antenna lbl=LB_TRAININGS></nav-icon-text></a>
+								</li>
+							</ul>
+						</li>
+		        
+					</ul>
+				</li>
+	      
+				<!-- SERVICIOS ADICIONALES -->
+      	<li class="nav-header text-uppercase"><small translate>LB_ADDITIONAL_SERVICES</small></li>
+				
+				<!-- MENU: REPORTES GENERALES -->
+				<li class="nav-item has-treeview" ui-sref-active="{'menu-open':'control.**'}">
+					<a class="nav-link" href="#" ui-sref-active="{active:'control.**'}">
+				  	<nav-text-tree-view i=timeline lbl=MENU_REPORTS></nav-text-tree-view>
+			    </a>
+			    <ul class="nav nav-treeview">
+						<li ui-sref-active="active" class="nav-item">
+							<a class="nav-link" ui-sref-active="active" ui-sref=control.reports><nav-icon-text i=print lbl=LB_REPORTS></nav-icon-text></a>
+						</li>
+						<li ui-sref-active="active" class="nav-item" ng-if="allow.permiso6">
+							<a class="nav-link" ui-sref-active="active" ui-sref=control.stats><nav-icon-text i=timeline lbl=LB_STATS></nav-icon-text></a>
+						</li>
+					</ul>
+				</li>
+				
+				<!-- MENU: AYUDA -->
+				<li class="nav-item has-treeview" ng-if="(externalLinks | lengthObj) > 0">
+				  <a href="#" class="nav-link">
+				    <nav-text-tree-view i=phonelink lbl=LB_OTHER_LINKS></nav-text-tree-view>
+				  </a>
+				  <ul class="nav nav-treeview">
+				    <li class="nav-item" ng-repeat="(key,item) in externalLinks">
+				      <a class="nav-link" href={{item.link}} target="_blank"><i-fa s=nav-icon i={{item.icon}}></i-fa> <p>{{key}}</p></a>
+				    </li>
+				  </ul>
+				</li>
+				
+				<!-- DENUNCIAS EN LÍNEA -->
+				<li class="nav-item">
+					<a class="nav-link" href="http://online.cbsd.gob.ec/denuncias-en-linea/" target="_blank">
+						<md-ico i=record_voice_over c="text-red nav-icon"></md-ico> <p translate>LB_COMPLAINTS_ONLINE</p>
+					</a>
+				</li>
+				
+			</ul>
+		</nav>
+  
+  </div>
+  
+</aside>
+
+<script>
+(function($){
+	'use strict';
+	$('[data-widget="treeview"]').Treeview('init');
+	$('.sidebar').overlayScrollbars({ scrollbars : {autoHide:'leave'} });
+})(jQuery)
+</script>

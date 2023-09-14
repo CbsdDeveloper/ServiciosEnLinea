@@ -1,0 +1,45 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=folder></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_AFFIDAVITS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal({fk_persona_id:session.persona_id,edit:false})"><md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+  <div layout-xs=column layout=row layout-padding layout-wrap>
+    <div style="min-width:350px;max-width:480px" flex ng-repeat="row in rowsParent.data">
+      <div class="box box-{{string2JSON('colorCss')[$index]}}">
+        <div class="box-body box-profile text-center">
+          <md-ico i=folder s=64></md-ico>
+          <h3 class="profile-username text-center">{{row.declaracion_tipo}}</h3>
+          <hr>
+          <strong><md-ico i=business s=18></md-ico> <span translate>LB_NOTARY</span></strong>
+          <p class="text-muted text-center text-uppercase">{{row.declaracion_notaria}}</p>
+          <p class="text-muted text-center text-uppercase">{{row.declaracion_fnotaria | date:'longDate'}}</p>
+          <hr>
+          <strong><md-ico i=event s=18></md-ico> <span translate>LB_COMPROLLER_DATE</span></strong>
+          <p class="text-muted text-center">{{row.declaracion_fcontraloria}}</p>
+        </div>
+        <div class="box-footer">
+          <button ng-click="openModal(row)" class="btn btn-primary btn-block">
+            <md-ico i=edit s=18></md-ico>
+            <b translate>BTN_UPDATE</b>
+          </button>
+          <button class="btn btn-warning btn-block" ng-click="openParentModal('PDFViewer',{embed:'tthh/'+row.declaracion_pdf,label:row.declaracion_tipo})" ng-if="row.declaracion_pdf!='' && row.declaracion_pdf!=null">
+            <md-ico i=file_download s=18></md-ico>
+            <b translate>LB_DOWNLOAD</b>
+          </button>
+			    <button ng-click="deleteItem(row.declaracion_id)" class="btn btn-danger btn-block">
+			    	<md-ico i=delete_forever s=18></md-ico>
+			    	<b translate>LB_DELETE</b>
+			    </button>
+        </div>
+      </div>
+    </div>
+  </div>
+	<footer-table></footer-table>
+</md-card>

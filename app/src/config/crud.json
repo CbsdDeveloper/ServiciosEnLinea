@@ -1,0 +1,1236 @@
+{	
+	
+	"entityPrefix":{
+		"unidades":"unidad",
+		"vehiculos":"vehiculo",
+		"perfiles":"perfil",
+		"personas":"persona",
+		"usuarios":"usuario",
+		"recursos":"recurso",
+		"slides":"slide",
+		
+		"denuncias":"mensaje",
+		
+		"programas_poa":"programa",
+		"poa_proyectos":"proyecto",
+		"poa":"poa",
+		"poa_reformas":"reforma",
+		
+		"actividadeslaborales":"actividad",
+		"competenciaslaborales":"competencia",
+		"estadosemergencia":"eemergencia",
+		"eventos":"evento",
+		"estaciones":"estacion",
+		
+		"procedimientoscontratacion":"procedimiento",
+		"documentos_procedimientoscontratacion":"procedimiento",
+		"procesocontratacion":"proceso",
+		
+		"documentacion_electronica":"delectronica",
+		
+		"archivo_seriesdocumentales":"serie",
+		"archivo_periodos":"periodo",
+		"archivo_series_periodos":"pserie",
+		
+		"guardias":"guardia",
+		"libronovedades":"bitacora",
+		"flotasvehiculares":"flota",
+		"partes":"parte",
+		
+		"direcciones":"direccion",
+		"puestos":"puesto",
+		"pelotones":"peloton",
+		"tropas":"tropa",
+		"peloton_personal":"ppersonal",
+		"formacionacademica":"formacion",
+		"cursos_realizados":"capacitacion",
+		"experiencias_laborales":"experiencia",
+		"cargas_familiares":"carga",
+		"declaraciones_juramentadas":"declaracion",
+		"vacaciones_generadas":"vacacion",
+		"vacaciones_solicitadas":"vacacion",
+		"permisos_solicitados":"permiso",
+		"cuentasbancarias":"banco",
+		"anticipos":"anticipo",
+		"vacaciones":"vacacion",
+		"atrasos":"atraso",
+		"ranchos":"rancho",
+		"sanciones":"sancion",
+		"conductores":"conductor",
+		
+		"formulariosevaluaciones":"formulario",
+		"formulariosevaluaciones_secciones":"seccion",
+		"formulariosevaluaciones_preguntas":"pregunta",
+		"evaluacionespersonal":"evaluacion",
+		"evaluacionpersonal":"test",
+		
+		"evaluacionesriesgopsicosocial":"evaluacion",
+		"formulariosriesgopsicosocial":"formulario",
+		"formulariosriesgopsicosocial_secciones":"seccion",
+		"formulariosriesgopsicosocial_preguntas":"pregunta",
+		"filtrocascada":"filtro",
+		"fichacascada":"cascada",
+		"categoria_equiposrescatevertical":"categoria",
+		"equiposrescatevertical":"equipo",
+		"registrosrescatevertical":"registro",
+		
+		"extintores":"extintor",
+		"inspeccionextintores":"inspeccion",
+		
+		"accionespersonal":"accion",
+		"delegaciones":"delegacion",
+		"tipoacciones":"tipo",
+		"medicamentos":"medicamento",
+		"inventario_medicamentos":"inventario",
+		"inventario_insumosaph":"inventario",
+		
+		"historiasclinicas":"historia",
+		"antecedentesenfermedades":"antecedente",
+		"consultasmedicas":"consulta",
+		"certificadosmedicos":"certificado",
+		"inasistencias":"inasistencia",
+		"inasistencias_control":"control",
+		
+		"salacapacitaciones":"reservacion",
+		"ordenescombustible":"orden",
+		"ordenesmantenimiento":"orden",
+		"informemantenimiento":"informe",
+		"ordenesmovilizacion":"orden",
+		"ordenestrabajo":"orden",
+		"mantenimientos_menores":"mantenimiento",
+		
+		"entidades":"entidad",
+		"locales":"local",
+		"gallery":"media",
+		"revisiones_procesos":"revision",
+		"actividades":"actividad",
+		"items":"item",
+		"preguntas":"pregunta",
+		"requerimientos":"requerimiento",
+		"reimpresiones":"reimpresion",
+		"autoinspecciones":"autoinspeccion",
+		"permisos":"permiso",
+		"reinspecciones":"reinspeccion",
+		"inspecciones":"inspeccion",
+		"prorrogas":"prorroga",
+		"transporteglp":"transporte",
+		"planesemergencia":"plan",
+		"autoproteccion_recursos":"factor",
+		"autoproteccion_prevencion":"prevencion",
+		"autoproteccion_mantenimiento":"mantenimiento",
+		"autoproteccion_meseri":"meseri",
+		"ocasionales":"ocasional",
+		"bioseguridad_covid19":"bioseguridad",
+		
+		"vbp":"vbp",
+		"habitabilidad":"habitabilidad",
+		"vbp_modificaciones":"modificacion",
+		"factibilidadglp":"factibilidad",
+		"definitivoglp":"definitivo",
+		
+		"trainers":"trainer",
+		"capacitadores":"capacitador",
+		"training":"capacitacion",
+		"simulacros":"simulacro",
+		"stands":"stand",
+		"visitas":"visita"
+	},
+	
+	"auditTTHH":[
+		"hojaruta","fichacascada",
+		"categoria_equiposrescatevertical","equiposrescatevertical","registrosrescatevertical","rvertical_respuestas",
+		"guardias","libronovedades","flotasvehiculares","partes",
+		"actividadesdiarias",
+		
+		"formulariosevaluaciones","formulariosevaluaciones_secciones","formulariosevaluaciones_preguntas",
+		"evaluacionespersonal","evaluacionpersonal",
+		
+		"archivo_seriesdocumentales","archivo_periodos","archivo_series_periodos",
+		
+		"documentacion_electronica",
+		
+		"extintores","inspeccionextintores",
+		
+		"evaluacionesriesgopsicosocial",
+		"formulariosriesgopsicosocial","formulariosriesgopsicosocial_secciones","formulariosriesgopsicosocial_preguntas",
+		"programas_poa","poa","poa_proyectos","poa_reformas",
+		
+		
+		"mantenimientos_menores",
+		
+		"mantenimiento_trabajos","mantenimiento_facturas","consultasmedicas","certificadosmedicos","inasistencias","inasistencias_control",
+		"procedimientoscontratacion","documentos_procedimientoscontratacion","procesocontratacion",
+		"equiposrescatevertical","registrosrescatevertical",
+		
+		"cuentasbancarias",
+		"medicamentos",
+		"inventario_medicamentos",
+		"inventario_insumosaph"
+	],
+	
+	"searchEntity":{
+		"personal":{
+			"codeField":"persona_doc_identidad",
+			"requireView":"vw_personal"
+		},
+		"unidades":{
+			"codeField":"unidad_nombre"
+		},
+		"entidades":{
+			"codeField":"entidad_ruc"
+		}
+	},
+	
+	"nextSerieProject":{
+		"salacapacitaciones":{
+			"numberField":"reservacion_serie",
+			"dateField":"reservacion_aprobado",
+			"statusKey":"reservacion_estado IN ",
+			"statusVal":"('APROBADA')"
+		},
+		
+		"ordenescombustible":{
+			"numberField":"orden_serie",
+			"dateField":"orden_validacion",
+			"statusKey":"orden_estado IN ",
+			"statusVal":"('VALIDADA')"
+		},
+		"ordenesmantenimiento":{
+			"numberField":"orden_serie",
+			"dateField":"orden_fecha_mantenimiento",
+			"statusKey":"orden_estado IN ",
+			"statusVal":"('MANTENIMIENTO','RECIBIDO','ENTREGADO')"
+		},
+		"ordenesmovilizacion":{
+			"numberField":"orden_serie",
+			"dateField":"orden_hora_salida",
+			"statusKey":"orden_estado IN ",
+			"statusVal":"('SALIDA','ESTACION')"
+		},
+		"ordenestrabajo":{
+			"numberField":"orden_serie",
+			"dateField":"orden_fecha_emision",
+			"statusKey":"orden_estado IN ",
+			"statusVal":"('EMITIDA','VALIDADA')"
+		},
+		"mantenimientos_menores":{
+			"numberField":"mantenimiento_serie",
+			"dateField":"mantenimiento_fecha_mantenimiento",
+			"statusKey":"mantenimiento_estado IN ",
+			"statusVal":"('EN MANTENIMIENTO','EQUIPOS REPARADOS')"
+		},
+		
+		"delegaciones":{
+			"numberField":"delegacion_serie",
+			"dateField":"delegacion_fecha_registro",
+			"statusKey":"delegacion_estado IN ",
+			"statusVal":"('DELEGACIÓN ASIGNADA','DELEGACIÓN FINALIZADA')"
+		},
+		"accionespersonal":{
+			"numberField":"accion_serie",
+			"dateField":"accion_fecha",
+			"statusKey":"accion_estado IN ",
+			"statusVal":"('GENERADA','ACCION DE PERSONAL GENERADA','APROBADA')"
+		},
+		"evaluaciones_personal":{
+			"numberField":"desempenio_serie",
+			"dateField":"evaluacion_fecha",
+			"statusKey":"desempenio_estado IN ",
+			"statusVal":"('EVALUADO')"
+		},
+		"permisos_solicitados":{
+			"numberField":"permiso_serie",
+			"dateField":"permiso_aprobado",
+			"statusKey":"permiso_estado IN ",
+			"statusVal":"('SOLICITUD REGISTRADA')"
+		},
+		"vacaciones_solicitadas":{
+			"numberField":"vacacion_serie",
+			"dateField":"vacacion_aprobado",
+			"statusKey":"vacacion_estado IN ",
+			"statusVal":"('SOLICITUD REGISTRADA')"
+		},
+		"anticipos":{
+			"numberField":"anticipo_serie",
+			"dateField":"anticipo_aprobado",
+			"statusKey":"anticipo_estado IN ",
+			"statusVal":"('SOLICITUD APROBADA')"
+		},
+		
+		"prorrogas":{
+			"numberField":"prorroga_serie",
+			"dateField":"prorroga_aprobado",
+			"statusKey":"prorroga_estado IN ",
+			"statusVal":"('APROBADO','PRORROGA APROBADA')"
+		},
+		"inspecciones":{
+			"numberField":"inspeccion_serie",
+			"dateField":"inspeccion_fecha_aprobado",
+			"statusKey":"inspeccion_estado IN ",
+			"statusVal":"('APROBADO')"
+		},
+		"citaciones":{
+			"numberField":"citacion_serie",
+			"dateField":"citacion_fecha",
+			"statusKey":"citacion_estado IN ",
+			"statusVal":"('ACTIVO')"
+		},
+		
+		"transporteglp":{
+			"numberField":"transporte_serie",
+			"dateField":"transporte_aprobado",
+			"statusKey":"transporte_estado IN ",
+			"statusVal":"('APROBADO')"
+		},
+		"planesemergencia":{
+			"numberField":"plan_serie",
+			"dateField":"plan_aprobado",
+			"statusKey":"plan_estado IN ",
+			"statusVal":"('APROBADO','VENCIDO')"
+		},
+		"ocasionales":{
+			"numberField":"ocasional_serie",
+			"dateField":"ocasional_despachado",
+			"statusKey":"ocasional_estado IN ",
+			"statusVal":"('APROBADO')"
+		},
+		"vbp":{
+			"numberField":"vbp_serie",
+			"dateField":"vbp_aprobado",
+			"statusKey":"vbp_estado IN ",
+			"statusVal":"('APROBADO')"
+		},
+		"habitabilidad":{
+			"numberField":"habitabilidad_serie",
+			"dateField":"habitabilidad_aprobado",
+			"statusKey":"habitabilidad_estado IN ",
+			"statusVal":"('APROBADO')"
+		},
+		"vbp_modificaciones":{
+			"numberField":"modificacion_serie",
+			"dateField":"modificacion_aprobado",
+			"statusKey":"modificacion_estado IN ",
+			"statusVal":"('APROBADO')"
+		},
+		"factibilidadglp":{
+			"numberField":"factibilidad_serie",
+			"dateField":"factibilidad_aprobado",
+			"statusKey":"factibilidad_estado IN ",
+			"statusVal":"('APROBADO')"
+		},
+		"definitivoglp":{
+			"numberField":"definitivo_serie",
+			"dateField":"definitivo_aprobado",
+			"statusKey":"definitivo_estado IN ",
+			"statusVal":"('APROBADO')"
+		},
+		
+		"ordenescobro":{
+			"numberField":"orden_serie",
+			"dateField":"fecha_generado",
+			"statusKey":"orden_estado IN ",
+			"statusVal":"('DESPACHADA','GENERADA')"
+		},
+		
+		"training":{
+			"numberField":"capacitacion_serie",
+			"dateField":"capacitacion_fecha",
+			"statusKey":"capacitacion_estado IN ",
+			"statusVal":"('DESPACHADA','EVALUADA')"
+		},
+		"simulacros":{
+			"numberField":"simulacro_serie",
+			"dateField":"simulacro_fecha",
+			"statusKey":"simulacro_estado IN ",
+			"statusVal":"('DESPACHADA','EVALUADA')"
+		},
+		"stands":{
+			"numberField":"stand_serie",
+			"dateField":"stand_fecha",
+			"statusKey":"stand_estado IN ",
+			"statusVal":"('DESPACHADA','EVALUADA')"
+		},
+		"visitas":{
+			"numberField":"visita_serie",
+			"dateField":"visita_fecha",
+			"statusKey":"visita_estado IN ",
+			"statusVal":"('DESPACHADA','EVALUADA')"
+		}
+	},
+	
+	"nextCodeProject":{
+		"salacapacitaciones":{
+			"project":"SCAP",
+			"codeField":"reservacion_codigo"
+		},
+		"ordenescombustible":{
+			"project":"COM",
+			"codeField":"orden_codigo"
+		},
+		"ordenesmantenimiento":{
+			"project":"ODM",
+			"codeField":"orden_codigo"
+		},
+		"ordenesmovilizacion":{
+			"project":"MOV",
+			"codeField":"orden_codigo"
+		},
+		"ordenestrabajo":{
+			"project":"ODT",
+			"codeField":"orden_codigo"
+		},
+		"mantenimientos_menores":{
+			"project":"MHM",
+			"codeField":"mantenimiento_codigo"
+		},
+		
+		"documentacion_electronica":{
+			"project":"DLEC",
+			"codeField":"delectronica_serie"
+		},
+		
+		
+		"registrosrescatevertical":{
+			"project":"ERV",
+			"codeField":"registro_codigo"
+		},
+		"inspeccionextintores":{
+			"project":"IEX",
+			"codeField":"inspeccion_codigo"
+		},
+		
+		"inasistencias":{
+			"project":"INA",
+			"codeField":"inasistencia_codigo"
+		},
+		
+		"denuncias":{
+			"project":"DEN",
+			"codeField":"denuncia_codigo"
+		},
+		
+		
+		"procesocontratacion":{
+			"project":"PRC",
+			"codeField":"proceso_codigo"
+		},
+		
+		"poa_proyectos":{
+			"project":"POA",
+			"codeField":"proyecto_codigo"
+		},
+		
+		"evaluacionespersonal":{
+			"project":"EVA",
+			"codeField":"evaluacion_codigo"
+		},
+		"accionespersonal":{
+			"project":"AP",
+			"codeField":"accion_codigo"
+		},
+		"delegaciones":{
+			"project":"DLG",
+			"codeField":"delegacion_codigo"
+		},
+		"evaluacionesdesempenio":{
+			"project":"EVA",
+			"codeField":"evaluacion_codigo"
+		},
+		"evaluaciones_personal":{
+			"project":"EDP",
+			"codeField":"desempenio_codigo"
+		},
+		"permisos_solicitados":{
+			"project":"PCV",
+			"codeField":"permiso_codigo"
+		},
+		"vacaciones_solicitadas":{
+			"project":"VAC",
+			"codeField":"vacacion_codigo"
+		},
+		"anticipos":{
+			"project":"SAR",
+			"codeField":"anticipo_codigo"
+		},
+		
+		"checking_externos":{
+			"project":"DOC",
+			"codeField":"checking_codigo"
+		},
+		"distributivo":{
+			"project":"DIST",
+			"codeField":"distributivo_codigo"
+		},
+		
+		"training":{
+			"project":"CAP",
+			"codeField":"capacitacion_codigo"
+		},
+		"simulacros":{
+			"project":"SIM",
+			"codeField":"simulacro_codigo"
+		},
+		"stands":{
+			"project":"STD",
+			"codeField":"stand_codigo"
+		},
+		"visitas":{
+			"project":"VST",
+			"codeField":"visita_codigo"
+		},
+		
+		"trabajoficina":{
+			"project":"OFC",
+			"codeField":"trabajo_codigo"
+		},
+		"atencionusuario":{
+			"project":"ATU",
+			"codeField":"atencion_codigo"
+		},
+		"prorrogas":{
+			"project":"PRG",
+			"codeField":"prorroga_codigo"
+		},
+		"inspecciones":{
+			"project":"INSP",
+			"codeField":"inspeccion_codigo"
+		},
+		"planesemergencia":{
+			"project":"PLAN",
+			"codeField":"plan_codigo"
+		},
+		"transporteglp":{
+			"project":"TGLP",
+			"codeField":"transporte_codigo"
+		},
+		"ocasionales":{
+			"project":"POF",
+			"codeField":"ocasional_codigo"
+		},
+		"vbp":{
+			"project":"VBP",
+			"codeField":"vbp_codigo"
+		},
+		"habitabilidad":{
+			"project":"HAB",
+			"codeField":"habitabilidad_codigo"
+		},
+		"vbp_modificaciones":{
+			"project":"MP",
+			"codeField":"modificacion_codigo"
+		},
+		"factibilidadglp":{
+			"project":"FGLP",
+			"codeField":"factibilidad_codigo"
+		},
+		"definitivoglp":{
+			"project":"DGLP",
+			"codeField":"definitivo_codigo"
+		},
+		"bioseguridad_covid19":{
+			"project":"COVID",
+			"codeField":"bioseguridad_codigo"
+		}
+	},
+	
+	"interceptor":{
+		"model":{
+			"denuncias":"model\\messageModel",
+			"recovery":"model\\admin\\recoveryModel",
+			
+			"exportdata":"model\\exportModel",
+			
+			"gallery":"model\\galleryModel",
+			"files":"model\\galleryModel",
+			"attachments":"model\\galleryModel",
+			
+			"ratingsystem":"model\\admin\\resourceModel",
+			"questionsforforms":"model\\admin\\resourceModel",
+			"formulariosevaluaciones":"model\\resources\\formsModel",
+			"formulariosevaluaciones_secciones":"model\\resources\\sectionsModel",
+			"formulariosevaluaciones_preguntas":"model\\resources\\questionsModel",
+			
+			"evaluacionespersonal":"model\\Tthh\\surveys\\surveyModel",
+			
+			
+			"documentacion_electronica":"model\\logistics\\archive\\edocumentationModel",
+			
+			
+			"personas":"model\\personModel",
+			"vehiculos":"model\\vehicleModel",
+			"revisiones_procesos":"model\\reviewModel",
+			"geoJSON":"model\\geoJSONModel",
+			
+			"postLogin":"model\\admin\\userModel",
+			"getSession":"model\\admin\\userModel",
+			"roles":"model\\admin\\roleModel",
+			"groups":"model\\admin\\roleModel",
+			"usuarios":"model\\admin\\userModel",
+			"inspectors":"model\\admin\\userModel",
+			"label":"model\\admin\\labelModel",
+			"rutas":"model\\admin\\routeModel",
+			"webmail":"model\\admin\\webmailModel",
+			
+			"tablas":"model\\admin\\tableModel",
+			"recursos_entidades":"model\\admin\\resourceModel",
+			"reportes":"model\\admin\\reportModel",
+			"requisitos":"model\\admin\\reportModel",
+			"resources":"model\\resourceModel",
+			"dashboard":"model\\dashboardModel",
+			"exports":"model\\dashboardModel",
+			
+			
+			"poa":"model\\planing\\poaModel",
+			"poa_proyectos":"model\\planing\\poaModel",
+			"poa_reformas":"model\\planing\\reformModel",
+
+
+			"ordenescobro":"model\\collection\\orderModel",
+			"especies":"model\\collection\\specieModel",
+			"cierres":"model\\collection\\archingModel",
+			"procedimientoscontratacion":"model\\collection\\contractingProcedureModel",
+			"documentos_procedimientoscontratacion":"model\\collection\\contractingProcedureModel",
+			"procesocontratacion":"model\\collection\\processcontractsModel",
+			
+			
+			"actividades":"model\\permits\\formModel",
+			"formularios":"model\\permits\\formModel",
+			"requirements":"model\\permits\\formModel",
+			"threads":"model\\permits\\formModel",			
+			
+			"ciiu":"model\\permits\\ciiuModel",
+			"uploadCiiu":"model\\permits\\ciiuModel",
+			"entidades":"model\\permits\\entityModel",
+			"locales":"model\\permits\\localModel",
+
+			"emptyAI":"model\\permits\\selfInspectionModel",
+			"selfInspections":"model\\permits\\selfInspectionModel",
+			"permisos":"model\\permits\\permitModel",
+			"syncPermits":"model\\permits\\permitModel",
+			"duplicados":"model\\permits\\duplicatedModel",
+			
+			"postClient":"model\\permits\\entityModel",
+			"postEntity":"model\\permits\\entityModel",
+			"getEntity":"model\\permits\\entityModel",
+			"getLocal":"model\\permits\\entityModel",
+			"getForm":"model\\permits\\formModel",
+			"getCiiu":"model\\permits\\ciiuModel",
+			
+			
+			"checking_externos":"model\\logistics\\checkingModel",
+			
+			"naturaleza_claves":"model\\subjefature\\natureModel",
+			"partes":"model\\subjefature\\partModel",
+			"partesAsync":"model\\subjefature\\partModel",
+			"partes_flotas":"model\\subjefature\\partModel",
+			"libronovedades":"model\\subjefature\\binnacleModel",
+			"flotasvehiculares":"model\\subjefature\\trackingModel",
+			
+			"unidadeslista":"model\\logistics\\unitModel",
+			"unidades":"model\\logistics\\unitModel",
+			"abastecimiento":"model\\logistics\\supplyModel",
+			"reglasmantenimiento":"model\\logistics\\abcModel",
+			"mantenimientosvehiculares":"model\\logistics\\maintenanceModel",
+			"revisionvehicular":"model\\logistics\\vehicularreviewModel",
+			
+			"ordenescombustible":"model\\logistics\\fuelorderModel",
+			"ordenesmantenimiento":"model\\logistics\\maintenanceorderModel",
+			"informemantenimiento":"model\\logistics\\maintenanceorderModel",
+			"mantenimiento_facturas":"model\\logistics\\maintenanceorderModel",
+			"ordenesmovilizacion":"model\\logistics\\mobilizationorderModel",
+			"ordenestrabajo":"model\\logistics\\workorderModel",
+			
+			"mantenimientos_menores":"model\\logistics\\gservices\\minorToolsMaintenanceModel",
+			
+			
+			"archivo_seriesdocumentales":"model\\logistics\\archive\\serieModel",
+			"archivo_periodos":"model\\logistics\\archive\\serieModel",
+			"archivo_series_periodos":"model\\logistics\\archive\\pserieModel",
+			
+			
+			"getAccount":"model\\Tthh\\personalModel",
+			"schedule":"model\\Tthh\\calendarModel",
+			
+			"reglamentos":"model\\Tthh\\regulationModel",
+			"tipoaccion_reglamento":"model\\Tthh\\regulationModel",
+			"importar_marcaciones":"model\\Tthh\\biometricModel",
+			"estaciones":"model\\Tthh\\stationModel",
+			"pelotones":"model\\Tthh\\platoonModel",
+			"distributivo_peloton":"model\\Tthh\\platoonModel",
+			"peloton_personal":"model\\Tthh\\platoonModel",
+			"feriado":"model\\Tthh\\holidayModel",
+			"partidas":"model\\Tthh\\jobModel",
+			"puestos":"model\\Tthh\\jobModel",
+			"puestos_actividades":"model\\Tthh\\jobModel",
+			"puestos_competencias":"model\\Tthh\\jobModel",
+			"subordinados":"model\\Tthh\\jobModel",
+			"personal":"model\\Tthh\\personalModel",
+			"accionespersonal":"model\\Tthh\\actionModel",
+			"delegaciones":"model\\Tthh\\delegationModel",
+			"cargas_familiares":"model\\Tthh\\familiarModel",
+			"transparencia":"model\\Tthh\\personalModel",
+			"accionesdepersonal":"model\\Tthh\\actionModel",
+			"vacaciones":"model\\Tthh\\vacationModel",
+			"vacaciones_generadas":"model\\Tthh\\vacationModel",
+			"vacaciones_generadas_ajuste":"model\\Tthh\\vacationModel",
+			"vacaciones_solicitadas":"model\\Tthh\\vacationModel",
+			"personal_vacaciones":"model\\Tthh\\vacationModel",
+			"permisos_solicitados":"model\\Tthh\\permissionModel",
+			"personal_permisos":"model\\Tthh\\permissionModel",
+			"atrasos":"model\\Tthh\\arrearModel",
+			"atrasoslista":"model\\Tthh\\arrearModel",
+			"ranchos":"model\\Tthh\\rancheModel",
+			"ranchoslista":"model\\Tthh\\feddingModel",
+			"anticipos":"model\\Tthh\\advances\\advanceModel",
+			"anticiposlista":"model\\Tthh\\advances\\advanceModel",
+			
+			"inventario_insumosaph":"model\\subjefature\\aph\\supplycontrolModel",
+			
+			"evaluacionpersonal":"model\\Tthh\\surveys\\evaluationModel",
+			
+			"evaluacionesriesgopsicosocial":"model\\Tthh\\sos\\riskEvaluationModel",
+			"fichacascada":"model\\Tthh\\sos\\waterfallModel",
+			"filtrocascada":"model\\Tthh\\sos\\waterfallModel",
+			"registrosrescatevertical":"model\\Tthh\\sos\\vrescueModel",
+			
+			"inspeccionextintores":"model\\Tthh\\sos\\inspectionModel",
+			
+			"aspirantes":"model\\Tthh\\candidateModel",
+			"getCandidate":"model\\Tthh\\candidateModel",
+			
+			"guardias":"model\\subjefature\\guardModel",
+			"guardia_turnos":"model\\subjefature\\guardModel",
+			"personaloperativo":"model\\subjefature\\personalModel",
+			
+			"evaluacionesdesempenio":"model\\Tthh\\performanceModel",
+			"evaluaciones_personal":"model\\Tthh\\performanceModel",
+			
+			"conductores":"model\\Tthh\\driverModel",
+			
+			"getCie":"model\\Tthh\\md\\cieModel",
+			"consultasmedicas":"model\\Tthh\\md\\medicalConsultationModel",
+			"certificadosmedicos":"model\\Tthh\\md\\medicalCertificatesModel",
+			"historiasclinicas":"model\\Tthh\\md\\medicalHistoryModel",
+			"antecedentesenfermedades":"model\\Tthh\\md\\medicalHistoryModel",
+			"inventario_medicamentos":"model\\Tthh\\md\\inventoryMedicinesModel",
+			
+			"inasistencias":"model\\Tthh\\absenceModel",
+			"inasistencias_control":"model\\Tthh\\absenceModel",
+			
+			"evaluacionsatisfaccion":"model\\satisfactionModel",
+			
+			"salacapacitaciones":"model\\logistics\\trainingRoomModel",
+			
+			"calendar":"model\\prevention\\calendarModel",
+			"coordinador":"model\\prevention\\coordinatorModel",
+			"participantes":"model\\prevention\\participantModel",
+			"participantes_training":"model\\prevention\\participantModel",
+			"participanteslista":"model\\prevention\\participantModel",
+			"empleadoslista":"model\\prevention\\employeeModel",
+			"training":"model\\prevention\\trainingModel",
+			"temario":"model\\prevention\\trainingModel",
+			"trainers":"model\\prevention\\trainerModel",
+			"capacitadores":"model\\prevention\\trainerModel",
+			"questions":"model\\prevention\\questionModel",
+			"simulacros":"model\\prevention\\simulationModel",
+			"stands":"model\\prevention\\standModel",
+			"visitas":"model\\prevention\\visitModel",
+			
+			"atencionusuario":"model\\prevention\\supportModel",
+			"barridos":"model\\prevention\\inspectionModel",
+			"inspecciones":"model\\prevention\\inspectionModel",
+			"inspectores":"model\\prevention\\inspectionModel",
+			"prorrogas":"model\\prevention\\extensionModel",
+			"planesemergencia":"model\\prevention\\planModel",
+			"planesautoproteccion":"model\\prevention\\planModel",
+			"planesautoproteccion_anexos":"model\\prevention\\selfProtectionModel",
+			"entidades_anexos":"model\\permits\\entityModel",
+			"locales_anexos":"model\\permits\\localModel",
+			"autoproteccion_recursos":"model\\prevention\\selfProtectionModel",
+			"autoproteccion_prevencion":"model\\prevention\\selfProtectionModel",
+			"autoproteccion_mantenimiento":"model\\prevention\\selfProtectionModel",
+			"autoproteccion_mantenimiento_files":"model\\prevention\\selfProtectionModel",
+			"autoproteccion_anexos":"model\\prevention\\selfProtectionModel",
+			"autoproteccion_meseri":"model\\prevention\\selfProtectionModel",
+			"bioseguridad_covid19":"model\\prevention\\covidModel",
+			
+			"ocasionales":"model\\prevention\\occasionalModel",
+			"responsablesOcasional":"model\\prevention\\occasionalModel",
+			"recursosOcasional":"model\\prevention\\occasionalModel",
+			
+			"vbp":"model\\prevention\\vbpModel",
+			"profesionalesVbp":"model\\prevention\\vbpModel",
+			"habitabilidad":"model\\prevention\\habitabilityModel",
+			"modificaciones":"model\\prevention\\modificationModel",
+			"vbp_modificaciones":"model\\prevention\\modificationModel",
+			"factibilidadglp":"model\\prevention\\feasibilityModel",
+			"factibilidad_profesionales":"model\\prevention\\feasibilityModel",
+			"definitivoglp":"model\\prevention\\definitiveModel",
+			
+			"vehiculosglp":"model\\prevention\\vehicleglpModel",
+			"transporteglp":"model\\prevention\\glptModel",
+			"transporteglpresource":"model\\prevention\\glptModel"
+		},
+		"GET":{
+			"dashboard":"getDashboard",
+			"exports":"getReports",
+			
+			"getSession":"getSession",
+			
+			"requirements":"getRequirements",
+			"threads":"getThreads",
+			"inspectors":"getInspectors",
+			
+			"syncPermits":"syncPermits",
+			
+			"puestos":"getJobs",
+			"getCandidate":"getCandidate",
+			"getCie":"getCie",
+			
+			"salacapacitaciones":"getListApplications",
+			
+			"training":"getListApplications",
+			"simulacros":"getListApplications",
+			"stands":"getListApplications",
+			"visitas":"getListApplications",
+			
+			"getLocal":"getLocal",
+			"getCiiu":"getCiiu"
+		},
+		"POST":{
+			
+			"exportdata":"exportEntity",
+			
+			"dashboard":"setDashboard",
+			"gallery":"insertGallery",
+			"revisiones_procesos":"insertEntity",
+			"files":"insertFiles",
+			"attachments":"uploadAttachments",
+			"denuncias":"insertComplaint",
+			
+			"postLogin":"postLogin",
+			"entidades":"insertEntity",
+			"usuarios":"insertUser",
+			"roles":"setRoles",
+			"uploadCiiu":"uploadCiiu",
+			
+			"evaluacionsatisfaccion":"insertSatisfactionEvaluation",
+			
+			"ratingsystem":"insertEntity",
+			"questionsforforms":"insertEntity",
+			"formulariosevaluaciones":"insertEntity",
+			"formulariosevaluaciones_secciones":"insertEntity",
+			"formulariosevaluaciones_preguntas":"insertEntity",
+			
+			"evaluacionespersonal":"insertEntity",
+			"evaluacionpersonal":"insertEntity",
+			
+			
+			"poa_proyectos":"insertProjects",
+			"poa":"insertEntity",
+			"poa_reformas":"insertEntity",
+			
+			
+			"ordenescobro":"insertOrder",
+			"cierres":"insertEntity",
+			"documentos_procedimientoscontratacion":"setRequirements",
+			"procesocontratacion":"insertEntity",
+			
+			"checking_externos":"insertChecking",
+			
+			"partes":"insertEntity",
+			"partesAsync":"insertEntityAsync",
+			"libronovedades":"insertEntity",
+			"flotasvehiculares":"insertTracking",
+			
+			"salacapacitaciones":"insertEntity",
+			
+			"unidadeslista":"uploadList",
+			"unidades":"insertUnit",
+			"abastecimiento":"insertSupply",
+			"reglasmantenimiento":"insertMaintenance",
+			"mantenimientosvehiculares":"insertMaintenance",
+			"revisionvehicular":"insertReview",
+			
+			"ordenescombustible":"insertEntity",
+			"ordenesmantenimiento":"insertEntity",
+			"informemantenimiento":"insertReport",
+			"ordenesmovilizacion":"insertEntity",
+			"ordenestrabajo":"insertEntity",
+			"mantenimientos_menores":"insertEntity",
+			
+			
+			"archivo_seriesdocumentales":"insertEntity",
+			"archivo_periodos":"insertEntity",
+			"archivo_series_periodos":"insertEntity",
+			
+			
+			"importar_marcaciones":"processFile",
+			
+			"peloton_personal":"insertPlatoon",
+			"distributivo_peloton":"insertDistribution",
+			"personal":"insertPersonal",
+			"accionespersonal":"insertEntity",
+			"delegaciones":"insertEntity",
+			"partidas":"uploadList",
+			"puestos":"insertEntity",
+			"puestos_actividades":"insertActivitiesJobs",
+			"puestos_competencias":"insertCompetencesJobs",
+			"cargas_familiares":"insertFamiliar",
+			"transparencia":"uploadList",
+			"accionesdepersonal":"uploadList",
+			"vacaciones_generadas":"uploadList",
+			"vacaciones_solicitadas":"uploadList",
+			"personal_vacaciones":"insertEntity",
+			"permisos_solicitados":"uploadList",
+			"atrasoslista":"uploadList",
+			"ranchoslista":"uploadList",
+			"anticiposlista":"uploadList",
+			"personal_permisos":"insertEntity",
+			"aspirantes":"insertCandidate",
+			
+			"evaluacionesriesgopsicosocial":"insertEntity",
+			"fichacascada":"insertEntity",
+			"filtrocascada":"insertFilter",
+			"evaluaciones_personal":"insertPerformance",
+			"registrosrescatevertical":"insertEntity",
+			
+			"inspeccionextintores":"insertEntity",
+			
+			"inasistencias_control":"insertComments",
+			"inasistencias":"insertEntity",
+			"consultasmedicas":"insertEntity",
+			"certificadosmedicos":"insertEntity",
+			"historiasclinicas":"insertEntity",
+			"antecedentesenfermedades":"insertDisease",
+			"anticipos":"insertEntity",
+			"inventario_medicamentos":"insertEntity",
+			"inventario_insumosaph":"insertEntity",
+			
+			"guardias":"insertEntity",
+			
+			"formularios":"createForm",
+			"locales":"insertLocal",
+			
+			"postEntity":"testLogin",
+			"getForm":"getForm",
+			"selfInspections":"insertSelfInspection",
+			"permisos":"insertPermit",
+			"duplicados":"insertDuplicated",
+			
+			"emptyAI":"createEmptyAI",
+			"inspecciones":"insertInspections",
+			"prorrogas":"insertEntity",
+			
+			"atencionusuario":"insertSupport",
+			"planesemergencia":"insertEntity",
+			"planesautoproteccion":"insertEntity",
+			"planesautoproteccion_anexos":"uploadAnnexes",
+			"entidades_anexos":"uploadAnnexes",
+			"locales_anexos":"uploadAnnexes",
+			"autoproteccion_recursos":"insertResources",
+			"autoproteccion_prevencion":"insertResources",
+			"autoproteccion_mantenimiento":"insertResources",
+			"autoproteccion_mantenimiento_files":"uploadResources",
+			"autoproteccion_anexos":"insertAnnexesList",
+			"autoproteccion_meseri":"insertMeseri",
+			"bioseguridad_covid19":"insertEntity",
+			
+			"vehiculosglp":"insertVehicleGlp",
+			"transporteglp":"insertTransportGlp",
+			"transporteglpresource":"saveResources",
+			
+			"participantes":"insertEntity",
+			"training":"insertTraining",
+			"capacitadores":"insertTrainers",
+			"simulacros":"insertSimulation",
+			"stands":"insertStand",
+			"visitas":"insertVisit",
+			
+			"ocasionales":"insertOccasional",
+			
+			"vbp":"insertVbp",
+			"habitabilidad":"insertEntity",
+			"modificaciones":"insertModifications",
+			"vbp_modificaciones":"insertEntity",
+			"factibilidadglp":"insertEntity",
+			"definitivoglp":"insertEntity"
+		},
+		"PUT":{
+			"personas":"updatePerson",
+			"vehiculos":"updateVehicule",
+			"gallery":"updateGallery",
+			"files":"updateFiles",
+			
+			"tablas":"setTables",
+			"recursos_entidades":"setResources",
+			"requisitos":"setRequirements",
+			"webmail":"setWebmail",
+			"entidades":"updateEntity",
+			"groups":"setGroups",
+			"usuarios":"updateUser",
+			"requirements":"toogleRequirements",
+			"threads":"toogleThreads",
+			
+			"ratingsystem":"updateEntity",
+			"questionsforforms":"updateEntity",
+			"formulariosevaluaciones":"updateEntity",
+			"formulariosevaluaciones_secciones":"updateEntity",
+			"formulariosevaluaciones_preguntas":"updateEntity",
+			
+			"evaluacionespersonal":"updateEntity",
+			"evaluacionpersonal":"updateEntity",
+			
+			"inventario_insumosaph":"updateEntity",
+		
+			"guardias":"updateEntity",
+			"guardia_turnos":"setTurns",
+			
+			
+			"documentacion_electronica":"updateEntity",
+			
+			
+			"denuncias":"updateComplaint",
+			
+			
+			"poa_proyectos":"updateProjects",
+			"poa":"updateEntity",
+			
+
+			"ordenescobro":"updateOrder",
+			"especies":"updateEntity",
+			"cierres":"updateEntity",
+			"procesocontratacion":"updateEntity",
+			
+			
+			"checking_externos":"updateChecking",
+			
+			"salacapacitaciones":"updateEntity",
+			
+			"partes":"updateEntity",
+			"partesAsync":"updateEntityAsync",
+			"libronovedades":"updateEntity",
+			"partes_flotas":"setTracking",
+			"unidades":"updateUnit",
+			"naturaleza_claves":"updateResources",
+			"flotasvehiculares":"updateTracking",
+			"abastecimiento":"updateSupply",
+			"reglasmantenimiento":"updateMaintenance",
+			"mantenimientosvehiculares":"updateMaintenance",
+			"revisionvehicular":"updateReview",
+			
+			"ordenescombustible":"updateEntity",
+			"ordenesmantenimiento":"updateEntity",
+			"informemantenimiento":"updateReport",
+			"mantenimiento_facturas":"setInvoices",
+			"ordenesmovilizacion":"updateEntity",
+			"ordenestrabajo":"updateEntity",
+			"mantenimientos_menores":"updateEntity",
+			
+			
+			"tipoaccion_reglamento":"setBaseLegal",
+			"subordinados":"updateSubordinates",
+			"peloton_personal":"updatePlatoon",
+			"vacaciones":"updateVacations",
+			"personal_vacaciones":"updateEntity",
+			"vacaciones_generadas_ajuste":"settingVacation",
+			"vacaciones_solicitadas":"updateEntity",
+			"personal_permisos":"updateEntity",
+			"permisos_solicitados":"updateEntity",
+			"personal":"updatePersonal",
+			"accionespersonal":"updateEntity",
+			"delegaciones":"updateEntity",
+			"cargas_familiares":"updateFamiliar",
+			
+			"aspirantes":"updateCandidate",
+			"filtrocascada":"updateFilter",
+			"fichacascada":"updateEntity",
+			"evaluacionesriesgopsicosocial":"updateEntity",
+			"registrosrescatevertical":"updateEntity",
+			
+			"inspeccionextintores":"updateEntity",
+			
+			"historiasclinicas":"updateEntity",
+			"antecedentesenfermedades":"updateDisease",
+			"anticipos":"updateEntity",
+			"consultasmedicas":"updateEntity",
+			"certificadosmedicos":"updateEntity",
+			"inasistencias":"updateEntity",
+			
+			"locales":"updateLocal",
+			
+			"selfInspections":"setSelfInspection",
+			"permisos":"updateEntity",
+			"duplicados":"approveDuplicated",
+			
+			
+			"coordinador":"updateEntity",
+			"participantes":"updateEntity",
+			"participantes_training":"setEntity",
+			"participanteslista":"uploadList",
+			"empleadoslista":"uploadList",
+			"training":"updateTraining",
+			"capacitadores":"evaluateTrainers",
+			"simulacros":"updateSimulation",
+			"stands":"updateStand",
+			"visitas":"updateVisit",
+			
+			"atencionusuario":"updateSupport",
+			"barridos":"setSweeps",
+			"inspecciones":"updateInspections",
+			"inspectores":"setInspectors",
+			"prorrogas":"updateEntity",
+			
+			"vehiculosglp":"updateVehicleGlp",
+			"transporteglp":"updateTransportGlp",
+			
+			"planesemergencia":"updatePlans",
+			"autoproteccion_anexos":"updateAnnexesList",
+			
+			"ocasionales":"updateOccasional",
+			"responsablesOcasional":"updateAgents",
+			"recursosOcasional":"updateResources",
+			
+			"vbp":"updateVbp",
+			"profesionalesVbp":"setProfessionals",
+			"habitabilidad":"updateEntity",
+			"vbp_modificaciones":"updateEntity",
+			"factibilidadglp":"updateEntity",
+			"factibilidad_profesionales":"setProfessionals",
+			"definitivoglp":"updateEntity"
+		},
+		"REQUEST":{
+			"dashboard":"requestDashboard",
+      "recovery":"requestEntity",
+      "geoJSON":"requestEntity",
+			
+			"revisiones_procesos":"requestEntity",
+			"tablas":"requestTables",
+			"recursos_entidades":"requestResources",
+			"reportes":"requestReports",
+			"roles":"requestRole",
+			"usuarios":"requestUser",
+			"label":"createFileConfig",
+			"rutas":"createFileConfig",
+			"personas":"requestPersonBy",
+		
+			"guardias":"requestEntity",
+			"libronovedades":"requestEntity",
+			
+			
+			"denuncias":"requestEntity",
+
+			
+			"poa":"requestEntity",
+			
+
+			"salacapacitaciones":"requestEntity",
+
+			"especies":"requestEntity",
+			"ordenescobro":"requestOrder",
+			"cierres":"requestEntity",
+			"procedimientoscontratacion":"requestEntity",
+			"procesocontratacion":"requestEntity",
+
+			
+			"reglamentos":"requestRegulation",
+			"pelotones":"requestPlatoon",
+			"schedule":"requestCalendar",
+			"personal_vacaciones":"requestEntity",
+			"personal_permisos":"requestEntity",
+			"estaciones":"requestStation",
+			"puestos":"requestJobs",
+			"personal":"requestEntity",
+			"accionespersonal":"requestEntity",
+			"delegaciones":"requestEntity",
+			"feriado":"createFileConfig",
+			"vacaciones":"requestEntity",
+			"resources":"requestResources",
+			"aspirantes":"requestCandidate",
+			"fichacascada":"requestEntity",
+			"evaluacionesriesgopsicosocial":"requestEntity",
+			
+			"evaluacionpersonal":"requestEntity",
+			
+			"personaloperativo":"requestEntity",
+			
+			"evaluacionesdesempenio":"requestPerformance",
+			
+			"conductores":"requestDrivers",
+			"consultasmedicas":"requestEntity",
+			"certificadosmedicos":"requestEntity",
+			"historiasclinicas":"requestEntity",
+			"anticipos":"requestEntity",
+
+
+			"checking_externos":"requestChecking",
+						
+			"unidades":"requestUnit",
+			"flotasvehiculares":"requestTracking",
+			"abastecimiento":"requestSupply",
+			"reglasmantenimiento":"requestMaintenance",
+			"mantenimientosvehiculares":"requestMaintenance",
+			"revisionvehicular":"requestReview",
+			
+			"ordenescombustible":"requestEntity",
+			"ordenesmantenimiento":"requestEntity",
+			"ordenesmovilizacion":"requestEntity",
+			"ordenestrabajo":"requestEntity",
+			
+			"partes":"requestEntity",
+			
+			
+			"actividades":"requestActivity",
+			"ciiu":"requestCiiu",
+			"getEntity":"getEntity",
+			"entidades":"requestEntity",
+			"locales":"requestLocal",
+			
+			"selfInspections":"requestSelfInspection",
+			"permisos":"requestPermit",
+			
+			
+			"calendar":"requestCalendar",
+			"participantes":"requestParticipant",
+			"training":"requestTraining",
+			"temario":"requestTopics",
+			"trainers":"requestTrainers",
+			"questions":"requestQuestions",
+			"simulacros":"requestSimulation",
+			"stands":"requestStand",
+			"visitas":"requestVisit",
+			
+			"atencionusuario":"requestSupport",
+			"barridos":"requestSweeps",
+			"inspecciones":"requestInspections",
+			"prorrogas":"requestEntity",
+			"transporteglp":"requestEntity",
+			"planesemergencia":"requestPlans",
+			"ocasionales":"requestOccasional",
+			
+			"vbp":"requestVbp",
+			"habitabilidad":"requestEntity",
+			"vbp_modificaciones":"requestEntity",
+			"factibilidadglp":"requestEntity",
+			"definitivoglp":"requestEntity"
+		},
+		"DELETE":{
+			"threads":"deleteThreads",
+			"feriado":"deleteHoliday",
+			
+			"autoproteccion_anexos":"deleteAnnexesList",
+			
+			"ordenesmovilizacion":"deleteEntity",
+			
+			"planesemergencia":"deleteAnnexe"
+		},
+		"AFTER":{
+			
+		},
+		"DOWNLOAD":{
+			"aspirantes":"downloadCertificates",
+			"files":"downloadFiles"
+		}
+	}
+
+}

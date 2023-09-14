@@ -1,0 +1,49 @@
+<md-dialog aria-label="modal" class="form-content-alt modal-dialog modal-lg" ng-controller="profileDashboardExtendsCtrl">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+    	<md-button aria-label="btn" class="md-icon-button"><md-ico i=star_half></md-ico></md-button>
+    	<h2 translate="ACCOUNT_ROLES" translate-values="{user:frmParent.perfil_nombre}"></h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	<!-- SELECCIONAR EL LISTADO DE MÓDULOS -->
+			<div class="card card-outline card-success no-margin" layout-padding>
+				<div class="card-header text-center">
+				  <h3 class="card-title" translate>LB_CHOOSE_MODULE</h3>
+				</div>
+				<div class="card-body" style="padding:8px" layout=column layout-padding>
+		    	<div layout-xs=column layout=row layout-padding>
+		    		<div class="form-group required" flex>
+							<label translate>LB_TYPE</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.tipo" required
+												ng-options="val as val for (key,val) in dashboardType"></select>
+							</div>
+						</div>
+		    		<div class="form-group required" flex>
+							<label translate>LB_MODULE</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=extension></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.modulo_id" required
+												ng-options="row.modulo_id as (row.modulo_id+'. '+row.modulo_nombre) for row in jsonList.modules"></select>
+							</div>
+						</div>
+		    	</div>
+					<hr>
+					<div layout=row layout-wrap>
+						<div flex=50 ng-repeat="dashboard in jsonList.dashboard[frmParent.modulo_id]">
+							<md-checkbox ng-checked="exists(dashboard.dashboard_id)" ng-click="toggle(dashboard.dashboard_id)">{{dashboard.dashboard_id}}. {{dashboard.dashboard_nombre}}</md-checkbox>
+						</div>
+					</div>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+	  <md-button type="button" ng-click="closeDialog()"><span translate>LB_CLOSE</span></md-button>
+  </md-dialog-actions>
+</md-dialog>

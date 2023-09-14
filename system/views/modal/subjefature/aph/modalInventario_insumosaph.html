@@ -1,0 +1,111 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=import_export></md-ico></md-button>
+			<h2 translate>TOOLBAR_APH_SUPPLIES_CONTROL</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout-padding layout=column>
+    	
+    	<!-- FORMULARIO DE REGISTRO -->
+    	<div class="card card-outline card-primary no-margin" layout-padding ng-if="frmParent.inventario_estado!='REGISTRO COMPLETO'">
+				<div class="card-header text-center">
+				  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+				<div class="card-body" layout=column layout-padding>
+				
+						<div layout-xs=column layout=row layout-padding>
+				    	<div class="form-group required" flex>
+								<label translate>LB_TRANSACTION_TYPE</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+							    <select class="form-control" ng-model="frmParent.inventario_tipo" ng-options="val as val for (key,val) in string2JSON('APH_SUPPLYCONTROL_TYPE')" required></select>
+							  </div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_REGISTRE_DATE</label>
+								<div class="input-group" max-date="today" moment-picker="frmParent.inventario_fecha_registro" format="YYYY-MM-DD">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+							    <input class="form-control" ng-model="frmParent.inventario_fecha_registro" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required>
+							  </div>
+							</div>
+						</div>
+						
+						<div class="form-group required" flex ng-controller="staffListCtrl">
+							<label translate>LB_RESPONSIBLE_FOR_DELIVERY</label>
+							<div class="input-group">
+					      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=perm_contact_calendar></md-ico></div></div> 
+					      <ui-select ng-model="frmParent.fk_ppersonal_entrega" reset-search-input="false" required>
+				         	<ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.personal_nombre,'Solicitante...')  | translate}}">
+										{{$select.selected.personal_nombre}}
+				         	</ui-select-match>
+									<ui-select-choices class="list-personal" repeat="item.ppersonal_id as item in FKList | filter: { personal_nombre: $select.search }">
+										<img src="/app/src/img/users/default.png" style="width:48px;height:48px;padding:3px" class="img-circle" alt="img" />
+										<div flex>
+											<div ng-bind-html="item.personal_nombre | highlight: $select.search"></div>
+											<small ng-bind-html="'Puesto: '+item.puesto_definicion"></small><br>
+											<small ng-bind-html="'Dirección: '+item.direccion_nombre"></small>
+										</div>
+									</ui-select-choices>
+					      </ui-select>
+					    </div>
+						</div>
+						
+						<div class="form-group required" flex ng-controller="staffListCtrl">
+							<label translate>LB_RESPONSIBLE_FOR_RECEPTION</label>
+							<div class="input-group">
+					      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=perm_contact_calendar></md-ico></div></div> 
+					      <ui-select ng-model="frmParent.fk_ppersonal_recibe" reset-search-input="false" required>
+				         	<ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.personal_nombre,'Solicitante...')  | translate}}">
+										{{$select.selected.personal_nombre}}
+				         	</ui-select-match>
+									<ui-select-choices class="list-personal" repeat="item.ppersonal_id as item in FKList | filter: { personal_nombre: $select.search }">
+										<img src="/app/src/img/users/default.png" style="width:48px;height:48px;padding:3px" class="img-circle" alt="img" />
+										<div flex>
+											<div ng-bind-html="item.personal_nombre | highlight: $select.search"></div>
+											<small ng-bind-html="'Puesto: '+item.puesto_definicion"></small><br>
+											<small ng-bind-html="'Dirección: '+item.direccion_nombre"></small>
+										</div>
+									</ui-select-choices>
+					      </ui-select>
+					    </div>
+						</div>
+						
+						<div class="form-group required" flex>
+			    		<label translate>LB_DESTINATION_CELLAR</label>
+						  <div class="input-group" flex ng-controller="wineriesListCtrl">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assistant_photo></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.fk_bodega_id" required ng-options="row.bodega_id as (row.bodega_nombre) for row in list"></select>
+							</div>
+			    	</div>
+						
+						<div class="form-group">
+							<label translate>LB_DESCRIPTION</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div>
+								<textarea rows="5" class="form-control" ng-model="frmParent.inventario_descripcion" placeholder="Ej. Detallar información"></textarea>
+							</div>
+						</div>
+				
+				</div>
+			</div>
+			
+			<!-- FORMULARIO DE CIERRE -->
+			<div class="callout callout-warning no-margin" ng-if="frmParent.inventario_estado=='REGISTRO COMPLETO'">
+			  <div class="text-center"><i class="icon fa fa-bell-o fa-3x faa-ring animated"></i></div><br>
+			  <p ng-bind-html="trustAsHtml(paramsConf.APH_INVENTORY_FINISH_REGISTRATION)"></p>
+			</div>
+			
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

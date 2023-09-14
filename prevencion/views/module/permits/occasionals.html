@@ -1,0 +1,106 @@
+<div layout-padding>
+	<div class="box box-info collapsed-box no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+			<div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+      </div>
+		</div>
+		<div class="box-body box-bg-info" layout=column>
+			<div ng-bind-html="$parent.trustAsHtml(paramsConf.INFO_MAIN_OCCASIONAL)"></div>
+		</div>
+	</div>
+</div>
+
+<md-card ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=directions_bike></md-ico></md-button>
+			<h2 hide-xs><span translate>TOOLBAR_OCCASIONALS</span></h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+	    <table md-table class="md-primary table-hover" md-progress="deferred">
+	      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+					<tr md-row>
+						<th md-column><span translate>LB_EVENT</span></th>
+						<th md-column><span translate>LB_DETAIL</span></th>
+						<th md-column><span translate>LB_RESPONSIBLE</span> / <span translate>LB_REQUIREMENTS</span></th>
+						<th md-column><span translate>LB_ACTIVITY_LOG</span></th>
+						<th md-column><span translate>LB_MENU</span></th>
+					</tr>
+				</thead>
+			  <tbody>
+					<tr md-row data-ng-repeat="row in rowsParent.data">
+						<td class="text-uppercase" md-cell>
+							<i-fa i=shield></i-fa><span ng-bind-html="highlight(row.ocasional_codigo)"></span><br>
+							<i-fa i=calendar></i-fa><span ng-bind-html="highlight(row.ocasional_nombreevento)"></span><br>
+							<i-fa i=calendar-check-o></i-fa><span ng-bind-html="highlight(row.ocasional_fecha_inicio)"></span><br>
+							<i-fa i=calendar-times-o></i-fa><span ng-bind-html="highlight(row.ocasional_fecha_cierre)"></span><br>
+							
+							<i-fa i=id-card-o></i-fa><span ng-bind-html="highlight(row.persona_doc_identidad)"></span><br>
+							<i-fa i=user></i-fa><span ng-bind-html="highlight(row.presidente)"></span><br>
+							<i-fa i=address-book></i-fa><span ng-bind-html="highlight(row.persona_correo)"></span> - <span ng-bind-html="highlight(row.persona_celular)"></span>
+						</td>
+						<td class="text-uppercase" md-cell>
+							<i-fa i=map-marker></i-fa><span ng-bind-html="highlight(row.lugar_evento)"></span><br>
+							<i-fa i=globe></i-fa><span ng-bind-html="highlight(row.ocasional_parroquia)"></span><br>
+							<i-fa i=location-arrow></i-fa><span ng-bind-html="highlight(row.ocasional_principal+' y '+row.ocasional_secundaria)"></span><br>
+							
+							<i-fa i=money></i-fa><span ng-bind-html="highlight(row.finesdelucro)"></span><br>
+							<i-fa i=users></i-fa><span ng-bind-html="highlight(row.ocasional_aforo)"></span> <span translate>LB_PEOPLE</span>
+						</td>
+						<td md-cell>
+							<div class="label label-fa" ng-class="{'label-danger':(row.presidente==null),'label-success':(row.presidente!=null)}">
+								<span translate>LB_PRESIDENT_COMMITTEE</span> <i-fa i="{{(row.presidente==null)?'times':'check'}}"></i-fa>
+							</div>
+							<div class="label label-fa" ng-class="{'label-danger':(row.fk_coordinadorgeneral==null),'label-success':(row.fk_coordinadorgeneral!=null)}">
+								<span translate>LB_MAIN_MANAGER</span> <i-fa i="{{(row.fk_coordinadorgeneral==null)?'times':'check'}}"></i-fa>
+							</div><br>
+							<div class="label label-fa" ng-class="{'label-danger':(row.fk_encargadobusqueda==null),'label-success':(row.fk_encargadobusqueda!=null)}">
+								<span translate>LB_RESCUE_MANAGER_SHORT</span> <i-fa i="{{(row.fk_encargadobusqueda==null)?'times':'check'}}"></i-fa>
+							</div><br>
+							<div class="label label-fa" ng-class="{'label-danger':(row.fk_primerosauxilios==null),'label-success':(row.fk_primerosauxilios!=null)}">
+								<span translate>LB_FIRST_AID_MANAGER_SHORT</span> <i-fa i="{{(row.fk_primerosauxilios==null)?'times':'check'}}"></i-fa>
+							</div><br>
+							<div class="label label-info label-fa">
+								<span translate>LB_SECUTIRY_MANAGER_SHORT</span> <i-fa i="{{(row.fk_coordinadorseguridad==null)?'times':'check'}}"></i-fa>
+							</div>
+							<div class="label label-info label-fa">
+								<span translate>LB_FIRE_CONTROL_MANAGER_SHORT</span> <i-fa i="{{(row.fk_controlincendios==null)?'times':'check'}}"></i-fa>
+							</div><br>
+							<div class="label label-fa" ng-class="{'label-danger':(row.amenazas<1),'label-success':(row.amenazas>0)}">
+								<span translate>LB_THREATS</span> <i-fa i="{{(row.amenazas<1)?'times':'check'}}"></i-fa>
+							</div>
+							<div class="label label-fa" ng-class="{'label-danger':(row.internos<1),'label-success':(row.internos>0)}">
+								<span translate>LB_INTERNAL_RESOURCES</span> <i-fa i="{{(row.internos<1)?'times':'check'}}"></i-fa>
+							</div>
+							<div class="label label-fa" ng-class="{'label-danger':(row.externos<1),'label-success':(row.externos>0)}">
+								<span translate>LB_EXTERNAL_RESOURCES</span> <i-fa i="{{(row.externos<1)?'times':'check'}}"></i-fa>
+							</div>
+						</td>
+						<td md-cell>
+							<i-fa i=flag></i-fa> <span ng-bind-html="statusLabel[row.ocasional_estado]"></span><br>
+							<i-fa i=calendar></i-fa> <span ng-bind-html="row.ocasional_registro"></span><br>
+							<i-fa i=user></i-fa> <span ng-bind-html="row.usuario"></span>
+						</td>
+						<td md-cell class="table-menu text-center">
+							<menu-occasionals></menu-occasionals>
+						</td>
+					</tr>
+	      </tbody>
+	    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

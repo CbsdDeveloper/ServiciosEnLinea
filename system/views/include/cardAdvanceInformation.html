@@ -1,0 +1,25 @@
+<div flex class="card card-outline card-danger text-center no-margin card-entity-information">
+  <div class="card-header with-border">
+    <h3 class="card-title">{{frmParent.anticipo_codigo}}</h3>
+  </div>
+  <div class="card-body row">
+    <div class="col-md-4">
+    	<p><img src="/app/src/img/users/default.png" style="width:128px;margin:auto" class="img-responsive"/></p>
+    </div>
+    <div class="col-md-8 text-left">
+			<p><md-ico i=monetization_on></md-ico> <b translate>LB_ADVANCED_VALUE</b>:  {{frmParent.anticipo_monto | currency}}</p> 
+			<p><md-ico i=event_available></md-ico> <b translate>LB_PERIOD</b>: {{frmParent.anticipo_inicio | date:'y-MMMM'}} A {{frmParent.anticipo_fin | date:'y-MMMM'}}</p>
+			<p><md-ico i=format_list_numbered></md-ico> <b translate>LB_TERM</b>: <span translate="LB_MONTHS_X" translate-values="{x:frmParent.anticipo_meses}"></span> / {{frmParent.anticipo_cuotas | currency}}</p>
+			<p><md-ico i=account_balance></md-ico> <b translate>LB_BANK_ACCOUNTS</b>: {{frmParent.banco_nombre}} / {{frmParent.banco_cuenta_numero}}</p>
+    	
+    	<hr>
+    	<p><md-ico i=credit_card></md-ico> <b translate>LB_SSN</b>: {{frmParent.s_cedula}}</p>
+    	<p><md-ico i=person></md-ico> <b translate>LB_REQUESTED</b>: {{frmParent.s_titulo}} {{frmParent.solicitante}}</p>
+    	<p><md-ico i=wrap_text></md-ico> <b translate>LB_JOB</b>: {{frmParent.s_puesto}} / {{frmParent.s_remuneracion | currency}}</p>
+    	
+    	<hr>
+    	<p><md-ico i=person_outline></md-ico> <b translate>LB_GUARANTOR</b>: {{frmParent.g_titulo}} {{frmParent.garante}}</p>
+    	<p><md-ico i=wrap_text></md-ico> <b translate>LB_JOB</b>: {{frmParent.g_puesto}} / {{frmParent.g_remuneracion | currency}}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<md-dialog aria-label="modal" class="modal-dialog form-content-alt" ng-controller="restoreAccountCtrl">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+    	<md-button aria-label="btn" class="md-icon-button"><md-ico i=restore></md-ico></md-button>
+      <h2 translate="ACCOUNT_USER" translate-values="{user:frmParent.usuario_login}"></h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	<!-- INFORMACIÓN DE USUARIO -->
+     	<card-user-information layout-padding></card-user-information>
+    	<!-- SELECCIONAR EL LISTADO DE MÓDULOS -->
+			<div class="card card-outline card-primary no-margin margin-top text-center" layout-padding>
+         <div class="card-header with-border">
+           <h3 class="card-title" translate>LB_RESTORE_PASS</h3>
+         </div>
+         <div class="card-body">
+           <md-button class="md-fab" aria-label="btn" ng-click="restoreData('pass',frmParent)">
+            <md-ico i=lock></md-ico>
+	        </md-button>
+         </div>
+       </div>
+			<div class="card card-outline card-success no-margin margin-top text-center" layout-padding>
+         <div class="card-header with-border">
+           <h3 class="card-title" translate>LB_RESTORE_ROLE</h3>
+         </div>
+         <div class="card-body">
+           <md-button class="md-fab" aria-label="btn" ng-click="restoreData('roles',frmParent)">
+            <md-ico i=star_half></md-ico>
+	        </md-button>
+         </div>
+       </div>
+    </md-content>
+  </md-dialog-content>  <md-dialog-actions layout=row>
+    <md-button type=button ng-click="closeDialog()"><span translate>LB_CLOSE</span></md-button>
+  </md-dialog-actions>
+</md-dialog>

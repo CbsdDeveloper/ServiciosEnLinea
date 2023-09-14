@@ -1,0 +1,81 @@
+﻿<form name="formData" layout-padding>
+<div class="no-padding" layout-xs=column layout=row layout-padding>
+	
+	<div flex>
+		<md-card class="no-margin">
+			
+			<!-- ENCABEZADO DE UI -->
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<md-button aria-label="btn" class="md-icon-button"><md-ico i=event></md-ico></md-button>
+					<h2>{{dataInfo.data.periodo_nombre}}</h2>
+				</div>
+			</md-toolbar>
+			
+      <md-content class="padding-all font-12">
+      	
+      		<div class="timeline timeline-inverse" layout=column ng-repeat="(key,rows) in dataInfo.serieList">
+      			
+        		<div class="time-label">
+              <span class="bg-red">{{key}}</span>
+            </div>
+        	
+	        	<div ng-repeat="row in rows">
+							
+							<i class="fa fa-info bg-blue"></i>
+							
+							<div class="timeline-item pad-btm-10">
+								
+								<h3 class="timeline-header" layout=row layout-wrap>
+									<b>{{row.codigo_archivo}}. {{row.serie_nombre}}</b>
+					    		<span flex></span>
+					    		<md-radio-group ng-model="frmParent.model[row.serie_id].pserie_estado" layout=row layout-wrap>
+							      <md-radio-button value="ACTIVO" class="md-primary">ACTIVO</md-radio-button>
+							      <md-radio-button value="DESHABILITADO" class="md-warn">DESHABILITADO</md-radio-button>
+							      <md-radio-button value="NA" class="md-warn">NA</md-radio-button>
+							    </md-radio-group>
+								</h3>
+						    		
+								<div class="timeline-body" ng-if="(row.subserie_nombre!=null && row.subserie_nombre!='') || row.subsection!=null">
+									<div ng-if="row.subsection!=null">
+										<B translate>LB_SUBSECTION</B>: {{row.subsection.direccion_nombre}}
+									</div>
+									<div ng-if="row.subserie_nombre!=null && row.subserie_nombre!=''">
+										<B translate>LB_SUBSERIE</B>: {{row.subserie_nombre}}
+									</div>
+								</div>
+				    		
+							</div>
+							
+						</div>
+						
+						<div>
+              <i class="fa fa-info bg-gray"></i>
+            </div>
+						
+					</div>
+      	
+				  
+					<!-- BOTONES -->
+					<div layout-xs=column layout=row layout-padding>
+						<div flex>
+							<a class="btn btn-sm btn-warning btn-block" ui-sref="logistics.archive.periods">
+								<i-fa i=angle-double-left></i-fa> <span translate>BTN_PREV</span>
+							</a>
+						</div>
+						<div flex>
+							<button class="btn btn-sm btn-success btn-block" type="button" ng-click="submitForm()" ng-disabled="formData.$invalid">
+								<span translate>LB_SAVE_CHANGES</span> <i-fa i=angle-double-right></i-fa>
+							</button>
+						</div>
+				  </div>  
+				    
+				    
+				    
+				    
+      </md-content>
+	        
+		</md-card>
+	</div>
+</div>
+</form>

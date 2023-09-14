@@ -1,0 +1,38 @@
+<div class="box box-primary no-padding no-margin">
+	<div class="box-header text-center">
+	  <h3 class="box-title" translate>{{frmParent.label}}</h3>
+	</div>
+	<div class="box-body" layout=column layout-padding>
+		
+		<div layout-xs=column layout=row layout-padding layout-wrap>
+			<div class="form-group required" flex>
+				<label translate>LB_IDENTIFICATION_TYPE</label>
+				<div class="input-group">
+					<span class="input-group-addon"><md-ico i=account_balance_wallet></md-ico></span>
+					<select class="form-control select2" ng-model="frmParent.persona_tipo_doc" required
+									ng-options="key as val for (key,val) in identificationType"></select>
+				</div>
+			</div>
+			<div class="form-group required" flex>
+				<label translate>LB_IDENTIFICATION_NUMBER</label>
+				<div class="input-group">
+					<span class="input-group-addon"><md-ico i=credit_card></md-ico></span>
+					<input ng-model="frmParent.persona_doc_identidad" class="form-control" placeholder="Ej. 1236587490" required maxlength="20">
+				</div>
+			</div>
+		</div>
+		<div layout-xs=column layout=row layout-padding>
+			<div class="form-group required" flex>
+				<i-fa i=user></i-fa>
+				<label translate>LB_LASTNAME</label>
+				<input ng-model="frmParent.persona_apellidos" class="form-control" placeholder="Ej. Tipan Jaramillo" required>
+			</div>
+			<div class="form-group required" flex>
+				<i-fa i=user-o></i-fa>
+				<label translate>LB_NAME</label>
+		    <input ng-model="frmParent.persona_nombres" class="form-control" placeholder="Ej. Julio Arnoldo" required>
+			</div>
+		</div>
+		
+	</div>
+</div>

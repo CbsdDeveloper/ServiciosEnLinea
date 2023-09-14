@@ -1,0 +1,44 @@
+<md-dialog aria-label="Form Data" class="modal-dialog">
+  <form name="formData" ng-submit="submitFormFile()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="btn" class="md-icon-button"><i-fa i=image></i-fa></md-button>
+			<h2 translate>TOOLBAR_GALLERY</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=close></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-content layout=column layout-padding>
+			<div class="form-group required">
+				<label translate>LB_CHOOSE_FILE</label>
+				<div class="input-group">
+		      <span class="input-group-addon"><i-fa i=image></i-fa></span>
+		      <input type="file" accept="image/*" class="form-control" ng-required="!toogleEditMode"
+		      			 uploader-model="frmParent.media_file" ng-model="frmParent.media_file" 
+		      			 preview-container="myContainer" media-preview />
+		    </div>
+			</div>
+			<div class="form-group required">
+				<label translate>LB_TITLE</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i-fa i=hashtag></i-fa></span>
+					<input class="form-control" ng-model="frmParent.media_titulo" placeholder="Ej. Grupo de capacitacion" required >
+				</div>
+			</div>
+			<div class="form-group required">
+				<label translate>LB_DESCRIPTION</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i-fa i=comment></i-fa></span>
+					<textarea rows=4 class="form-control" ng-model="frmParent.media_descripcion" placeholder="Ej. La empresa XYZ en el curso de capacitacion..." required></textarea>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

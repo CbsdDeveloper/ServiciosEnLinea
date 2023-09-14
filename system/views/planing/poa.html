@@ -1,0 +1,131 @@
+﻿<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=chrome_reader_mode></md-ico>
+				<md-tooltip><span translate>TOOLBAR_POA</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.textFilter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_MAIN_TOOLBAR' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.textFilter!=''" ng-click="filterParent.textFilter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()" ng-if="allow.permiso41021">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-table-container>
+		
+		<table md-table class="md-primary table-hover" md-progress="deferred">
+    	<col style="">
+    	<col style="width:30%">
+    	<col style="width:25%">
+    	<col style="width:3%">
+			<thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_POA</span></th>
+					<th md-column><span translate>LB_REFORM</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					
+					<td md-cell class="text-uppercase">
+						<div>
+							<md-ico i=chrome_reader_mode></md-ico> <span ng-bind-html="highlight(row.poa_periodo)"></span>
+							<md-tooltip><span translate>LB_PERIOD</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=event_available></md-ico> {{row.poa_periodo_inicio | date:'fullDate'}}
+							<md-tooltip><span translate>LB_START_PERIOD</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=event_busy></md-ico> {{row.poa_periodo_cierre| date:'fullDate'}}
+							<md-tooltip><span translate>LB_END_PERIOD</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=attach_money></md-ico> {{row.poa_presupuesto| currency}}
+							<md-tooltip><span translate>LB_ALLOCATED_BUDGET</span></md-tooltip>
+						</div>
+					</td>
+					
+					<td md-cell>
+						<div ng-repeat="reform in row.reforms">
+							<md-ico i=bar_chart></md-ico><span>{{reform.reforma_nombre}}</span><br>
+							<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[reform.reforma_estado]"></span><br>
+							<md-ico i=event></md-ico><span ng-bind-html="highlight(reform.reforma_registro)"></span><br>
+							<md-ico i=person></md-ico><span ng-bind-html="highlight(reform.user.person.persona_apellidos+' '+reform.user.person.persona_nombres)"></span>
+						</div>
+					</td>
+					
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.poa_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.poa_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.user.person.persona_apellidos+' '+row.user.person.persona_nombres)"></span>
+					</td>
+					
+					<td md-cell class="table-menu text-center">
+						<menu-poa ng-if="allow.permiso41022 || allow.permiso41023"></menu-poa>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<!-- 
+		
+		<table md-table class="md-primary table-hover" md-progress="deferred">
+    	<col style="width:30%">
+    	<col style="">
+    	<col style="width:25%">
+    	<col style="width:3%">
+			<thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_REFORM</span></th>
+					<th md-column><span translate>LB_POA</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td md-cell>
+						<md-ico i=bar_chart></md-ico><span>{{row.reforma_nombre}}</span><br>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.reforma_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.reforma_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.user.person.persona_apellidos+' '+row.user.person.persona_nombres)"></span>
+					</td>
+					
+					<td md-cell class="text-uppercase">
+						<md-ico i=chrome_reader_mode></md-ico> <span ng-bind-html="highlight(row.poa.poa_periodo)"></span><br>
+						<md-ico i=event_available></md-ico> {{row.poa.poa_periodo_inicio | date:'fullDate'}}<br>
+						<md-ico i=event_busy></md-ico> {{row.poa.poa_periodo_cierre| date:'fullDate'}}
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.poa.poa_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.poa.poa_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.poa.user.person.persona_apellidos+' '+row.poa.user.person.persona_nombres)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+						<menu-poa ng-if="allow.permiso41022 || allow.permiso41023"></menu-poa>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		 -->
+		
+	</md-table-container>
+	
+	<datatable-footer></datatable-footer>
+	
+</md-card>

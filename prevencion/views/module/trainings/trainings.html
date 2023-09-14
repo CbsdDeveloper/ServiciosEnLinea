@@ -1,0 +1,90 @@
+<div layout-padding>
+	<div class="box box-info collapsed-box no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+			<div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+      </div>
+		</div>
+		<div class="box-body box-bg-info" layout=column layout-wrap>
+			<div ng-bind-html="$parent.trustAsHtml(paramsConf.INFO_LIST_TRAINING)"></div>
+		</div>
+	</div>
+</div>
+
+<md-card ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=settings_input_antenna></md-ico></md-button>
+			<h2 hide-xs><span translate>TOOLBAR_TRAININGS</span></h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ui-sref="training.calendar({entity:'training'})">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<div class="md-padding" layout-xs=column layout=row layout-padding layout-wrap>
+		<div class="wow fadeInUp" style="min-width:350px;max-width:480px" ng-repeat="row in rowsParent.data" flex>
+			<div class="box box-{{string2JSON('colorCss')[$index]}} text-center no-margin box-material-18">
+				<div class="box-header with-border">
+				  <h3 class="box-title">{{row.capacitacion_codigo}}</h3>
+				</div>
+				<div class="box-body">
+					<strong><md-ico i=book></md-ico><br><span translate>LB_TOPIC</span></strong>
+			    <p class="text-muted">{{row.tema_nombre}}</p>
+			    <hr>
+					<strong><md-ico i=record_voice_over></md-ico><br><span translate>LB_COORDINATOR</span></strong>
+			    <p class="text-muted">{{row.persona_apellidos}} {{row.persona_nombres}}<br>{{string2JSON('identificationType')[row.persona_tipo_doc]}} / {{row.persona_doc_identidad}}</p>
+			    <hr>
+					<strong><md-ico i=people></md-ico><br><span translate>LB_PARTICIPANTS</span></strong>
+			    <p class="text-muted">[{{row.people_present}} / {{row.people_in_training}}]</p>
+			    <hr>
+					<strong><md-ico i=event_available></md-ico><br><span translate>LB_DATE</span></strong>
+			    <p class="text-muted">{{row.capacitacion_fecha}}</p>
+			    <div ng-if="row.capacitacion_estado=='PENDIENTE' || row.capacitacion_estado=='ANULADA'">
+				    <hr>
+						<strong><md-ico i=event_busy></md-ico><br><span translate>LB_CONFIRMATION_DATE</span></strong>
+				    <p class="text-muted text-capitalize"><label class="label label-danger">{{row.capacitacion_confirmacion | date: 'fullDate'}}</label></p>
+			    </div>
+			    <hr>
+					<strong><md-ico i=flag></md-ico><br><span translate>LB_STATUS</span></strong>
+			    <p class="text-muted"><span ng-bind-html="statusLabel[row.capacitacion_estado]"></span></p>
+				</div>
+				<div class="box-footer">
+					<button class="btn btn-block btn-success" ng-click="exportWithDetail(row.capacitacion_id)" ng-if="row.capacitacion_estado=='PENDIENTE' && row.people_in_training>0">
+						<md-ico i=print></md-ico> <span translate>LB_PRINT_REQUEST</span>
+					</button>
+					<button class="btn btn-block btn-warning" ng-click="openParentModal('ParticipantesLista',row)" ng-if="row.capacitacion_estado=='PENDIENTE'">
+						<md-ico i=publish></md-ico> <span translate>LB_LOAD_LIST_PARTICIPANTS</span>
+					</button>
+					<button class="btn btn-block btn-warning" ng-click="openParentModal('Participantes_training',row)" ng-if="row.capacitacion_estado=='PENDIENTE'">
+						<md-ico i=person_add></md-ico> <span translate>LB_CHOOSE_PEOPLE</span>
+					</button>
+					<button class="btn btn-block btn-warning" ng-click="openParentModal('Coordinador',mergeData(row,{entityName:'training'}))" ng-if="row.capacitacion_estado=='PENDIENTE'">
+						<md-ico i=record_voice_over></md-ico> <span translate>LB_COORDINATOR</span>
+					</button>
+					<button class="btn btn-block btn-warning" ng-click="goUI('training.detailTraining',{id:row.capacitacion_id})" ng-if="row.capacitacion_estado=='DESPACHADA'">
+						<md-ico i=star_half></md-ico> <span translate>LB_EVALUATE</span>
+					</button>
+					<button class="btn btn-block btn-danger" ng-click="openParentModal('Gallery',{edit:false,fk_table:'training',fk_id:row.capacitacion_id,media_tipo:'IMG'})" ng-if="row.capacitacion_estado=='EVALUADA' && row.gallery_entity<3">
+						<md-ico i=publish></md-ico> <span translate>LB_UPLOAD_EVIDENCE</span>
+					</button>
+					<button class="btn btn-block btn-success" ng-click="downloadCertificate(row.capacitacion_id)" ng-if="row.capacitacion_estado=='EVALUADA' && row.gallery_entity>0">
+						<md-ico i=get_app></md-ico> <span translate>LB_DOWNLOAD_CERTIFICATE</span>
+					</button>
+					<button class="btn btn-block btn-info" ng-click="goUI('training.detailTraining',{id:row.capacitacion_id})">
+						<md-ico i=done_all></md-ico> <span translate>LB_DETAIL</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer-table></footer-table>
+</md-card>

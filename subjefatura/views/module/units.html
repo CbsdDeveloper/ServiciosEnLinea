@@ -1,0 +1,57 @@
+﻿<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=assistant_photo></md-ico>
+				<md-tooltip><span translate>LB_LIST_STATIONS</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.textFilter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_INPUT' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.textFilter!=''" ng-click="filterParent.textFilter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<div class="md-padding row no-margin" layout-padding>
+		<div class="col-md-4 col-xs-12 wow fadeInUp" data-ng-repeat="row in rowsParent.rows">
+						
+			<div class="box box-widget widget-user-2 text-uppercase no-margin">
+		   <div class="widget-user-header bg-black" ng-class="[{'bg-blue':row.unidad_estado=='OPERATIVO'}]">
+		     <div class="widget-user-image">
+		       <img class="img-circle" src="/app/src/img/vehicles/default.png"alt="User Avatar">
+		     </div>
+		     <h3 class="widget-user-username">{{row.unidad_nombre}} - {{row.vehicle.vehiculo_placa}}</h3>
+		     <h5 class="widget-user-desc"><md-ico i=person s=18></md-ico> {{row.custodian.staff.person.persona_apellidos}} {{row.custodian.staff.person.persona_nombres}}</h5>
+		   </div>
+		   <div class="box-footer no-padding">
+		     <ul class="nav nav-stacked">
+		       <li><a href="#"><md-ico i=flag s=18></md-ico> <small translate>LB_STATION</small> <span class="pull-right text-right" style="max-width:60%;font-size:10px;">{{row.station.estacion_nombre}} - {{row.station.estacion_nombre_alterno}}</span></a></li>
+		       <li><a href="#"><md-ico i=directions_car s=18></md-ico> <small translate>LB_CHASSIS</small> / <small translate>LB_MOTOR</small> <span class="pull-right text-right" style="max-width:60%;font-size:10px;">{{row.vehicle.vehiculo_chasis}}<br>{{row.vehicle.vehiculo_motor}}</span></a></li>
+		       
+		       <li><a href="#"><md-ico i=local_car_wash s=18></md-ico> <small translate>LB_BRAND</small> / <small translate>LB_MODEL</small> <span class="pull-right text-right" style="max-width:60%;font-size:10px;">{{row.vehicle.vehiculo_marca}}<br>{{row.vehicle.vehiculo_modelo}}</span></a></li>
+		       <li><a href="#"><md-ico i=local_gas_station s=18></md-ico> <small translate>LB_TYPE</small> / <small translate>LB_GAS_TYPE</small> <span class="pull-right text-right" style="max-width:60%;font-size:10px;">{{row.vehicle.vehiculo_tipo}} / {{row.vehicle.vehiculo_combustible}}</span></a></li>
+		       
+<!-- 		       <li><a href="#"><md-ico i=color_lens s=18></md-ico> <small translate>LB_COLOR</small> <span class="pull-right text-right" style="max-width:60%;font-size:10px;">{{row.vehicle.vehiculo_color1}} / {{row.vehicle.vehiculo_color2}}</span></a></li> -->
+<!-- 		       <li><a href="#"><md-ico i=group s=18></md-ico> <small translate>LB_PASSENGERS</small> / <small translate>LB_CYLINDER</small> <span class="pull-right text-right" style="max-width:60%;font-size:10px;">{{row.vehicle.vehiculo_pasajeros}}<br>{{row.vehicle.vehiculo_cilindraje}}</span></a></li> -->
+		       <li><a href="#"><i-fa i=tachometer></i-fa> <small translate>LB_LAST_MILEAGE</small> <span class="pull-right text-right badge bg-red" style="max-width:60%;font-size:10px;">{{row.vehicle.vehiculo_kilometraje+' km'}}</span></a></li>
+		     </ul>
+		     
+		     <div class="padding-all">
+					 <button class="btn btn-default btn-block btn-sm" ui-sref="records.detailUnits({id:row.unidad_id})">
+					 	<span translate>LB_DETAIL</span>
+					 </button>
+		     </div>
+		     
+		   </div>
+			</div>
+		</div>
+	</div>
+	<datatable-footer></datatable-footer>
+</md-card>

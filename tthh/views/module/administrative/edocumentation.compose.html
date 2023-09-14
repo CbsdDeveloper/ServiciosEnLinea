@@ -1,0 +1,121 @@
+﻿<div class="padding-all">
+	
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=verified></md-ico></md-button>
+			<h2 translate>LB_ELECTRONIC_DOCUMENTATION_NEW</h2>
+		</div>
+	</md-toolbar>
+	
+	<form name="formData" class="no-padding" layout=column layout-padding>
+	
+		<div class="box box-primary no-margin margin-top font-12 material-15i">
+	    
+	    <div class="box-body" layout-padding>
+	      <div class="form-group required" ng-controller="staffActiveListCtrl" flex>
+					<label translate>LB_PERSON_WHO_SIGNS_THE_DOCUMENT</label>
+					<div class="input-group">
+			      <span class="input-group-addon"><md-ico i=how_to_reg></md-ico></span>
+			      <ui-select ng-model="subscribeTemp" ng-change="setSender(subscribeTemp)" reset-search-input="false">
+		         	<ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.solicitante,'Seleccione persona quien suscribe')  | translate}}">
+								{{$select.selected.persona_apellidos+' '+$select.selected.person.persona_nombres}}
+		         	</ui-select-match>
+							<ui-select-choices class="list-personal" repeat="item in jsonList | filter: { personal_correo_institucional: $select.search }">
+								<img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{item.person.persona_imagen}}" style="width:48px;height:48px;padding:3px" class="img-circle" alt="img" />
+								<div flex>
+									<div ng-bind-html="item.person.persona_apellidos+' '+item.person.persona_nombres | highlight: $select.search"></div>
+									<span>{{item.personal_correo_institucional}} - {{item.person.persona_correo}}<br>{{item.person.persona_celular}}</span>
+								</div>
+							</ui-select-choices>
+			      </ui-select>
+			    </div>
+				</div>
+	      <div class="form-group required" ng-controller="staffActiveListCtrl" flex>
+					<label translate>LB_DEFINE_RECIPIENTS</label>
+					<div class="input-group">
+			      <span class="input-group-addon"><md-ico i=groups></md-ico></span>
+			      <ui-select ng-model="recipientsTemp" ng-change="setRecipients(recipientsTemp)"  reset-search-input="false">
+		         	<ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.solicitante,'Seleccione los destinatarios')  | translate}}">
+								{{$select.selected.persona_apellidos+' '+$select.selected.person.persona_nombres}}
+		         	</ui-select-match>
+							<ui-select-choices class="list-personal" repeat="item in jsonList | filter: { personal_correo_institucional: $select.search }">
+								<img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{item.person.persona_imagen}}" style="width:48px;height:48px;padding:3px" class="img-circle" alt="img" />
+								<div flex>
+									<div ng-bind-html="item.person.persona_apellidos+' '+item.person.persona_nombres | highlight: $select.search"></div>
+									<span>{{item.personal_correo_institucional}} - {{item.person.persona_correo}}<br>{{item.person.persona_celular}}</span>
+								</div>
+							</ui-select-choices>
+			      </ui-select>
+			    </div>
+				</div>
+				
+				<div layot-xs=column layout=row layout-padding>
+		    	<div class="form-group required" flex>
+						<label translate>LB_SUBJECT</label>
+						<div class="input-group">
+							<span class="input-group-addon"><md-ico i=flag></md-ico></span>
+							<input ng-model="frmParent.delectronica_asunto" class="form-control" placeholder="Ej. Comunicado de feriado" required>
+						</div>
+					</div>
+		    	<div class="form-group required" flex>
+						<label translate>LB_DOCUMENT_DATE</label>
+						<div class="input-group" moment-picker="frmParent.delectronica_fecha" format="YYYY-MM-DD" max-date="today">
+							<span class="input-group-addon"><md-ico i=event></md-ico></span>
+							<input ng-model="frmParent.delectronica_fecha" class="form-control" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. DD-MM-AAAA" required>
+						</div>
+					</div>
+				</div>
+								
+				<div layot-xs=column layout=row layout-padding>
+			    <div class="form-group required" flex>
+						<label translate>LB_SELECT_THE_DOCUMENT</label>
+				    <div class="input-group">
+				      <span class="input-group-addon"><md-ico i=attachment></md-ico></span>
+				      <input uploader-model="frmParent.delectronica_file" type="file" accept="{{string2JSON('fileTypeMime')['PDF']}}" class="form-control" required />
+				    </div>
+					</div>
+		    	<div class="form-group required" flex>
+						<label translate>LB_DOCUMENT_NAME</label>
+					  <div class="input-group">
+					    <span class="input-group-addon"><md-ico i=info></md-ico></span>
+					    <input ng-model="frmParent.delectronica_nombre" class="form-control" placeholder="Ej. CB-GADM-SD-DA-AS-001-M" required>
+					  </div>
+					</div>
+				</div>
+	    </div>
+	    <div class="box-footer" layout-padding>
+	      <div class="pull-right">
+	        <button type="button" ng-click="submitForm()" class="btn btn-primary" ng-disabled="formData.$invalid">
+	        	<i class="fa fa-envelope-o"></i> <span translate>BTN_SAVE</span>
+	        </button>
+	      </div>
+	    </div>
+	  </div>
+  
+  </form>
+  
+  <div class="box box-warning no-margin margin-top" ng-if="recipients.length>0">
+    <div class="box-header with-border">
+      <h3 class="box-title" translate>LB_RECIPIENTS</h3>
+    </div>
+    <div class="box-body no-padding">
+      <ul class="users-list clearfix">
+        
+        <li ng-repeat="row in recipients">
+          <img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{row.staff.person.persona_imagen}}" style="width:128px;height:128px;padding:3px" alt="User Image">
+          <a class="users-list-name" href="#">{{row.staff.person.persona_apellidos+' '+row.staff.person.persona_nombres}}</a>
+          <span class="users-list-date">{{row.staff.personal_correo_institucional}}</span>
+          
+          <button type="button" ng-click="deleteRecipient(row.destinatario_id)" class="btn btn-sm btn-warning">
+	        	<i class="fa fa-trash"></i> <span translate>LB_DELETE</span>
+	        </button>
+          
+          
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+	
+	
+</div>

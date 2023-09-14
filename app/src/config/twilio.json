@@ -1,0 +1,30 @@
+{
+	
+	"pro":{
+		"sid":"AC4a2ca0234b64bbec2ececdacfb0e4592",
+		"token":"b3bad030ecaa3c582901aaf756fe456d"
+	},
+	"dev":{
+		"sid":"ACf612cee12e9359ee4343532f00bcb853",
+		"token":"b9ae3fc178a3f3ed730e5eb9a5992681"
+	},
+	
+	"sms":{
+		"pro":{
+			"from":"+18564315954"
+		},
+		"dev":{
+			"from":"+18564315954"
+		}
+	},
+	
+	"whatsapp":{
+		"pro":{
+			"from":"whatsapp:+14155238886"
+		},
+		"dev":{
+			"from":"whatsapp:+14155238886"
+		}
+	}
+	
+}

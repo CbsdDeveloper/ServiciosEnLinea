@@ -1,0 +1,228 @@
+/* ************** MATERIAL DESIGN - ANGULAR ************** */
+.media-container img{width:100%;}
+
+/* ************** TEMPLATE ************** */
+
+.pull-left.info p,.pull-left.info a {width:164px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pull-right.profile-img{width:36px;height:36px;margin-top:-8px;}
+.pull-right.profile-img img{width:100%;}
+.pull-left.image {width:45px;height:45px;}
+.pull-left.image,.pull-right.profile-img {overflow:hidden;border-radius:50%;}
+.container-img-user{width:128px;height:128px;margin:auto;border-radius:50%;overflow:hidden;border-color:rgba(255,255,255,0.2);background:white;}
+.profile-user-img{width:100%;max-width:164px;vertical-align:middle;border:0;}
+.box-bg-info{
+	background:url(/app/src/img/system/logo.png) no-repeat;
+	padding:0px;background-size:contain;background-position:center center;
+}
+.box-bg-info > div{padding:20px;background:rgba(255,255,255,0.95)}
+.form-content-alt md-content{background:#f1f1f1;}
+
+/** WRAPPER **/
+.img-logo{padding:12px 25px;max-width:512px;margin:auto}
+.img-logo img {max-width: 256px;margin:0px auto;}
+.widget-user .widget-user-image > div.bk-img{height:90px;width:90px;margin-top:10px;background:#fefaca}
+.widget-user .widget-user-image > div.bk-img > span{font-size:33px;display:inline-block;margin-top:20px;}
+.content-wrapper{padding-bottom:10px;}
+
+/** MENSAJES - NOTIFICACIONES MENU **/
+.pull-left.img-circle {overflow:hidden;height:48px;width:48px;border:1px solid #ccc;margin-right:5px;}
+.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a > div > img {margin:auto;width:auto;height:auto;}
+.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a > p {white-space:normal;}
+ul.nav.navbar-nav {height:51px;}
+
+/* ANGULAR MATERIAL  */
+.md-dialog-container{z-index:1080;background:rgba(0, 0, 0, 0.41);}
+td .material-icons.md-ico-menu{font-size:18px!important;}
+.btn-circle{border-radius:50%;}
+
+/* SWEET ALERT */
+img.swal2-image{height:128px}
+
+/** PROFILES **/
+.widget-user-2 .widget-user-image > img {height:65px;}
+.pull-right .table-menu{margin-top:-10px}
+
+/** LOADING BAR **/
+#loading-bar-spinner .spinner-icon{width:30px;height:30px;color:red}
+#loading-bar .bar {background:#ff0000;}
+#loading-bar-spinner .spinner-icon {border-top-color:#ff0000;border-left-color:#ff0000;}
+#loading-bar .peg {
+  -moz-box-shadow:#00AC34 1px 0 6px 1px;
+  -ms-box-shadow:#00AC34 1px 0 6px 1px;
+  -webkit-box-shadow:#00AC34 1px 0 6px 1px;
+  box-shadow:#00AC34 1px 0 6px 1px;
+}
+.loading-spinner {
+  -webkit-animation:spin 1s linear infinite;
+  -moz-animation:spin 1s linear infinite;
+  animation:spin 1s linear infinite;
+}
+
+
+/** STATS **/
+.info-box-icon .material-icons{vertical-align:middle}
+
+.required .form-control.ui-select-toggle{border:1px solid red!important;}
+
+/* 
+ * ****** LOGISTICA ******
+ */
+/* FLOTAS VEHICULARES - PASAJEROS */
+.md-list-item-text.compact{width:calc(100% - 50px);overflow:hidden;text-overflow:ellipsis;}
+.md-list-item-text.compact p, .md-list-item-text.compact span{white-space:nowrap;font-size:13px;overflow:hidden;text-overflow:ellipsis;}
+.contact-item img {width:40px;height:40px;margin-right:5px;}
+.md-2-line.contact-item {display:inline-flex;}
+
+/* HTML - CHECKBOX */
+.label__checkbox {display:none;}
+.label__check {
+  display:inline-block;border-radius:50%;border:4px solid rgb(60, 141, 188);background:white;vertical-align:middle;width:3.3em;height:3.3em;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border .3s ease;
+  i.icon {opacity:0.2;font-size:~'calc(1rem + 1vw)';color:transparent;transition:opacity .3s .1s ease;-webkit-text-stroke:3px rgba(0,0,0,.5);}
+  &:hover {border:5px solid rgba(0,0,0,0.2);}
+}
+.label__checkbox:checked + .label__text .label__check {
+  animation:check .5s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
+  .icon {opacity:1;transform:scale(0);color:white;-webkit-text-stroke:0;animation:icon .3s cubic-bezier(1.000, 0.008, 0.565, 1.650) .1s 1 forwards;}
+}
+@keyframes icon {
+  from {opacity:0;transform:scale(0.3);}
+  to {opacity:1;transform:scale(1);}
+}
+@keyframes check {
+  0% {width:2.4em;height:2.4em;border-width:5px;}
+  10% {width:2.4em;height:2.4em;opacity:0.1;background:rgba(0,0,0,0.2);border-width:15px;}
+  12% {width:2.4em;height:2.4em;opacity:0.4;background:rgba(0,0,0,0.1);border-width:0;}
+  50% {width:3.3em;height:3.3em;background:#00d478;border:0;opacity:0.6;}
+  100% {width:3.3em;height:3.3em;background:#00d478;border:0;opacity:1;}
+}
+
+.list-personal .ui-select-choices-row-inner > *{display:inline-block;vertical-align:top;line-height:15px;}
+
+
+.embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+.embed-container iframe {
+    position: absolute;	
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+/*
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop into it once it's empty
+ */
+.multiDemo ul[dnd-list] {
+    min-height: 42px;
+    padding-left: 0px;
+}
+
+/*
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+.multiDemo ul[dnd-list] .dndPlaceholder {
+    background-color: #ddd;
+    display: block;
+    min-height: 42px;
+}
+
+.multiDemo ul[dnd-list] li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    display: block;
+    margin-bottom: -1px;
+    padding: 10px 15px;
+}
+
+/*
+ * Show selected elements in green
+ */
+.multiDemo ul[dnd-list] li.selected {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+.handle {
+  position:absolute!important;
+  z-index: 4000;
+  width:480px;
+}
+
+
+/* ** TEMPLATE 3.0.1 ** */
+.container-profile{position: relative;width: 200px;height: 200px;overflow: hidden;border-radius: 50%;margin:10px auto;}
+.container-profile.small{width:128px;height:128px;}
+.container-profile.mini{width:48px;height:48px;margin:0px;}
+.container-profile img {width: 100%;height: auto;}
+
+.header-img-profile img{width:48px;}
+.header-profile{overflow: hidden;text-overflow: ellipsis;margin-left:5px;line-height:17px;letter-spacing: 0px;width: 180px;}
+.image.header-img-profile{padding:0px;}
+md-toolbar > form > input.form::placeholder, .md-toolbar-tools form > input.form::placeholder{color:rgba(255,255,255,0.5);}
+.dropdown-item.dropdown-header{white-space:unset;}
+
+
+.nav-link p i.fa.right {font-size: 13px;font-weight: bold;}
+
+.ellipsis {text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
+
+/* MODAL-DIALOG */
+.modal-dialog {pointer-events: unset;}
+md-dialog {max-height: 80%!important; min-width:35%;}
+.modal-dialog-25{width:25%;}
+.modal-dialog-50{width:50%;}
+.modal-dialog-60{width:60%;}
+.modal-dialog-75{width:75%;}
+.modal-dialog-90{width:90%;}
+
+.input-group>.input-group-prepend>.input-group-text {border-radius: 0;border-color: #d2d6de;background-color: #fff;}
+
+.input-group > .ui-select-bootstrap > input.ui-select-search.form-control {border-radius: 0px;}
+
+.form-control {height: unset;}
+
+.ui-select-choices.dropdown-menu {display:block;}
+
+/* UI-SELECT */
+.input-group>.ui-select-bootstrap.dropdown {padding: 0px;}
+
+/* ** ADMINLTE 3.0.1 ** */
+/* BEADCRUMB */
+.breadcrumb>li+li:before {padding: 0px 0px 0px 5px ;color:#ccc;content: ">\00a0";}
+/* SIDEBAR*/
+.nav-sidebar .nav-link>nav-text-tree-view>p>.right {position:absolute;right:12px;top:12px;}
+.nav-sidebar .nav-link>p>.right:nth-child(2) {right: 1rem;}
+nav-text-tree-view>p, nav-icon-text>p {vertical-align:text-top;}
+nav.mt-2 {font-size: 10px;}
+/* .nav-sidebar .nav-item>.nav-link {overflow: hidden;text-overflow: ellipsis;padding-right: 28px!important;width:256px;} */
+.nav-sidebar .nav-link p {max-width: 185px;overflow: hidden;text-overflow: ellipsis;vertical-align:sub;}
+.sidebar-mini .nav-legacy>.nav-item .nav-link .nav-icon {margin-left: 0px;}
+
+.nav-item.menu-open .nav-item.menu-open>a,.nav-link.active{font-weight: 600;}
+.sidebar-dark-danger .nav-sidebar>.nav-item>.nav-link.active{background-color: #dc3545!important;}
+.nav-item.menu-open .nav-item.menu-open:not(active)>a {border-left-color: #ffc107!important;}
+.nav-item.menu-open .nav-item.active>a, .nav-item.menu-open .nav-item.menu-open.active>a {border-left-color:#007bff!important;}
+[class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active{border-left-color: #009045!important;color: #009045!important;letter-spacing: 1px;background: #cccecf!important;font-weight: 700;}
+
+/* CARD */
+.card{margin:0px;}
+.card-header{padding:8px!important;}
+.card-header .card-title{text-transform:uppercase;font-size:14px;}
+.card-body{font-size:12px;}
+/* .card-title{float:none;} */
+
+.no-padding,table.no-padding td{padding:0px!important;}
+table.valign-middle td{vertical-align:middle;}
+
+/* CSS PARA TABLAS */
+.bg-disabled-row{background:#e2e1e1;}

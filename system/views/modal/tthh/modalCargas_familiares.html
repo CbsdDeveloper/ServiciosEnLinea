@@ -1,0 +1,96 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitFormFile()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=group></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_FAMILY_RESPONSIBILITIES</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout-padding layout=column>
+    	
+    	<div layout-xs=column layout=row layout-padding>
+				<div class="form-group required" flex>
+					<label translate>LB_SEX</label>
+					<div class="input-group">
+				    <div class="input-group-prepend"><div class="input-group-text"><i-fa i="{{string2JSON('iFaIconList')[frmParent.persona_sexo]}}"></md-ico></div></div> 
+				    <select class="form-control" ng-model="frmParent.persona_sexo" required
+										ng-options="val as val for (key,val) in string2JSON('sexPersonsList')"></select>
+				  </div>
+				</div>
+				<div class="form-group required" flex>
+					<label translate>LB_RELATIONSHIP</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=group></md-ico></div></div> 
+						<select class="form-control" ng-model="frmParent.carga_parentesco" required
+										ng-options="val as val for (key,val) in string2JSON('relationshipList')[frmParent.persona_sexo]"></select>
+					</div>
+				</div>
+			</div>
+    	<div layout-xs=column layout=row layout-padding>
+				<div class="form-group required" flex>
+					<label translate>LB_IDENTIFICATION_TYPE</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=account_balance_wallet></md-ico></div></div> 
+						<select class="form-control select2" ng-model="frmParent.persona_tipo_doc" required
+										ng-options="key as val for (key,val) in string2JSON('identificationType')"></select>
+					</div>
+				</div>
+				<div class="form-group required" flex>
+					<label translate>LB_IDENTIFICATION_NUMBER</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=credit_card></md-ico></div></div> 
+						<input ng-model="frmParent.persona_doc_identidad" class="form-control" placeholder="Ej. 1236587490" required maxlength="20">
+					</div>
+				</div>
+			</div>
+			<div layout-xs=column layout=row layout-padding>
+				<div class="form-group required" flex>
+					<label translate>LB_LASTNAME</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=person></md-ico></div></div> 
+						<input ng-model="frmParent.persona_apellidos" class="form-control" placeholder="Ej. Tipan Jaramillo" required>
+					</div>
+				</div>
+				<div class="form-group required" flex>
+					<label translate>LB_NAME</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=person_outline></md-ico></div></div> 
+				    <input ng-model="frmParent.persona_nombres" class="form-control" placeholder="Ej. Julio Arnoldo" required>
+					</div>
+				</div>
+			</div>
+			<div class=form-group flex>
+				<label translate>LB_BIRTHDATE</label>
+				<div class="input-group" moment-picker="frmParent.persona_fnacimiento" format="YYYY-MM-DD" max-date="today">
+			    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+			    <input class="form-control" ng-model="frmParent.persona_fnacimiento" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2017-07-07" />
+			  </div>
+			</div>
+			
+			<div class="form-group" flex>
+				<label translate>LB_OBSERVATIONS</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comments></md-ico></div></div> 
+			    <textarea ng-model="frmParent.carga_observaciones" class="form-control" placeholder="Ej. Los padres se encuentran en otra ciudad" ></textarea>
+				</div>
+			</div>
+			
+	    <div class="form-group required">
+				<label translate>LB_FILE</label>
+		    <div class="input-group">
+		      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=attachment></md-ico></div></div> 
+		      <input uploader-model="frmParent.carga_file" type="file" accept="{{fileTypeMime.PDF}}" class="form-control" ng-required="!toogleEditMode" />
+		    </div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,70 @@
+{
+	"transportType":[
+		"AUTOBOMBA","AUTOMOVIL","AMBULANCIA",
+		"BUS",
+		"CAMION","CAMIONETA","JEEP",
+		"MOTOCICLETA","SUV",
+		"TANQUERO","TRAILER"
+	],
+	"typePlates":{
+  	"COMERCIAL":{
+  		"letter":["A","U","Z"],
+  		"color":"orange"
+  	},
+  	"GUBERNAMENTAL":{
+  		"letter":["E"],
+  		"color":"yellow"
+  	},
+  	"OFICIAL":{
+  		"letter":["X"],
+  		"color":"yellow"
+  	},
+  	"MUNICIPAL":{
+  		"letter":["M"],
+  		"color":"green"
+  	},
+  	"PARTICULAR":{
+  		"letter":[
+				"B","C","D","G",
+	    	"H","I","J","K","L",
+	    	"N","O","P","Q","R","S","T",
+	    	"V","W","Y"
+			],
+  		"color":"white"
+  	}
+  },
+  "plates":[
+  	"A","B","C","E",
+  	"G","H","I","J",
+  	"K","L","M","N",
+  	"O","P","Q","R",
+  	"S","T","U","V",
+  	"W","X","Y","Z"
+  ],
+	"statesPlate":{
+		"A":"Azuay",
+		"B":"Bolívar",
+		"C":"Carchi",
+		"E":"Esmeraldas",
+		"G":"Guayas",
+		"H":"Chimborazo",
+		"I":"Imbabura",
+		"J":"Santo Domingo de los Tsáchilas",
+		"K":"Sucumbíos",
+		"L":"Loja",
+		"M":"Manabí",
+		"N":"Napo",
+		"O":"El Oro",
+		"P":"Pichincha",
+		"Q":"Orellana",
+		"R":"Los Ríos",
+		"S":"Pastaza",
+		"T":"Tungurahua",
+		"U":"Cañar",
+		"V":"Morona Santiago",
+		"W":"Galápagos",
+		"X":"Cotopaxi",
+		"Y":"Santa Elena",
+		"Z":"Zamora Chinchipe"
+	}
+}

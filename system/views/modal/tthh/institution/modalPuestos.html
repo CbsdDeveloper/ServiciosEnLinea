@@ -1,0 +1,114 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=wrap_text></md-ico></md-button>
+			<h2 translate>TOOLBAR_JOBS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+		<md-content layout=column layout-padding>
+      <!-- FORMULARIO DE REGISTRO -->
+      <div class="card card-outline card-success no-padding no-margin">
+        <div class="card-header with-border text-center">
+          <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+        </div>
+        <div class="card-body" layout=column layout-padding>
+          <div class="form-group required">
+            <label translate>LB_DEFINE_LEGAL_BASE</label>
+            <div class="input-group">
+              <div class="input-group-prepend"><div class="input-group-text"><md-ico i=gavel></md-ico></div></div> 
+              <input class="form-control" ng-model="frmParent.puesto_baselegal" placeholder="Ej. MEMORANDO / DECRETO / ORDENANZA" required >
+            </div>
+          </div>
+          <div layout-xs=column layout=row layout-padding>
+            <div class="form-group required" flex>
+              <label translate>LB_REGISTRE_DATE</label>
+              <div class="input-group" moment-picker="frmParent.puesto_fecha_creacion" format="YYYY-MM-DD">
+                <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+                <input class="form-control" ng-model="frmParent.puesto_fecha_creacion" placeholder="Ej. 1990-11-11" required >
+              </div>
+            </div>
+            <div class="form-group required" flex>
+              <label translate>LB_BUDGET_ITEM</label>
+              <div class="input-group">
+                <div class="input-group-prepend"><div class="input-group-text"><md-ico i=fingerprint></md-ico></div></div> 
+                <input class="form-control" ng-model="frmParent.puesto_partida" placeholder="Ej. 2018.13.03.0001"  required >
+              </div>
+            </div>
+          </div>
+					<div class="form-group required" ng-controller="leadershipsListCtrl">
+						<label translate>LB_LEADERSHIPS</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=account_balance></md-ico></div></div> 
+							<select class="form-control select2" ng-model="frmParent.fk_direccion_id" required ng-options="row.direccion_id as row.direccion_nombre for row in jsonList"></select>
+						</div>
+					</div>
+					<div class="form-group required">
+						<label translate>LB_JOBS</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=wrap_text></md-ico></div></div> 
+							<input ng-model="frmParent.puesto_nombre" class="form-control" placeholder="Ej. TECNICO EN ARCHIVO" required>
+						</div>
+					</div>
+					<div class="card-body" layout-xs=column layout=row layout-padding>
+		        <div class="form-group required" flex>
+		          <label translate>LB_REMUNERATION</label>
+		          <div class="input-group">
+		            <div class="input-group-prepend"><div class="input-group-text"><md-ico i=attach_money></md-ico></div></div> 
+		            <input type="number" min="0" step="0.01" parse-float ng-model="frmParent.puesto_remuneracion" class="form-control" placeholder="Ej. 1412.00" required>
+		          </div>
+		        </div>
+						<div class="form-group required" flex>
+							<label translate>LB_MODE</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=school></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.puesto_modalidad" required ng-options="val as val for (key,val) in string2JSON('modeJobsList')"></select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+      <!-- INFORACIÓN ADICIONAL -->
+      <div class="card card-outline card-primary no-padding no-margin margin-top">
+        <div class="card-header with-border text-center">
+          <h3 class="card-title" translate>LB_EXTRA_INFORMATION</h3>
+        </div>
+        <div class="card-body" layout=column layout-padding>
+          <div class="card-body" layout-xs=column layout=row layout-padding>
+            <div class="form-group required" flex>
+              <label translate>LB_WILL_BE_DIRECTOR</label>
+              <div class="input-group">
+                <div class="input-group-prepend"><div class="input-group-text"><md-ico i=stars></md-ico></div></div> 
+                <select class="form-control" ng-model="frmParent.puesto_direccion" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+              </div>
+            </div>
+            <div class="form-group required" flex>
+              <label translate>LB_HIERARCHY_PERFORMS</label>
+              <div class="input-group">
+                <div class="input-group-prepend"><div class="input-group-text"><md-ico i=format_list_numbered></md-ico></div></div> 
+                <input parse-float type="number"min=1 max=4 step="1" class="form-control" ng-model="frmParent.puesto_grado" placeholder="Ej. 1" required /> 
+              </div>
+            </div>
+          </div>
+          <div class="form-group required" ng-if="toogleEditMode">
+            <label translate>LB_STATUS</label>
+            <div class="input-group">
+              <div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+              <select class="form-control" ng-model="frmParent.puesto_estado" ng-options="val as val for (key,val) in string2JSON('statusType')"></select>
+            </div>
+          </div>
+        </div>
+      </div>
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

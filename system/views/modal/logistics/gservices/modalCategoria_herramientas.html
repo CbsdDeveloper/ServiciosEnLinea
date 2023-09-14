@@ -1,0 +1,60 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitRequested()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=format_list_bulleted></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_TYPES_OF_TOOLS</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content class="padding-all">
+    	<!-- FORMULARIO DE REGISTRO -->
+			<div class="card card-outline card-primary no-padding no-margin">
+				<div class="card-header text-center">
+				  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+				<div class="card-body" layout=column layout-padding>
+				
+		    	<div class="form-group">
+						<label translate>LB_SERIE</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=security></md-ico></div></div> 
+					    <input ng-model="frmParent.categoria_serie" class="form-control" required>
+						</div>
+					</div>
+		    	<div class="form-group required">
+						<label translate>LB_CATEGORY</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=format_list_bulleted></md-ico></div></div> 
+					    <input type="text" ng-model="frmParent.categoria_nombre" class="form-control" required>
+						</div>
+					</div>
+		    	<div class="form-group">
+						<label translate>LB_DESCRIPTION</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+					    <textarea rows=3 type="text" ng-model="frmParent.categoria_descripcion" class="form-control"></textarea>
+						</div>
+					</div>
+					
+		    	<div class="form-group required" ng-if="toogleEditMode">
+						<label translate>LB_STATUS</label>
+					  <div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+							<select class="form-control" ng-model="frmParent.categoria_estado" ng-options="val as val for (key,val) in string2JSON('statusType')" required></select>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

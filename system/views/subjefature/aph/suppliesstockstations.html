@@ -1,0 +1,73 @@
+<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=healing></md-ico></md-button>
+			<h2 translate>LB_SUPPLIES_STOCK</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="exportEntityById('stockinsumosaph',stationId)" ng.if="allow.permiso84174">
+				<md-ico i=print></md-ico><md-tooltip><span translate>LB_PRINT</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<datatable-toolbar></datatable-toolbar>
+	
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="">
+     	<col style="width:20%;">
+     	<col style="width:10%;">
+     	<col style="width:10%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_PREHOSPITAL_MATERIALS</span></th>
+					<th md-column><span translate>LB_APH_PRESENTATION</span></th>
+					<th md-column><span translate>LB_STOCK</span></th>
+					<th md-column><span translate></span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td md-cell>
+						<div>
+							<md-ico i=fingerprint></md-ico><span ng-bind-html="highlight(row.insumo_codigo)"></span>
+							<md-tooltip><span translate>LB_CODE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=healing></md-ico><span ng-bind-html="highlight(row.insumo_nombre)"></span>
+							<md-tooltip><span translate>LB_INPUT_APH_NAME</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell class="table-menu text-center">
+						<div>
+							<md-ico i=bookmark></md-ico><span ng-bind-html="highlight(row.insumo_presentacion)"></span>
+							<md-tooltip><span translate>LB_APH_PRESENTATION</span></md-tooltip>
+						</div>
+						<div ng-if="row.insumo_concentracion!=null && row.insumo_concentracion!=''">
+							<md-ico i=bookmark></md-ico><span ng-bind-html="highlight(row.insumo_concentracion)"></span>
+							<md-tooltip><span translate>LB_APH_CONCENTRATION</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <md-ico i=done_all></md-ico><span ng-bind-html="highlight(row.stock)"></span>
+					</td>
+					<td md-cell class="table-menu text-center text-uppercase">
+						<div ng-if="row.stock<1" class="badge bg-red"><span translate>LB_EXHAUSTED</span></div>
+						<div ng-if="row.stock>0 && row.stock<10" class="badge bg-yellow"><span translate>LB_FEW_UNITS</span></div>
+						<div ng-if="row.stock>=10" class="badge bg-green"><span translate>LB_ENOUGH</span></div>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	
+	<datatable-footer></datatable-footer>
+	
+</md-card>

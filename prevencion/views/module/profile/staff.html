@@ -1,0 +1,74 @@
+<div class="no-padding-bottom" layout-padding>
+	<div class="box box-info collapsed-box no-margin-bottom">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+			<div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+      </div>
+		</div>
+		<div class="box-body box-bg-info" layout=column layout-wrap>
+			<div ng-bind-html="$parent.trustAsHtml(paramsConf.TRY_INFO_PEOPLE)"></div>
+		</div>
+	</div>
+</div>
+
+<md-card ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=people></md-ico></md-button>
+			<h2 hide-xs><span translate>LB_LIST_OF_INSTITUTION_STAFF</span></h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal({edit:false,fk_entidad_id:entity.entidad_id})">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+	    <table md-table class="md-primary table-hover" md-progress="deferred">
+	    	<col style="width:12%">
+	    	<col style="width:30%">
+	    	<col style="width:30%">
+	    	<col style="">
+	    	<col style="width:3%">
+	      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+					<tr md-row>
+						<th md-column><span translate>LB_DOC_IDENTIFICATION</span></th>
+						<th md-column><span translate>LB_LASTNAME</span></th>
+						<th md-column><span translate>LB_NAME</span></th>
+						<th md-column><span translate>LB_CONTACT</span></th>
+						<th md-column><span translate>LB_MENU</span></th>
+					</tr>
+				</thead>
+			  <tbody>
+					<tr md-row data-ng-repeat="row in rowsParent.data">
+						<td md-cell>
+							<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.persona_doc_identidad)"></span>
+							<md-tooltip><span>{{string2JSON('identificationType')[row.persona_tipo_doc]}}</span></md-tooltip>
+						</td>
+						<td md-cell>
+							<md-ico i=person></md-ico><span ng-bind-html="highlight(row.persona_apellidos)"></span>
+						</td>
+						<td md-cell>
+							<md-ico i=person_outline></md-ico><span ng-bind-html="highlight(row.persona_nombres)"></span>
+						</td>
+						<td md-cell>
+							<md-ico i=email></md-ico><span ng-bind-html="highlight(row.persona_correo)"></span>
+						</td>
+						<td md-cell class="table-menu text-center">
+							<md-button aria-label="btn" class="md-icon-button" ng-click="openParentModal('Personas',row)">
+								<md-ico i=edit c=md-ico-menu></md-ico><md-tooltip><span translate>LB_EDIT</span></md-tooltip>
+							</md-button>
+						</td>
+					</tr>
+	      </tbody>
+	    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

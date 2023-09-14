@@ -1,0 +1,16 @@
+<md-dialog aria-label="Form Data" class="modal-dialog modal-lg" style="height:95%!important;width:100%;" ng-controller="pdfViewerExtendsCtrl">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+    	<md-button class="md-icon-button"><md-ico i=attach_file></md-ico></md-button>
+			<h2 translate>{{frmParent.label}}</h2>
+      <span flex></span>
+			<md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar> 
+  <md-dialog-content style="height:100%;width:100%;overflow:hidden;">
+    <embed id="embedPdf" ng-src="{{getIframeSrc(frmParent.embed)}}" type='application/pdf' style="height:100%;width:100%"></embed>
+  </md-dialog-content>
+  <md-dialog-actions layout=row>
+		<md-button type="button" ng-click="closeDialog()"><span translate>LB_CLOSE</span></md-button>
+	</md-dialog-actions>
+</md-dialog>

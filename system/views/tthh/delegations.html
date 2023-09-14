@@ -1,0 +1,105 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=low_priority></md-ico>
+				<md-tooltip><span translate>TOOLBAR_DELEGATION</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.filter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_INPUT' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.filter!=''" ng-click="filterParent.filter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<md-divider ng-if="allow.permiso80371"></md-divider>
+	<md-toolbar  ng-if="allow.permiso80371">
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><md-ico i=credit_card></md-ico></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="{{'LB_CC_DNI_REQUEST' | translate}}" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+	  </form>
+	</md-toolbar>
+	
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="width:40%;">
+     	<col style="width:40%;">
+     	<col style="width:20%;">
+     	<col style="width:5%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_DELEGATIONS</span></th>
+					<th md-column><span translate>LB_DELEGATED_POSITION</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell class="text-uppercase">
+						<md-ico i=assignment_turned_in></md-ico><span ng-bind-html="highlight(row.delegacion_codigo)"></span><br>
+						<div>
+							<md-ico i=gavel></md-ico><span ng-bind-html="highlight(row.delegacion_baselegal)"></span><br>
+							<md-tooltip><span translate>LB_LEGAL_BASE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=event></md-ico>{{row.delegacion_fecha_registro | date:'fullDate'}}<br>
+							<md-tooltip><span translate>LB_REGISTRE_DATE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.delegado_cc)"></span><br>
+							<md-ico i=person></md-ico><span ng-bind-html="highlight(row.delegado)"></span>
+							<md-tooltip><span translate>LB_STAFF_DATA</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell class="text-uppercase">
+						<div ng-if="row.fk_puesto_id>0">
+							<md-ico i=account_balance></md-ico><span ng-bind-html="highlight(row.delegado_direccion)"></span><br>
+							<md-ico i=wrap_text></md-ico><span ng-bind-html="highlight(row.delegado_puesto)"></span>
+							<md-tooltip><span translate>LB_DESIGNATED_POSITION</span></md-tooltip>
+						</div>
+						<div ng-if="row.fk_puesto_id==null">
+							<md-ico i=wrap_text></md-ico><span ng-bind-html="highlight(row.delegacion_funciones)"></span>
+							<md-tooltip><span translate>LB_PERFORMANCE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=event_available></md-ico>{{row.delegacion_fecha_inicio | date:'fullDate'}}<br>
+							<md-tooltip><span translate>LB_START_DELEGATION</span></md-tooltip>
+						</div>
+						<div ng-if="row.delegacion_estado=='FINALIZADA'">
+							<md-ico i=event_available></md-ico>{{row.delegacion_fecha_finalizacion | date:'fullDate'}}<br>
+							<md-tooltip><span translate>LB_END_DELEGATION</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=flag></md-ico><span ng-bind-html="highlight(row.delegado_estacion)"></span>
+							<md-tooltip><span translate>LB_DESIGNATED_STATION</span></md-tooltip>
+						</div>
+						
+						<div>
+							<md-ico i=record_voice_over></md-ico><span ng-bind-html="highlight(row.th)"></span>
+							<md-tooltip><span>{{row.th_puesto}}</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.delegacion_estado]"></span><br>
+						<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.delegacion_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <menu-delegations></menu-delegations>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

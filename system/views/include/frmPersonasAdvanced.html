@@ -1,0 +1,168 @@
+<div class="card card-outline card-primary no-padding no-margin margin-bottom">
+	<div class="card-header with-border text-center">
+	  <h3 class="card-title" translate>LB_PERSONAL_INFORMATION</h3>
+	</div>
+	<div class="card-body" layout=column layout-padding>
+		<div layout-xs=column layout=row layout-padding>
+			<div class="form-group required" flex>
+				<label translate>LB_IDENTIFICATION_TYPE</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=account_balance_wallet></md-ico></div></div> 
+					<select class="form-control select2" ng-model="frmParent.persona_tipo_doc" required ng-options="key as val for (key,val) in string2JSON('identificationType')"></select>
+				</div>
+			</div>
+			<div class="form-group required" flex>
+				<label translate>LB_IDENTIFICATION_NUMBER</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=credit_card></md-ico></div></div> 
+					<input ng-model="frmParent.persona_doc_identidad" class="form-control" placeholder="Ej. 1236587490" required maxlength="20">
+				</div>
+			</div>
+		</div>
+		<div class=form-group flex>
+			<label translate>LB_TITLE</label>
+			<div class="input-group">
+		    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=school></md-ico></div></div> 
+		    <input class="form-control" ng-model="frmParent.persona_titulo" placeholder="Ej. Ing." />
+		  </div>
+		</div>
+		<div layout-xs=column layout=row layout-padding>
+			<div class="form-group required" flex>
+				<label translate>LB_LASTNAME</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=person></md-ico></div></div> 
+					<input ng-model="frmParent.persona_apellidos" class="form-control" placeholder="Ej. Tipan Jaramillo" required onkeypress="return alphaOnly(event)">
+				</div>
+			</div>
+			<div class="form-group required" flex>
+				<label translate>LB_NAME</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=person_outline></md-ico></div></div> 
+			    <input ng-model="frmParent.persona_nombres" class="form-control" placeholder="Ej. Julio Arnoldo" required onkeypress="return alphaOnly(event)">
+				</div>
+			</div>
+		</div>
+		<div layout-xs=column layout=row layout-padding>
+			<div class="form-group required" flex>
+				<label translate>LB_SEX</label>
+				<div class="input-group">
+			    <div class="input-group-prepend"><div class="input-group-text"><i-fa i="{{string2JSON('iFaIconList')[frmParent.persona_sexo]}}"></md-ico></div></div> 
+			    <select class="form-control" ng-model="frmParent.persona_sexo" required ng-options="val as val for (key,val) in string2JSON('sexPersonsList')"></select>
+			  </div>
+			</div>
+			<div class=form-group flex>
+				<label translate>LB_MARITAL_STATUS</label>
+				<div class="input-group">
+			    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=favorite_border></md-ico></div></div> 
+			    <select class="form-control" ng-model="frmParent.persona_estadocivil" ng-options="val as val for (key,val) in string2JSON('maritalStatusList')[frmParent.persona_sexo]"></select>
+			  </div>
+			</div>
+		</div>
+		<div layout-xs=column layout=row layout-padding>
+			<div class=form-group flex>
+				<label translate>LB_BLOOD_TYPE</label>
+				<div class="input-group">
+			    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=medkit></md-ico></div></div> 
+			    <select class="form-control" ng-model="frmParent.persona_tiposangre" required ng-options="val as val for (key,val) in string2JSON('bloodTypeList')"></select>
+			  </div>
+			</div>
+			<div class=form-group flex>
+				<label translate>LB_BIRTHDATE</label>
+				<div class="input-group" moment-picker="frmParent.persona_fnacimiento" format="YYYY-MM-DD">
+			    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=cake></md-ico></div></div> 
+			    <input class="form-control" ng-model="frmParent.persona_fnacimiento" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required />
+			  </div>
+			</div>
+		</div>
+		<div class=form-group flex>
+			<label translate>LB_BIRTHPLACE</label>
+			<div class="input-group">
+		    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=person_pin_circle></md-ico></div></div> 
+		    <input class="form-control" ng-model="frmParent.persona_lugarnacimiento" placeholder="Ej. Santo Domingo - Ecuador" />
+		  </div>
+		</div>
+		<div layout-xs=column layout=row layout-padding>
+			<div class=form-group flex>
+				<label translate>LB_TEL</label>
+				<div class="input-group">
+			    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=phone></md-ico></div></div> 
+			    <input type="tel" ng-model="frmParent.persona_telefono" class="form-control" placeholder="Ej. 023741213">
+			  </div>
+			</div>
+			<div class=form-group flex>
+				<label translate>LB_MOBILE</label>
+				<div class="input-group">
+			    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=phone_iphone></md-ico></div></div> 
+			    <input type="tel" ng-model="frmParent.persona_celular" class="form-control" placeholder="Ej. 0985214763" required>
+			  </div>
+			</div>
+		</div>
+		<div class="form-group required" flex>
+			<label translate>LB_MAIL</label>
+			<div class="input-group">
+				<div class="input-group-prepend"><div class="input-group-text"><md-ico i=mail></md-ico></div></div> 
+				<input type="email" ng-model="frmParent.persona_correo" class="form-control" placeholder="Ej. correo@live.com" required>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="card card-outline card-success no-padding no-margin  margin-bottom"ng-controller="parishesListCtrl">
+	<div class="card-header with-border text-center">
+	  <h3 class="card-title" translate>LB_LOCATION</h3>
+	</div>
+	<div class="card-body" layout=column layout-padding ng-controller="townsListCtrl">
+		<div class="form-group required" ng-controller="statesListCtrl">
+   		<label translate>LB_PROVINCE</label>
+		  <div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=public></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.fk_state_id" ng-change="refreshTowns()" ng-options="row.state_id as row.state_name for row in statesList"></select>
+				</div>
+   	</div>
+   	<div class="form-group required" ng-if="frmParent.fk_state_id>0">
+   		<label translate>LB_TOWN</label>
+		  <div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=public></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.fk_town_id" ng-change="refreshParishes()" ng-options="row.town_id as row.town_name for row in townsList"></select>
+				</div>
+   	</div>
+   	<div class="form-group required" ng-if="frmParent.fk_town_id>0">
+   		<label translate>LB_PARRISH</label>
+		  <div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=public></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.fk_parroquia_id" ng-options="row.parish_id as row.parish_name for row in parishesList"></select>
+				</div>
+   	</div>
+		<div class="form-group">
+			<label translate>LB_ADDRESS</label>
+			<div class="input-group">
+				<div class="input-group-prepend"><div class="input-group-text"><md-ico i=place></md-ico></div></div> 
+				<input type="tel" ng-model="frmParent.persona_direccion" class="form-control" placeholder="Ej. Av. Quevedo km 6 y Calle Cuenca">
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="card card-outline card-warning no-padding no-margin">
+	<div class="card-header with-border text-center">
+	  <h3 class="card-title" translate>LB_EXTRA_INFORMATION</h3>
+	</div>
+	<div class="card-body" layout=column layout-padding>
+		<div layout-xs=column layout=row layout-padding>
+			<div class="form-group required" flex>
+	   		<label translate>LB_STATURE</label>
+			  <div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><i-fa i=arrows-v></md-ico></div></div> 
+						<input ng-model="frmParent.persona_estatura" class="form-control" placeholder="1.79 m">
+					</div>
+	   	</div>
+			<div class="form-group" flex>
+				<label translate>LB_WEIGHT</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><i-fa i=balance-scale></md-ico></div></div> 
+					<input ng-model="frmParent.persona_peso" class="form-control" placeholder="106 Kg">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,22 @@
+<div class="box box-info no-margin box-profile text-center">
+	<div class="box-header">
+	  <h3 class="box-title" translate>LB_LEGAL_REPRESENTATIVE</h3>
+	</div>
+	<div class="box-body md-padding">
+		<div class="container-img-user">
+			<img class="profile-user-img img-responsive" src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{entity.adopted.persona_imagen}}" alt="profile">
+		</div>
+		<hr>
+    <strong><i-fa i=user></i-fa> <span translate>LB_FULLNAME</span></strong>
+ 		<p class="text-muted">{{entity.adopted.persona_apellidos}} {{entity.adopted.persona_nombres}}</p>
+		<hr>
+    <strong><i-fa i=id-card-o></i-fa> <span translate>LB_IDENTIFICATION_DOCUMENT</span></strong>
+    <p class="text-muted">{{string2JSON('identificationType')[entity.adopted.persona_tipo_doc]}}<br>{{entity.adopted.persona_doc_identidad}}</p>
+		<hr>
+		<strong><i-fa i=envelope></i-fa> <span translate>LB_MAIL</span></strong>
+		<p class="text-muted">{{entity.adopted.persona_correo}}</p>
+		<hr>
+    <strong><i-fa i=mobile></i-fa> <span translate>LB_TEL</span></strong>
+    <p class="text-muted">{{entity.adopted.persona_telefono}} - {{entity.adopted.persona_celular}}</p>
+	</div>
+</div>

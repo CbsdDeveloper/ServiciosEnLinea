@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app="demoapp">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/leaflet/dist/leaflet.js"></script>
+    <script src="../bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
+    <script src="../dist/ui-leaflet.min.js"></script>
+    <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css" />
+    <script>
+        var app = angular.module("demoapp", ['ui-leaflet']);
+        app.controller('BasicTilesController', [ '$scope', function($scope) {
+            var tilesDict = {
+                openstreetmap: {
+                    url: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                    options: {
+                        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }
+                },
+                opencyclemap: {
+                    url: "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png",
+                    options: {
+                        attribution: 'All maps &copy; <a href="http://www.opencyclemap.org">OpenCycleMap</a>, map data &copy; <a href="http://www.openstreetmap.org">OpenStreetMap</a> (<a href="http://www.openstreetmap.org/copyright">ODbL</a>'
+                    }
+                },
+                mapbox_outdoors: {
+                    name: 'Mapbox Outdoors',
+                    url: '//api.mapbox.com/styles/v1/{user}/{mapId}/tiles/256/{z}/{x}/{y}?access_token={apiKey}',
+                    type: 'xyz',
+                    options: {
+                        user: 'elesdoar',
+                        apiKey: 'pk.eyJ1IjoiZWxlc2RvYXIiLCJhIjoiY2l0bmcwaDNpMDQzMTJvbDRpaTltN2dlbiJ9.KDnhRVh9St6vpQovMI7iLg',
+                        mapId: 'citng3g0g003s2it88y9lg769'
+                    }
+                },
+                mapbox_satellite: {
+                    name: 'Mapbox Wheat Paste',
+                    url: '//api.mapbox.com/styles/v1/{user}/{mapId}/tiles/256/{z}/{x}/{y}?access_token={apiKey}',
+                    type: 'xyz',
+                    options: {
+                        user: 'elesdoar',
+                        apiKey: 'pk.eyJ1IjoiZWxlc2RvYXIiLCJhIjoiY2l0bmcwaDNpMDQzMTJvbDRpaTltN2dlbiJ9.KDnhRVh9St6vpQovMI7iLg',
+                        mapId: 'citngqecv00362hphvm5m7myb'
+                    }
+                }
+            };
+
+            angular.extend($scope, {
+                london: {
+                    lat: 51.505,
+                    lng: -0.09,
+                    zoom: 8
+                },
+                tiles: tilesDict.mapbox_satellite
+            });
+
+            $scope.changeTiles = function(tiles) {
+                $scope.tiles = tilesDict[tiles];
+            };
+        } ]);
+    </script>
+  </head>
+  <body ng-controller="BasicTilesController">
+      <leaflet lf-center="london" tiles="tiles" defaults="defaults" width="100%" height="480px"></leaflet>
+      <h1>Changing tiles example</h1>
+      <p>Change tiles clicking in the buttons below:</p>
+      <p>
+          <button ng-click="changeTiles('opencyclemap')" class="btn btn-default">OpenCycleMaps</button>
+          <button ng-click="changeTiles('openstreetmap')" class="btn btn-default">OpenStreetMaps</button>
+          <button ng-click="changeTiles('mapbox_outdoors')" class="btn btn-default">Mapbox Outdoors</button>
+          <button ng-click="changeTiles('mapbox_satellite')" class="btn btn-default">Mapbox Satellite</button>
+      </p>
+      <p>Current TileLayer Url: <strong ng-bind="tiles.url"></strong></p>
+  </body>
+</html>

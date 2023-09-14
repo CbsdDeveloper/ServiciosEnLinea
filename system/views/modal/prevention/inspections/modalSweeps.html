@@ -1,0 +1,120 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg" ng-controller="sweepExtendsCtrl">
+  <form name="formData" ng-submit="customSubmitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="btn" class="md-icon-button"><md-ico i=directions_run></md-ico></md-button>
+			<h2 translate>TOOLBAR_SWEEP</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-content layout=column layout-padding>
+			
+			<div layout=row layout-padding layout-wrap>
+				<div style="min-width:50%" ng-repeat="item in frmParent.list" flex>
+					<!-- LISTA DE PERMISOS -->	
+					<div class="card card-outline card-success no-margin card-entity-information" ng-if="frmParent.entity=='permits'">
+					  <div class="card-header with-border">
+		        	<h3 class="card-title">
+		        		<md-checkbox class="no-margin text-left" ng-checked="exists(item.local_id)" ng-click="toggle(item.local_id)">
+		        			{{item.codigo_per}}
+								</md-checkbox>
+		        	</h3>
+						</div>
+					  <div class="card-body">
+					    <div class="text-left">
+					    	<p><md-ico i=event></md-ico> <span class="text-bold" translate>LB_DATE_ISSUE</span>: {{item.permiso_fecha}}</p>
+					    	<p><md-ico i=assignment_turned_in></md-ico> <span class="text-bold" translate>LB_PERMIT_NUMBER</span>: {{item.permiso_numero}}</p>
+					    	<p><md-ico i=confirmation_number></md-ico> <span class="text-bold" translate>LB_REQUEST_NUMBER</span>: {{item.numero_solicitud}}</p>
+					    	<p><md-ico i=person></md-ico> <span class="text-bold" translate>LB_USER</span>: {{item.usuario}}</p>
+					    	<hr>
+					    	<p><md-ico i={{string2JSON('mdIconList')[frmParent.entidad_contribuyente]}}></md-ico> <b translate>LB_TRADENAME</b>: {{item.entidad_razonsocial}}</p>
+					    	<p><md-ico i=credit_card></md-ico> <b translate>LB_RUC</b>: {{item.entidad_ruc}}</p>
+					    	<p><md-ico i=account_balance></md-ico> <b translate>LB_TAXPAYER_TYPE</b>: {{string2JSON('contribuyenteType')[item.entidad_contribuyente]}}</p>
+					    	<p><md-ico i=person></md-ico> <b translate>LB_AGENT</b>: {{item.representantelegal_nombre}}</p>
+					    	<p><md-ico i=credit_card></md-ico> <b translate>LB_IDENTIFICATION_NUMBER</b>: {{item.representantelegal_ruc}}</p>
+					    	<hr>
+					    	<p><md-ico i=store_mall_directory></md-ico> <b translate>LB_COMERTIAL</b>: {{item.local_nombrecomercial}}</p>
+					    	<p><md-ico i=public></md-ico> <b translate>LB_PARISH</b>: {{item.local_parroquia}}</p>
+					    	<p><md-ico i=directions></md-ico> <b translate>LB_ADDRESS</b>: {{item.local_principal}}, {{item.local_secundaria}}</p>
+								<p><md-ico i=place></md-ico> <b translate>LB_REFERENCE</b>: {{item.local_referencia}}</p>
+								<p><md-ico i=phone></md-ico> <b translate>LB_TEL</b>: {{item.local_telefono}}</p>
+					    </div>
+					  </div>
+					</div>
+					<!-- LISTA DE ESTABLECIMIENTOS -->
+					<div class="card card-outline card-primary no-margin card-entity-information" ng-if="frmParent.entity=='locals'">
+					  <div class="card-header with-border">
+		        	<h3 class="card-title">
+		        		<md-checkbox class="no-margin text-left" ng-checked="exists(item.local_id)" ng-click="toggle(item.local_id)">
+		        			{{item.local_id}}. {{item.local_nombrecomercial}}
+								</md-checkbox>
+		        	</h3>
+						</div>
+					  <div class="card-body">
+					    <div class="text-left">
+					    	<p><md-ico i={{string2JSON('mdIconList')[item.entidad_contribuyente]}}></md-ico> <b translate>LB_TRADENAME</b>: {{item.entidad_razonsocial}}</p>
+					    	<p><md-ico i=credit_card></md-ico> <b translate>LB_RUC</b>: {{item.entidad_ruc}}</p>
+					    	<p><md-ico i=person></md-ico> <b translate>LB_AGENT</b>: {{item.representantelegal_nombre}}</p>
+					    	<p><md-ico i=credit_card></md-ico> <b translate>LB_IDENTIFICATION_NUMBER</b>: {{item.representantelegal_ruc}}</p>
+					    	<hr>
+					    	<p><md-ico i=public></md-ico> <b translate>LB_PARISH</b>: {{item.local_parroquia}}</p>
+					    	<p><md-ico i=directions></md-ico> <b translate>LB_ADDRESS</b>: {{item.local_principal}}, {{item.local_secundaria}}</p>
+								<p><md-ico i=place></md-ico> <b translate>LB_REFERENCE</b>: {{item.local_referencia}}</p>
+								<p><md-ico i=phone></md-ico> <b translate>LB_TEL</b>: {{item.local_telefono}}</p>
+								<p><md-ico i=format_list_numbered></md-ico> <b translate>LB_REGISTRY_NUMBER</b>: <a ui-sref="src.detailLocals({localId:item.local_id})" target="_blank">{{item.local_id}}</a></p>
+								<p ng-if="item.codigo_per!='0' && item.codigo_per!=null"><md-ico i=assignment_turned_in></md-ico> <b translate>LB_PERMIT_INFORMATION</b>: <span class="label label-primary">{{item.codigo_per}}</span></p>
+					    </div>
+					  </div>
+					</div>
+				</div>
+			</div>
+			<!-- ASIGNAR INSPECTOR -->
+			<div class="card card-outline card-danger no-margin">
+				<div class="card-header text-center">
+				  <h3 class="card-title" translate>LB_ASSIGNMENT_SWEEPS</h3>
+				</div>
+				<div class="card-body padding-all" layout-xs=colum layout=row layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_REGISTRE_DATE</label>
+						<div class="input-group" moment-picker="frmParent.inspeccion_fecha_inspeccion" max-date="today" format="YYYY-MM-DD">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+							<input ng-model="frmParent.inspeccion_fecha_inspeccion" class="form-control" placeholder="Ej. 2006-06-06" required />
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- LISTADO DE CAPACITADORES -->
+			<div class="card card-outline card-info no-margin margin-top no-padding" ng-controller="inspectorsStaftList">
+				<div class="card-header with-border text-center">
+					<h3 class="card-title no-margin" translate>LB_ASSIGNMENT_INSPECTOR</h3>
+				</div>
+				<div class="card-body">
+					<div class="col-md-6 col-xs-12 md-2-line contact-item" ng-repeat="item in list">
+		        <label class="label">
+					    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.selectedInspectors" checklist-value="item.usuario_id" />
+					    <span class="label__text">
+					      <span class="label__check">
+					        <i class="fa fa-check icon"></i>
+					      </span>
+					    </span>
+					  </label>
+		        <div class="md-list-item-text compact">
+	          	<span class="text-bold" ng-bind-html="highlight(item.usuario_nombre)"></span>
+		          <p style="font-size:11px;" ng-bind-html="highlight(item.perfil_nombre)"></p>
+		        </div>
+					</div>
+				</div>
+			</div>
+			
+		</md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

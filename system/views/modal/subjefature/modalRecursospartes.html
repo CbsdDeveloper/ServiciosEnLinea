@@ -1,0 +1,50 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=local_car_wash></md-ico></md-button>
+			<h2 translate>TOOLBAR_CAUSES_INCIDENT</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content class="my-dialog-content">
+    <md-content layout-padding layout=column layout-wrap>
+    	<div class="form-group required">
+    		<label translate>LB_TYPE</label>
+			  <div class="input-group" flex>
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.recurso_tipo" ng-options="val as val for (key,val) in string2JSON('PARTS_TYPE_RESOURCE_INCIDENT')" required></select>
+				</div>
+    	</div>
+    	<div class="form-group required">
+    		<label translate>LB_CLASSIFICATION</label>
+			  <div class="input-group" flex>
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=outlined_flag></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.recurso_clasificacion" ng-options="val as val for (key,val) in string2JSON('PARTS_CLASSIFICATION_RESOURCE_INCIDENT')" required></select>
+				</div>
+    	</div>
+    	<div class="form-group required">
+    		<label translate>{{frmParent.recurso_tipo}}</label>
+			  <div class="input-group" flex>
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_car_wash></md-ico></div></div> 
+					<input class="form-control" ng-model="frmParent.recurso_nombre" placeholder="Ej. INCENDIO" required />
+				</div>
+    	</div>
+			
+		  <div class="form-group required" ng-if="toogleEditMode">
+    		<label translate>LB_STATUS</label>
+			  <div class="input-group" flex>
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.recurso_estado" ng-options="val as val for (key,val) in string2JSON('statusType')" required></select>
+				</div>
+		  </div> 
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

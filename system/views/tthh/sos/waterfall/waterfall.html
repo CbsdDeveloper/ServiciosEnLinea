@@ -1,0 +1,50 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=wifi_tethering></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_WATERFALL</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()"><md-ico i=add></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_OPERATION_TIME_SYSTEM</span></th>
+					<th md-column><span translate>LB_CAPACITY_CYLINDERS</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<md-ico i=timer></md-ico><span ng-bind-html="highlight(row.cascada_hora_inicio)"></span><br>
+						<md-ico i=timer_off></md-ico><span ng-bind-html="highlight(row.cascada_hora_fin)"></span><br>
+						<md-ico i=access_time></md-ico><span ng-bind-html="highlight(row.total_minutos)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=battery_alert></md-ico><span ng-bind-html="highlight(row.psi_2216)"></span><br>
+						<md-ico i=battery_alert></md-ico><span ng-bind-html="highlight(row.psi_4500)"></span><br>
+						
+						<md-ico i=done_all></md-ico><span translate="LB_PSI_X" translate-values="{x:row.total_psi}"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=waves></md-ico><span translate="LB_TEMPERATURE_X" translate-values="{x:row.temperatura}"></span><br>
+						<md-ico i=flag></md-ico><span ng-bind-html="highlight(row.peloton_estacion)"></span><br>
+						<md-ico i=nature></md-ico><span ng-bind-html="highlight(row.peloton_nombre)"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.cascada_registro)"></span>
+					</td>
+					<td md-cell>
+						<menu-mini></menu-mini>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

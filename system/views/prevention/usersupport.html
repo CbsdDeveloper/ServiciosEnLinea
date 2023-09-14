@@ -1,0 +1,58 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+      <md-button aria-label="btn" class="md-icon-button"><md-ico i=folder_shared></md-ico></md-button>
+      <h2 translate>TOOLBAR_USER_SUPPORT</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-divider ng-if="allow.permiso61621"></md-divider>
+	<md-toolbar  ng-if="allow.permiso61621">
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><i-fa i=barcode s=lg></i-fa></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="EJ. CEDULA + COD. INSPECCION" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+	  </form>
+	</md-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+          <th md-column><span translate>LB_USER_SUPPORT</span></th>
+          <th md-column><span translate>LB_INSPECTOR</span></th>
+          <th md-column><span translate>LB_DETAIL</span></th>
+          <th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+            <md-ico i=assignment_turned_in></md-ico><span ng-bind-html="highlight(row.atencion_codigo)"></span><br>
+            <md-ico i=event></md-ico><span ng-bind-html="highlight(row.atencion_fecha)"></span><br>
+            <md-ico i=verified_user></md-ico><span ng-bind-html="highlight(row.fk_name)"></span>
+            <div ng-if="row.fk_tb!=''">
+              <md-ico i=fingerprint></md-ico><span ng-bind-html="highlight(row.fk_codigo)"></span>
+            </div>
+          </td>
+          <td md-cell>
+            <md-ico i=person></md-ico><span ng-bind-html="highlight(row.inspector_nombre)"></span><br>
+            <md-ico i=info></md-ico><span ng-bind-html="highlight(row.atencion_descripcion)"></span>
+          </td>
+          <td md-cell>
+            <md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.atencion_estado]"></span><br>
+            <md-ico i=event></md-ico><span ng-bind-html="highlight(row.atencion_registro)"></span><br>
+            <md-ico i=people></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+          </td>
+          <td md-cell class="table-menu text-center">
+            <menu-mini></menu-mini>
+          </td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

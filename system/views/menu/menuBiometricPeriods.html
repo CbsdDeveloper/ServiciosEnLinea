@@ -1,0 +1,97 @@
+<md-menu md-position-mode="target-right target" >
+  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+  </md-button>
+  <md-menu-content width="5">
+  	
+    <md-menu-item ng-if="allow.permiso8033211">
+      <md-button aria-label="editar" ng-click="openModal(row)">
+          <div layout="row" flex>
+            <p flex translate>LB_EDIT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=edit></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="allow.permiso803323 || allow.permiso8033233"></md-divider>
+    
+    <md-menu-item ng-if="allow.permiso803323">
+      <md-button aria-label="editar" ng-click="goUI('tthh.attendance.biometricmarkings',{id:row.periodo_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_DIAL_REGISTER</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=history></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="allow.permiso8033233">
+      <md-button aria-label="editar" ng-click="deleteAllMarkings({periodId:row.periodo_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_DELETE_MARKINGS</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=delete_forever></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="(allow.permiso8033232 || allow.permiso8033231)"></md-divider>
+    
+    <md-menu-item ng-if="allow.permiso8033232">
+      <md-button aria-label="editar" ng-click="goUI('tthh.attendance.biometricnomarkings',{id:row.periodo_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_JUSTIFY_ALL_MARKINGS</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=done_all></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="allow.permiso8033231">
+      <md-button aria-label="editar" ng-click="goUI('tthh.attendance.staffnomarkings',{id:row.periodo_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_JUSTIFY_INDIVIDUAL_MARKINGS</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=how_to_reg></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="allow.permiso803324 || allow.permiso803354 || allow.permiso803344"></md-divider>
+    
+    <md-menu-item ng-if="allow.permiso803324">
+      <md-button aria-label="editar" ng-click="$parent.exportEntityById('periodos_marcaciones',row.periodo_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_DIAL_REPORT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=print></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="allow.permiso803344">
+      <md-button aria-label="editar" ng-click="$parent.exportEntityById('periodos_atrasos',row.periodo_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_DELAYS_REPORT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=print></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="allow.permiso803354">
+      <md-button aria-label="editar" ng-click="$parent.exportEntityById('periodos_rancho',row.periodo_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_REPORT_OF_GENERATED_RANCHES</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=print></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

@@ -1,0 +1,18 @@
+<div flex class="card card-outline card-danger text-center card-entity-information no-margin">
+  <div class="card-header with-border">
+    <h3 class="card-title">{{frmParent.puesto_nombre}}</h3>
+  </div>
+  <div class="card-body row">
+    <div class="col-md-3">
+    	<p><img src="/app/src/img/system/escudo.png" style="width:128px;margin:auto" class="img-responsive"/></p>
+    </div>
+    <div class="col-md-9 text-left">
+    	<p><md-ico i=account_balance></md-ico> <b translate>LB_LEADERSHIPS</b>: {{frmParent.direccion_nombre}}</p>
+    	<p><md-ico i={{string2JSON('mdIconList')[frmParent.puesto_modalidad]}}></md-ico> <b translate>LB_JOBS</b>: {{frmParent.puesto_nombre}}</p>
+    	<p><md-ico i={{string2JSON('mdIconList')[frmParent.puesto_grado]}}></md-ico> <b translate>LB_MODE</b>: {{frmParent.puesto_modalidad}}</p>
+    	<p><md-ico i=gavel></md-ico> <b translate>LB_DEFINE_LEGAL_BASE</b>: {{frmParent.puesto_baselegal}}</p>
+    	<p><md-ico i=event></md-ico> <b translate>LB_REGISTRE_DATE</b>: <span class="text-uppercase">{{frmParent.puesto_fecha_creacion | date:'fullDate'}}</span></p>
+    	<p><md-ico i=fingerprint></md-ico> <b translate>LB_BUDGET_ITEM</b>: {{frmParent.puesto_partida}}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,172 @@
+{
+	"server":[
+		"http://localhost",
+		"http://lalytto.com",
+		"http://cbsd.lalytto.com",
+		"http://servicios.cbsd.gob.ec",
+		"http://prevencion.cbsd.gob.ec",
+		"http://45.183.141.107",
+		"http://45.183.141.109",
+		"http://127.0.0.1",
+		"http://192.168.1.4",
+		"http://192.168.1.6"
+	],
+	"hosts":[
+		"localhost",
+		"lalytto.com",
+		"cbsd.lalytto.com",
+		"servicios.cbsd.gob.ec",
+		"prevencion.cbsd.gob.ec",
+		"45.183.141.107",
+		"45.183.141.109",
+		"127.0.0.1",
+		"192.168.1.4",
+		"192.168.1.6"
+	],
+	"sudo":[
+		"services",
+		"prevencion",
+		"report",
+		"system","tthh","subjefatura"
+	],
+	"request_method":["POST","GET","OPTIONS"],
+	"dbs":{
+		"services":{"driver":"pgsql","host":"192.168.1.3","port":5432,"db":"db_cbsd","user":"postgres","pass":"Cbsd2019"},
+		"prevencion":{"driver":"pgsql","host":"192.168.1.3","port":5432,"db":"db_cbsd","user":"postgres","pass":"Cbsd2019"},
+		
+		"report":{"driver":"pgsql","host":"192.168.1.3","port":5432,"db":"db_cbsd","user":"postgres","pass":"Cbsd2019"},
+		"system":{"driver":"pgsql","host":"192.168.1.3","port":5432,"db":"db_cbsd","user":"postgres","pass":"Cbsd2019"},
+		"tthh":{"driver":"pgsql","host":"192.168.1.3","port":5432,"db":"db_cbsd","user":"postgres","pass":"Cbsd2019"},
+		"subjefatura":{"driver":"pgsql","host":"192.168.1.3","port":5432,"db":"db_cbsd","user":"postgres","pass":"Cbsd2019"}
+	},
+	"db":{
+		"services":{"driver":"pgsql","host":"127.0.0.1","port":5432,"db":"db_cbsd","user":"postgres","pass":"root"},
+		"prevencion":{"driver":"pgsql","host":"127.0.0.1","port":5432,"db":"db_cbsd","user":"postgres","pass":"root"},
+		
+		"system":{"driver":"pgsql","host":"127.0.0.1","port":5432,"db":"db_cbsd","user":"postgres","pass":"root"},
+		"report":{"driver":"pgsql","host":"127.0.0.1","port":5432,"db":"db_cbsd","user":"postgres","pass":"root"},
+		"tthh":{"driver":"pgsql","host":"127.0.0.1","port":5432,"db":"db_cbsd","user":"postgres","pass":"root"},
+		"subjefatura":{"driver":"pgsql","host":"127.0.0.1","port":5432,"db":"db_cbsd","user":"postgres","pass":"root"}
+	},
+	"schemaList":{
+		"main":["public","resources","servicios","admin","tthh","permisos","recaudacion","prevencion","subjefatura","logistica","planificacion"],
+		"record":["records"]
+	},
+	"sessionQuery":["GET","POST","DELETE","PUT","REQUEST","DOWNLOAD"],
+	"mainQuery":{
+		"services":["GET"],
+		"prevencion":["GET","REQUEST"],
+		
+		"report":["GET"],
+		"system":["postLogin","REQUEST"],
+		"tthh":["REQUEST"],
+		"subjefatura":["REQUEST"]
+	},
+	
+	"dataTypeColumns":{
+		"text":["char","varchar","text"],
+		"date":["date"],
+		"boolean":["boolean","bool"],
+		"dateTime":["timestamp without time zone","timestamp","datetime"],
+		"number":["integer","numeric","float"]
+	},
+	
+	"calendar":{
+		"months":["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+		"shortMonths":["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],
+		"days":["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"],
+		"shortDays":["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"]
+	},
+	"colorPalette":{
+		"name":["danger","primary","success","warning","info","purple","black","cyan",
+						"danger","primary","success","warning","info","purple","black","cyan"],
+		"rgb":["221,75,57","0,115,183","0,166,90","243,156,18","0,192,239","216,27,96","0,31,63","0,204,204",
+					 "221,75,57","0,115,183","0,166,90","243,156,18","0,192,239","216,27,96","0,31,63","0,204,204"],
+		"hex":["#dd4b39","#0073b7","#00a65a","#f39c12","#00c0ef","#d81b60","#001f3f","#39cccc",
+					 "#dd4b39","#0073b7","#00a65a","#f39c12","#00c0ef","#d81b60","#001f3f","#39cccc"]
+	},
+	
+	"loginURI":"http://servicios.cbsd.gob.ec/system",
+	"myIP":"http://servicios.cbsd.gob.ec",
+	"webmail":{"webmaster":101,"info":102,"otro":103},
+	"mailList":["recovery","recovery2","sendUser","sendPassword"],
+	
+	"defaultLocation":{
+		"ip":"127.0.0.1",
+		"hostname":"",
+		"city":"",
+		"region":"",
+		"country":"EC",
+		"loc":"",
+		"org":""
+	},
+	"osList":{
+		"/Windows/i":"Windows",
+		"/Windows NT 10.0/i":"Windows 10",
+		"/Windows NT 6.3/i":"Windows 8.1",
+		"/Windows NT 6.2/i":"Windows 8",
+		"/Windows NT 6.1/i":"Windows 7",
+		"/Windows NT 6.0/i":"Windows Vista",
+		"/Windows NT 5.1/i":"Windows XP",
+		"/Windows NT 5.2/i":"Windows 2003",
+		"/Windows NT 5.0/i":"Windows 2000",
+		"/Windows ME/i":"Windows ME",
+		"/Win98/i":"Windows 98",
+		"/Win95/i":"Windows 95",
+		"/WinNT4.0/i":"Windows NT 4.0",
+		"/Windows Phone/i":"Windows Phone",
+		"/iPhone/i":"iPhone",
+		"/iPad/i":"iPad",
+		"/Debian/i":"Debian",
+		"/Ubuntu/i":"Ubuntu",
+		"/Slackware/i":"Slackware",
+		"/Linux Mint/i":"Linux Mint",
+		"/Gentoo/i":"Gentoo",
+		"/Elementary OS/i":"ELementary OS",
+		"/Fedora/i":"Fedora",
+		"/Kubuntu/i":"Kubuntu",
+		"/Linux/i":"Linux",
+		"/FreeBSD/i":"FreeBSD",
+		"/OpenBSD/i":"OpenBSD",
+		"/NetBSD/i":"NetBSD",
+		"/SunOS/i":"Solaris",
+		"/BlackBerry/i":"BlackBerry",
+		"/Android/i":"Android",
+		"/Mobile/i":"Firefox OS",
+		"/Mac OS X+/i":"Mac OS X",
+		"/CFNetwork+/i":"Mac OS X",
+		"/Macintosh/i":"Mac OS Classic",
+		"/BeOS/i":"BeOS",
+		"/Nintendo/i":"Nintendo"
+	},
+	"browserList":{
+		"/Maxthon/i":"Maxthon",
+		"/SeaMonkey/i":"SeaMonkey",
+		"/Vivaldi/i":"Vivaldi",
+		"/Arora/i":"Arora",
+		"/Avant Browser/i":"Avant Browser",
+		"/Beamrise/i":"Beamrise",
+		"/Epiphany/i":"Epiphany",
+		"/Chromium/i":"Chromium",
+		"/Iceweasel/i":"Iceweasel",
+		"/Galeon/i":"Galeon",
+		"/Trident/i":"Internet Explorer",
+		"/MSIE/i":"Internet Explorer",
+		"/Opera Mini/i":"Opera Mini",
+		"/Opera/i":"Opera",
+		"/OPR/i":"Opera",
+		"/Firefox/i":"Mozilla Firefox",
+		"/Safari/i":"Safari",
+		"/Chrome/i":"Chrome",
+		"/Edge/i":"Edge",
+		"/iTunes/i":"iTunes",
+		"/Konqueror/i":"Konqueror",
+		"/Dillo/i":"Dillo",
+		"/Netscape/i":"Netscape",
+		"/Midori/i":"Midori",
+		"/ELinks/i":"ELinks",
+		"/Links/i":"Links",
+		"/Lynx/i":"Lynx",
+		"/w3m/i":"w3m"
+	}
+}

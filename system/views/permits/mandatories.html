@@ -1,0 +1,48 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=device_hub></md-ico></md-button>
+			<h2 translate>TOOLBAR_MANDATORY</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()" ng-if="allow.permiso5044"><md-ico i=add></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column md-numeric md-order-by="requerido_id"><span translate>LB_CODE</span></th>
+					<th md-column md-order-by="requerimiento_icono"><span translate>LB_PREVIEW</span></th>
+					<th md-column md-order-by="requerimiento_nombre"><span translate>LB_REQUIREMENTS</span></th>
+					<th md-column md-order-by="actividad"><span translate>LB_ACTIVITY</span></th>
+					<th md-column md-order-by="requiere"><span translate>LB_REQUIRED</span></th>
+					<th md-column md-order-by="requerido_tipo"><span translate>LB_TYPE</span></th>
+					<th md-column md-order-by="requerido_estado"><span translate>LB_STATUS</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell><span ng-bind-html="highlight(row.requerido_id+'')"></span></td>
+					<td md-cell><i-fa i={{row.requerimiento_icono}} s=lg></i-fa></td>
+					<td md-cell><span ng-bind-html="highlight(row.requerimiento_nombre)"></span></td>
+					<td md-cell><span ng-bind-html="highlight(row.actividad_nombre)"></span></td>
+					<td md-cell>
+						<span>Pisos: {{row.pisos}}</span><br>
+						<span>Aforo: {{row.aforo}}</span><br>
+						<span>Área: {{row.area}}</span>
+					</td>
+					<td md-cell><span ng-bind-html="highlight(row.requerido_tipo)"></span></td>
+					<td md-cell><span ng-bind-html="statusLabel[row.requerido_estado]"></span></td>
+					<td md-cell class="table-menu text-center" layout="row">
+					  <menu-single></menu-single>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

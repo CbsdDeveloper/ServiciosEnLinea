@@ -1,0 +1,234 @@
+<!-- GENERAL - FORMAS DE AVISO - ASISITIDO POR - LOCALIZACION -->
+<div layout-xs=column layout=row>
+
+	<!-- GENERAL - FORMAS DE AVISO -->
+	<div class="no-padding-top" layout=column layout-padding flex>
+	
+		<!-- HERIDOS Y FALLECIDOS -->
+		<div class="box box-primary no-margin margin-top no-padding">
+			<div class="box-header with-border text-center">
+				<h3 class="box-title no-margin" translate>LB_PEOPLE_SERVED</h3>
+			</div>
+			<div class="box-body no-padding" layout-padding>
+				<table class="table table-bordered table-striped table-hover no-margin">
+	    		<thead>
+	    			<tr>
+	    				<th><span translate>LB_PEOPLE_SERVED_TYPE</span></th>
+	    				<th><span translate>LB_SEX</span></th>
+	    				<th><span translate>LB_NAME</span></th>
+	    				<th><span translate>LB_AGE</span></th>
+	    				<th><span translate>LB_SYMPTOMS</span></th>
+	    				<th style="width:75px;"></th>
+	    			</tr>
+	    		</thead>
+	    		<tbody>
+	    			<tr ng-repeat="(key,item) in sourceList.wounded">
+		    			<td>{{item.atendido_tipo}}</td>
+		    			<td>{{item.atendido_sexo}}</td>
+		    			<td>{{item.atendido_nombre}}</td>
+		    			<td>{{item.atendido_edad}}</td>
+		    			<td>{{item.atendido_sintomas}}</td>
+		    			<td class="text-center">
+		    				<button type="button" class="btn btn-danger btn-sm" ng-click="removeItemPart('attended',item.atendido_id)">
+		    					<i-fa i=trash></i-fa><md-tooltip><span translate>LB_DELETE_DATA</span></md-tooltip>
+		    				</button>
+		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<td colspan="5"></td>
+		    			<td class="text-center">
+		    				<button type="button" class="btn btn-info btn-sm" ng-click="newToggleForm.wounded=true" ng-if="!newToggleForm.wounded">
+		    					<i-fa i=plus></i-fa><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+		    				</button>
+		    				<button type="button" class="btn btn-warning btn-sm" ng-click="newToggleForm.wounded=false" ng-if="newToggleForm.wounded">
+		    					<i-fa i=times></i-fa><md-tooltip><span translate>LB_CANCEL</span></md-tooltip>
+		    				</button>
+		    			</td>
+		    		</tr>
+		    		<tr ng-if="newToggleForm.wounded">
+		    			<td>
+		    				<select class="form-control input-sm" ng-model="newFormData.wounded.atendido_tipo" ng-options="val as val for (key,val) in string2JSON('SUBJEFATURA_PARTS_PEOPLESERVED_TYPE')" required></select>
+		    			</td>
+		    			<td>
+		    				<select class="form-control input-sm" ng-model="newFormData.wounded.atendido_sexo" ng-options="val as val for (key,val) in string2JSON('sexPersonsList')" required></select>
+		    			</td>
+		    			<td>
+		    				<input type="text" class="form-control input-sm" ng-model="newFormData.wounded.atendido_nombre" placeholder="Ej. Willian Gallo" required />
+		    			</td>
+		    			<td>
+		    				<input type="number" step="1" min="1" max="100" parse-float class="form-control input-sm" ng-model="newFormData.wounded.atendido_edad" placeholder="Ej. 25" required />
+		    			</td>
+		    			<td>
+		    				<input type="text" class="form-control input-sm" ng-model="newFormData.wounded.atendido_sintomas" placeholder="Ej. Dolor de cabeza" required />
+		    			</td>
+		    			<td class="text-center">
+		    				<button type="button" class="btn btn-success btn-sm" ng-click="saveItemPart('wounded','attended')">
+		    					<i-fa i=check></i-fa><md-tooltip><span translate>BTN_SAVE</span></md-tooltip>
+		    				</button>
+		    			</td>
+		    		</tr>
+	    		</tbody>
+	    	</table>
+			</div>
+		</div>
+		
+		<!-- ATENDIDOS -->
+		<div class="box box-primary no-margin margin-top no-padding">
+			<div class="box-header with-border text-center">
+				<h3 class="box-title no-margin" translate>LB_INSTITUTIONS_SERVED</h3>
+			</div>
+			<div class="box-body no-padding" layout-padding>
+				<table class="table table-bordered table-striped table-hover no-margin">
+	    		<thead>
+	    			<tr>
+	    				<th><span translate>LB_CLASSIFICATION</span></th>
+	    				<th><span translate>LB_NAME_OR_REPRESENTATIVE</span></th>
+	    				<th><span translate>LB_OWNER</span></th>
+	    				<th><span translate>LB_ADDITIONAL_DATA</span></th>
+	    				<th style="width:75px;"></th>
+	    			</tr>
+	    		</thead>
+	    		<tbody>
+	    			<tr ng-repeat="(key,item) in sourceList.attended">
+	    				<td>{{item.atendido_sexo}}</td>
+	    				<td>{{item.atendido_nombre}}</td>
+	    				<td>{{item.atendido_propietario}}</td>
+	    				<td>{{item.atendido_datosadicionales}}</td>
+		    			<td class="text-center">
+		    				<button type="button" class="btn btn-danger btn-sm" ng-click="removeItemPart('attended',item.atendido_id)">
+		    					<i-fa i=trash></i-fa><md-tooltip><span translate>LB_DELETE_DATA</span></md-tooltip>
+		    				</button>
+		    			</td>
+	    			</tr>
+		    		<tr>
+		    			<td colspan="4"></td>
+		    			<td class="text-center">
+		    				<button type="button" class="btn btn-info btn-sm" ng-click="newToggleForm.attended=true" ng-if="!newToggleForm.attended">
+		    					<i-fa i=plus></i-fa><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+		    				</button>
+		    				<button type="button" class="btn btn-warning btn-sm" ng-click="newToggleForm.attended=false" ng-if="newToggleForm.attended">
+		    					<i-fa i=times></i-fa><md-tooltip><span translate>LB_CANCEL</span></md-tooltip>
+		    				</button>
+		    			</td>
+		    		</tr>
+		    		<tr ng-if="newToggleForm.attended">
+	    				<td>
+		    				<select class="form-control input-sm" ng-model="newFormData.attended.atendido_sexo" ng-options="val as val for (key,val) in string2JSON('typeProjectList')" required></select>
+		    			</td>
+		    			<td>
+		    				<input type="text" class="form-control input-sm" ng-model="newFormData.attended.atendido_nombre" placeholder="Ej. ilm Corporation" required />
+		    			</td>
+		    			<td>
+		    				<input type="text" class="form-control input-sm" ng-model="newFormData.attended.atendido_propietario" placeholder="Ej. Alex Quintero" required />
+		    			</td>
+		    			<td>
+		    				<input type="text" class="form-control input-sm" ng-model="newFormData.attended.atendido_datosadicionales" placeholder="Ej. Descripción..." required />
+		    			</td>
+		    			<td class="text-center">
+		    				<button type="button" class="btn btn-success btn-sm" ng-click="saveItemPart('attended','attended')">
+		    					<i-fa i=check></i-fa><md-tooltip><span translate>BTN_SAVE</span></md-tooltip>
+		    				</button>
+		    			</td>
+		    		</tr>
+	    		</tbody>
+	    	</table>
+			</div>
+		</div>
+	
+		<!-- MATERIALES -->
+		<div class="box box-primary no-margin margin-top no-padding">
+			<div class="box-header with-border text-center">
+				<h3 class="box-title no-margin" translate>LB_APHSUPPLIES_EMPLOYEES_PARTS</h3>
+			</div>
+			<div class="box-body no-padding" layout-padding>
+				<table class="table table-bordered table-striped table-hover no-margin">
+	    		<thead>
+	    			<tr>
+	    				<th><span translate>LB_PREHOSPITAL_MATERIALS</span></th>
+	    				<th><span translate>LB_APH_PRESENTATION</span></th>
+	    				<th><span translate>LB_QUANTITY</span></th>
+	    				<th style="width:75px;"></th>
+	    			</tr>
+	    		</thead>
+	    		<tbody>
+	    			<tr ng-repeat="(key,item) in sourceList.supplies">
+		    			<td>{{item.supply.insumo_nombre}}</td>
+		    			<td>{{item.supply.insumo_concentracion}}</td>
+		    			<td>{{item.insumo_cantidad}}</td>
+		    			<td class="text-center">
+		    				<button type="button" class="btn btn-danger btn-sm" ng-click="removeItemPart('supplies',item.registro_id)">
+		    					<i-fa i=trash></i-fa><md-tooltip><span translate>LB_DELETE_DATA</span></md-tooltip>
+		    				</button>
+		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<td colspan="3"></td>
+		    			<td class="text-center">
+		    				<button type="button" class="btn btn-info btn-sm" ng-click="newToggleForm.supplies=true" ng-if="!newToggleForm.supplies">
+		    					<i-fa i=plus></i-fa><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+		    				</button>
+		    				<button type="button" class="btn btn-warning btn-sm" ng-click="newToggleForm.supplies=false" ng-if="newToggleForm.supplies">
+		    					<i-fa i=times></i-fa><md-tooltip><span translate>LB_CANCEL</span></md-tooltip>
+		    				</button>
+		    			</td>
+		    		</tr>
+		    		<tr ng-if="newToggleForm.supplies">
+		    			<td>
+		    				<div class="input-group"><span class="input-group-addon"><md-ico i=healing></md-ico></span>
+		    					<select class="form-control input-sm" ng-model="newFormData.supplies.insumo" ng-options="val as val.insumo_nombre for (key,val) in frmParent.suppliesaphtList"></select>
+								</div>
+		    			</td>
+		    			<td>{{newFormData.supplies.insumo.insumo_concentracion}}</td>
+		    			<td>
+		    				<input type="number" step="1" min="0" max="{{newFormData.supplies.insumo.stock}}" class="form-control input-sm" ng-model="newFormData.supplies.insumo_cantidad" placeholder="Ej. 3" />
+		    			</td>
+		    			<td class="text-center">
+		    				<button type="button" class="btn btn-success btn-sm" ng-click="saveItemPart('supplies','supplies')">
+		    					<i-fa i=check></i-fa><md-tooltip><span translate>BTN_SAVE</span></md-tooltip>
+		    				</button>
+		    			</td>
+		    		</tr>
+	    		</tbody>
+	    	</table>
+			</div>
+		</div>
+		
+		<!-- MATERIAL Y EQUIPO EMPLEADO - OBSERVACIONES -->
+		<div class="no-padding-top" layout-xs=column layout=row layout-padding>
+			<!-- MATERIAL Y EQUIPO -->
+			<div class="box box-primary no-margin margin-top no-padding margin-right" flex>
+				<div class="box-header with-border text-center">
+					<h3 class="box-title no-margin" translate>LB_OTHER_MATERIALS_AND_EQUIPMENT_USED</h3>
+				</div>
+				<div class="box-body" layout-padding>
+					<textarea rows="5" ng-model="frmParent.parte_material" class="form-control" required="required"></textarea>
+				</div>
+			</div>
+			<!-- NOVEDADES -->
+			<div class="box box-primary no-margin margin-top no-padding margin-left" flex>
+				<div class="box-header with-border text-center">
+					<h3 class="box-title no-margin" translate>LB_NEWS_PARTS</h3>
+				</div>
+				<div class="box-body" layout-padding>
+					<textarea rows="5" ng-model="frmParent.parte_novedades" class="form-control" required="required"></textarea>
+				</div>
+			</div>
+		</div>
+	
+	</div>
+	
+</div>
+
+<!-- BOTONES -->
+<div class="no-padding-left no-padding-right" layout-xs=column layout=row layout-padding>
+	<div flex>
+		<button type="button" class="btn btn-block btn-warning" ng-click="goUI('main.newPart.step2',{key:dataEntity.codigo_clave,entityId:dataEntity.parte_id})">
+			<i-fa i=angle-double-left></i-fa> <span translate>BTN_PREV</span>
+		</button>
+	</div>
+	<div flex>
+		<button type="submit" class="btn btn-block btn-success" ng-click="submitForm()" ng-disabled="formData.$invalid" >
+			<span translate>LB_FINISH_REGISTRATION</span> <i-fa i=angle-double-right></i-fa>
+		</button>
+	</div>
+</div>

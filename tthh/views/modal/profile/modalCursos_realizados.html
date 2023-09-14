@@ -1,0 +1,59 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitFormFile()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button class="md-icon-button"><md-ico i=receipt></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_COURSES_COMPLETED</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout-padding layout=column>
+    	<div class="form-group required">
+				<label translate>LB_INSTITUTION</label>
+			  <div class="input-group">
+			    <span class="input-group-addon"><md-ico i=business></md-ico></span>
+			    <input class="form-control" ng-model="frmParent.capacitacion_institucion" placeholder="Ej. CBSD" required >
+			  </div>
+			</div>
+    	<div class="form-group required">
+				<label translate>LB_TRAINING_TOPIC</label>
+			  <div class="input-group">
+			    <span class="input-group-addon"><md-ico i=extension></md-ico></span>
+			    <input class="form-control" ng-model="frmParent.capacitacion_tema" placeholder="Ej. Primeros auxilios" required >
+			  </div>
+			</div>
+    	<div layout-xs=column layout=row layout-padding>
+	    	<div class="form-group required" flex>
+					<label translate>LB_DATE</label>
+				  <div class="input-group" moment-picker="frmParent.capacitacion_fecha" format="YYYY-MM-DD" max-date="today">
+				    <span class="input-group-addon"><md-ico i=event></md-ico></span>
+				    <input class="form-control" ng-model="frmParent.capacitacion_fecha" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2017-07-07" required >
+				  </div>
+				</div>
+	    	<div class="form-group required" flex>
+					<label translate>LB_TRAINING_TIME</label>
+				  <div class="input-group">
+				    <span class="input-group-addon"><md-ico i=access_time></md-ico></span>
+				    <input parse-float type="number" min=1 step="1" class="form-control" ng-model="frmParent.capacitacion_horas" placeholder="Ej. 60" required >
+				  </div>
+				</div>
+    	</div>
+			
+	    <div class="form-group" ng-class="{'required':!toogleEditMode}">
+				<label translate>LB_VERIFICATION_SOURCE</label>
+		    <div class="input-group">
+		      <span class="input-group-addon"><md-ico i=attachment></md-ico></span>
+		      <input uploader-model="frmParent.capacitacion_file" type="file" accept="{{string2JSON('fileTypeMime')['PDF']}}" class="form-control" ng-required="!toogleEditMode" />
+		    </div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

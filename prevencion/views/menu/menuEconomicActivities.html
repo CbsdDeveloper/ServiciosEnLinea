@@ -1,0 +1,126 @@
+<md-menu md-position-mode="target-right target">
+  <md-button aria-label="Open demo menu" class="md-icon-button main-menu-icon" ng-click="$mdOpenMenu($event)">
+    <md-icon><i-fa i=cogs></i-fa></md-icon>
+  </md-button>
+  <md-menu-content width="6">
+  
+    <md-menu-item ng-if="true">
+      <md-button aria-label="editar" ng-click="goUI('permits.covid19',{id:row.local_id})">
+        <div layout="row" flex>
+          <p flex translate>LB_BIOSECURITY_PROTOCOL</p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+            <md-ico i=coronavirus></md-ico>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+    
+		<md-divider></md-divider>
+    
+    <md-menu-item ng-if="(row.prorroga_id>0 && row.permiso_current===false) || 
+    										 (row.permiso_current===false && (row.inspeccion_status=='APROBADO' || row.inspeccion_status=='SIN INSPECCION') && (row.plan_status=='APROBADO' || row.plan_status=='SIN INSPECCION' || row.plan_status=='SUSPENDIDO'))">
+      <md-button aria-label="editar" ng-click="goUI('permits.selfInspection.step1',{localId:row.local_id})">
+        <div layout="row" flex>
+          <p flex translate="LB_SELFINSPECTION_YEAR" translate-values="{year:(currentYear | date:'yyyy')}"></p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+           <i-fa i=folder-open></i-fa>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="row.autoinspeccion_id>0">
+      <md-button aria-label="editar" ng-click="exportEntity('autoinspecciones',row.autoinspeccion_id)">
+        <div layout="row" flex>
+          <p flex translate="LB_SELFINSPECTION_DOWNLOAD" translate-values="{year:(currentYear | date:'yyyy')}"></p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+            <i-fa i=download style="font-size:18px;color:#1E90FF"></i-fa>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-menu-item ng-if="row.permiso_id>0 && row.permiso_current && (row.plan_status=='APROBADO' || row.plan_status=='SIN INSPECCION' || row.plan_status=='SUSPENDIDO')">
+      <md-button aria-label="editar" ng-click="exportEntityDetail('duplicados',row.autoinspeccion_id)">
+        <div layout="row" flex>
+          <p flex translate>LB_REQUEST_DUPLICATE</p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+            <i-fa i=clone style="font-size:18px;color:#00a65a"></i-fa>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+		
+		<md-divider ng-if="(row.inspeccion_status!='APROBADO' && row.inspeccion_status!='SIN INSPECCION')"></md-divider>
+		
+    <md-menu-item ng-if="(row.inspeccion_status!='APROBADO' && row.inspeccion_status!='SIN INSPECCION')">
+      <md-button aria-label="editar" ng-click="exportEntityDetail('inspecciones',row.inspeccion_id)">
+        <div layout="row" flex>
+          <p flex translate>LB_PRINT_INSPECTION_REPORT</p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+						<i-fa i=dot-circle-o></i-fa>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+    
+		<md-divider></md-divider>
+		
+    <md-menu-item>
+      <md-button aria-label="editar" ng-click="exportEntity('suspender',row.local_id)">
+        <div layout="row" flex>
+          <p flex translate>LB_SUSPEND_ACTIVITY</p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+           <i-fa i=power-off style="font-size:18px;color:#B22222"></i-fa>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider></md-divider>
+    
+    <md-menu-item>
+      <md-button aria-label="editar" ng-click="goUI('permits.detailEconomicActivities',{localId:row.local_id})">
+        <div layout="row" flex>
+          <p flex translate>LB_DETAIL_LOCAL</p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+						<md-ico i=info></md-ico>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+    
+		<md-divider ng-if="(row.local_establecimiento=='SI' && row.plan_id<1) || (row.plan_id>0 && row.plan_status=='PENDIENTE')"></md-divider>
+		
+    <md-menu-item ng-if="row.local_establecimiento=='SI' && row.plan_id<1">
+      <md-button aria-label="editar" ng-click="openParentModal('Planesemergencia',row)">
+        <div layout="row" flex>
+          <p flex translate>LB_GENERATE_NEW_SELFPROTECTION_PLAN</p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+           <md-ico i=create_new_folder></md-ico>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="row.plan_id>0 && row.plan_status=='PENDIENTE'">
+      <md-button aria-label="editar" ng-click="goUI('permits.selfProtection.step2',{localId:row.local_id})">
+        <div layout="row" flex>
+          <p flex translate>LB_EDIT_AUTOPROTECTION_PLAN</p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+           <md-ico i=create_new_folder></md-ico>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="(row.plan_status!='APROBADO' && row.plan_status!='SIN INSPECCION')">
+      <md-button aria-label="editar" ng-click="exportEntityDetail('planesemergencia',row.plan_id)">
+        <div layout="row" flex>
+          <p flex><span translate>LB_PRINT_SIMPLE_REQUEST</span> - <span translate>LB_EMERGENCY_PLAN</span></p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+          	<i-fa i=bullhorn></i-fa>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+    
+  </md-menu-content>
+</md-menu>

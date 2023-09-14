@@ -1,0 +1,183 @@
+﻿<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		<card-simulation class="card-information" ng-if="detailConfig.show" flex></card-simulation>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=directions_run></md-ico></md-button>
+						<h2>{{entity.simulacro_codigo}} ({{entity.simulacro_serie}})</h2>
+						<span flex></span>
+						<menu-detail-simulations></menu-detail-simulations>
+						
+						<md-button aria-label="btn" class="md-icon-button" ng-click="reloadEntity()">
+							<md-ico i=refresh></md-ico>
+							<md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+						</md-button>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<md-tabs md-dynamic-height md-border-bottom>
+					<md-tab label="{{'LB_INFORMATION' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=directions_run></md-ico></md-button>
+								<h2 translate>TOOLBAR_SIMULATIONS</h2>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+						<div layout=row layout-padding layout-wrap>
+							<card-entity style="min-width:350px;max-width:480px" flex></card-entity>
+						</div>
+					</md-tab>
+				
+					<md-tab label="{{'LB_VEEDOR' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=group></md-ico></md-button>
+								<h2 translate>TOOLBAR_VEEDOR</h2>
+								<span flex></span>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openModal('Veedores',{fk_simulacro_id:entity.simulacro_id,edit:false})"  ng-if="allow.permiso6112 && (entity.simulacro_estado=='CONFIRMADO' || entity.simulacro_estado=='REAGENDADA')">
+									<md-ico i=person_add></md-ico>
+									<md-tooltip><span translate>LB_VEEDOR</span></md-tooltip>
+								</md-button>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+						<md-table-container>
+					    <table md-table class="md-primary table-hover" md-progress="deferred">
+					      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+									<tr md-row>
+										<th md-column><span translate>LB_PERSONAL</span></th>
+										<th md-column><span translate>LB_ACTIVITY</span></th>
+										<th md-column><span translate>LB_DETAIL</span></th>
+									</tr>
+					      </thead>
+					      <tbody>
+									<tr md-row data-ng-repeat="row in entity.capacitorsList">
+										<td md-cell>
+											<md-ico i=person></md-ico> <span ng-bind-html="highlight(row.personal_nombre)"></span><br>
+											<md-ico i=account_balance></md-ico> <span ng-bind-html="highlight(row.puesto_nombre)"></span>
+										</td>
+										<td md-cell>
+											<md-ico i=star_half></md-ico> <span ng-bind-html="highlight(row.capacitador_actividad)"></span><br>
+											<md-ico i=comment></md-ico> <span ng-bind-html="highlight(row.capacitador_descripcion)"></span>
+										</td>
+										<td md-cell>
+											<md-ico i=event></md-ico> <span ng-bind-html="highlight(row.capacitador_registro)"></span><br>
+											<md-ico i=person></md-ico> <span ng-bind-html="highlight(row.usuario)"></span>
+										</td>
+									</tr>
+					      </tbody>
+					    </table>
+						</md-table-container>
+					</md-tab>
+					
+					<md-tab label="{{'LB_MEDIA' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=attach_file></md-ico></md-button>
+								<h2 translate>TOOLBAR_GALLERY</h2>
+								<span flex></span>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openModal('Gallery',{edit:false,fk_table:'simulacros',fk_id:entity.simulacro_id})" ng-if="allow.permiso6115">
+									<md-ico i=file_upload></md-ico>
+									<md-tooltip><span translate>LB_UPLOAD_FILES</span></md-tooltip>
+								</md-button>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+						<div class="md-padding gallery-columns" layout-padding>
+							<div class="figure-gallery" ng-repeat="row in entity.gallery">
+								<div class="card card-outline card-{{string2JSON('colorCss')[$index+1]}} no-margin">
+									<div class="card-header with-border">
+			              <div class="user-block">
+			                <img class="img-circle" src="/app/src/img/users/default.png" ng-src="/app/src/img/users/{{row.profile}}" alt="User Image">
+			                <span class="username">
+			                	<a href="#">{{row.usuario_nombre}}</a>
+			                	<a href="#" class="pull-right btn-box-tool" ng-click="openModal('Gallery',row)" ng-if="allow.permiso61151">
+			                		<md-ico i=edit s=18></md-ico>
+			                	</a>
+			                </span>
+			                <span class="description">{{row.perfil_nombre}}</span>
+			              </div>
+			            </div>
+			            <div class="card-body text-center no-padding">
+			            	<div ng-if="row.media_tipo=='IMG'">
+				              <img class="img-responsive pad" ng-src="/app/src/img/gallery/{{row.media_nombre}}" alt="Photo">
+			            	</div>
+			            	<div ng-if="row.media_tipo!='IMG'" class="md-padding">
+				              <a target="_blank" ng-href="/app/src/img/gallery/{{row.media_nombre}}" alt="Photo">
+			            			<i-fa i={{string2JSON('iFaIconList')[row.media_tipo]}} s=4x></i-fa><br> 
+				              	{{string2JSON('fileTypeList')[row.media_tipo]}}
+				              </a>
+			            	</div>
+			            </div>
+			            <div class="card-footer box-comments">
+			              <div class="box-comment">
+			                <div class="comment-text text-justify no-margin ">
+	                      <span class="username">
+	                      	{{row.media_titulo}}
+	                      	<span class="text-muted pull-right"><i-fa i=clock-o></i-fa> {{row.media_registro}}</span>
+	                      </span>
+	                  		{{row.media_descripcion}}
+			                </div>
+			              </div>
+			            </div>
+			          </div>
+							</div>
+						</div>
+					</md-tab>
+					
+					<md-tab label="{{'LB_ACTIVITY_LOG' | translate}}">
+						<md-content ng-controller="historyEntityCtrl">
+							<div ng-controller="myTableCtrl">
+								<toolbar-filter-in-tab></toolbar-filter-in-tab>
+								<toolbar-filter></toolbar-filter>
+								<md-table-container>
+							    <table md-table class="md-primary table-hover" md-progress="deferred">
+							      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+											<tr md-row>
+												<th md-column><span translate>LB_SIMULATION</span></th>
+												<th md-column><span translate>LB_ENTITY</span></th>
+												<th md-column><span translate>LB_RESPONSIBILITY</span></th>
+												<th md-column><span translate>LB_STATUS</span></th>
+											</tr>
+							      </thead>
+							      <tbody>
+											<tr md-row data-ng-repeat="row in rowsParent.data">
+												<td md-cell>
+													<md-ico i=book></md-ico><span ng-bind-html="highlight(row.simulacro_tema)"></span><br>
+													<md-ico i=event></md-ico><span ng-bind-html="highlight(row.simulacro_fecha)"></span><br>
+													<md-ico i=fingerprint></md-ico><span ng-bind-html="highlight(row.simulacro_codigo)"></span> (<span ng-bind-html="highlight(row.simulacro_serie)"></span>)
+												</td>
+												<td md-cell>
+													<md-ico i=business></md-ico><span ng-bind-html="highlight(row.simulacro_entidad)"></span><br>
+													<md-ico i=person></md-ico><span ng-bind-html="highlight(row.coordinador)"></span><br>
+													<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.persona_doc_identidad)"></span>
+												</td>
+												<td md-cell>
+													<md-ico i=assistant_photo></md-ico><span ng-bind-html="highlight(row.estacion_nombre)"></span><br>
+													<md-ico i=person_outline></md-ico> <span ng-bind-html="highlight(row.coordinador)"></span>
+												</td>
+												<td md-cell>
+													<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.simulacro_estado]"></span><br>
+													<md-ico i=event></md-ico> <span ng-bind-html="highlight(row.simulacro_registro)"></span><br>
+													<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+												</td>
+											</tr>
+							      </tbody>
+							    </table>
+								</md-table-container>
+								<footer-table></footer-table>
+							</div>
+						</md-content>
+					</md-tab>
+				</md-tabs>
+			</md-card>
+		</div>
+	</div>
+</div>

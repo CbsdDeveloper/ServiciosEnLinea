@@ -1,0 +1,57 @@
+<md-dialog aria-label="Dialog" class="modal-dialog modal-lg" ng-controller="vacationsofstaffExtendsCtrl">
+  <form name="formData" ng-submit="submitFormFile()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=thumb_up></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_PERMISSIONS</h2> 
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	<div class="callout callout-info no-margin margin-bottom">
+			  <div class="text-center"><i class="icon fa fa-bell-o fa-3x faa-ring animated"></i></div>
+			  <p ng-bind-html="trustAsHtml(paramsConf.INFO_TTHH_UPLOAD_STAFF_PERMISSIONS)"></p>
+			</div>
+    	
+	    <div class="form-group required" flex>
+				<label translate>LB_FILE</label>
+		    <div class="input-group">
+		      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=attachment></md-ico></div></div> 
+		      <input uploader-model="frmParent.permission_file" type="file" accept="{{fileTypeMime.EXCEL}}" class="form-control" required/>
+		    </div>
+			</div>
+			
+	    <div layout-xs=column layout=row layout-padding>
+		    <div class="form-group required" flex>
+					<label translate>Num. Hoja</label>
+		    	<div class="input-group">
+			      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=insert_drive_file></md-ico></div></div> 
+			      <input ng-model="frmParent.hoja_numero" class="form-control" placeholder="Ej. 1" required/>
+			    </div>
+				</div>
+	    	<div class="form-group required" flex>
+					<label translate>Primera fila</label>
+		    	<div class="input-group">
+			      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=format_list_numbered></md-ico></div></div> 
+			      <input ng-model="frmParent.fila_inicio" class="form-control" placeholder="Ej. A2" required/>
+			    </div>
+				</div>
+	    	<div class="form-group required" flex>
+					<label translate>Última fila</label>
+		    	<div class="input-group">
+			      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=format_list_numbered></md-ico></div></div> 
+			      <input ng-model="frmParent.fila_final" class="form-control" placeholder="Ej. C500" required/>
+			    </div>
+				</div>
+	    </div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

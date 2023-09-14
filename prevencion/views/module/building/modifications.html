@@ -1,0 +1,130 @@
+<div layout-padding>
+	<div flex class="box box-info collapsed-box no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+			<div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+      </div>
+		</div>
+		<div class="box-body box-bg-info" layout=column>
+			<div ng-bind-html="$parent.trustAsHtml(paramsConf.MODIFICATIONS_STEPS_INFO)"></div>
+		</div>
+	</div>
+</div>
+
+<md-card ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><i-fa i=pencil-square-o s=lg></i-fa></md-button>
+			<h2 hide-xs><span translate>LB_MODIFICATION_PLANS</span></h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openParentModal('Proyecto_modificaciones',{edit:false})">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_PROJECTS</span></th>
+					<th md-column><span translate>LB_VBP</span></th>
+					<th md-column><span translate>LB_VBP_MODIFICATIONS</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+			</thead>
+		  <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell class="text-uppercase">
+						<i-fa i=shield></i-fa><span ng-bind-html="highlight(row.vbp_codigo)"></span><br>
+						<div>
+							<i-fa i=calendar></i-fa><span ng-bind-html="highlight(row.vbp_proyecto)"></span>
+							<md-tooltip>{{'LB_PROJECT_NAME' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<i-fa i=rss></i-fa><span ng-bind-html="highlight(row.actividad_nombre)"></span>
+							<md-tooltip>{{'LB_BUILDING_PURPOSE' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<i-fa i=location-arrow></i-fa><span ng-bind-html="highlight(row.vbp_principal+' y '+row.vbp_secundaria)"></span>
+							<md-tooltip>{{row.vbp_parroquia}}</md-tooltip>
+						</div>
+						<div>
+							<i-fa i=key></i-fa><span ng-bind-html="highlight(row.vbp_clavecatastral)"></span>
+							<md-tooltip>{{'LB_CATASTRAL_KEY' | translate}}</md-tooltip>
+						</div>
+						<div ng-if="row.proyectista_id>0">
+							<i-fa i=user></i-fa><span ng-bind-html="highlight(row.modificacion_proyectista)"></span>
+							<md-tooltip>{{'LB_DESIGNER' | translate}}</md-tooltip>
+						</div>
+						<div ng-if="row.responsable_mt_rpmci>0">
+							<i-fa i=user-o></i-fa><span ng-bind-html="highlight(row.modificacion_rpmci)"></span>
+							<md-tooltip>{{'LB_RPMCI' | translate}}</md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<div>
+							<i-fa i=calendar></i-fa><span ng-bind-html="highlight(row.vbp_aprobado)"></span>
+							<md-tooltip>{{'LB_APPROVAL_DATE' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<i-fa i=arrows></i-fa><span ng-bind-html="highlight(row.area_terreno+' m²')"></span>
+							<md-tooltip>{{'LB_LAND_AREA' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<i-fa i=arrows-h></i-fa><span ng-bind-html="highlight(row.area_construccion+' m²')"></span>
+							<md-tooltip>{{'LB_CONSTRUCTION_AREA' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<i-fa i=signal></i-fa><span ng-bind-html="highlight(row.vbp_altura+' m')"></span>
+							<md-tooltip>{{'LB_BUILDING_HEIGHT' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<i-fa i=university></i-fa><span ng-bind-html="highlight(row.vbp_edificaciones)"></span>
+							<md-tooltip>{{'LB_NUMBER_BUILDINGS' | translate}}</md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<div>
+							<i-fa i=calendar></i-fa><span ng-bind-html="highlight(row.modificacion_fecha)"></span>
+							<md-tooltip>{{'LB_MODIFICATION_DATE' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<i-fa i=arrows></i-fa><span ng-bind-html="highlight(row.modificacion_area_terreno+' m²')"></span>
+							<md-tooltip>{{'LB_MODIFICATION_LAND_AREA' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<i-fa i=arrows-h></i-fa><span ng-bind-html="highlight(row.modificacion_area_construccion+' m²')"></span>
+							<md-tooltip>{{'LB_MODIFICATION_CONSTRUCTION_AREA' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<i-fa i=signal></i-fa><span ng-bind-html="highlight(row.modificacion_altura+' m')"></span>
+							<md-tooltip>{{'LB_MODIFICATION_BUILDING_HEIGHT' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<i-fa i=university></i-fa><span ng-bind-html="highlight(row.modificacion_plantas)"></span>
+							<md-tooltip>{{'LB_MODIFICATION_NUMBER_BUILDINGS' | translate}}</md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<i-fa i=flag></i-fa><span ng-bind-html="statusLabel[row.modificacion_estado]"></span><br>
+						<i-fa i=calendar></i-fa><span ng-bind-html="highlight(row.modificacion_registro)"></span><br>
+						<i-fa i=user></i-fa><span ng-bind-html="highlight(row.usuario)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+						<menu-modification></menu-modification>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

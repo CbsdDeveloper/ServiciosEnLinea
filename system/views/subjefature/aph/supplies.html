@@ -1,0 +1,87 @@
+<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=healing></md-ico></md-button>
+			<h2 translate>TOOLBAR_PREHOSPITAL_MATERIALS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openParentModal('Insumosaph','subjefature/aph/suppliest',{edit:false,userId:session.usuario_id})" ng-if="allow.permiso8401">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<datatable-toolbar></datatable-toolbar>
+	
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="">
+     	<col style="width:25%;">
+     	<col style="width:5%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_DESCRIPTION</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td md-cell>
+						<div>
+							<md-ico i=fingerprint></md-ico><span ng-bind-html="highlight(row.insumo_codigo)"></span>
+							<md-tooltip><span translate>LB_CODE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=healing></md-ico><span ng-bind-html="highlight(row.insumo_nombre)"></span>
+							<md-tooltip><span translate>LB_INPUT_APH_NAME</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=bookmark></md-ico><span ng-bind-html="highlight(row.insumo_presentacion)"></span>
+							<md-tooltip><span translate>LB_APH_PRESENTATION</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=bookmark></md-ico><span ng-bind-html="highlight(row.insumo_concentracion)"></span>
+							<md-tooltip><span translate>LB_APH_CONCENTRATION</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+					  <md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.insumo_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.insumo_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.staff.person.persona_apellidos+' '+row.staff.person.persona_nombres)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  
+					  <md-menu md-position-mode="target-right target" ng-if="allow.permiso8403">
+						  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+						    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+						  </md-button>
+						  <md-menu-content width="5">
+						    <md-menu-item>
+						      <md-button aria-label="editar" ng-click="openParentModal('Insumosaph','subjefature/aph/suppliest',mergeData(row,{userId:session.usuario_id}))">
+						          <div layout="row" flex>
+						            <p flex translate>LB_EDIT</p>
+						            <md-icon md-menu-align-target class="md-menu-btn-ico">
+						              <md-ico i=edit s=18></md-ico>
+						            </md-icon>
+						          </div>
+						      </md-button>
+						    </md-menu-item>
+						  </md-menu-content>
+						</md-menu>
+					  
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	
+	<datatable-footer></datatable-footer>
+	
+</md-card>

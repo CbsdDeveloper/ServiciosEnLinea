@@ -1,0 +1,59 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=assignment_ind></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_EMPLOYMENT_HISTORY</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="exportData({})">
+				<md-ico i=save_alt></md-ico><md-tooltip><span translate>LB_EXPORT</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <col style="width:25%">
+     	<col style="">
+      <col style="width:20%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_PERFORMANCE</span></th>
+					<th md-column><span translate>LB_INSTITUTION</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell class="text-uppercase">
+						<div><md-ico i=person></md-ico><span ng-bind-html="highlight(row.personal_nombre)"></span></div>
+						<div><md-ico i=assignment_ind></md-ico><span ng-bind-html="highlight(row.experiencia_cargo)"></span><md-tooltip><span translate>LB_PERFORMANCE</span></md-tooltip></div>
+					</td>
+					<td md-cell class="text-uppercase">
+						<div><md-ico i=business></md-ico><span ng-bind-html="highlight(row.experiencia_institucion)"></span><md-tooltip><span translate>LB_INSTITUTION</span></md-tooltip></div>
+						<div><md-ico i=accessible></md-ico><span ng-bind-html="highlight(row.experiencia_area)"></span><md-tooltip><span translate>LB_WORK_AREA</span></md-tooltip></div>
+						<div>
+							<md-ico i=event_available></md-ico>{{row.experiencia_fingreso | date:'fullDate'}}<md-tooltip><span translate>LB_DATE_ADMISSION</span></md-tooltip>
+						</div>
+						<div ng-if="row.experiencia_estado=='SALIDA'">
+							<md-ico i=event_busy></md-ico>{{row.experiencia_fsalida | date:'fullDate'}}<md-tooltip><span translate>LB_DEPARTURE_DATE</span></md-tooltip>
+						</div>
+						<div ng-if="row.experiencia_estado=='SALIDA'">
+							<md-ico i=comment></md-ico><span ng-bind-html="highlight(row.experiencia_msalida)"></span><md-tooltip><span translate>LB_REASON_EXIT</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell class="text-uppercase">
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.experiencia_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.experiencia_registro)"></span><br>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

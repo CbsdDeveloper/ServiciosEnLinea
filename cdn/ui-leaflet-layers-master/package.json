@@ -1,0 +1,68 @@
+{
+  "name": "ui-leaflet-layers",
+  "version": "0.1.3",
+  "description": "Angular UI Leaflet Layers Plugin",
+  "main": "dist/ui-leaflet-layers.js",
+  "scripts": {
+    "start": "node_modules/gulp/bin/gulp.js",
+    "test": "node_modules/gulp/bin/gulp.js test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elesdoar/ui-leaflet-layers.git"
+  },
+  "keywords": [
+    "ui-leaflet",
+    "leaflet",
+    "maps",
+    "gis",
+    "mapbox",
+    "esri",
+    "cartodb",
+    "wms"
+  ],
+  "author": "Michael Salgado <elesdoar@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/elesdoar/ui-leaflet-layers/issues"
+  },
+  "homepage": "https://github.com/elesdoar/ui-leaflet-layers",
+  "devDependencies": {
+    "angular-mocks": "^1.4.7",
+    "babel-plugin-transform-remove-strict-mode": "0.0.2",
+    "babel-preset-es2015": "^6.14.0",
+    "browser-sync": "^2.16.0",
+    "conventional-github-releaser": "^1.1.3",
+    "del": "^2.0.2",
+    "gulp": "git://github.com/gulpjs/gulp.git#4.0",
+    "gulp-babel": "^6.1.2",
+    "gulp-bump": "^2.4.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-conventional-changelog": "^1.1.0",
+    "gulp-git": "^1.6.0",
+    "gulp-if": "^2.0.0",
+    "gulp-insert": "^0.5.0",
+    "gulp-replace": "^0.5.4",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7",
+    "gulp-wrap": "~0.13.0",
+    "jasmine-core": "2.x",
+    "jsonfile": "^2.2.3",
+    "karma": "^1.3.x",
+    "karma-babel-preprocessor": "^6.0.1",
+    "karma-chrome-launcher": "~2.x",
+    "karma-coverage": "~1.1.x",
+    "karma-jasmine": "~1.0.x",
+    "karma-mocha-reporter": "~2.x",
+    "karma-phantomjs-launcher": "~1.0.x",
+    "open": "0.0.5",
+    "phantomjs": "^2.1.7",
+    "require-directory": "^2.x"
+  },
+  "dependencies": {
+    "angular": "^1.5.x",
+    "leaflet": "^0.7.7",
+    "ui-leaflet": "^1.0.2"
+  }
+}

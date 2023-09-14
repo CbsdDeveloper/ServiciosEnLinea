@@ -1,0 +1,39 @@
+<md-menu md-position-mode="target-right target" >
+  <md-button aria-label="Open demo menu" class="md-icon-button main-menu-icon" ng-click="$mdOpenMenu($event)">
+    <md-icon><i-fa i=cogs></i-fa></md-icon>
+  </md-button>
+  <md-menu-content width="6">
+    <md-menu-item ng-if="(row.transporte_id<1 && row.tglp_estado=='NO') || row.vehiculo_motor==null">
+      <md-button aria-label="editar" ng-click="openModal(row)">
+          <div layout="row" flex>
+            <p flex translate>LB_VEHICLE_INFORMATION</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=edit s=18></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-divider ng-if="row.vehiculo_motor!=null && (row.tglp_estado=='NO' || row.tglp_estado=='PENDIENTE')"></md-divider>
+    <md-menu-item ng-if="row.vehiculo_motor!=null && (row.tglp_estado=='NO' || row.tglp_estado=='PENDIENTE')">
+      <md-button aria-label="editar" ng-click="openParentModal('Transporteglp',row)">
+        <div layout="row" flex>
+          <p flex translate="LB_VEHICLE_REVIEW_YEAR" translate-values="{year:(currentYear | date:'yyyy')}"></p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+           <i-fa i=folder-open style="font-size: 18px;"></i-fa>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+    <md-divider ng-if="row.transporte_id>0"></md-divider>
+    <md-menu-item ng-if="row.transporte_id>0">
+      <md-button aria-label="editar" ng-click="exportEntityDetail('transporteglp',row.transporte_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_PRINT_REQUEST</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=print s=18></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

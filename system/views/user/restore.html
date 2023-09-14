@@ -1,0 +1,41 @@
+<div class="card container-main">
+	<div class="card-header text-center">
+    <img alt="CBSD" src="/app/src/img/system/escudo.png" class="img-responsive">
+	</div>
+	
+  <form name="formData" ng-submit="resetPwd()" class="form-fa" ng-hide="request.pass">
+    <div class="card-body">
+    	<div class="form-group">
+      	<i-fa i=user></i-fa>
+        <input name="user" autocomplete="off" autofocus="autofocus" ng-model="frmLogin.usuario_login" class="form-control" placeholder="Ingrese su usuario o número de identificación" required>
+    	</div>
+    </div>
+    <div class="card-footer">
+      
+      <button type="submit" class="btn btn-warning btn-block" ng-disabled="formData.$invalid">
+      	<span translate>BTN_RECOVERY_PASS</span>
+      	<i-fa i=angle-double-right></i-fa>
+      </button>
+			<br>
+			<div class="text-right margin-top row pull-right">
+				<div class="col-md-6 col-xs-12 no-padding-right">
+					<a ui-sref="main"><small translate>BTN_LOGIN</small> <i-fa i="sign-in"></i-fa></a>
+				</div>
+				<div class="col-md-6 col-xs-12 no-padding-right">
+					<a href="http://online.cbsd.gob.ec/denuncias-en-linea/" target="_blank"><small translate>LB_COMPLAINT_ONLINE</small> <i-fa i="inbox"></i-fa></a>
+				</div>
+				<div class="col-md-6 col-xs-12 no-padding-right">
+					
+				</div>
+				<div class="col-md-6 col-xs-12 no-padding-right">
+					<a href="/app/src/formats/manual_adminlogin.pdf" target="_blank"><small translate>LB_USER_MANUAL</small> <i-fa i="book"></i-fa></a>
+				</div>
+			</div>
+			
+			
+    </div>
+  </form>
+  
+ </div>
+
+<div class="footer_bg"><div class="footer_bg_two"></div></div>

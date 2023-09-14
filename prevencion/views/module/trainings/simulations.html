@@ -1,0 +1,90 @@
+<div layout-padding>
+	<div class="box box-info collapsed-box no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+			<div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+      </div>
+		</div>
+		<div class="box-body box-bg-info" layout=column layout-wrap>
+			<div ng-bind-html="$parent.trustAsHtml(paramsConf.INFO_LIST_SIMULATION)"></div>
+		</div>
+	</div>
+</div>
+
+<md-card ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="btn"><md-ico i=directions_run></md-ico></md-button>
+			<h2 hide-xs><span translate>TOOLBAR_SIMULATIONS</span></h2>
+			<span flex></span>
+			<md-button class="md-icon-button" aria-label="btn" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button class="md-icon-button" aria-label="btn" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ui-sref="training.calendar({entity:'simulacros'})">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<div class="md-padding" layout-xs=column layout=row layout-padding layout-wrap>
+		<div class="wow fadeInUp" style="min-width:350px;max-width:480px" ng-repeat="row in rowsParent.data" flex>
+			<div class="box box-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+				<div class="box-header">
+					<i-fa i=bullhorn s=3x></i-fa>
+				</div>
+				<div class="box-body">
+					<h3 class="profile-username">{{row.simulacro_codigo}}</h3>
+			    <hr>
+					<strong><i-fa i=book></i-fa> <span translate>LB_TOPIC</span></strong>
+			    <p class="text-muted">{{row.simulacro_tema}}</p>
+			    <hr>
+					<strong><i-fa i=user-o></i-fa> <span translate>LB_COORDINATOR</span></strong>
+			    <p class="text-muted">{{row.coordinador}}</p>
+			    <hr>
+					<strong><i-fa i=id-card-o></i-fa> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+			    <p class="text-muted">{{string2JSON('identificationType')[row.persona_tipo_doc]}} / {{row.persona_doc_identidad}}</p>
+			    <hr>
+					<strong><i-fa i=calendar-check-o></i-fa> <span translate>LB_DATE</span></strong>
+			    <p class="text-muted">{{row.simulacro_fecha}}</p>
+			    <div ng-if="row.simulacro_estado=='PENDIENTE' || row.simulacro_estado=='ANULADA'">
+				    <hr>
+						<strong><i-fa i=calendar-times-o></i-fa> <span translate>LB_CONFIRMATION_DATE</span></strong>
+				    <p class="text-muted text-capitalize"><label class="label label-danger">{{row.simulacro_confirmacion | date: 'fullDate'}}</label></p>
+			    </div>
+			    <hr>
+					<strong><i-fa i=flag></i-fa> <span translate>LB_STATUS</span></strong>
+			    <p class="text-muted"><span ng-bind-html="statusLabel[row.simulacro_estado]"></span></p>
+			    <div ng-if="row.gallery_entity>0">
+				    <hr>
+						<strong><i-fa i=picture-o></i-fa> <span translate>LB_VERIFICATION_SOURCE</span></strong>
+				    <p class="text-muted">{{row.gallery_entity}}</p>
+			    </div>
+				</div>
+				<div class="box-footer">
+					<div ng-if="row.simulacro_estado=='PENDIENTE'">
+						<button class="btn btn-block btn-warning" ng-click="openParentModal('Coordinador',mergeData(row,{entityName:'simulacros'}))">
+							<i-fa i=user-o s=fw></i-fa><span translate>LB_COORDINATOR</span>
+						</button>
+						<button class="btn btn-block btn-info" ng-click="exportWithDetail(row.simulacro_id)">
+							<i-fa i=print s=fw></i-fa><span translate>LB_PRINT_REQUEST</span>
+						</button>
+					</div>
+					<button class="btn btn-block btn-info" style="margin-top:5px" ui-sref="main.detailSimulations({id:row.simulacro_id})">
+						<i-fa i=check s=fw></i-fa><span translate>LB_DETAIL</span>
+					</button>
+					<button class="btn btn-warning btn-block" ng-if="row.simulacro_estado=='DESPACHADA'" ng-click="openParentModal('Evaluacionsatisfaccion',{entity:'simulacros',entityId:row.simulacro_id,edit:false})">
+						<i-fa i=star-o></i-fa> <span translate>LB_EVALUATE</span>
+					</button>
+					<button class="btn btn-block btn-danger" ng-if="(row.simulacro_estado=='DESPACHADA' || row.simulacro_estado=='EVALUADA') && row.gallery_entity<3" ng-click="openParentModal('Gallery',{edit:false,fk_table:'simulacros',fk_id:row.simulacro_id,media_tipo:'IMG'})">
+						<i-fa i=upload></i-fa> <span translate>LB_UPLOAD_EVIDENCE</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer-table></footer-table>
+</md-card>

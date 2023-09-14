@@ -1,0 +1,46 @@
+<div class="box box-primary no-margin margin-bottom">
+	<div class="box-header with-border text-center no-padding" ng-if="entity.local_imagen!='default.png'">
+	  <img class="img-responsive text-center" style="margin: auto" src="/app/src/img/entities/default.png" ng-src="{{setting.uri.img}}entities/{{entity.local_imagen}}" />
+	</div>
+	<div class="box-body box-profile text-center">
+    <h3 class="profile-username">{{entity.local_nombrecomercial}}</h3>
+		<p class="text-muted text-center"><md-ico i=event s=18></md-ico> {{entity.local_fecha_registro}}</p>
+		<hr>
+		<strong><md-ico i=directions s=18></md-ico> <span translate>LB_PARISH</span></strong>
+		<p class="text-muted">{{entity.local_parroquia}}</p>
+		<hr>
+		<strong><md-ico i=directions s=18></md-ico> <span translate>LB_ADDRESS</span></strong>
+		<p class="text-muted">{{entity.local_principal}}, {{entity.local_secundaria}}</p>
+		<hr>
+		<strong><md-ico i=place s=18></md-ico> <span translate>LB_REFERENCE</span></strong>
+		<p class="text-muted">{{entity.local_referencia}}</p>
+		<hr>
+		<strong><md-ico i=phone s=18></md-ico> <span translate>LB_TEL</span></strong>
+		<p class="text-muted">{{entity.local_telefono}}</p>
+		<hr>
+		<md-ico i={{entity.local_establecimiento=='NO'?'domain_disabled':'business'}} s=18></md-ico><br>
+		<span class="badge bg-{{entity.local_establecimiento=='SI'?'yellow':'aqua-active'}}" translate="LB_HAVE_ESTABLISHMENT_X" translate-values="{x:entity.local_establecimiento}"></span>
+	</div>
+</div>
+
+<!-- INFORMACION ADICIONAL DEL LOCAL -->
+<div class="box box-primary no-margin maring-top" ng-if="entity.local_establecimiento=='SI'">
+	<div class="box-header text-center">
+	  <h3 class="box-title" translate>LB_EXTRA_INFORMATION</h3>
+	</div>
+	<div class="box-footer no-padding">
+     <ul class="nav nav-stacked">
+       <li><a href="#"><i-fa i=long-arrow-right></i-fa><span translate>LB_LONGITUDE</span> <span class="pull-right badge bg-blue">{{entity.local_longitud}}</span></a></li>
+       <li><a href="#"><i-fa i=long-arrow-down></i-fa><span translate>LB_LATITUDE</span> <span class="pull-right badge bg-blue">{{entity.local_latitud}}</span></a></li>
+       <li><a href="#"><i-fa i=rss s=fw></i-fa><span translate>LB_TYPE_OF_BUILDING</span> <span class="pull-right badge bg-blue">{{entity.local_tipo_edificacion}}</span></a></li>
+       <li><a href="#"><i-fa i=rss s=fw></i-fa><span translate>LB_EDIFICATION</span> <span class="pull-right badge bg-blue">{{entity.local_edificacion}}</span></a></li>
+       <li><a href="#"><i-fa i=university s=fw></i-fa><span translate>LB_NUMBER_BUILDINGS</span> <span class="pull-right badge bg-blue">{{entity.local_numero_edificaciones}}</span></a></li>
+       <li><a href="#"><md-ico i=info_outline s=18></md-ico><span translate>LB_LAND_AREA</span> <span class="pull-right badge bg-aqua">{{entity.local_area_terreno}}</span></a></li>
+       <li><a href="#"><md-ico i=info_outline s=18></md-ico><span translate>LB_CONSTRUCTION_AREA</span> <span class="pull-right badge bg-green">{{entity.local_area_construccion}}</span></a></li>
+       <li><a href="#"><md-ico i=info_outline s=18></md-ico><span translate>LB_USEFUL_WORK_AREA</span> <span class="pull-right badge bg-red">{{entity.local_area}}</span></a></li>
+       <li><a href="#"><md-ico i=info_outline s=18></md-ico><span translate>LB_BUILDING_PLANTS</span> <span class="pull-right badge bg-red">{{entity.local_pisos}}</span></a></li>
+       <li><a href="#"><md-ico i=info_outline s=18></md-ico><span translate>LB_BUILDING_HEIGHT</span> <span class="pull-right badge bg-red">{{entity.local_altura_edificacion}}</span></a></li>
+       <li><a href="#"><md-ico i=info_outline s=18></md-ico><span translate>LB_TOTAL_ASSESSMENT</span> <span class="pull-right badge bg-red">{{entity.local_aforo}}</span></a></li>
+     </ul>
+   </div>
+</div>

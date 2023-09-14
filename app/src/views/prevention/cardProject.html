@@ -1,0 +1,46 @@
+<div class="box box-info form-fa">
+	<div class="box-header text-center">
+	  <h3 class="box-title">.: {{entity.proyecto_nombre}} :.</h3>
+	</div>
+	<div class="box-body box-profile">
+		<div class="container-img-user">
+    	<img class="profile-user-img img-responsive" src="/app/src/img/entities/default.png" alt="profile">
+    </div>
+    <hr>
+    <div class="text-center">
+	    <strong><i-fa i=rss></i-fa> <span translate>LB_BUILDING_PURPOSE</span></strong>
+			<p class="text-muted">{{entity.proyecto_ocupacion}}</p>
+			<hr>
+	    <strong><i-fa i=industry></i-fa> <span translate>LB_ADDRESS</span></strong>
+	    <p>{{entity.proyecto_parroquia}}, {{entity.proyecto_principal}}, {{entity.proyecto_secudaria}}</p>
+			<hr>
+			<strong><i-fa i=building></i-fa> <span translate>LB_CATASTRAL_KEY</span></strong>
+			<p class="text-muted">{{entity.proyecto_clavecatastral}}</p>
+			<hr>
+			<strong><i-fa i=arrows></i-fa> <span translate>LB_LAND_AREA</span></strong>
+			<p class="text-muted">{{entity.area_terreno	| number:2}} m²</p>
+			<hr>
+			<strong><i-fa i=arrows-h></i-fa> <span translate>LB_CONSTRUCTION_AREA</span></strong>
+			<p class="text-muted">{{entity.area_construccion | number:2}} m²</p>
+			<hr>
+			<strong><i-fa i=university></i-fa> <span translate>LB_BUILDING_PLANTS</span></strong>
+			<p class="text-muted">{{entity.proyecto_plantas}}</p>
+			<hr>
+			<strong><i-fa i=industry></i-fa> <span translate>LB_BUILDING_DETAILS</span></strong>
+			<p class="text-muted">{{entity.proyecto_detalle}}</p>
+			<hr>
+			<strong><i-fa i=signal></i-fa> <span translate>LB_BUILDING_HEIGHT</span></strong>
+			<p class="text-muted">{{entity.proyecto_altura | number:2}} m</p>
+			<hr>
+			<strong><i-fa i=wrench></i-fa> <span translate>LB_BUILDING_MATERIALS</span></strong>
+			<p class="text-muted">{{entity.proyecto_material}}</p>
+		</div>
+		<div class="box-footer">
+			<a ng-click="printProject(entity.proyecto_id)" class="btn btn-primary btn-block">
+    		<b translate>LB_PRINT_REQUEST</b>
+    		<i-fa i=print></i-fa>
+    	</a>
+		</div>
+	</div>
+	
+</div>

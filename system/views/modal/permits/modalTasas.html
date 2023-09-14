@@ -1,0 +1,58 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=monetization_on></md-ico></md-button>
+			<h2 translate>TOOLBAR_TAXES</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content class="my-dialog-content">
+    <md-content layout=column layout-padding layout-wrap>
+	    <div class="input-group" ng-controller="actividadesListCtrl">
+				<div class="input-group-prepend"><div class="input-group-text"><md-ico i=import_contacts></md-ico></div></div> 
+				<select class="form-control" ng-model="frmParent.fk_actividad_id" required
+								ng-options="row.actividad_id as (row.actividad_id+'. '+row.actividad_nombre) for row in list"></select>
+			</div>
+			
+	    <div class="input-group">
+		    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=monetization_on></md-ico></div></div> 
+		    <input type="text" ng-model="frmParent.tasa_nombre" class="form-control" placeholder="{{'LB_TAXES' | translate}}" required>
+		  </div>
+		  <div class="input-group">
+		    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=brightness_medium></md-ico></div></div> 
+		    <input parse-float type="number" step="0.01" min="0" max="100" class="form-control" ng-model="frmParent.tasa_riesgomoderado">
+		    <span class="input-group-addon">%</span>
+		  </div>
+		  
+		  <!-- <div class="input-group">
+		    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=brightness_low></md-ico></div></div> 
+		    <input parse-float type="number" step="0.01" min="0" max="100" class="form-control" ng-model="frmParent.tasa_riesgobajo">
+		    <span class="input-group-addon">%</span>
+		  </div>
+		  <div class="input-group">
+		    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=brightness_medium></md-ico></div></div> 
+		    <input parse-float type="number" step="0.01" min="0" max="100" class="form-control" ng-model="frmParent.tasa_riesgomoderado">
+		    <span class="input-group-addon">%</span>
+		  </div>
+		  <div class="input-group">
+		    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=brightness_high></md-ico></div></div> 
+		    <input parse-float type="number" step="0.01" min="0" max="100" class="form-control" ng-model="frmParent.tasa_riesgoalto">
+		    <span class="input-group-addon">%</span>
+		  </div>-->
+		  
+		  <div class="input-group" ng-if="toogleEditMode">
+				<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+				<select class="form-control" ng-model="frmParent.tasa_estado"
+								ng-options="val as val for (key,val) in string2JSON('statusType')"></select>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

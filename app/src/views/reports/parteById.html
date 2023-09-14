@@ -1,0 +1,163 @@
+<style>{{css}}
+p{font-size:14px;}table tbody th{background:#008000;}table td,table th{border-color:#222d32;}.table td{padding:6px;}
+.tb-binnacle-time{text-align:right;border-right:1px solid black;font-weight:bold;padding-right:15px;}.table-10{font-size:9px;vertical-align:top;}
+.tb-binnacle-detail{padding-left:15px;text-align:justify;}
+</style>
+<page backtop="{{margin_top}}mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	<!-- HEADER PROCESS CBSD -->
+	{{HEADER_PROCESS_CBSD}}
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE}}
+	<!-- CUERPO DE REPORTE -->
+	<div class="title-single text-center text-bold text-uppercase">{{reporte_header}}</div>
+	
+	<table class="table table-bordered text-uppercase table-10">
+		<col style="width:25%;">
+		<col style="width:75%;">
+		<tr><td colspan="2"><b>1. Datos Generales</b></td></tr>
+		<tr><td>Fecha:</td><td>{{parte_fecha_alt}}</td></tr>
+		<tr><td>Clase de día:</td><td>{{parte_clasedia}}</td></tr>
+	</table>
+	
+	<br>
+	<table class="table table-bordered text-uppercase table-10">
+		<col style="width:25%;">
+		<col style="width:75%;">
+		<tr><td colspan="2"><b>2. Auxilio atendido por:</b></td></tr>
+	</table>
+	
+	<br>
+	<table class="table table-bordered text-uppercase table-10">
+		<col style="width:25%;">
+		<col style="width:75%;">
+		<tr>
+			<td colspan="2">
+				<b>3. Forma de aviso: </b>{{parte_aviso_forma}}<br>
+				Especificación: {{parte_aviso_especificacion}}<br>
+				Salida del Personal/Unidad (es):
+			</td>
+		</tr>
+		<tr>
+			<td>Aviso:</td><td>{{parte_aviso_hora}}</td>
+		</tr>
+		<tr>
+			<td>Salida de Personal/Unidad (es):</td><td>{{parte_salida_personal}}</td>
+		</tr>
+		<tr>
+			<td>Salida de Personal/Unidad (es) en lugar:</td><td>{{parte_llegada_personal}}</td>
+		</tr>
+		<tr>
+			<td>Fin de operaciones y retorno:</td><td>{{parte_retorno}}</td>
+		</tr>
+		<tr>
+			<td>Ingreso al Cuartel: </td><td>{{parte_ingreso_cuartel}}</td>
+		</tr>
+	</table>
+	
+	<br>
+	<table class="table table-bordered text-uppercase table-10">
+		<col style="width:25%;">
+		<col style="width:75%;">
+		<tr><td colspan="2"><b>4. Localización</b></td></tr>
+		<tr>
+			<td>Provincia/Cantón:</td><td>{{parish_name}}</td>
+		</tr>
+		<tr>
+			<td>Teléfono:</td><td>{{parte_localizacion_telefono}}</td>
+		</tr>
+		<tr>
+			<td>Teléfono:</td><td>{{parte_localizacion_telefono}}</td>
+		</tr>
+		<tr>
+			<td>Dirección:</td><td>{{parte_localizacion_direccion}}</td>
+		</tr>
+		<tr>
+			<td>Sector No.:</td><td>{{parte_localizacion_sector}}</td>
+		</tr>
+		<tr>
+			<td>Zona:</td><td>{{parte_localizacion_zona}}</td>
+		</tr>
+		<tr>
+			<td>Otros datos:</td><td>{{parte_localizacion_detalle}}</td>
+		</tr>
+	</table>
+	
+	<br>
+	<table class="table table-bordered text-uppercase table-10">
+		<col style="width:25%;">
+		<col style="width:75%;">
+		<tr><td colspan="2"><b>5. Tipo de auxilio:</b></td></tr>
+	</table>
+	
+	<br>
+	<table class="table table-bordered text-uppercase table-10">
+		<col style="width:25%;">
+		<col style="width:75%;">
+		<tr><td colspan="2"><b>6. Causas:</b></td></tr>
+	</table>
+	
+	<br>
+	<table class="table table-bordered text-uppercase table-10">
+		<col style="width:25%;">
+		<col style="width:75%;">
+		<tr><td colspan="2"><b>7. Heridos</b></td></tr>
+	</table>
+	
+	<br>
+	<table class="table table-bordered text-uppercase table-10">
+		<col style="width:25%;">
+		<col style="width:75%;">
+		<tr><td colspan="2"><b>8. Fallecidos:</b></td></tr>
+	</table>
+	
+	<br>
+	<table class="table table-bordered text-uppercase table-10">
+		<col style="width:25%;">
+		<col style="width:75%;">
+		<tr><td colspan="2"><b>9. Personas / Instituciones Atendidas:</b></td></tr>
+	</table>
+	
+	<br>
+	<table class="table table-bordered text-uppercase table-10">
+		<col style="width:100%;">
+		<tr><td><b>10. Descripción de operaciones: </b>{{parte_operaciones}}</td></tr>
+	</table>
+	
+	<br>
+	<table class="table table-bordered text-uppercase table-10">
+		<col style="width:25%;">
+		<col style="width:75%;">
+		<tr><td colspan="2"><b>11. Daños materiales: </b>{{parte_material}}</td></tr>
+	</table>
+	
+	<br>
+	<table class="table table-bordered text-uppercase table-10">
+		<col style="width:25%;">
+		<col style="width:75%;">
+		<tr><td colspan="2"><b>12. Material y equipo empleado:</b></td></tr>
+	</table>
+	
+	<br>
+	<table class="table table-bordered text-uppercase table-10">
+		<col style="width:25%;">
+		<col style="width:75%;">
+		<tr><td colspan="2"><b>13. Observaciones: </b>{{parte_observaciones}}</td></tr>
+	</table>
+	
+	<br>
+	<table class="table table-bordered text-uppercase table-10">
+		<col style="width:25%;">
+		<col style="width:75%;">
+		<tr><td colspan="2"><b>14. Croquis de auxilio:</b></td></tr>
+	</table>
+	
+	<br>
+	<table class="table table-bordered text-uppercase table-10">
+		<col style="width:25%;">
+		<col style="width:75%;">
+		<tr><td colspan="2"><b>15. Novedades:</b> {{parte_novedades}}</td></tr>
+	</table>
+	
+	
+	
+</page>

@@ -1,0 +1,55 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg" ng-controller="partsTrackingExtendsCtrl" style="width:90%">
+  <form name="formData">
+	<md-toolbar>
+	  <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=local_shipping></md-ico></md-button>
+			<h2 translate>LB_SELECT_UNITS</h2>
+	    <span flex></span>
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+	  </div>
+	</md-toolbar>
+	<md-dialog-content>
+		<md-content layout=column layout-padding>		
+				
+				<!-- ANEXOS A REALIZAR -->
+				<div class="box box-info no-margin" layout-padding>
+					<div class="box-header text-center">
+					  <h3 class="box-title" translate>LB_VEHICULAR_FLEETS</h3>
+					</div>
+					<div class="box-body padding-all" layout-padding>
+							
+							<div class="row">
+								<div class="col-md-4 col-xs-12 md-2-line contact-item margin-bottom" ng-repeat="item in frmParent.trackingList">
+					        <label class="label">
+								    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.selected" checklist-value="item.flota_id" />
+								    <span class="label__text">
+								      <span class="label__check">
+								        <i class="fa fa-check icon"></i>
+								      </span>
+								    </span>
+								  </label>
+					        <div class="md-list-item-text compact text-uppercase">
+				          	<span class="text-bold" ng-bind-html="highlight(item.flota_codigo,frmParent.filter)"></span><br>
+					          <small>
+					          	<b>{{'LB_KEY'|translate}}:</b> {{item.codigo_detalle}} [{{item.codigo_clave}}]<br>
+					          	<b>{{'LB_DESTINATION'|translate}}:</b> {{item.flota_destino}}<br>
+					          	<b>{{'LB_UNITS'|translate}}:</b> {{item.unidad_nombre}}<br>
+					          	<b>{{'LB_STATION'|translate}}:</b> {{item.estacion_salida}}<br>
+					          	<b>{{'LB_DATE'|translate}}:</b> {{item.flota_salida_hora}}
+					          </small>
+					        </div>
+								</div>
+							</div>
+			    	
+					</div>
+				</div>
+				
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="button" ng-click="submitForm()" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

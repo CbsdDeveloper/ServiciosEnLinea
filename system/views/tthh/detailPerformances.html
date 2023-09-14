@@ -1,0 +1,55 @@
+<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		<card-staff class="card-information" ng-if="detailConfig.show" flex></card-staff>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=person></md-ico></md-button>
+						<h2 translate>LB_STAFF_EVALUATED</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+						
+						
+						<div class="md-padding" layout-xs=column layout=row layout-padding layout-wrap>
+							<div style="min-width:350px;max-width:480px" ng-repeat="row in entity.personal" flex>
+								<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+									<div class="card-header text-center">
+										<img src="/app/src/img/users/default.png" ng-src="/app/src/img/users/{{row.persona_imagen}}"
+					 						 style="width:128px;height:128px;padding:5px;margin:auto" class="img-circle" alt="img" />
+									</div>
+									<div class="card-body">
+										<h3 class="profile-username">{{row.evaluado_nombre}}</h3>
+								    <hr>
+										<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+								    <p class="text-muted">{{row.persona_doc_identidad}}</p>
+								    <hr>
+										<strong><md-ico i=account_balance s=18></md-ico> <span translate>LB_LEADERSHIP</span></strong>
+								    <p class="text-muted">{{row.direccion_nombre}}</p>
+								    <hr>
+										<strong><md-ico i=wrap_text s=18></md-ico> <span translate>LB_JOB</span></strong>
+								    <p class="text-muted">{{row.puesto_nombre}}</p>
+								    
+								    
+								    
+								    
+								    
+								    <hr>
+										<strong><i-fa i=star-o></i-fa> <span translate>LB_SCORE</span></strong>
+								    <p class="text-muted"><a ng-click="printEvaluation(row.desempenio_id)">{{row.evaluacion_calificacion | number:2 }}</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+				
+				 
+			</md-card>
+		</div>
+	</div>
+</div>

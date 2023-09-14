@@ -1,0 +1,35 @@
+﻿<div class="card card-outline card-dark no-margin">
+	<div class="card-body box-profile text-center">
+		<md-ico i=directions_car s=64></md-ico>
+		<h3 class="profile-username md-padding">{{dataEntity.vehicle.vehiculo_placa}}</h3>
+		<div ng-if="dataEntity.transporte_solicitud!=null">
+	    <hr>
+			<strong><md-ico i=confirmation_number s=18></md-ico> <span translate>LB_REQUEST_NUMBER</span></strong>
+			<p class="text-muted text-center">{{dataEntity.transporte_solicitud}}</p>
+		</div>
+		<hr>
+		<strong><md-ico i=person s=18></md-ico> <span translate>LB_OWNER</span></strong>
+		<p class="text-muted text-center">{{dataEntity.vehicle.owner.persona_apellidos}} {{dataEntity.vehicle.owner.persona_nombres}} <br> {{dataEntity.vehicle.owner.persona_doc_identidad}}</p>
+		<hr>
+		<strong><md-ico i=place s=18></md-ico> <span translate>LB_ADDRESS</span></strong>
+		<p class="text-muted text-center">{{dataEntity.vehicle.vehiculo_direccion}}</p>
+		<hr>
+		<strong><md-ico i=donut_small s=18></md-ico> <span translate>LB_TONS</span></strong>
+		<p class="text-muted text-center">{{dataEntity.vehicle.vehiculo_toneladas}}</p>
+		<hr>
+		<strong><md-ico i=directions_car s=18></md-ico> <span translate>LB_BRAND</span></strong>
+		<p class="text-muted text-center">{{dataEntity.vehicle.vehiculo_marca}}</p>
+		<hr>
+		<strong><md-ico i=directions_car s=18></md-ico> <span translate>LB_TYPE</span></strong>
+		<p class="text-muted text-center">{{dataEntity.vehicle.vehiculo_tipo}}</p>
+		<hr>
+		<strong><i-fa i=palette></i-fa> <span translate>LB_COLOR</span></strong>
+		<p class="text-muted text-center">{{dataEntity.vehicle.vehiculo_color1}}</p>
+		<hr>
+		<strong><md-ico i=flag s=18></md-ico> <span translate>LB_STATUS</span></strong>
+		<p class="text-muted text-center"><span ng-bind-html="statusLabel[dataEntity.transporte_estado]"></span></p>
+		<hr>
+		<strong><md-ico i=comment s=18></md-ico> <span translate>LB_OBSERVATION</span></strong>
+		<p class="text-muted text-center">{{dataEntity.transporte_observacion}}</p>
+	</div>
+</div>

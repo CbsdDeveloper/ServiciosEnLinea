@@ -1,0 +1,161 @@
+<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		
+		<!-- INFORMACION DE EVALUACION -->
+		<div class="card-information" flex>
+			<div class="box box-primary no-margin">
+			  
+			  <div class="box-header with-border text-center">
+				  <h3 class="box-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+				
+			  <div class="box-body box-profile text-center">
+					<strong><md-ico i=verified_user></md-ico><br><span translate>LB_EVALUATION_CODE</span></strong>
+			    <p class="text-muted text-uppercase">{{evaluation.evaluacion_codigo}}</p>
+
+			    <hr>
+					<strong><md-ico i=info></md-ico><br><span translate>LB_FORM_NAME</span></strong>
+			    <p class="text-muted text-uppercase">{{evaluation.form.formulario_nombre}}</p>
+			    
+			    <hr>
+					<strong><md-ico i=event_available></md-ico><br><span translate>LB_OPENING_DATE</span></strong>
+			    <p class="text-muted text-uppercase">{{evaluation.evaluacion_inicio}}</p>
+			    <hr>
+					<strong><md-ico i=event_busy></md-ico><br><span translate>LB_DEADLINE</span></strong>
+			    <p class="text-muted text-uppercase">{{evaluation.evaluacion_cierre}}</p>
+			    
+			  </div>
+			</div>
+		</div>
+		
+		<!-- FORMULARIO -->
+		<form name="formData" flex>
+			<md-card class="no-margin">
+
+				<!-- ENCABEZADO -->
+				<md-toolbar ng-hide="filter.show">
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=filter_none></md-ico></md-button>
+						<h2 class="md-flex" translate>LB_FORM_QUESTIONS</h2>
+					</div>
+				</md-toolbar>
+				
+				<!-- FORMULARIO DE ROLES -->
+				<ul class="timeline margin-top font-12">
+					
+					<li>
+						<i class="fa fa-comments bg-blue"></i>
+					   <div class="timeline-item">
+					     <div class="timeline-body no-padding" layout-xs=column layout=row layout-padding>
+									<div class="box box-primary no-margin">
+										<div class="box-header with-border">
+											<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+										</div>
+										<div class="box-body">
+											<div ng-bind-html="evaluation.evaluacion_instrucciones"></div>
+										</div>
+									</div>
+					     </div>
+						</div>
+					</li>
+				
+					<li ng-repeat="data in questionnaire">
+						<i class="fa fa-info bg-orange"></i>
+					  <div class="timeline-item">
+					     <div class="timeline-body no-padding" layout-padding>
+						
+									<div class="box box-warning no-margin">
+										<div class="box-header with-border">
+											<h3 class="box-title">{{data.seccion_index}}. {{data.seccion_nombre}}</h3>
+										</div>
+										<div class="box-body">
+											
+												<div class="padding-all" ng-repeat="item in data.questions">
+											    
+											    	<h3 class="timeline-header no-margin" layout=column>
+											    		<b>{{item.pregunta_index}}. {{item.pregunta_descripcion}}</b>
+											    		
+											    		<br>
+											    		
+											    		<div ng-if="item.rating.recurso_tipo_formulario=='SELECCION MULTIPLE'">
+												    		<md-radio-group ng-model="frmParent.test[item.pregunta_id].respuesta_resultado" layout=row required>
+														      <md-radio-button class="md-warn" ng-value="k" ng-repeat="(k,v) in string2JSONExternal(item.rating.recurso_lista_valores)">{{v}}</md-radio-button>
+														    </md-radio-group>
+											    		</div>
+											    		
+											    		<div ng-if="item.rating.recurso_tipo_formulario=='SELECCION Y DESCRIPCION'">
+												    		<md-radio-group ng-model="frmParent.test[item.pregunta_id].respuesta_resultado" layout=row required>
+														      <md-radio-button class="md-warn" ng-value="k" ng-repeat="(k,v) in string2JSONExternal(item.rating.recurso_lista_valores)">{{v}}</md-radio-button>
+														    </md-radio-group>
+														    <div class="form-group required" flex ng-if="frmParent.test[item.pregunta_id].respuesta_resultado==item.pregunta_seleccion_descripcion">
+														    	<br>
+															    <label>{{item.pregunta_detalle}}</label>
+															    <div class="input-group">
+																		<span class="input-group-addon"><md-ico i=info></md-ico></span>
+													    			<textarea class="form-control" ng-model="frmParent.test[item.pregunta_id].respuesta_comentario" required></textarea>
+													    		</div>
+														    </div>
+											    		</div>
+											    		
+											    		<div ng-if="item.rating.recurso_tipo_formulario=='COMPLETAR LA RESPUESTA'">
+												    		<textarea class="form-control" ng-model="frmParent.test[item.pregunta_id].respuesta_comentario" required></textarea>
+											    		</div>
+											    		
+											    		<br>
+											    	</h3>
+											    	
+												</div>
+											
+										</div>
+									</div>
+								
+							</div>
+						</div>
+						
+					</li>
+					
+					<li>
+						<i class="fa fa-shield bg-red"></i>
+					   <div class="timeline-item">
+					     <div class="timeline-body no-padding" layout-xs=column layout=row layout-padding>
+									<div class="box box-danger no-margin">
+										<div class="box-header with-border text-center">
+											<h3 class="box-title" translate>LB_ACCURACY_OF_INFORMATION</h3>
+										</div>
+										<div class="box-body">
+											{{evaluation.evaluacion_firmaresponsabilidad}}
+										</div>
+									</div>
+					     </div>
+						</div>
+					</li>
+					
+					<li>
+						<i class="fa fa-paper-plane-o bg-green"></i>
+					   <div class="timeline-item">
+					     <div class="timeline-body no-padding" layout-xs=column layout=row layout-padding>
+					      <div flex>
+									<a ui-sref="tthh.surveys" class="btn btn-warning btn-block">
+										<i-fa i=angle-double-left></i-fa> <span translate>BTN_CANCEL</span>
+									</a>
+								</div>
+								<div flex>
+									<button type="button" ng-click="submitForm()" class="btn btn-success btn-block" ng-disabled="formData.$invalid">
+										<span translate>BTN_SUBMIT</span> <i-fa i=angle-double-right></i-fa>
+									</button>
+								</div>
+					     </div>
+						</div>
+					</li>
+					
+					<li><i class="fa fa-clock-o bg-gray"></i></li>
+					
+				</ul>
+					
+					
+					
+			</md-card>	
+		</form>
+		
+	</div>
+</div>

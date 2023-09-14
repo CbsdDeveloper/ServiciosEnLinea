@@ -1,0 +1,120 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=beach_access></md-ico>
+				<md-tooltip><span translate>LB_VACATION_BALANCES</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.filter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_MAIN_TOOLBAR' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.filter!=''" ng-click="filterParent.filter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="calculateVacations()">
+				<i-fa i=calculator s=lg></i-fa><md-tooltip><span translate>LB_CALCULATE_VACATION</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="exportToXLS()">
+				<i-fa i=file-excel-o s=lg></i-fa><md-tooltip><span translate>LB_EXPORT</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openParentModal('Vacaciones_generadas')">
+				<md-ico i=file_upload></md-ico><md-tooltip><span translate>LB_GENERATED_HOLIDAYS</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="width:100px;">
+     	<col style="width:20%;">
+     	<col style="">
+     	<col style="">
+     	<col style="">
+     	<col style="">
+     	<col style="width:3%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate></span></th>
+					<th md-column><span translate>LB_GENERATED_HOLIDAYS</span></th>
+					<th md-column><span translate>LB_REQUESTED_PERMITS</span></th>
+					<th md-column><span translate>LB_REQUESTED_HOLIDAYS</span></th>
+					<th md-column><span translate>LB_HOLIDAY_BALANCE</span></th>
+					<th md-column><span translate>LB_ARREARS</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{row.persona_imagen}}" style="width:90px;height:90px;padding:5px" class="img-circle" alt="img" />
+						<md-tooltip>{{row.puesto_modalidad}}</md-tooltip>
+					</td>
+					<td md-cell>
+						<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.persona_doc_identidad)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.personal_nombre)"></span><br>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.personal_estado]"></span><br>
+						<a ui-sref="tthh.vacations.detailVacations({staffId:row.personal_id})" target="_balnk"><md-ico i=info></md-ico></a><span translate="LB_DAYS_X" translate-values="{x:row.total_vg_dias}"></span>
+					</td>
+					<td md-cell>
+						<div ng-if="row.ps_24dias>0 || row.ps_24horas>0">
+							<md-ico i=person></md-ico>{{row.ps_24dias | number:2}} <span translate>LB_DAYS</span> + {{row.ps_24horas | number:2}} <span translate>LB_HOURS</span>
+							<md-tooltip><span translate>LB_PERMIT_24H</span></md-tooltip>
+						</div>
+						<div ng-if="row.ps_8dias>0 || row.ps_8horas>0">
+							<md-ico i=person_outline></md-ico>{{row.ps_8dias | number:2}} <span translate>LB_DAYS</span> + {{row.ps_8horas | number:2}} <span translate>LB_HOURS</span><br>
+							<md-tooltip><span translate>LB_PERMIT_8H</span></md-tooltip>
+						</div>
+						<div ng-if="row.total_ps_dias>0 || row.total_ps_horas>0">
+							<md-ico i=highlight_off></md-ico>{{row.total_ps_dias | number:2}} <span translate>LB_DAYS</span> = {{row.total_ps_horas | number:2}} <span translate>LB_HOURS</span>
+							<md-tooltip><span translate>LB_REQUESTED_PERMITS</span></md-tooltip>
+						</div>
+						
+						<hr>
+						
+						<div ng-if="row.ps_24dias>0 || row.ps_24horas>0">
+							<md-ico i=person></md-ico>{{row.ps_24dias_correccion | number:2}} <span translate>LB_DAYS</span> + {{row.ps_24horas_correccion | number:2}} <span translate>LB_HOURS</span>
+							<md-tooltip><span translate>LB_PERMIT_24H</span> - <span translate>LB_CORRECTION_FACTOR</span></md-tooltip>
+						</div>
+						<div ng-if="row.ps_8dias>0 || row.ps_8horas>0">
+							<md-ico i=person_outline></md-ico>{{row.ps_8dias_correccion | number:2}} <span translate>LB_DAYS</span> + {{row.ps_8horas_correccion | number:2}} <span translate>LB_HOURS</span><br>
+							<md-tooltip><span translate>LB_PERMIT_8H</span> - <span translate>LB_CORRECTION_FACTOR</span></md-tooltip>
+						</div>
+						<div ng-if="row.total_ps_dias>0 || row.total_ps_horas>0">
+							<md-ico i=highlight_off></md-ico>{{row.total_ps_dias_correccion | number:2}} <span translate>LB_DAYS</span> = {{row.total_ps_horas_correccion | number:2}} <span translate>LB_HOURS</span>
+							<md-tooltip><span translate>LB_REQUESTED_PERMITS</span> - <span translate>LB_CORRECTION_FACTOR</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<div ng-if="row.total_vs_dias>0">
+							<md-ico i=event></md-ico>{{row.total_vs_dias | number:2}} <span translate>LB_DAYS</span>
+						</div>
+					</td>
+					<td md-cell>
+						<div>
+							<md-ico i=event></md-ico>{{row.saldo_dias | number:2}} <span translate>LB_DAYS</span>
+						</div>
+						<hr>
+						<div>
+							<md-ico i=event></md-ico>{{row.saldo_dias_correccion | number:2}} <span translate>LB_DAYS</span>
+							<md-tooltip><span translate>LB_CORRECTION_FACTOR</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=event></md-ico><span translate="LB_MINUTES_X" translate-values="{x:row.total_atrasos}"></span><br>
+						<md-ico i=event></md-ico><span translate="LB_HOURS_X" translate-values="{x:row.total_atrasos_horas}"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <menu-vacations></menu-vacations>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

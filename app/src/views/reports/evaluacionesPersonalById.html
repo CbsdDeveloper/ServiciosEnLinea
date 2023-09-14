@@ -1,0 +1,85 @@
+<style>{{css}}td{padding:1px;font-size:9px;text-align:justify;}th{background:#808080}th,th *{font-size:5px!important;}.td-score,tr.td-score td{color:#721422;text-align:center;font-weight:bold;font-size:10px;}</style>
+<page backtop="{{margin_top}}mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	<!-- HEADER DE SOLICITUD -->
+	<div class="header">
+		<table>
+			<tr>
+				<td style="width:100%;text-align:center;" class="headerLogo">
+					<img src="{{REPORT_HEADER_IMG_PATH}}" style="width:256px;margin:auto">
+				</td>
+			</tr>
+		</table>
+	</div>
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE}}
+	<!-- CUERPO DE REPORTE -->
+	<h2 class="report-title text-center" style="font-size:22px;">{{informe}}<br>{{desempenio_codigo}}</h2>
+	<table class="table table-bordered text-uppercase">
+		<col style="width:25%">
+		<col style="width:25%">
+		<col style="width:25%">
+		<col style="width:25%">
+		<thead><tr><th colspan="4">FORMULARIO PARA LA EVALUACIÓN DEL DESEMPEÑO POR COMPETENCIAS PARA USO DEL JEFE INMEDIATO</th></tr></thead>
+		<tbody>
+			<tr class=subheader><td colspan="4" class="text-center">DATOS DEL SERVIDOR (PERSONAL EVALUADO)</td></tr>
+			<tr><td>APELLIDOS</td><td colspan="3">{{evaluado_nombre}} - {{evaluado_doc_identidad}}</td></tr>
+			<tr><td>FUNCIONES</td><td colspan="3">{{evaluado_puesto}}</td></tr>
+			<tr class=subheader><td colspan="4" class="text-center">DATOS DEL SERVIDOR (PERSONA EVALUADORA)</td></tr>
+			<tr><td>APELLIDOS</td><td colspan="3">{{evaluador_nombre}} - {{evaluador_doc_identidad}}</td></tr>
+			<tr><td>FUNCIONES</td><td colspan="3">{{evaluador_puesto}}</td></tr>
+			<tr class=subheader><td colspan="4" class="text-center">PERIODO DE EVALUACIÓN</td></tr>
+			<tr><td>DESDE</td><td>{{evaluacion_periodo_desde}}</td><td>HASTA</td><td>{{evaluacion_periodo_hasta}}</td></tr>
+			<tr><td>FECHA DE EVALUACIÓN</td><td colspan="3">{{evaluacion_fecha}}</td></tr>
+		</tbody>
+	</table>
+	<br>
+	{{tbodyEvaluation}}
+	<table class="table table-bordered text-uppercase">
+		<col style="width:100%;">
+		<thead>
+			<tr><th class="text-center">OBSERVACIONES DEL JEFE INMEDIATO</th></tr>
+		</thead>
+		<tbody>
+			<tr><td><div style="height:75px;">{{desempenio_observaciones}}</div></td></tr>
+		</tbody>
+	</table>	
+	<table class="table table-bordered text-uppercase">
+		<col style="width:70%;">
+		<col style="width:30%;text-align:center;">
+		<thead>
+			<tr><th class="text-center" colspan="2">RESULTADO DE LA EVALUACIÓN</th></tr>
+		</thead>
+		<tbody>
+			<tr class=subheader><td>FACTORES DE EVALUACIÓN</td><td>CALIFICACIÓN ALCANZADA (%)</td></tr>
+			<tr><td>INDICADORES DE GESTION</td><td>{{desempenio_actividades}}</td></tr>
+			<tr><td>CONOCIMIENTOS</td><td>{{desempenio_conocimientos}}</td></tr>
+			<tr><td>COMPETENCIAS TÉCNICAS DEL PUESTO</td><td>{{desempenio_competencias_tecnicas}}</td></tr>
+			<tr><td>COMPETENCIAS UNIVERSALES DEL PUESTO</td><td>{{desempenio_competencias_universales}}</td></tr>
+			<tr><td>TRABAJO EN EQUIPO, INICIATIVA Y LIDERAZGO</td><td>{{desempenio_trabajo_equipo}}</td></tr>
+			<tr class="subheader"><td colspan="2" class="td-score">TOTAL EVALUACIÓN DE DESEMPEÑO {{evaluacion_calificacion}}</td></tr>
+			<tr class="subheader"><td colspan="2" class="td-score">{{evaluacion_cualitativa}}</td></tr>
+			
+			<tr class="subheader"><td colspan="2"><b>CERTIFICO:</b> Que he evaluado al (a la) servidor(a) acorde al procedimiento de la norma de Evaluación del Desempeño</td></tr>
+			<tr><td colspan="2">
+				<br><br><br><br><br><br><br><br>
+				<div>
+					<div style="text-align:center">........................................................................................</div>
+					<div style="text-align:center"><span style="font-size:9px">FIRMA</span></div>
+					<div style="text-align:center"><span style="font-size:9px">EVALUADOR</span></div>
+					<div style="text-align:center"><span style="font-size:9px">{{evaluador_nombre}}</span></div>
+				</div>
+			</td></tr>
+			<tr class="subheader"><td colspan="2"></td></tr>
+			<tr><td colspan="2">
+				<br><br><br><br><br><br><br><br>
+				<div>
+					<div style="text-align:center">........................................................................................</div>
+					<div style="text-align:center"><span style="font-size:9px">FIRMA</span></div>
+					<div style="text-align:center"><span style="font-size:9px">EVALUADO</span></div>
+					<div style="text-align:center"><span style="font-size:9px">{{evaluado_nombre}}</span></div>
+				</div>
+			</td></tr>
+			<tr class="subheader"><td colspan="2"></td></tr>
+		</tbody>
+	</table>
+</page>

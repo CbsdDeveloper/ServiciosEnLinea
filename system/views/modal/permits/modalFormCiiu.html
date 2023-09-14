@@ -1,0 +1,40 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2 translate="ACCOUNT_USER" translate-values="{user:estadoModo}"></h2>
+				<span flex></span>
+				<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<md-content layout-padding layout="column" layout-wrap>
+				<div class="input-group">
+			    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=user-secret></md-ico></div></div> 
+			    <input type="text" ng-model="frmParent.requerimiento_nombre" class="form-control" placeholder="Requerimiento" required>
+			  </div>
+			  <div class="input-group" ng-show="{{toogleEditMode}}" flex>
+					<div class="input-group-prepend"><div class="input-group-text"><i-fa i="flag"></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.requerimiento_estado" ng-required="toogleEditMode">
+						<option value="{{state}}" ng-repeat="state in string2JSON('statusType')">{{state}}</option>
+					</select>
+				</div>
+				<div class="input-group" flex ng-controller="reqListCtrl">
+					<div class="input-group-prepend"><div class="input-group-text"><i-fa i="user-secret"></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.fk_req_id"
+									ng-options="row.req_id as row.req_nombre for row in list"></select>
+					<span class="input-group-btn">
+            <button class="btn btn-primary" type="button" ng-click="$parent.openModalData('Req')">
+              <md-ico i=add s=18></md-ico>
+            </button>
+	        </span>
+				</div>
+			</md-content>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+			<span flex></span>
+			<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+		</md-dialog-actions>
+  </form>
+</md-dialog>

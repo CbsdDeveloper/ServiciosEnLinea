@@ -1,0 +1,329 @@
+<!-- MENU SUPERIOR -->
+<header class="main-header" ng-cloak>
+	<!-- LOGO -->
+  <a ui-sref=session class="logo">
+    <!-- mini logo for sidebar mini 50x50 pixels -->
+    <span class="logo-mini"><b>B</b>+</span>
+    <!-- logo for regular state and mobile devices -->
+    <span class="logo-lg"><b translate>APP_HEADER</b></span>
+  </a>
+  <!-- HEADER -->
+  <nav class="navbar navbar-static-top">
+    <!-- Sidebar toggle button-->
+    <a href="" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+      <span class="sr-only">Toggle navigation</span>
+    </a>
+    
+    <!-- Navbar Right Menu -->
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        
+        <!-- DENUNCIAS EN LINEA -->
+        <li class="messages-menu">
+          <a ng-href="http://online.cbsd.gob.ec/denuncias-en-linea/" target="_blank">
+            <md-ico i=record_voice_over c=text-red></md-ico>
+            <md-tooltip><span translate>LB_COMPLAINTS_ONLINE</span></md-tooltip>
+          </a>
+        </li>
+        
+        <!-- NOTIFICACIONES -->
+        <li class="messages-menu">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">
+            <md-ico i=notifications_active></md-ico>
+            <span class="label label-success">{{messages.total}}</span>
+            <md-tooltip><span translate>LB_NOTIFICATIONS</span></md-tooltip>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="header" translate="MESSAGES_NOTIFY" translate-values="{x:messages.total}"></li>
+            <li>
+              <!-- inner menu: contains the actual data -->
+              <ul class="menu">
+                <li ng-repeat="item in messages.msg"><!-- start message -->
+                  <a ui-sref="session.message({id:item.mensaje_id})">
+                    <div class="pull-left img-circle">
+                      <img src="/app/src/img/users/{{item.mensaje_emisor.img}}" class="img-responsive" alt="User Image">
+                    </div>
+                    <h4>
+                      <span>{{item.mensaje_emisor.nombre}}</span>
+                      <small><i class="fa fa-clock-o"></i> {{item.mensaje_enviado}}</small>
+                    </h4>
+                    <p ng-bind-html="item.mensaje_descripcion | limitTo:100"></p>
+                  </a>
+                </li>
+                <!-- end message -->
+              </ul>
+            </li>
+            <li class="footer"><a ui-sref=control.messages translate>SHOW_ALL</a></li>
+          </ul>
+        </li>
+        
+        <!-- CUERPO DE BOMBEROS -->
+        <li class="messages-menu">
+          <a ng-href="/">
+            <md-ico i=important_devices></md-ico>
+            <span class="label label-primary">☆</span>
+            <md-tooltip><span translate>LB_HOME</span></md-tooltip>
+          </a>
+        </li>
+        
+        <!-- MENU DE ACCESO A PERFIL -->
+        <li class="dropdown user user-menu">
+        	<a href="" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="hidden-xs" style="padding-right:13px">{{session.entidad_razonsocial}}</span>
+            <div class="pull-right profile-img">
+             <img src="/app/src/img/entities/default.png" ng-src="/app/src/img/entities/{{session.entidad_imagen}}" class="img-circle" alt="User Image">
+            </div>
+          </a>
+          <ul class="dropdown-menu">
+            <!-- User image -->
+            <li class="user-header">
+            	<div class="container-img-user">
+              	<img src="/app/src/img/entities/default.png" ng-src="/app/src/img/entities/{{session.entidad_imagen}}" class="profile-user-img img-responsive" alt="User Image">
+            	</div>
+              <p>{{session.entidad_ruc}}</p>
+            </li>
+            <!-- Menu Footer-->
+            <li class="user-footer">
+            	<div class="pull-left">
+                <a ui-sref=entity.profile class="btn btn-default btn-flat">
+                	<i-fa i=user-circle></i-fa> <span translate>LB_PROFILE</span>
+                </a>
+              </div>
+              <div class="pull-right">
+                <a ng-click="logoutSession()" class="btn btn-default btn-flat">
+                	<span translate>LB_LOGOUT</span> <i-fa i=sign-out></i-fa>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </li>
+        
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<!-- MENU LATERAL IZQUIERDO -->
+<aside class="main-sidebar" ng-cloak>
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+  	
+    <!-- HEADER -->
+  	<div class="user-panel">
+      <img src="/app/src/img/system/escudo.png" class="img-circle img-responsive" alt="User Image" />
+      <div class="pull-left info">
+        <img src="/app/src/img/system/escudo.png" class="img-circle" alt="User Image" />
+      </div>
+    </div>
+    
+    <!-- MENU DEL SISTEMA -->
+    <ul class="sidebar-menu" data-widget="tree">
+      
+      <li class="header text-uppercase"><small translate>LB_ONLINE_SERVICES</small></li>
+      
+			<!-- MENU: PRINIPAL -->
+			<li ng-class="{active:$state.includes('session')}">
+        <a ui-sref=session><md-ico i=home></md-ico> <span translate>MENU_HOME</span></a>
+      </li>
+      
+			<!-- MENU: INFORMACION DE ENTIDAD -->
+			<li class="treeview" ng-class="{active:$state.includes('entity')}">
+				<a href="">
+					<md-ico i=business></md-ico> <span translate>LB_MY_PROFILE</span> <i class="fa fa-angle-left pull-right"></i>
+				</a>
+				<ul class="treeview-menu">
+					<li ui-sref-active="active" ng-if="true">
+						<a ui-sref=entity.profile>
+							<md-ico i=person></md-ico>
+							<span translate>LB_MY_PROFILE</span>
+						</a>
+					</li>
+					<li ui-sref-active="active" ng-if="availableModulues.people">
+						<a ui-sref=entity.staff>
+							<md-ico i=people></md-ico>
+							<span translate>LB_STAFF_LIST</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			
+			<!-- MENU: PERMISOS DE FUNCIONAMIENTO -->
+			<li class="treeview" ng-class="{active:$state.includes('permits')}" ng-if="(session.entidad_empresa && availableModulues.economicActivities) || (session.entidad_empresa && session.planes>0 && availableModulues.selfProtectionPlans) || availableModulues.occasionals">
+				<a href="">
+					<md-ico i=verified_user></md-ico> <span translate>LB_OPERATING_PERMITS</span> <i class="fa fa-angle-left pull-right"></i>
+				</a>
+				<ul class="treeview-menu">
+					<li ui-sref-active="active" ng-if="session.entidad_empresa && availableModulues.economicActivities">
+						<a ui-sref=permits.economicActivities>
+							<md-ico i=store_mall_directory></md-ico>
+							<span translate>LB_LOCALS</span>
+		          <span class="pull-right-container"><span class="badge bg-blue pull-right">{{session.locals}}</span></span>
+						</a>
+					</li>
+					<li ui-sref-active="active" ng-if="session.entidad_empresa && session.planes>0 && availableModulues.selfProtectionPlans">
+						<a ui-sref=permits.selfProtectionPlans>
+							<md-ico i=security></md-ico>
+							<span translate>LB_EMERGENCY_PLANS</span>
+          		<span class="pull-right-container"><span class="badge bg-orange pull-right">{{session.planes}}</span></span>
+						</a>
+					</li>
+					<li ui-sref-active="active" ng-if="availableModulues.occasionals">
+						<a ui-sref=permits.occasionals>
+							<md-ico i=directions_bike></md-ico>
+							<span translate>LB_OCCASIONALS</span>
+		          <span class="pull-right-container"><span class="badge bg-maroon pull-right">{{session.occasionals}}</span></span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			
+			<!-- MENU: UNIDAD DE PREVENCION -->
+			<li class="treeview" ng-class="{active:$state.includes('prevention')}" ng-if="(session.inspections>0 || session.extensions>0) && (availableModulues.inspections || availableModulues.extensions)">
+				<a href="">
+					<md-ico i=notifications_active></md-ico> <span translate>MENU_PREVENTION</span> <i class="fa fa-angle-left pull-right"></i>
+				</a>
+				<ul class="treeview-menu">
+					<li ui-sref-active-eq="active" ng-if="session.inspections>0 && availableModulues.inspections">
+						<a ui-sref-active="active" ui-sref=prevention.inspections>
+							<md-ico i=transfer_within_a_station></md-ico>
+							<span translate>LB_INSPECTIONS</span>
+		          <span class="pull-right-container"><span class="badge bg-red pull-right">{{session.inspections}}</span></span>
+						</a>
+					</li>
+					<li ui-sref-active-eq="active" ng-if="session.extensions>0 && availableModulues.extensions">
+						<a ui-sref-active="active" ui-sref=prevention.extensions>
+							<md-ico i=event_available></md-ico>
+							<span translate>LB_EXTENSIONS</span>
+		          <span class="pull-right-container"><span class="badge bg-orange pull-right">{{session.extensions}}</span></span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			
+			<!-- MENU: CAPACITACIONES CIUDADANAS -->
+			<li class="treeview" ng-class="{active:$state.includes('training')}" 
+					ng-if="(availableModulues.calendar || availableModulues.trainings || availableModulues.stands || availableModulues.visits || availableModulues.simulations)">
+			  <a href="">
+			    <md-ico i=school></md-ico> <span translate>LB_CITIZENSHIP_TRAINING</span> <i class="fa fa-angle-left pull-right"></i>
+			  </a>
+			  <ul class="treeview-menu">
+				  <li ui-sref-active="active" ng-if="availableModulues.trainings">
+				    <a ui-sref=training.trainings>
+				    	<md-ico i=settings_input_antenna></md-ico>
+				    	<span translate>LB_TRAININGS</span>
+          		<span class="pull-right-container"><span class="badge bg-green pull-right">{{session.trainings}}</span></span>
+          	</a>
+				  </li>
+				  <li ui-sref-active="active" ng-if="availableModulues.stands">
+				    <a ui-sref=training.stands>
+				    	<md-ico i=slideshow></md-ico>
+				    	<span translate>LB_STANDS</span>
+          		<span class="pull-right-container"><span class="badge bg-blue pull-right">{{session.stands}}</span></span>
+          	</a>
+				  </li>
+				  <li ui-sref-active="active" ng-if="availableModulues.visits">
+				    <a ui-sref=training.visits>
+				    	<md-ico i=transfer_within_a_station></md-ico>
+				    	<span translate>LB_VISITS</span>
+          		<span class="pull-right-container"><span class="badge bg-yellow pull-right">{{session.visits}}</span></span>
+          	</a>
+				  </li>
+				  <li ui-sref-active="active" ng-if="availableModulues.simulations">
+				    <a ui-sref=training.simulations>
+				    	<md-ico i=directions_run></md-ico>
+				    	<span translate>LB_SIMULATIONS</span>
+          		<span class="pull-right-container"><span class="badge bg-maroon pull-right">{{session.simulations}}</span></span>
+          	</a>
+				  </li>
+			  </ul>
+			</li>
+			
+			<!-- MENU: PERMISOS DE CONSTRUCCION -->
+			<li class="treeview" ng-class="{active:$state.includes('vbp')}" ng-if="(availableModulues.plans || availableModulues.modifications || availableModulues.habitability)">
+				<a href="">
+					<md-ico i=roofing></md-ico> <span translate>LB_CONSTRUCTION_PERMITS</span> <i class="fa fa-angle-left pull-right"></i>
+				</a>
+				<ul class="treeview-menu">
+					<li ui-sref-active="active" ng-if="availableModulues.plans">
+						<a ui-sref=vbp.plans>
+							<md-ico i=layers></md-ico>
+							<span translate>LB_VBP</span>
+          		<span class="pull-right-container"><span class="badge bg-yellow pull-right">{{session.vbp}}</span></span>
+          	</a>
+					</li>
+					<li ui-sref-active="active" ng-if="availableModulues.modifications">
+						<a ui-sref=vbp.modifications>
+							<md-ico i=layers_clear></md-ico>
+							<span translate>LB_MODIFICATION_PLANS</span>
+          		<span class="pull-right-container"><span class="badge bg-yellow pull-right">{{session.modification}}</span></span>
+          	</a>
+					</li>
+					<li ui-sref-active="active" ng-if="availableModulues.habitability">
+						<a ui-sref=vbp.habitability>
+							<md-ico i=airline_seat_flat></md-ico>
+							<span translate>LB_HABITABILITY</span>
+          		<span class="pull-right-container"><span class="badge bg-yellow pull-right">{{session.habitability}}</span></span>
+          	</a>
+					</li>
+				</ul>
+			</li>
+			
+			<!-- MENU: USO DE GLP -->
+			<li class="treeview" ng-class="{active:$state.includes('glp')}" ng-if="(availableModulues.feasibility || availableModulues.definitive) || (session.glpt>0 && availableModulues.glpTransport)">
+				<a href="">
+				  <md-ico i=whatshot></md-ico> <span translate>LB_GLP_USE_PERMITS</span> <i class="fa fa-angle-left pull-right"></i>
+				</a>
+				<ul class="treeview-menu">
+					<li ui-sref-active="active" ng-if="availableModulues.glpTransport">
+						<a ui-sref=glp.glpTransport>
+							<md-ico i=whatshot></md-ico>
+							<span translate>LB_GLP_TRANSPORT</span>
+          		<span class="pull-right-container"><span class="badge bg-purple pull-right">{{session.transporteglp}}</span></span>
+						</a>
+					</li>
+				   <li ui-sref-active="active" ng-if="availableModulues.feasibility">
+						<a ui-sref=glp.feasibility>
+				     	<md-ico i=whatshot></md-ico>
+				     	<span translate>LB_GLP_FEASIBILITY</span>
+          		<span class="pull-right-container"><span class="badge bg-aqua-active pull-right">{{session.feasibility}}</span></span>
+          	</a>
+				   </li>
+					<li ui-sref-active="active" ng-if="availableModulues.definitive">
+				  	<a ui-sref=glp.definitive>
+				     		<md-ico i=beenhere></md-ico>
+				     		<span translate>LB_GLP_DEFINITIVE</span>
+          			<span class="pull-right-container"><span class="badge bg-aqua-active pull-right">{{session.definitive}}</span></span>
+						</a>
+					</li>
+				</ul>
+			</li>
+      
+      <!-- SERVICIOS ADICIONALES -->
+      <li class="header text-uppercase"><small translate>LB_ADDITIONAL_SERVICES</small></li>
+      
+      <!-- MENU: OTROS ENLACES -->
+			<li ui-sref-active="active" class="treeview" ng-if="(externalLinks | lengthObj) > 0">
+        <a href="">
+        	<md-ico i=phonelink></md-ico> <span translate>LB_OTHER_LINKS</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+					<li ui-sref-active="active" ng-repeat="(key,item) in externalLinks">
+		        <a href={{item.link}} target="_blank">
+		        	<i-fa i={{item.icon}}></i-fa> <span>{{key}}</span>
+		        </a>
+		      </li>
+		  	</ul>
+			</li>
+			
+			<!-- TERMINOS Y CONDICIONES DE USO -->
+			<li ng-class="{active:$state.includes('info')}">
+				<a ui-sref=info.terms><md-ico i=gavel c=text-yellow></md-ico><span translate>LB_TERMS_AND_CONDITIONS</span></a>
+			</li>
+			
+			<!-- DENUNCIAS EN LÍNEA -->
+			<li><a href="http://online.cbsd.gob.ec/denuncias-en-linea/" target="_blank"><md-ico i=record_voice_over c=text-red></md-ico> <span translate>LB_COMPLAINTS_ONLINE</span></a></li>
+      
+    </ul>
+  </section>
+  <!-- /.sidebar -->
+</aside>

@@ -1,0 +1,262 @@
+<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		
+		<!-- INFORMACION DE RUC -->
+		<card-entity-complete class="card-information" ng-if="detailConfig.show" flex></card-entity-complete>
+		
+		<!-- DETALLE DE TABS -->
+		<div flex>
+			<md-card class="no-margin">
+			
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i={{string2JSON('mdIconList')[entity.entidad_contribuyente]}}></md-ico></md-button>
+						<h2>[ {{entity.entidad_ruc}} ] {{entity.entidad_razonsocial}}</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<md-tabs md-dynamic-height md-border-bottom>
+					
+					<!-- INFORMACION DE PERFIL -->
+					<md-tab label="{{'LB_ACCOUNT_INFORMATION' | translate}}">
+						
+						<!-- TOOLBAR -->
+						<md-toolbar class="md-table-toolbar md-default">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=admin_panel_settings></md-ico></md-button>
+								<h2 translate>LB_TAXPAYER_DATA</h2>
+								<span flex></span>
+								
+								<md-button aria-label="btn" md-no-ink class="md-primary" ng-click="openModal('Entidades',{entityId:entity.entidad_id})">
+									<span class="text-bold text-primary" translate>LB_UPDATE_INFORMATION</span>
+								</md-button>
+								
+								<md-button aria-label="btn" md-no-ink class="md-primary" ng-click="openModal('Contrasenia',{entityId:entity.entidad_id})">
+									<span class="text-bold text-danger" translate>LB_CHANGE_PASSWORD</span>
+								</md-button>
+								
+							</div>
+						</md-toolbar>
+						
+						<md-divider></md-divider>
+						
+						<md-content class="padding-all">
+								
+								<!-- INFORMACION -->
+								<ul class="timeline margin-top">
+									
+									<!-- ENCABEZADO DE REQUERIMIENTOS -->
+									<li class="time-label text-uppercase">
+									  <span class="bg-blue padding-all" translate>LB_TAXPAYER_DATA</span>
+									</li>
+									
+									<!-- INFORMACION DE RUC, REPRESENTANTE LEGAL Y APODERADO -->
+									<li>
+										<i class="fa fa-user bg-red"></i>
+									   <div class="timeline-item">
+									     <div class="timeline-body no-padding" layout-xs=column layout=row layout-padding>
+							      
+													<!-- INFORMACION DE RUC -->
+													<card-entity flex></card-entity>
+													
+													<!-- INFORMACION DE REPRESENTANTE LEGAL -->
+													<card-agent flex></card-agent>
+													
+													<!-- INFORMACION DE APODERADO -->
+													<card-adopted flex ng-if="entity.entidad_apoderado=='SI'"></card-adopted>
+													
+									     </div>
+										</div>
+									</li>
+									
+									<!-- ENCABEZADO DE DOCUMENTACION -->
+									<li class="time-label text-uppercase">
+									  <span class="bg-green padding-all" translate>LB_VERIFICATION_DOCUMENTS</span>
+									</li>
+									
+									<!-- INFORMACION DE RUC, REPRESENTANTE LEGAL Y APODERADO -->
+									<li>
+										<i class="fa fa-folder-open bg-red"></i>
+									   <div class="timeline-item">
+									     <div class="timeline-body no-padding">
+									     	
+									     	<!-- DOCUMENTOS HABILITANTES -->
+												<div class="box box-warning no-margin margin-top font-11">
+				            			<div class="box-body no-padding">
+				            				<table class="table">
+							              	<col style="">
+							              	<col style="">
+							              	<col style="width:150px;text-align:center;">
+							                <tr>
+							                  <th><span translate>LB_DOCUMENTS</span></th>
+							                  <th><span translate>LB_INFORMATION</span></th>
+							                  <th><span translate>LB_UPLOAD</span>/<span translate>LB_TO_VIEW</span></th>
+							                </tr>
+							                <tr>
+							                  <td>
+							                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(entity.entidad_sitioweb))"></i>
+							                  	<small translate>LB_RUC_CERTIFICATE</small> (.pdf)
+							                  </td>
+							                  <td>
+							                  	<small>{{entity.entidad_razonsocial}}</small>
+							                  </td>
+							                  <td>
+							                  	<button type="button" class="btn btn-info btn-sm" ng-click="openParentModal('Anexos',mergeData(entity,{typeFile:'ruc_file',fileNameUpload:'ruc',tbEntity:'entidades_anexos'}))">
+							                  		<i-fa i=upload></i-fa>
+								                  	<md-tooltip><span translate>LB_CLICK_UPLOADED_CERTIFICATE</span></md-tooltip>
+							                  	</button>
+			
+							                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/ruc/{{entity.entidad_sitioweb}}" download target="_blank" ng-if="isSetFile(entity.entidad_sitioweb)">
+							                  		<i-fa i=download></i-fa>
+								                  	<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+							                  	</a>
+							                  </td>
+							                </tr>
+							                <tr>
+							                  <td>
+							                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(entity.person.persona_anexo_cedula))"></i>
+							                  	<small translate>LB_LEGAL_REPRESENTATIVE_ID</small> (.pdf)
+							                  </td>
+							                  <td>
+							                  	<small>{{entity.person.persona_apellidos}} {{entity.person.persona_nombres}}</small>
+							                  </td>
+							                  <td>
+							                  	<button type="button" class="btn btn-info btn-sm" ng-click="openParentModal('Anexos',mergeData(entity,{typeFile:'representantelegal_file',fileNameUpload:'representantelegal',tbEntity:'entidades_anexos'}))">
+							                  		<i-fa i=upload></i-fa>
+								                  	<md-tooltip><span translate>LB_CLICK_UPLOADED_CERTIFICATE</span></md-tooltip>
+							                  	</button>
+			
+							                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/cedulas/{{entity.person.persona_anexo_cedula}}" download target="_blank" ng-if="isSetFile(entity.person.persona_anexo_cedula)">
+							                  		<i-fa i=download></i-fa>
+								                  	<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+							                  	</a>
+							                  </td>
+							                </tr>
+							                <tr ng-if="entity.entidad_apoderado=='SI'">
+							                  <td>
+							                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(entity.adopted.persona_anexo_cedula))"></i>
+							                  	<small translate>LB_APPOINTMENT_AND_LOCAL_AUTHORITY_CERTIFICATE</small> (.pdf)
+							                  </td>
+							                  <td>
+							                  	<small>{{entity.adopted.persona_apellidos}} {{entity.adopted.persona_nombres}}</small>
+							                  </td>
+							                  <td>
+							                  	<button type="button" class="btn btn-info btn-sm" ng-click="openParentModal('Anexos',mergeData(entity,{typeFile:'apoderado_file',fileNameUpload:'apoderado',tbEntity:'entidades_anexos'}))">
+							                  		<i-fa i=upload></i-fa>
+								                  	<md-tooltip><span translate>LB_CLICK_UPLOADED_CERTIFICATE</span></md-tooltip>
+							                  	</button>
+							                  	
+							                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/cedulas/{{entity.adopted.persona_anexo_cedula}}" download target="_blank" ng-if="isSetFile(entity.adopted.persona_anexo_cedula)">
+							                  		<i-fa i=download></i-fa>
+								                  	<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+							                  	</a>
+							                  </td>
+							                </tr>
+							              </table>
+													</div>
+												</div>
+									     	
+									  	</div>
+										</div>
+									</li>
+									
+									<!-- ENCABEZADO DE ACTIVIDADES ECONOMICAS -->
+									<li class="time-label text-uppercase">
+									  <span class="bg-maroon padding-all" translate>LB_LOCALS</span>
+									</li>
+									
+									<!-- INFORMACION DE RUC, REPRESENTANTE LEGAL Y APODERADO -->
+									<li ng-repeat="row in econocmicActivitiesList">
+										<i class="fa fa-info bg-blue"></i>
+									   <div class="timeline-item">
+									     <div class="timeline-body no-padding">
+										     	
+										     	<!-- ACTIVIDADES ECONOMIMCAS -->
+				          				<div class="box box-success no-margin margin-top font-11">
+														<div class="box-header text-uppercase">
+														  <h3 class="box-title">{{row.local_numeroestablecimiento}}. {{row.local_nombrecomercial}}</h3>
+													  	<div class="box-tools pull-right">
+														  	<span ng-bind-html="statusLabel[row.local_estado]"></span>
+								              </div>
+														</div>
+					            			<div class="box-body row no-margin">
+					                		<div class="col-md-9">
+																<md-ico i=directions s=15></md-ico> {{row.local_parroquia}} / {{row.local_principal}}, {{row.local_secundaria}} / {{row.local_referencia}}<br>
+																<md-ico i=place s=15></md-ico> {{row.local_referencia}}<br>
+														  	<small class="badge bg-{{row.local_establecimiento=='SI'?'yellow':'gray'}}" translate="LB_HAVE_ESTABLISHMENT_X" translate-values="{x:row.local_establecimiento}"></small>
+					                		</div>
+					                		<div class="col-md-3">
+					                			<div ng-if="row.local_establecimiento=='SI'">
+							                  	<md-ico i=group s=15></md-ico> <span translate>LB_AFORO</span>: <span ng-bind-html="highlight(row.local_aforo)"></span><br>
+																	<md-ico i=business s=15></md-ico> <span translate>LB_FLOORS</span>: <span ng-bind-html="highlight(row.local_plantas)"></span><br>
+																	<md-ico i=flip_to_back s=15></md-ico> <span translate>LB_AREA</span>: <span ng-bind-html="highlight(row.local_area)"></span><br>
+						                  	</div>
+					                		</div>
+						                </div>
+						                <div class="box-footer no-padding">
+						                	<table class="table no-margin">
+								              	<col style="">
+								              	<col style="width:150px">
+								                <tr>
+								                  <th><span translate>LB_VERIFICATION_DOCUMENTS</span></th>
+								                  <th><span translate>LB_UPLOAD</span>/<span translate>LB_TO_VIEW</span></th>
+								                </tr>
+								                <tr>
+								                  <td>
+								                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(row.local_certificadostablecimiento))"></i>
+								                  	<span translate>LB_CERTIFICATE_ESTABLISHMENT</span> (.pdf)
+								                  </td>
+								                  <td>
+								                  	<button type="button" class="btn btn-info btn-sm" ng-click="openParentModal('Anexos',mergeData(row,{typeFile:'local_file',fileNameUpload:'establecimiento',tbEntity:'locales_anexos'}))">
+								                  		<i-fa i=upload></i-fa>
+								                  		<md-tooltip><span translate>LB_CLICK_UPLOADED_CERTIFICATE</span></md-tooltip>
+								                  	</button>
+								                  	
+								                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/locals/{{row.local_id}}/{{row.local_certificadostablecimiento}}" download target="_blank" ng-if="isSetFile(row.local_certificadostablecimiento)">
+								                  		<i-fa i=download></i-fa>
+								                  		<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+								                  	</a>
+								                  </td>
+								                </tr>
+								              </table>
+					            			</div>
+					            		</div>
+									     	
+									  	</div>
+										</div>
+									</li>
+								
+									<li><i class="fa fa-clock-o bg-gray"></i></li>
+									
+								</ul>
+																			
+								
+											
+								
+						</md-content>
+					</md-tab>
+					
+					<!-- HISTORIAL DE INICIO DE SESION -->
+					<md-tab label="{{'LB_ACTIVITY_LOG' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=settings></md-ico></md-button>
+								<h2 translate>TOOLBAR_UTILS</h2>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+						<md-content>
+								
+						</md-content>
+					</md-tab>
+					
+				</md-tabs>
+			
+			</md-card>
+		</div>
+	</div>
+</div>

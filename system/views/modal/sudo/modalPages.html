@@ -1,0 +1,95 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+	<form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=public></md-ico></md-button>
+			<h2 hide-xs><span translate>TOOLBAR_PAGES</span></h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	<div class="form-group required">
+				<label translate>LB_TITLE</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=public></md-ico></div></div> 
+			    <input type="text" ng-model="frmParent.page_title" class="form-control" required>
+				</div>
+			</div>
+    	<div class="form-group required">
+				<label translate>LB_DESCRIPTION</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+			    <input type="text" ng-model="frmParent.page_description" class="form-control" required>
+				</div>
+			</div>
+			
+    	<div layout-xs=column layout=row layout-padding>
+	    	<div class="form-group required">
+					<label translate>LB_TYPE</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+				    <input type="text" ng-model="frmParent.page_type" class="form-control" required>
+					</div>
+				</div>
+	    	<div class="form-group">
+					<label translate>LB_TEMPLATE</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=pageview></md-ico></div></div> 
+				    <input type="text" ng-model="frmParent.page_template" class="form-control">
+					</div>
+				</div>
+			</div>
+			
+    	<div layout-xs=column layout=row layout-padding>
+	    	<div class="form-group required">
+					<label translate>LB_MENU</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=menu></md-ico></div></div> 
+				    <input type="text" ng-model="frmParent.page_menu" class="form-control" required>
+					</div>
+				</div>
+	    	<div class="form-group required">
+					<label translate>LB_URL</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=insert_link></md-ico></div></div> 
+				    <input type="text" ng-model="frmParent.page_url" class="form-control" required>
+					</div>
+				</div>
+    	</div>
+			
+    	<div layout-xs=column layout=row layout-padding>
+	    	<div class="form-group">
+					<label translate>LB_ENTITY</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=link></md-ico></div></div> 
+				    <input type="text" ng-model="frmParent.page_entity" class="form-control">
+					</div>
+				</div>
+	    	<div class="form-group">
+					<label translate>LB_FK</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=insert_link></md-ico></div></div> 
+				    <input type="text" ng-model="frmParent.page_entity_id" class="form-control">
+					</div>
+				</div>
+    	</div>
+    	
+    	<div class="form-group" ng-if="toogleEditMode">
+				<label translate>LB_STATUS</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+			    <select class="form-control" ng-model="frmParent.page_estado"
+									ng-options="val as val for (key,val) in string2JSON('statusType')"></select>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+	</form>
+</md-dialog>

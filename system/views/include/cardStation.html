@@ -1,0 +1,24 @@
+<div class="card card-outline card-primary">
+  <div class="card-body box-profile text-center">
+    <div class="container-img-user">
+    	<img class="profile-user-img img-responsive" src="/app/src/img/stations/default.png" ng-src="/app/src/img/stations/{{dataEntity.estacion_imagen}}" alt="profile">
+    </div>
+		<h3 class="profile-username">{{dataEntity.estacion_nombre}}</h3>
+		<span class="text-muted text-center">{{dataEntity.estacion_nombre_alterno}}</span>
+    <hr>
+		<strong><md-ico i=place s=18></md-ico> <span translate>LB_ADDRESS</span></strong>
+    <p class="text-muted">{{dataEntity.estacion_principal}}, {{dataEntity.estacion_secudaria}}</p>
+    <hr>
+    <strong><md-ico i=mail s=18></md-ico> <span translate>LB_MAIL</span></strong>
+    <p class="text-muted">{{dataEntity.estacion_correo}}</p>
+    <hr>
+    <strong><md-ico i=phone s=18></md-ico> <span translate>LB_TEL</span></strong>
+    <p class="text-muted">{{dataEntity.estacion_telefono}}</p>
+    <hr>
+    <strong><md-ico i=people s=18></md-ico> <span translate>LB_STAFF</span></strong>
+    <p class="text-muted">{{dataEntity.staff.length}}</p>
+    <hr>
+    <strong><md-ico i=directions_car s=18></md-ico> <span translate>LB_UNITS</span></strong>
+    <p class="text-muted">{{dataEntity.units.length}}</p>
+  </div>
+</div>

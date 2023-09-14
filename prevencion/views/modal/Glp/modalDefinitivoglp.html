@@ -1,0 +1,72 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg form-fa" ng-controller="definitiveExtendsCtrl">
+  <form name="formData">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><i-fa i=certificate s=lg></i-fa></md-button>
+			<h2 translate>LB_GLP_DEFINITIVE</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="closeDialog()"><md-ico i=close></md-ico></md-button>
+		</div>
+	</md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+			<!-- CONFIRMACIÓN DE SOLICITUD -->
+			<div class="no-padding">
+				<div class="callout callout-info no-margin text-center">
+				  <div class="text-center"><i class="icon fa fa-bell-o fa-2x faa-ring animated"></i></div>
+				  <p ng-bind-html="trustAsHtml(paramsConf.GLP_REQUEST_DEFINITIVE)"></p>
+				</div>
+			</div>
+    	<!-- INFORMACIÓN DE PROPIETARIO -EMPRESA, SOCIEDAD O PERSONA -->
+    	<div flex class="box box-danger text-center card-entity-information no-margin margin-top">
+			  <div class="box-header with-border">
+			    <h3 class="box-title" translate>LB_OWNER_INFORMATION</h3>
+			  </div>
+			  <div class="box-body row">
+			    <div class="col-md-3">
+			    	<p><img src="/app/src/img/entities/default.png" style="width:128px;margin:auto" class="img-responsive"/></p>
+			    </div>
+			    <div class="col-md-9 text-left">
+			    	<p><b translate>LB_TRADENAME</b>: {{sessionEntity.entidad_razonsocial}}</p>
+			    	<p><b translate>LB_TAXPAYER_TYPE</b>: {{string2JSON('contribuyenteType')[sessionEntity.entidad_contribuyente]}}</p>
+			    	<p><b translate>LB_RUC</b>: {{sessionEntity.entidad_ruc}}</p>
+			    	<div ng-if="!(sessionEntity.entidad_contribuyente=='natural' || sessionEntity.entidad_contribuyente=='cedula')">
+				    	<p><b translate>LB_AGENT</b>: {{sessionEntity.persona_apellidos+' '+sessionEntity.persona_nombres}}</p>
+				    	<p><b translate>LB_IDENTIFICATION_NUMBER</b>: {{sessionEntity.persona_doc_identidad}}</p>
+			    	</div>
+			    	<p><b translate>LB_TEL</b>: {{sessionEntity.persona_telefono}} - {{sessionEntity.persona_celular}}</p>
+			    	<p><b translate>LB_MAIL</b>: {{sessionEntity.persona_correo}}</p>
+			    </div>
+			  </div>
+			</div>
+    	<!-- FORMULARIO DE REGISTRO -->
+			<div flex class="box box-primary text-center no-margin margin-top card-entity-information">
+			  <div class="box-header with-border">
+			    <h3 class="box-title">{{frmParent.factibilidad_codigo}}</h3>
+			  </div>
+			  <div class="box-body row">
+			    <div class="col-md-3">
+			    	<p><img src="/app/src/img/services/fglp.png" style="width:128px;margin:auto" class="img-responsive"/></p>
+			    </div>
+			    <div class="col-md-9 text-left">
+			    	<p><b translate>LB_PROJECT_NAME</b>: {{frmParent.factibilidad_proyecto}}</p>
+			    	<p><b translate>LB_PARISH</b>: {{frmParent.factibilidad_parroquia}}</p>
+			    	<p><b translate>LB_ADDRESS</b>: {{frmParent.factibilidad_principal}}, {{frmParent.factibilidad_secundaria}}</p>
+			    	<hr>
+			    	<p><b translate>LB_RESPONSIBLE_INSTALLATION_COMPANY</b>: {{frmParent.factibilidad_empresa_responsable}}</p>
+			    	<hr>
+			    	<p><b translate>LB_DATE_ELABORATION</b>: {{frmParent.factibilidad_elaborado}}</p>
+			    	<p><b translate>LB_NUMBER_TANKS</b>: {{frmParent.tanques_total}} TANQUE(S)</p>
+			    	<p><b translate>LB_CAPACITY_M3</b>: {{frmParent.tanques_capacidad | number:2}} m3</p>
+			    </div>
+			  </div>
+			</div>
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button ng-disabled="formData.$invalid" ng-click="submitCustomForm()"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

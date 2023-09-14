@@ -1,0 +1,247 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg" ng-controller="trackingExtendsCtrl">
+  <form name="formData">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=gps_fixed></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_TRACKING</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+	
+		<md-tabs md-dynamic-height md-border-bottom>
+		
+			<!-- FORMULARIO DE REGISTRO -->
+			<md-tab label="{{'LB_REGISTRATION_FORM' | translate}}">
+				<md-content layout=column layout-padding>
+					
+					<!-- INFORMACIÓN DE UNIDAD -->
+					<card-unit-information layout-padding></card-unit-information>
+					
+					<!-- DATOS DE MOVIMIENTO -->
+					<div layout-padding>
+						<div class="card card-outline card-success no-margin margin-top" layout-padding>
+							<div class="card-header text-center">
+							  <h3 class="card-title" translate>LB_DATA_OUTPUT</h3>
+							</div>
+							<div class="card-body padding-all" layout=column layout-padding>
+								
+					    	<div class="form-group required" ng-controller="driversListCtrl">
+									<label translate>LB_OPERATOR</label>
+									<div class="input-group">
+							      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=person></md-ico></div></div> 
+							      <ui-select class="form-control" ng-model="frmParent.flota_salida_conductor" reset-search-input="false" required>
+						         	<ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.conductor,'Seleccione el operador')  | translate}}">
+												{{$select.selected.personal_nombre}}
+						         	</ui-select-match>
+											<ui-select-choices class="list-personal" repeat="item.conductor_id as item in jsonList | filter: { conductor: $select.search }">
+												<img src="/app/src/img/users/default.png" style="width:48px;height:48px;padding:3px" class="img-circle" alt="img" />
+												<div flex>
+													<div ng-bind-html="item.conductor | highlight: $select.search"></div>
+													<small ng-bind-html="'Tipo de licencia.: '+item.licencia_categoria+' ('+item.licencia_tipo+')'"></small><br>
+													<small translate>LB_STATUS</small> <label class="label" ng-class="[{'label-success':item.conductor_estado=='VIGENTE','label-danger':item.conductor_estado=='CADUCADA'}]">{{item.conductor_estado}}</label>
+												</div>
+											</ui-select-choices>
+							      </ui-select>
+							    </div>
+								</div>
+								
+								<div class="form-group required" ng-controller="codesTrackingListCtrl">
+									<label translate>LB_CHOOSE_CODE</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=code></md-ico></div></div> 
+										<ui-select class="form-control" ng-model="frmParent.fk_codigo_id" reset-search-input="false" required>
+						         	<ui-select-match class="required" placeholder="{{getPlaceholder(row.codigo,'Seleccione el codigo')  | translate}}">
+												{{$select.selected.codigo}}
+						         	</ui-select-match>
+											<ui-select-choices repeat="item.codigo_id as item in jsonList | filter: {codigo: $select.search }">
+												<div flex>
+													<div ng-bind-html="item.codigo | highlight: $select.search"></div>
+												</div>
+											</ui-select-choices>
+							      </ui-select>
+									</div>
+								</div>
+								
+					    	<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex ng-controller="stationsListCtrl">
+						    		<label translate>LB_DEPARTURE_STATION</label>
+										<div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assistant_photo></md-ico></div></div> 
+											<select class="form-control" ng-model="frmParent.flota_salida_estacion" required ng-options="row.estacion_id as (row.estacion_nombre+' - '+row.estacion_nombre_alterno) for row in list"></select>
+										</div>
+						    	</div>
+									<div class="form-group required" flex>
+						    		<label translate>LB_OUTPUT_MILE</label>
+									  <div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flight_takeoff></md-ico></div></div> 
+											<input type="number" step=1 class="form-control" ng-model="frmParent.flota_salida_km" required ng-disabled="toogleEditMode" />
+										</div>
+						    	</div>
+					    	</div>
+					    	
+					    	<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex>
+										<label translate>LB_DEPARTURE_TIME</label>
+										<div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=account_circle></md-ico></div></div> 
+											<select class="form-control" ng-model="frmParent.flota_salida_tipo" required ng-disabled="toogleEditMode" ng-options="key as val for (key,val) in string2JSON('inputDataType')"></select>
+										</div>
+									</div>
+						    	<div class="form-group required" flex ng-if="frmParent.flota_salida_tipo=='MANUAL' || toogleEditMode">
+						    		<label translate>LB_DEPARTURE_TIME</label>
+									  <div class="input-group" max-date="maxDate" start-view="day"
+									       moment-picker="frmParent.flota_salida_hora">
+												<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+												<input class="form-control" ng-model="frmParent.flota_salida_hora" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required ng-disabled="toogleEditMode">
+											</div>
+						    	</div>
+						    </div>
+					    	
+								<div class="form-group required">
+					    		<label translate>LB_DESTINATION</label>
+								  <div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=location_on></md-ico></div></div> 
+											<input class="form-control" ng-model="frmParent.flota_destino" placeholder="Ej. Estación 2" required ng-disabled="toogleEditMode" />
+									</div>
+					    	</div>
+					    	
+								<div class="form-group">
+									<label translate>LB_DETAIL</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div>
+										<textarea rows=4 class="form-control" ng-model="frmParent.flota_detalle" placeholder="Ej. Detallar información" ></textarea>
+									</div>
+								</div>
+							
+							</div>
+						</div>
+						
+						<!-- DATOS DE MOVIMIENTO -->
+						<div class="card card-outline card-warning no-margin margin-top" layout-padding ng-if="frmParent.flota_estado=='ESTACION'">
+							<div class="card-header text-center">
+							  <h3 class="card-title" translate>LB_CHECK_ARRIVAL</h3>
+							</div>
+							<div class="card-body padding-all" layout=column layout-padding>
+								
+					    	<div class="form-group required" ng-controller="driversListCtrl">
+									<label translate>LB_OPERATOR</label>
+									<div class="input-group">
+							      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=person></md-ico></div></div> 
+							      <ui-select class="form-control" ng-model="frmParent.flota_arribo_conductor" reset-search-input="false" required>
+						         	<ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.conductor,'Seleccione el operador')  | translate}}">
+												{{$select.selected.personal_nombre}}
+						         	</ui-select-match>
+											<ui-select-choices class="list-personal" repeat="item.conductor_id as item in jsonList | filter: { conductor: $select.search }">
+												<img src="/app/src/img/users/default.png" style="width:48px;height:48px;padding:3px" class="img-circle" alt="img" />
+												<div flex>
+													<div ng-bind-html="item.conductor | highlight: $select.search"></div>
+													<small ng-bind-html="'Tipo de licencia.: '+item.licencia_categoria+' ('+item.licencia_tipo+')'"></small><br>
+													<small translate>LB_STATUS</small> <label class="label" ng-class="[{'label-success':item.conductor_estado=='VIGENTE','label-danger':item.conductor_estado=='CADUCADA'}]">{{item.conductor_estado}}</label>
+												</div>
+											</ui-select-choices>
+							      </ui-select>
+							    </div>
+								</div>
+								
+					    	<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex ng-controller="stationsListCtrl">
+						    		<label translate>LB_ARRIVAL_STATION</label>
+										<div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assistant_photo></md-ico></div></div> 
+											<select class="form-control" ng-model="frmParent.flota_arribo_estacion" required ng-options="row.estacion_id as (row.estacion_nombre+' - '+row.estacion_nombre_alterno) for row in list"></select>
+										</div>
+						    	</div>
+									<div class="form-group required" flex>
+						    		<label translate>LB_INPUT_MILE</label>
+									  <div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flight_land></md-ico></div></div> 
+											<input type="number" step=1 min={{frmParent.flota_salida_km}} class="form-control" ng-model="frmParent.flota_arribo_km" required />
+										</div>
+						    	</div>
+					    	</div>
+					    	
+					    	<div layout-xs=column layout=row layout-padding>
+						    	<div class="form-group required" flex>
+						    		<label translate>LB_CHECK_IN_TIME</label>
+									  <div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=account_circle></md-ico></div></div> 
+											<select class="form-control" ng-model="frmParent.flota_arribo_tipo" required ng-options="key as val for (key,val) in string2JSON('inputDataType')"></select>
+										</div>
+						    	</div>
+						    	<div class="form-group required" flex ng-if="frmParent.flota_arribo_tipo=='MANUAL'">
+						    		<label translate>LB_CHECK_IN_TIME</label>
+									  <div class="input-group" start-view="day" min-date="frmParent.flota_salida_hora" max-date="maxDate" moment-picker="frmParent.flota_arribo_hora">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+											<input class="form-control" ng-model="frmParent.flota_arribo_hora" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required>
+										</div>
+						    	</div>
+					    	</div>
+								
+							</div>
+						</div>
+						
+					</div>
+				</md-content>
+			</md-tab>
+			
+			<!-- ADMINISTRACIÓN DE PASAJEROS -->
+			<md-tab label="{{'TOOLBAR_PASSENGERS' | translate}}">
+				<md-content layout=column layout-padding>
+					<div layout-padding layout=column>
+						
+						<!-- FILTRO DE PASAJEROS -->
+						<div layout-padding>
+							<div class="card card-outline card-success no-margin">
+								<div class="card-body text-center">
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=search></md-ico></div></div> 
+										<input ng-model="frmParent.filter" class="form-control" placeholder="Ej. 1236587490" maxlength="20">
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-default" ng-if="frmParent.filter!=''" ng-click="frmParent.filter=''"><md-ico i=clear></md-ico></button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- ITERACIÓN DE PASAJEROS -->
+						<div class="card card-outline card-primary no-margin margin-top" layout-padding>
+							<div class="card-header text-center">
+							  <h3 class="card-title" translate>LB_PERSONAL_SELECTED</h3>
+							</div>
+							<div class="card-body padding-all">
+								<div class="row no-margin">
+									<div class="col-md-6 col-xs-12 md-2-line contact-item" ng-repeat="item in jsonList.passengers | filter : frmParent.filter">
+						        <label class="label">
+									    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.passengers" checklist-value="item.personal_id" />
+									    <span class="label__text">
+									      <span class="label__check">
+									        <i class="fa fa-check icon"></i>
+									      </span>
+									    </span>
+									  </label>
+						        <div class="md-list-item-text compact">
+					          	<span class="text-bold" ng-bind-html="highlight(item.personal_nombre,frmParent.filter)"></span>
+						          <p style="font-size:11px;" ng-bind-html="highlight(item.puesto_nombre,frmParent.filter)"></p>
+						        </div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</md-content>
+			</md-tab>
+			
+		</md-tabs>
+		
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="button" ng-click="submitForm()" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

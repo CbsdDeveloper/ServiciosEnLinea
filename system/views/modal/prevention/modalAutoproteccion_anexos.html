@@ -1,0 +1,55 @@
+<md-dialog aria-label="Dialog" class="modal-dialog modal-lg">
+  <form name="formData" ng-submit="submitFormFile()">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="btn"><i-fa i=paperclip></i-fa></md-button>
+			<h2 translate>LB_ANNEXES_MANAGER</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" aria-label="btn" ng-click="closeDialog()"><md-ico i=close></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+		<md-content layout=column layout-padding>
+				
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_ANNEXE_TYPE</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=category></md-ico></div></div>
+							<select class="form-control" ng-model="frmParent.anexo_clasificacion" ng-options="val as val for (key,val) in string2JSON('SELFPROTECTION_ANNEXES_TYPE')"></select>
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_TYPE_FILE</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div>
+							<select class="form-control" ng-model="frmParent.anexo_tipo" ng-options="key as val for (key,val) in string2JSON('fileTypeList')"></select>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group required" flex>
+					<label translate>LB_ANNEXE_NAME</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=attachment></md-ico></div></div>
+						<input ng-model="frmParent.anexo_nombre" class="form-control" required>
+					</div>
+				</div>
+				
+				<div class="form-group required">
+					<label translate>LB_CHOOSE_FILE</label>
+					<div class="input-group">
+			      <div class="input-group-prepend"><div class="input-group-text"><i-fa i=image></i-fa></div></div>
+			      <input type="file" accept="{{string2JSON('fileTypeMime')[frmParent.anexo_tipo]}}" class="form-control" ng-required="!toogleEditMode" uploader-model="frmParent.anexo_file" />
+			    </div>
+				</div>
+				
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,317 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg" ng-controller="vbpExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=layers></md-ico></md-button>
+				<h2 translate>TOOLBAR_VBP</h2>
+				<span flex></span>
+				<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<md-content layout-padding layout=column>
+	    	<!-- INFORMACIÓN DE PROPIETARIO -EMPRESA, SOCIEDAD O PERSONA -->
+	    	<card-entity-information layout-padding></card-entity-information>
+	    	<!-- FORMULARIO DE REGISTRO -->
+				<div class="card card-outline card-success no-margin margin-top" layout-padding>
+					<div class="card-header text-center">
+					  <h3 class="card-title text-uppercase" translate>LB_PROJECT_INFORMATION</h3>
+					</div>
+					<div class="card-body padding-all" layout-padding>
+						<div class="form-group required">
+							<label translate>LB_PROJECT_NAME</label>
+						  <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=object-group></md-ico></div></div> 
+								<input class="form-control" ng-model="frmParent.vbp_proyecto" placeholder="Ej. Edificio Santa Ana" required />
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_BUILDING_PURPOSE</label>
+						  <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=rss></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.fk_actividad_id" required ng-options="row.actividad_id as (row.actividad_id+'. '+row.actividad_nombre) for row in activitiesList"></select>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_BUILDING_TYPE</label>
+							  <div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-rss"></i></span>
+									<select class="form-control" ng-model="frmParent.vbp_tipo" required ng-options="val as val for (key,val) in string2JSON('typeProjectList')"></select>
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_PARISH</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=globe></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.vbp_parroquia" required ng-options="val as val for (key,val) in string2JSON('parishesList')"></select>
+								</div>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_FIRST_LINE</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=location-arrow></md-ico></div></div> 
+									<input class="form-control" ng-model="frmParent.vbp_principal" placeholder="Ej. Av. Quevedo km 5" required />
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_SECOND_LINE</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=map-signs></md-ico></div></div> 
+									<input class="form-control" ng-model="frmParent.vbp_secundaria" placeholder="Ej. Av. El Coperativismo" required />
+								</div>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_MZ</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=location-arrow></md-ico></div></div> 
+									<input class="form-control" ng-model="frmParent.vbp_manzana" placeholder="Ej. 35" required />
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_LOT</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=map-signs></md-ico></div></div> 
+									<input class="form-control" ng-model="frmParent.vbp_lote" placeholder="Ej.7" required />
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_CATASTRAL_KEY</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=key></md-ico></div></div> 
+									<input class="form-control" ng-model="frmParent.vbp_clavecatastral" placeholder="Ej. 23005482EC" required />
+								</div>
+							</div>
+						</div>
+						
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_LONGITUDE</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=place></md-ico></div></div> 
+									<input ng-model="frmParent.vbp_longitud" class="form-control" placeholder="Ej. -79,16" maxlength="20" required>
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_LATITUDE</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=place></md-ico></div></div> 
+									<input ng-model="frmParent.vbp_latitud" class="form-control" placeholder="Ej. -0,24" maxlength="20" required>
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_NUMBER_BUILDINGS</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=university></md-ico></div></div> 
+									<input parse-float type="number" step=1 min=1 class="form-control" ng-model="frmParent.vbp_edificaciones" placeholder="Ej. 4 (pisos)" required />
+								</div>
+							</div>
+						</div>
+					
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_LAND_AREA</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=arrows></md-ico></div></div> 
+									<input parse-float type="number" step=any min=0 class="form-control" ng-model="frmParent.area_terreno" placeholder="Ej. 2000 (m²)" required />
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_CONSTRUCTION_AREA</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=arrows-h></md-ico></div></div> 
+									<input parse-float type="number" step=any min=0 class="form-control" ng-model="frmParent.area_construccion" placeholder="Ej. 500 (m²)" required />
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_BUILDING_HEIGHT</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=signal></md-ico></div></div> 
+									<input parse-float type="number" step=any min=0 class="form-control" ng-model="frmParent.vbp_altura" placeholder="Ej. 12 (m²)" required />
+								</div>
+							</div>
+						</div>
+						
+						<div class="form-group required" flex>
+							<label translate>LB_BUILDING_DETAILS</label>
+						  <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=industry></md-ico></div></div> 
+								<textarea rows="5" class="form-control" ng-model="frmParent.vbp_detalle" placeholder="Ej. 20 habitaciones - 5 dormitorios" required ></textarea>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_BUILDING_MATERIALS</label>
+						  <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=wrench></md-ico></div></div> 
+								<textarea rows="5" class="form-control" ng-model="frmParent.vbp_material" placeholder="Ej. Hormigo armado" required ></textarea>
+							</div>
+						</div>
+					
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_DATE_ELABORATION</label>
+								<div class="input-group" moment-picker="frmParent.vbp_elaborado" format="YYYY-MM-DD">
+									<div class="input-group-prepend"><div class="input-group-text"><i-fa i=calendar-plus-o></md-ico></div></div> 
+									<input ng-model="frmParent.vbp_elaborado" ng-model-options="{ updateOn: 'blur' }" class="form-control" placeholder="Ej. 2006-06-06" required />
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_WHO_SIGNED_RESPONSIBLE</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=how_to_reg></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.vbp_firma_responsable" required ng-options="val as val for (key,val) in string2JSON('VBP_FIRMA_RESPONSABLES')"></select>
+								</div>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_BILLING_TO</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=wrench></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.vbp_facturacion" required ng-options="key as val for (key,val) in string2JSON('BILLING_TO')"></select>
+								</div>
+							</div>
+							<div class="form-group required" flex ng-if="frmParent.vbp_facturacion=='OTRA'">
+								<label translate>LB_BILLING_RUC</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=credit-card></md-ico></div></div> 
+									<input ng-model="frmParent.facturacion_ruc" class="form-control" placeholder="Ej. 1721953189001" required maxlength="13" />
+									<span class="input-group-btn"><button type="button" ng-click="searchRucInformation(frmParent.facturacion_ruc,'frmParent','billing')" class="btn btn-info btn-flat"><i-fa i=search></i-fa></button></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- ESTACIONES DE SERVICIOS -->
+				<div class="card card-outline card-danger no-margin margin-top" layout-padding ng-if="frmParent.fk_actividad_id==10">
+					<div class="card-header text-center">
+					  <h3 class="card-title text-uppercase" translate>LB_SERVICE_STATION_DATA</h3>
+					</div>
+					<div class="card-body padding-all" layout-padding>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+	          		<label translate>LB_NUMBER_OF_TANKS</label>
+					  		<div class="input-group">
+		              <div class="input-group-prepend"><div class="input-group-text"><i-fa i=database></md-ico></div></div> 
+		              <input type="number" step="1" min=0 parse-float class="form-control font-digital" ng-model="frmParent.vbp_es_tanques" placeholder="Ej. 3" required />
+		            </div>
+	            </div>
+							<div class="form-group required" flex>
+								<label translate>LB_NUMBER_OF_SUPPLIERS</label>
+					  		<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><i-fa i=thumb-tack></md-ico></div></div> 
+									<input type="number" step="1" min=0 parse-float class="form-control font-digital" ng-model="frmParent.vbp_es_surtidores" placeholder="Ej. 12" required />
+								</div>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+	          		<label translate>LB_DETAIL_OF_TANKS</label>
+					  		<div class="input-group">
+		              <div class="input-group-prepend"><div class="input-group-text"><i-fa i=database></md-ico></div></div> 
+		              <input class="form-control" ng-model="frmParent.vbp_es_tanques_detalle" placeholder="Ej. 5200 galones de diesel, 4200 de extra y 4200 de super" required />
+		            </div>
+	            </div>
+							<div class="form-group required" flex>
+								<label translate>LB_DETAIL_OF_SUPPLIERS</label>
+					  		<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><i-fa i=thumb-tack></md-ico></div></div> 
+									<input class="form-control" ng-model="frmParent.vbp_es_surtidores_detalle" placeholder="Ej. Surtidores con 3 bombas de distribucion" required />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- DATOS PARA FACTURACIÓN -->
+				<div class="card card-outline card-primary text-center card-entity-information no-margin margin-top" ng-if="frmParent.vbp_facturacion=='OTRA' && !(frmParent.billing | isEmpty)">
+					<div class="card-header with-border">
+					  <h3 class="card-title" translate>LB_BILLING_INFORMATION</h3>
+					</div>
+					<div class="card-body row">
+				  	<div class="col-md-3">
+				  		<p><img src="/app/src/img/entities/default.png" style="width:128px;margin:auto" class="img-responsive"/></p>
+				    </div>
+				    <div class="col-md-9 text-left">
+				    	<p><b translate>LB_TRADENAME</b>: {{frmParent.billing.entidad_razonsocial}}</p>
+				    	<p><b translate>LB_TAXPAYER_TYPE</b>: {{string2JSON('contribuyenteType')[frmParent.billing.entidad_contribuyente]}}</p>
+				    	<p><b translate>LB_RUC</b>: {{frmParent.billing.entidad_ruc}}</p>
+				    	<div ng-if="!(frmParent.billing.entidad_contribuyente=='natural' || frmParent.billing.entidad_contribuyente=='cedula')">
+					    	<p><b translate>LB_AGENT</b>: {{frmParent.billing.persona_apellidos+' '+frmParent.billing.persona_nombres}}</p>
+					    	<p><b translate>LB_IDENTIFICATION_NUMBER</b>: {{frmParent.billing.persona_doc_identidad}}</p>
+				    	</div>
+				    	<p><b translate>LB_TEL</b>: {{frmParent.billing.persona_telefono}} - {{frmParent.billing.persona_celular}}</p>
+				    	<p><b translate>LB_MAIL</b>: {{frmParent.billing.persona_correo}}</p>
+				    </div>
+				  </div>
+				</div>
+	    	<!-- INFORMACIÓN FORMULARIO -->
+	    	<div class="card card-outline card-success no-margin margin-top no-padding" ng-if="frmParent.vbp_estado=='ASIGNADO' || frmParent.vbp_estado=='REVISION' || frmParent.vbp_estado=='CORRECCION' || frmParent.vbp_estado=='REVISADO'">
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_REVIEW_INFORMATION</h3>
+					</div>
+					<div class="card-body padding-all" layout-padding>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_STATUS</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+										<select class="form-control" ng-model="frmParent.vbp_estado" required ng-options="key as val for (key,val) in string2JSON('reviewStatusList')"></select>
+								</div>
+							</div>
+							<div class="form-group required" flex ng-if="frmParent.vbp_estado=='REVISADO'">
+								<label translate>LB_REVIEW_DATE</label>
+								<div class="input-group" max-date="today" min-date="frmParent.vbp_elaborado" moment-picker="frmParent.vbp_revisado" format="YYYY-MM-DD">
+									<div class="input-group-prepend"><div class="input-group-text"><i-fa i=calendar-plus-o></md-ico></div></div> 
+									<input ng-model="frmParent.vbp_revisado" ng-model-options="{ updateOn: 'blur' }" class="form-control" placeholder="Ej. 2006-06-06" required />
+								</div>
+							</div>
+						</div>
+					
+						<div layout-xs=column layout=row layout-padding ng-if="frmParent.vbp_estado=='REVISADO'">
+							<div class="form-group required" flex>
+								<label translate>LB_NUMBER_SHEETS</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=layers></md-ico></div></div> 
+									<input parse-float type="number" step=any min=1 class="form-control" ng-model="frmParent.vbp_laminas" placeholder="Ej. 7" required />
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_TECHNICAL_MEMORY</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=bookmarks></md-ico></div></div> 
+									<input parse-float type="number" step=any min=1 class="form-control" ng-model="frmParent.vbp_paginas_memoria" placeholder="Ej. 50" required />
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_SIGNATURE_OF_RESPONSIBLE</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=book></md-ico></div></div> 
+									<input parse-float type="number" step=any max={{frmParent.vbp_paginas_memoria}} class="form-control" ng-model="frmParent.vbp_paginas_responsables" placeholder="Ej. 45" required />
+								</div>
+							</div>
+						</div>
+						
+						<div class="form-group" ng-class="{'required':frmParent.vbp_estado=='CORRECCION'}">
+							<label translate>LB_OBSERVATION</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+									<textarea ckeditor="editorOptions" ng-model="frmParent.vbp_observacion"></textarea> 
+							</div>
+						</div>
+					</div>
+				</div>	
+			</md-content>
+		</md-dialog-content>
+		<md-dialog-actions layout=row>
+			<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+			<span flex></span>
+			<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+		</md-dialog-actions>
+  </form>
+</md-dialog>

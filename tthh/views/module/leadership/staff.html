@@ -1,0 +1,62 @@
+<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=people_outline></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_STAFF</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<datatable-toolbar></datatable-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="width:10%">
+     	<col style="">
+     	<col style="width:25%">
+     	<col style="width:20%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate></span></th>
+					<th md-column><span translate>LB_PERSONAL_INFORMATION</span></th>
+					<th md-column><span translate>LB_JOB_PROFILE</span></th>
+					<th md-column><span translate>LB_CONTRACT_INFORMATION</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td md-cell>
+						<img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{row.staff.person.persona_imagen}}" style="width:64px;height:64px;padding:5px" class="img-circle" alt="img" />
+						<md-tooltip>{{row.puesto_modalidad}}</md-tooltip>
+					</td>
+					<td md-cell class="text-uppercase">
+						<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.staff.person.persona_doc_identidad)"></span><br>
+						<md-ico i=person></md-ico><span ng-class="{'text-info text-bold':row.personal_definicion=='ENCARGADO'}" ng-bind-html="highlight(row.staff.person.persona_apellidos)"></span> <span ng-class="{'text-info text-bold':row.personal_definicion=='ENCARGADO'}" ng-bind-html="highlight(row.staff.person.persona_nombres)"></span><br>
+						<md-ico i=email></md-ico><span ng-bind-html="highlight(row.staff.person.persona_correo)"></span><br>
+						<md-ico i=contact_phone></md-ico><span ng-bind-html="highlight(row.staff.person.persona_telefono)"></span> - <span ng-bind-html="highlight(row.staff.person.persona_celular)"></span><br>
+						<md-ico i=place></md-ico><span>{{row.staff.person.persona_direccion}}</span>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="highlight(row.staff.station.estacion_nombre+' '+row.staff.station.estacion_nombre_alterno)"></span><br>
+						<md-ico i=account_balance></md-ico><span ng-bind-html="highlight(row.job.leadership.direccion_nombre)"></span><br>
+						<md-ico i={{string2JSON('mdIconList')[row.job.puesto_grado]}}></md-ico><span ng-class="{'text-info text-bold':row.personal_definicion=='ENCARGADO'}" ng-bind-html="highlight(row.job.puesto_nombre)"></span><br>
+						<md-ico i=contact_mail></md-ico><span ng-bind-html="highlight(row.staff.personal_correo_institucional)"></span>
+					</td>
+					<td class="text-uppercase" md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.ppersonal_estado]"></span><br>
+						<md-ico i=photo_filter></md-ico><span ng-bind-html="highlight(row.personal_contrato)"></span><br>
+						<md-ico i=event_available></md-ico><span>{{row.personal_fecha_ingreso | date:'fullDate'}}</span>
+						<div ng-if="row.ppersonal_estado=='PASIVO' || (row.personal_contrato=='CONTRATO OCASIONAL' || row.personal_contrato=='CONTRATO CIVIL')">
+							<md-ico i=event_busy></md-ico><span>{{row.personal_fecha_salida | date:'fullDate'}}</span>
+						</div>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<datatable-footer></datatable-footer>
+</md-card>

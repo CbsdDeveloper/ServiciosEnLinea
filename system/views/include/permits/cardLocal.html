@@ -1,0 +1,22 @@
+<div class="card card-outline card-primary no-margin">
+	<div class="card-header with-border text-center no-padding" ng-if="entity.local_imagen!='default.png'">
+	  <img ng-if="entity.local_imagen==null || entity.local_imagen=='default.png'" class="img-responsive text-center" style="margin:auto;width:128px;" src="/app/src/img/entities/default.png" />
+	  <img ng-if="entity.local_imagen!=null && entity.local_imagen!='default.png'" class="img-responsive text-center" style="margin:auto" src="/app/src/img/entities/default.png" ng-src="/app/src/img/entities/{{entity.local_imagen}}" />
+	</div>
+	<div class="card-body box-profile text-center">
+		<h3 class="profile-username">{{dataEntity.local_nombrecomercial}}</h3>
+		<p class="text-muted text-center"><md-ico i=event s=18></md-ico> {{dataEntity.local_fecha_registro}}</p>
+		<hr>
+		<strong><md-ico i=directions s=18></md-ico> <span translate>LB_PARISH</span></strong>
+		<p class="text-muted">{{dataEntity.local_parroquia}}</p>
+		<hr>
+		<strong><md-ico i=directions s=18></md-ico> <span translate>LB_ADDRESS</span></strong>
+		<p class="text-muted">{{dataEntity.local_principal}}, {{dataEntity.local_secundaria}}<br>{{dataEntity.local_referencia}}</p>
+		<hr>
+		<strong><md-ico i=phone s=18></md-ico> <span translate>LB_TEL</span></strong>
+		<p class="text-muted">{{dataEntity.local_telefono}}</p>
+		<hr>
+		<strong><i-fa i=lightbulb-o></i-fa> <span translate>LB_LIGHTMETER_SHORT</span></strong>
+		<p class="text-muted">{{dataEntity.local_medidor}}</p>
+	</div>
+</div>

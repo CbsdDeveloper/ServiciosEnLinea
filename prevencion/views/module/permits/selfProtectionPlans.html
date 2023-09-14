@@ -1,0 +1,113 @@
+<div layout-padding>
+	<div class="box box-info collapsed-box no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+			<div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+      </div>
+		</div>
+		<div class="box-body box-bg-info" layout=column layout-wrap>
+			<div ng-bind-html="$parent.trustAsHtml(paramsConf.SI_INFO_EMERGENCY)"></div>
+		</div>
+	</div>
+</div>
+
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="button"><md-ico i=security></md-ico></md-button>
+			<h2><span translate>TOOLBAR_PLANS</span></h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+	    <table md-table class="md-primary table-hover">
+	      <col style="width:20%">
+	      <col style="">
+	      <col style="width:15%">
+	     	<col style="width:15%">
+	     	<col style="width:3%">
+	      <thead md-head>
+					<tr md-row>
+						<th md-column><span translate>LB_PLAN_DETAILS</span></th>
+						<th md-column><span translate>LB_ESTABLISHMENT_DATA</span></th>
+						<th md-column><span translate></span></th>
+						<th md-column><span translate>LB_REGISTRATION_INFORMATION</span></th>
+						<th md-column><span translate>LB_MENU</span></th>
+					</tr>
+				</thead>
+			  <tbody>
+					<tr md-row data-ng-repeat="row in rowsParent.data">
+						<td class="text-uppercase" md-cell>
+							<div>
+								<md-ico i=qr_code></md-ico><span ng-bind-html="highlight(row.plan_codigo)"></span>
+								<md-tooltip><span translate>LB_APPLICATION_NUMBER</span></md-tooltip>
+							</div>
+							<div ng-if="row.plan_elaborado!=null">
+								<md-ico i=event></md-ico>{{row.plan_elaborado	| date:'fullDate'}}<br>
+								<md-tooltip><span translate>LB_ELABORATED</span></md-tooltip>
+							</div>
+							<div>
+								<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.plan_tipo]"></span>
+								<md-tooltip><span translate>LB_TYPE_OF_SELFPROTECTIONPLAN</span></md-tooltip>
+							</div>
+							
+							<div ng-if="row.plan_estado=='APROBADO' || row.plan_estado=='VENCIDO'">
+								<div>
+									<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.plan_aprobado)"></span>
+									<md-tooltip><span translate>LB_APPROVAL_DATE</span></md-tooltip>
+								</div>
+								<div>
+									<md-ico i=event_busy></md-ico>{{row.plan_caduca	| date:'fullDate'}}
+									<md-tooltip><span translate>LB_VALID_UNTIL</span></md-tooltip>
+								</div>
+							</div>
+						</td>
+						<td class="text-uppercase" md-cell>
+							<div>
+								<i-fa i=building></i-fa><span ng-bind-html="highlight(row.local_nombrecomercial)"></span><br>
+								<md-tooltip><span translate>LB_COMERTIAL</span></md-tooltip>
+							</div>
+							<div>
+								<i-fa i=map-marker></i-fa><span ng-bind-html="highlight(row.local_principal+', '+row.local_secundaria)"></span>
+								<md-tooltip><span translate>LB_ADDRESS</span></md-tooltip>
+							</div>
+							<div>
+								<i-fa i=flag></i-fa><span ng-bind-html="statusLabel[row.local_estado]"></span><br>
+							</div>
+						</td>
+						<td class="text-uppercase" md-cell>
+							<i-fa i=users></i-fa><span ng-bind-html="highlight(row.plan_aforo)"></span> <span translate>LB_AFORO</span><br>
+							<i-fa i=building></i-fa><span ng-bind-html="highlight(row.plan_plantas)"></span> <span translate>LB_FLOORS</span><br>
+							<i-fa i=area-chart></i-fa><span ng-bind-html="highlight(row.plan_area)"></span> <span translate>LB_AREA</span>
+						</td>
+
+						<td md-cell>
+							<i-fa i=flag></i-fa><span ng-bind-html="statusLabel[row.plan_estado]"></span><br>
+							<i-fa i=calendar></i-fa><span ng-bind-html="row.plan_registro"></span><br>
+							<i-fa i=user></i-fa><span ng-bind-html="row.usuario"></span>
+							<div class="text-uppercase" ng-if="row.gallery>0">
+								<a ng-click="downloadAttachments(row.plan_id)">
+									<md-ico i=attach_file></md-ico><span translate="LB_ATTACHED_FILES_X" translate-values="{x:row.gallery}"></span>
+								</a>
+								<md-tooltip><span translate>LB_ATTACHED_FILES</span></md-tooltip>
+							</div>
+						</td>
+						<td md-cell class="table-menu text-center">
+							
+							<menu-self-protection-plans ng-if="!row.plan_renovated && (row.plan_estado!='SUSPENDIDO' && row.local_estado=='ACTIVO')"></menu-self-protection-plans>
+							
+						</td>
+					</tr>
+	      </tbody>
+	    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

@@ -1,0 +1,38 @@
+<div class="padding-all">
+	
+	<div class="box box-danger text-center padding-all no-margin wow fadeIn">
+		<div class="img-logo">
+			<img alt="Inicio" src="/app/src/img/system/escudo.png" class="img-responsive">
+		</div>
+		<h1 translate>LB_HOME_MSG</h1>
+	</div>
+	
+</div>
+
+<div class=no-padding layout-xs=column layout=row layout-padding>
+		<card-profile-home flex></card-profile-home>
+		<card-job flex ng-repeat="item in dataEntity.job"></card-job>
+</div>
+
+<div class=no-padding layout=column layout-padding>
+	<div ng-repeat="(key, json) in dashboard">
+		<div class="box box-{{colorCss[$index]}} no-margin">
+			<div class="box-header text-center">
+				<h3 class="box-title"><a ui-sref={{json.uri}} translate>{{key}}</a></h3>
+			</div>
+			<div class="box-body">
+				<div class="col-md-4" ng-repeat="item in json.options">
+					<div class="info-box bg-{{item.css}} no-margin">
+	         	<span class="info-box-icon"><md-ico i={{item.icon}} s=64></md-ico></span>
+						<div class="info-box-content">
+		           <span class="info-box-text">{{item.title}}</span>
+		           <span class="info-box-number">{{item.count}}</span>
+		           <div class="progress"><div class="progress-bar" style="width:{{(item.count*100)/json.total}}%"></div></div>
+							<span class="progress-description">{{item.count}} de {{json.total}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

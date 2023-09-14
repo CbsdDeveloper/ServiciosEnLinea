@@ -1,0 +1,99 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=move_to_inbox></md-ico></md-button>
+			<h2 hide-xs><span translate>LB_COMPLAINTS_ONLINE</span></h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	
+			<!-- ITERACIÓN DE PASAJEROS -->
+    	<card-complaint-information layout-padding></card-complaint-information>
+    	
+    	<!-- FORMULARIO DE ASIGNACION -->
+			<div class="card card-outline card-primary no-margin margin-top no-padding" ng-if="frmParent.mensaje_estado!='DENUNCIA DESCARTADA'">
+				<div class="card-header with-border text-center">
+					<h3 class="card-title no-margin" translate>LB_ASSIGNMENT_FORM</h3>
+				</div>
+				<div class="card-body" layout=column layout-padding>
+			    	<div class="form-group required">
+							<label translate>LB_DATE_OF_ASSIGNMENT</label>
+						  <div class="input-group" moment-picker="frmParent.denuncia_fecha_asignada" min-date="frmParent.mensaje_fecha" max-date="today" format="YYYY-MM-DD">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+						    <input class="form-control" ng-model="frmParent.denuncia_fecha_asignada" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2018-02-09" required >
+						  </div>
+						</div>
+						<div class="form-group required" ng-controller="staffListCtrl">
+							<label translate>LB_RESPONSIBLE_ASSIGNED</label>
+							<div class="input-group">
+						      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=person></md-ico></div></div> 
+						      <ui-select ng-model="frmParent.fk_asignacion_id" reset-search-input="false" required>
+					         	<ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.solicitante,'Seleccione el solicitante')  | translate}}">
+											{{$select.selected.personal_nombre}}
+					         	</ui-select-match>
+										<ui-select-choices class="list-personal" repeat="item.ppersonal_id as item in FKList | filter: { personal_nombre: $select.search }">
+											<img src="/app/src/img/users/default.png" style="width:48px;height:48px;padding:3px" class="img-circle" alt="img" />
+											<div flex>
+												<div ng-bind-html="item.personal_nombre | highlight: $select.search"></div>
+												<small ng-bind-html="'Dirección: '+item.direccion_nombre"></small><br>
+												<small ng-bind-html="'Cargo.: '+item.puesto_nombre"></small>
+											</div>
+										</ui-select-choices>
+						      </ui-select>
+						    </div>
+						</div>
+				</div>
+			</div>
+    	
+    	<!-- SOLUCION DE LA DENUNCIA -->
+			<div class="card card-outline card-success no-margin margin-top no-padding" ng-if="frmParent.mensaje_estado=='DENUNCIA SOLUCIONADA'">
+				<div class="card-header with-border text-center">
+					<h3 class="card-title no-margin" translate>LB_COMPLAINT_SOLUTION</h3>
+				</div>
+				<div class="card-body" layout=column layout-padding>
+			    	<div class="form-group required">
+							<label translate>LB_DATE_OF_SOLUTION</label>
+						  <div class="input-group" moment-picker="frmParent.denuncia_fecha_solucion" min-date="frmParent.denuncia_fecha_asignada" max-date="today" format="YYYY-MM-DD">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_available></md-ico></div></div> 
+						    <input class="form-control" ng-model="frmParent.denuncia_fecha_solucion" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2018-02-09" required >
+						  </div>
+						</div>
+			    	<div class="form-group required">
+							<label translate>LB_HOW_IT_WAS_SOLVED</label>
+						  <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+						    <textarea rows="4" class="form-control" ng-model="frmParent.denuncia_observacion" placeholder="Ej. Detalle..." required></textarea>
+						  </div>
+						</div>
+				</div>
+			</div>
+    	
+    	<!-- DENUNCIA DESCARTADA -->
+			<div class="card card-outline card-warning no-margin margin-top no-padding" ng-if="frmParent.mensaje_estado=='DENUNCIA DESCARTADA'">
+				<div class="card-header with-border text-center">
+					<h3 class="card-title no-margin" translate>LB_DISCLAIM_COMPLAINT_REASON</h3>
+				</div>
+				<div class="card-body">
+			    	<div class="form-group required">
+						  <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+						    <textarea rows="4" class="form-control" ng-model="frmParent.denuncia_observacion" placeholder="Ej. Detalle..." required></textarea>
+						  </div>
+						</div>
+				</div>
+			</div>
+    	
+    	
+    </md-content>
+  </md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

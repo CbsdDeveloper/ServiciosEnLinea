@@ -1,0 +1,115 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button class="md-icon-button"><md-ico i=assignment_ind></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_EMPLOYMENT_HISTORY</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+	    <div class="form-group required">
+				<label><a href="https://www.iess.gob.ec/afiliado-web/pages/principal.jsf" target="blank_" translate>LB_INSTITUTION</a></label>
+			  <div class="input-group">
+			    <span class="input-group-addon"><md-ico i=business></md-ico></span>
+			    <input class="form-control" ng-model="frmParent.experiencia_institucion" placeholder="Ej. CBSD" required >
+			  </div>
+			</div>
+			<div class="form-group required" flex>
+				<label translate>LB_STATUS</label>
+			  <div class="input-group">
+			    <span class="input-group-addon"><md-ico i=flag></md-ico></span>
+			    <select class="form-control" ng-model="frmParent.experiencia_estado"
+											ng-options="val as val for (key,val) in string2JSON('employmentsStatus')" required></select>
+			  </div>
+			</div>
+			<div layout-xs=column layout=row layout-padding>
+	    	<div class="form-group required" flex>
+					<label translate>LB_DATE_ADMISSION</label>
+				  <div class="input-group" moment-picker="frmParent.experiencia_fingreso" format="YYYY-MM-DD" max-date="today">
+				    <span class="input-group-addon"><md-ico i=event_available></md-ico></span>
+				    <input class="form-control" ng-model="frmParent.experiencia_fingreso" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2017-07-07" required >
+				  </div>
+				</div>
+	    	<div class="form-group required" flex ng-if="frmParent.experiencia_estado=='SALIDA'">
+					<label translate>LB_DEPARTURE_DATE</label>
+				  <div class="input-group" moment-picker="frmParent.experiencia_fsalida" format="YYYY-MM-DD" max-date="today" min-date="frmParent.experiencia_fingreso">
+				    <span class="input-group-addon"><md-ico i=event_busy></md-ico></span>
+				    <input class="form-control" ng-model="frmParent.experiencia_fsalida" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2017-07-07" required >
+				  </div>
+				</div>
+			</div>
+			<!-- 
+	    <div class="form-group">
+				<label translate>LB_BOSS_REFERENCE</label>
+			  <div class="input-group">
+			    <span class="input-group-addon"><md-ico i=account_circle></md-ico></span>
+			    <input class="form-control" ng-model="frmParent.experiencia_responsable" placeholder="Ej. Juan Heredia" >
+			  </div>
+			</div>
+			<div layout-xs=column layout=row layout-padding>
+				<div class="form-group" flex>
+					<label translate>LB_TEL</label>
+				  <div class="input-group">
+				    <span class="input-group-addon"><md-ico i=phone></md-ico></span>
+				    <input class="form-control" ng-model="frmParent.experiencia_telefono" placeholder="Ej. 369852147 ext 102" >
+				  </div>
+				</div>
+		    <div class="form-group" flex>
+					<label translate>LB_MAIL</label>
+				  <div class="input-group">
+				    <span class="input-group-addon"><md-ico i=email></md-ico></span>
+				    <input class="form-control" ng-model="frmParent.experiencia_correo" placeholder="Ej. talento@empresa.com" >
+				  </div>
+				</div>
+			</div>
+			 -->
+    	<div class="form-group required">
+				<label translate>LB_WORK_AREA</label>
+			  <div class="input-group">
+			    <span class="input-group-addon"><md-ico i=accessible></md-ico></span>
+			    <input class="form-control" ng-model="frmParent.experiencia_area" placeholder="Ej. Talento Humano" required >
+			  </div>
+			</div>
+    	<div class="form-group required">
+				<label translate>LB_JOB</label>
+			  <div class="input-group">
+			    <span class="input-group-addon"><md-ico i=accessibility></md-ico></span>
+			    <input class="form-control" ng-model="frmParent.experiencia_cargo" placeholder="Ej. Analista de talento humano" required >
+			  </div>
+			</div>
+			
+    	<div class="form-group required" ng-if="frmParent.experiencia_estado=='SALIDA'">
+				<label translate>LB_REASON_EXIT</label>
+			  <div class="input-group">
+			    <span class="input-group-addon"><md-ico i=insert_comment></md-ico></span>
+			    <input class="form-control" ng-model="frmParent.experiencia_msalida" placeholder="Ej. Finalización de contrato" required >
+			  </div>
+			</div>
+			<!-- 
+    	<div class="form-group">
+				<label translate>LB_SKILLS</label>
+			  <div class="input-group">
+			    <span class="input-group-addon"><md-ico i=playlist_add_check></md-ico></span>
+			    <textarea class="form-control" ng-model="frmParent.experiencia_destrezas" ></textarea>
+			  </div>
+			</div>
+    	<div class="form-group">
+				<label translate>LB_OBSERVATIONS</label>
+			  <div class="input-group">
+			    <span class="input-group-addon"><md-ico i=comment></md-ico></span>
+			    <textarea class="form-control" ng-model="frmParent.experiencia_observacion" ></textarea>
+			  </div>
+			</div>
+			 -->
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

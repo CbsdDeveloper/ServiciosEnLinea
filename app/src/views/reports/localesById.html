@@ -1,0 +1,76 @@
+<style>{{css}}</style>
+<page backtop="{{margin_top}}mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	<!-- HEADER DE SOLICITUD -->
+	<page_header>
+		<div class="section_header"><img src="src/img/reports/escudo.jpg"></div>
+		<table class="page_header">
+			<tr>
+				<td style="width:100%;" class="headerLogo text-center">
+					<img src="{{REPORT_HEADER_IMG_PATH}}" style="width:250px;">
+				</td>
+			</tr>
+			<tr>
+				<td style="width:100%;" class="text-center report-title-container">
+					<span class="report-title" style="font-size:25px;">{{informe}}</span>
+				</td>
+			</tr>
+		</table>
+	</page_header>
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE_MAIN}}
+	<!-- CUERPO DE REPORTE -->
+	<table class="table table-bordered text-uppercase">
+		<col style="width:30%;">
+		<col style="width:70%;padding-bottom:3px;padding-top:3px;">
+		<thead><tr><th colspan="2" style="font-size:15px">{{local_nombrecomercial}}</th></tr></thead>
+		<tbody>
+			<tr><td>REGISTRO UNICO DE CONTRIBUYENTE</td><td>{{entidad_ruc}}</td></tr>
+			<tr><td>RREPRESENTANTE LEGAL</td><td>{{representantelegal_ruc}} - {{representantelegal_nombre}}</td></tr>
+			<tr><td>NOMBRE COMERCIAL / ACTIVIDAD</td><td>{{local_nombrecomercial}}</td></tr>
+			<tr><td>PARROQUIA</td><td>{{local_parroquia}}</td></tr>
+			<tr><td>CALLE PRINCIPAL</td><td>{{local_principal}}</td></tr>
+			<tr><td>CALLE SECUNDARIA</td><td>{{local_secundaria}}</td></tr>
+			<tr><td>REFERENCIA</td><td>{{local_referencia}}</td></tr>
+			<tr><td>CONTACTO</td><td>Tel: {{local_telefono}}  <br>Correo: {{representantelegal_email}}</td></tr>
+			<tr><td>MACROACTIVIDAD</td><td>{{actividad_nombre}}</td></tr>
+			<tr><td>ACTIVIDAD CIIU v4</td><td>{{ciiu_codigo}} - {{ciiu_nombre}}</td></tr>
+			<tr><td>ESTADO</td><td>{{local_estado}}</td></tr>
+			<tr><td>USUARIO</td><td>{{persona_apellidos}} {{persona_nombres}} ({{usuario_login}})</td></tr>
+			<tr><td>F. REGISTRO</td><td>{{local_registro}}</td></tr>
+			<tr>
+				<td colspan="2" style="padding-bottom:5px;padding-top:5px;">Particular que solicité para los fines legales pertinentes, que por mis propios derechos como 
+				representante legal de la razón social <b>{{entidad_razonsocial}}</b>, declaro de manera libre, 
+				voluntaria y bajo juramento el cierre de esta actividad.</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<table class="info table-footer" style="margin-top:25mm">
+		<tr>
+			<td style="width:30%;"></td>
+			<!-- 
+			<td style="width:35%;text-align:center;border-bottom:1px solid black;">
+				<img src="src/img/reports/J1.jpg" style="height:100px"/>
+			</td>
+			<td style="width:10%;"></td>
+			 -->
+			<td style="width:40%;text-align:center;border-bottom:1px solid black;">
+<!-- 				<img src="src/img/reports/JP.jpg" style="height:100px"/> -->
+			</td>
+		</tr>
+		<tr>
+			<td style="width:30%;"></td>
+			<!-- 
+			<td style="width:35%;" class="sign-container">
+				<span>{{SYS_REPORT_SIGN_J1}}<br>
+				PRIMER JEFE DEL CBSD</span>
+			</td>
+			<td style="width:10%;"></td>
+			 -->
+			<td style="width:40%;" class="sign-container">
+				<span>ING. JIMÉNEZ MOREIRA DIEGO<br>
+				RESPONSABLE DE LA UNIDAD DE PREVENCIÓN E INGENIERÍA DEL FUEGO</span>
+			</td>
+		</tr>
+	</table>
+</page>

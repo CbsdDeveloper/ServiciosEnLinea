@@ -1,0 +1,98 @@
+<style>{{css}}</style>
+<page backtop="{{margin_top}}mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	<!-- HEADER DE SOLICITUD -->
+	{{HEADER_REQUEST}}
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE}}
+	<!-- CUERPO DE REPORTE -->
+	{{PRORROGA_SOLICITUD}}
+</page>
+
+<page backtop="{{margin_top}}mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	<!-- HEADER DE SOLICITUD -->
+	{{HEADER_ENTITY}}
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE}}
+	
+	<!-- CUERPO DE REPORTE -->
+	<h3 class="title-single text-center text-uppercase">{{informe}}</h3>
+	<!-- CUERPO DE REPORTE -->
+	<table class="table table-bordered text-uppercase table-font-8">
+		<col style="width:25%;font-weight:bold;" class="subheader">
+		<col style="width:25%">
+		<col style="width:25%;font-weight:bold;" class="subheader">
+		<col style="width:25%">
+		<thead><tr><th colspan="4">INFORMACIÓN DE PRÓRROGA {{prorroga_codigo}}</th></tr></thead>
+		<tbody>
+			<tr><td>AUTORIZADA POR</td><td colspan="3"><b>{{autoriza_titulo}} {{autoriza}}</b><br>{{autoriza_puesto}}<BR>{{INSTITUTION_NAME}}</td></tr>
+			<tr><td>SOLICITANTE</td><td colspan="3"><b>{{solicitante}}</b><br>{{prorroga_solicitante_cargo}} / {{local_nombrecomercial}}<br>C.I. {{persona_doc_identidad}}</td></tr>
+			<tr><td>ACEPTACIÓN DE PRÓRROGA</td><td>{{prorroga_desde}}</td><td>FIN DE PRÓRROGA</td><td>{{prorroga_hasta}}</td></tr>
+			<tr><td>MOTIVO DE ACEPTACIÓN</td><td colspan="3">{{prorroga_detalle}}</td></tr>
+		</tbody>
+	</table>
+	<br>
+	<table class="table table-bordered text-uppercase table-font-8">
+		<col style="width:25%;font-weight:bold;" class="subheader">
+		<col style="width:25%">
+		<col style="width:25%;font-weight:bold;" class="subheader">
+		<col style="width:25%">
+		<thead><tr><th colspan="4">DETALLE DE INSPECCIÓN</th></tr></thead>
+		<tbody>
+			<tr><td># INSPECCIÓN</td><td colspan="3">{{inspeccion_codigo}}</td></tr>
+			<tr><td>NÚMERO INFORME</td><td>{{inspeccion_informe_numero}}</td><td>NÚMERO CITACIÓN</td><td>{{citacion_numero}}</td></tr>
+			<tr><td>INSPECTOR ASIGNADO</td><td colspan="3">{{inspector}}</td></tr>
+			<tr><td>FECHA INSPECCIÓN</td><td colspan="3">{{inspeccion_fecha_inspeccion}}</td></tr>
+			<tr><td>ESTADO DE INSPECCIÓN</td><td colspan="3">{{inspeccion_estado}}</td></tr>
+		</tbody>
+	</table>
+	<br>
+	
+	<table class="table table-bordered text-uppercase table-font-8">
+		<col style="width:40%;" class="subheader text-bold">
+		<col style="width:15%" class="text-center">
+		<col style="width:15%" class="text-center">
+		<col style="width:30%">
+		<thead>
+			<tr><th colspan="4">CRONOGRAMA DE IMPLANTACIÓN DE RECURSOS</th></tr>
+			<tr>
+				<th>RECURSO</th>
+				<th>Inicio de implementación</th>
+				<th>Fecha de implementación</th>
+				<th>DETALLE</th>
+			</tr>
+		</thead>
+		<tbody>{{resourcesList}}</tbody>
+	</table>
+	<br>
+	
+	<table class="table table-bordered text-uppercase table-font-8">
+		<col style="width:50%">
+		<col style="width:50%">
+		<thead>
+			<tr><th colspan=2>FIRMAS DE RESPONSABILIDAD</th></tr>
+			<tr>
+				<th>{{prorroga_solicitante_cargo}}</th>
+				<th>RESPONSABLE {{INSTITUTION_NAME}}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="text-align:center;vertical-align:bottom;height:75px;"><b>{{solicitante}}</b><br>{{prorroga_solicitante_cargo}}<br>C.I. {{persona_doc_identidad}}</td>
+				<td style="text-align:center;vertical-align:bottom;height:75px;"><b>{{autoriza_titulo}} {{autoriza}}</b><br>{{autoriza_puesto}}<BR>{{INSTITUTION_NAME}}</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="text-justify"><small>Yo, <b>{{solicitante}}</b> con documento de identidad N° <b>{{persona_doc_identidad}}</b>, 
+				en calidad de <b>{{prorroga_solicitante_cargo}}</b> de la actividad económica/nombre comercial <b>{{local_nombrecomercial}}</b>, 
+				ubicado en la parroquia <b>{{local_parroquia}}</b>, entre las calles <b>{{local_principal}}</b> y <b>{{local_secundaria}}</b>, 
+				bajo la razón social <b>{{entidad_razonsocial}}</b> con RUC <b>{{entidad_ruc}}</b>; 
+				manifiesto de forma libre, voluntaria y bajo mi propia responsabilidad que durante los <b>{{prorroga_dias}} dias</b> (del <b>{{prorroga_desde}}</b> al <b>{{prorroga_hasta}}</b>) 
+				que se ha otorgado la <b>prórroga {{prorroga_codigo}}</b>, 
+				seré el/la único/a responsable de cualquier incidente/siniestro que pudiera ocurrir <b>por la falta de implementación de recursos de prevención contra incendios</b>. 
+				En consecuencia, al firmar este documento declaro libre de toda responsabilidad al <b>{{INSTITUTION_FULL_NAME}}</b> 
+				por cualquier hecho o circunstancia que se presente tanto en el desplazamiento como durante la implantación de recursos y que pueda comprometer la 
+				integridad física y/o patrimonial de quienes conforman <b>{{entidad_razonsocial}}</b>.</small></td>
+			</tr>
+		</tbody>
+	</table>
+	
+</page>

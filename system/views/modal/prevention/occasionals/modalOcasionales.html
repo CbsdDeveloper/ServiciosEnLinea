@@ -1,0 +1,166 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog" ng-controller="occasionalExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=directions_bike></md-ico></md-button>
+			<h2 translate>TOOLBAR_OCCASIONALS</h2>
+			<span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+		<md-content layout=column layout-padding>
+				<!-- DATOS GENERALES DEL EVENTO -->
+				<div class="card card-outline card-info no-margin" layout-padding>
+					<div class="card-header text-center">
+						<h3 class="card-title" translate>LB_OCCASIONAL_INFO</h3>
+					</div>
+					<div class="card-body md-padding padding-all" layout=column layout-padding>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_PERMIT_NUMBER</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=directions_bike></md-ico></div></div> 
+							    <input parse-float type="number" step="1" min=0 ng-model="frmParent.ocasional_serie" class="form-control" placeholder="Ej. 152" required>
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_STATUS</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.ocasional_estado" ng-options="val as val for (key,val) in string2JSON('occasionalStatus')"></select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_EVENT_NAME</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><i-fa i=hashtag></md-ico></div></div> 
+						    <input ng-model="frmParent.ocasional_nombreevento" class="form-control" placeholder="Ej. Gran Bingo Bailable" required>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_OPENING_DATE</label>
+								<div class="input-group" min-date="today" moment-picker="frmParent.ocasional_fecha_inicio">
+									<div class="input-group-prepend"><div class="input-group-text"><i-fa i=calendar-check-o></md-ico></div></div> 
+							    <input class="form-control" ng-model="frmParent.ocasional_fecha_inicio" placeholder="Ej. 2006-06-06" required>
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_DEADLINE</label>
+								<div class="input-group" min-date="frmParent.ocasional_fecha_inicio" moment-picker="frmParent.ocasional_fecha_cierre">
+									<div class="input-group-prepend"><div class="input-group-text"><i-fa i=calendar-times-o></md-ico></div></div> 
+							    <input class="form-control" ng-model="frmParent.ocasional_fecha_cierre" placeholder="Ej. 2006-06-06" required>
+								</div>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_EVENT_PEOPLE</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><i-fa i=users></md-ico></div></div> 
+							    <input type="number" min=0 step=1 class="form-control" ng-model="frmParent.ocasional_aforo" placeholder="Ej. 500" required />
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_PROFIT</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><i-fa i=money></md-ico></div></div> 
+							    <select class="form-control" ng-model="frmParent.ocasional_finesdelucro" required ng-options="key as val for (key,val) in string2JSON('profitType')"></select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_HAS_PLATFORMS</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><i-fa i=hashtag></md-ico></div></div> 
+						    <select class="form-control" ng-model="frmParent.ocasional_instalacionesmontables" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+							</div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_HAS_PYROTECHNY</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><i-fa i=fire></md-ico></div></div> 
+						    <select class="form-control" ng-model="frmParent.ocasional_fuegosartificiales" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_EVENT_PLACE</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><i-fa i=building></md-ico></div></div> 
+							    <select class="form-control" ng-model="frmParent.ocasional_lugar" required ng-options="val as val for (key,val) in string2JSON('eventPlaces')"></select>
+								</div>
+							</div>
+							<div class="form-group required" flex ng-if="frmParent.ocasional_lugar=='ESTABLECIMIENTO'">
+								<label translate>LB_PERMIT_NUMBER</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><i-fa i=shield></md-ico></div></div> 
+							    <input class="form-control" ng-model="frmParent.ocasional_permiso" placeholder="Ej. 2017PER0001" required />
+								</div>
+							</div>
+							<div class="form-group required" flex ng-if="frmParent.ocasional_lugar=='OTRO'">
+								<label translate>LB_PLACE_NAME</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><i-fa i=map-signs></md-ico></div></div> 
+									<input class="form-control" ng-model="frmParent.ocasional_nombrelugar" placeholder="Ej. Cancha Comunal Juan Eulogio" required />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- DATOS DE UBICACIÓN DEL EVENTO -->
+				<div class="card card-outline card-success no-margin margin-top" layout-padding ng-if="frmParent.ocasional_lugar!='ESTABLECIMIENTO'">
+					<div class="card-header text-center">
+						<h3 class="card-title" translate>LB_OCCASIONAL_ADDRESS</h3>
+					</div>
+					<div class="card-body md-padding padding-all" layout=column layout-padding>
+						<div class="form-group required">
+							<label translate>LB_PARRISH</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><i-fa i=globe></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.ocasional_parroquia" required ng-options="val as val for (key,val) in string2JSON('parishesList')"></select>
+							</div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_FIRST_LINE</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><i-fa i=location-arrow></md-ico></div></div> 
+					  	  <input ng-model="frmParent.ocasional_principal" class="form-control" placeholder="Ej. Av. Quevedo y Av. Coperativismo" required />
+							</div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_SECOND_LINE</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><i-fa i=map-signs></md-ico></div></div> 
+					    	<input ng-model="frmParent.ocasional_secundaria" class="form-control" placeholder="Ej. Coop. El Proletariado" required />
+							</div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_EVENT_CONCENTRATION</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><i-fa i=hourglass-start></md-ico></div></div> 
+						    <input class="form-control" ng-model="frmParent.ocasional_concentracion" placeholder="Ej. Movimiento Juan XXIII" required />
+							</div>
+						</div>
+						<div class="form-group">
+							<label translate>LB_EVENT_ARRIVAL</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><i-fa i=hand-paper-o></md-ico></div></div> 
+						    <input class="form-control" ng-model="frmParent.ocasional_llegada" placeholder="Ej. Cancha de la Tri" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- DATOS DE RESPONSABLE -->
+				<frm-personas-basic class="margin-top" layout-padding></frm-personas-basic>
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

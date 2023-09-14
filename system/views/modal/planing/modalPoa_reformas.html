@@ -1,0 +1,109 @@
+<md-dialog aria-label="modal" class="form-content-alt modal-dialog" ng-controller="planing.reformPoaExtendsCtrl" style="width:90%">
+  <form name="formData" ng-submit="saveNewReform()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=chrome_reader_mode></md-ico></md-button>
+			<h2 translate>LB_REFORM_POA</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" ng-click="closeDialog()"><md-ico i=remove></md-ico><md-tooltip><span translate>LB_CANCEL_AND_CLOSE</span></md-tooltip></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-tabs md-dynamic-height md-border-bottom>
+			
+			<!-- FORMULARIO DE REGISTRO -->
+			<md-tab label="{{'LB_REGISTRATION_FORM' | translate}}">
+				
+			    <md-content layout=column layout-padding>
+						
+						<div class="card card-outline card-primary no-margin" layout-padding>
+							<div class="card-header with-border text-center">
+							  <h3 class="card-title" translate>LB_NEW_REFORM_POA</h3>
+							</div>
+							<div class="card-body padding-all" layout=column layout-padding>
+							
+								<div class="form-group required">
+									<label translate>LB_NEW_REFORM_POA</label>
+									<div class="input-group">
+								    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=class></md-ico></div></div> 
+								    <input type="number" step="1" max="15" min="1" ng-model="frmParent.reforma_numero" class="form-control" placeholder="Ej. 2" required>
+								  </div>
+								</div>
+							
+								<div class="form-group required" flex>
+									<label translate>LB_REGISTRE_DATE</label>
+									<div class="input-group" moment-picker="frmParent.reforma_fecha" format="YYYY-MM-DD">
+								    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_available></md-ico></div></div> 
+								    <input type="text" ng-model="frmParent.reforma_fecha" class="form-control" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2020-01-31 (AAAA-MM-DD)" required>
+								  </div>
+								</div>
+								
+								<div class="form-group required">
+									<label translate>LB_DESCRIPTION</label>
+									<div class="input-group">
+								    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=class></md-ico></div></div> 
+								    <textarea ng-model="frmParent.reforma_descripcion" class="form-control" required></textarea>
+								  </div>
+								</div>
+							
+							</div>
+						</div>
+						
+			    </md-content>
+			</md-tab>
+			
+			
+			<!-- FORMULARIO DE REGISTRO -->
+			<md-tab label="{{'LB_PROJECT_MANAGER' | translate}}">
+				
+			    <md-content layout=column class="padding-all font-12">
+			    	
+			    	<div class="timeline" style="width:100%">
+			    		
+			    		<div class="time-label text-uppercase">
+                <span class="bg-red" translate>LB_POA_PROJECTS</span>
+              </div>
+              
+							<div ng-repeat="item in projectList">
+								<i class="fa fa-info bg-{{string2JSON('colorName')[$index+$parent.$index]}}"></i>
+						    
+						    <div class="timeline-item">
+						    	
+						    	<h3 class="timeline-header" layout=row layout-wrap>
+						    		<b>{{item.proyecto_codigo}}</b>
+						    		<span flex></span>
+						    	</h3>
+						    	<div class="timeline-body">
+						    		<p>
+						    			<md-ico i=info></md-ico> <b translate>LB_PROJECTS_NAME</b>: {{item.proyecto_nombre}}<br>
+						    			<md-ico i=info></md-ico> <b translate>LB_REFERENTIAL_BUDGET</b>: {{item.proyecto_presupuesto | currency}}<br>
+						    			<md-ico i=info></md-ico> <b translate>LB_PROGRAM</b>: {{item.program.programa_nombre}}
+						    		</p>
+						    		<md-radio-group ng-model="frmParent.model[item.proyecto_id].proyecto_nuevo_estado" required layout=row layout-wrap>
+								      <md-radio-button value="REFORMADO" class="md-warn">REFORMAR</md-radio-button>
+								      <md-radio-button value="ELIMINADO" class="md-accent">ELIMINAR</md-radio-button>
+								    </md-radio-group>
+						    	</div>
+									
+								</div>
+								
+							</div>
+							
+						  <div><i class="fa fa-clock-o bg-gray"></i></div>
+						  
+						</div>
+			    	
+			    </md-content>
+			    
+			</md-tab>
+			
+			
+		</md-tabs>
+  </md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

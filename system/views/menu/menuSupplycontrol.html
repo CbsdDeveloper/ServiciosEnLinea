@@ -1,0 +1,54 @@
+<md-menu md-position-mode="target-right target" >
+  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+  </md-button>
+  <md-menu-content width="5">
+  	
+    <md-menu-item ng-if="allow.permiso8413 && row.inventario_estado=='EN EDICION'">
+      <md-button aria-label="editar" ng-click="openModal(row)">
+          <div layout="row" flex>
+            <p flex translate>LB_EDIT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=edit></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-menu-item ng-if="allow.permiso8416 && row.inventario_estado=='EN EDICION'">
+      <md-button aria-label="editar" ng-click="openModal(mergeData(row,{inventario_estado:'REGISTRO COMPLETO'}))">
+          <div layout="row" flex>
+            <p flex translate>LB_FINISH_REGISTRATION</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=done_all></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="(allow.permiso8415 || allow.permiso8414) && row.inventario_estado=='EN EDICION'"></md-divider>
+    
+    <md-menu-item ng-if="allow.permiso8415 && row.inventario_estado=='EN EDICION'">
+      <md-button aria-label="editar" ng-click="goUI('subjefature.aph.inventorysupplycontrol',{id:row.inventario_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_SUPPLY_REGISTRY</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=import_export></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-menu-item ng-if="allow.permiso8414 && row.inventario_estado=='REGISTRO COMPLETO'">
+      <md-button aria-label="editar" ng-click="exportEntityById('inventarioinsumosaph',row.inventario_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_PRINT_ACT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=print></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+		
+  </md-menu-content>
+</md-menu>

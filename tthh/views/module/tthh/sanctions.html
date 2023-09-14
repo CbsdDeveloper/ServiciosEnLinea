@@ -1,0 +1,34 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=thumb_down></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_SANCTIONS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_TYPE</span></th>
+					<th md-column><span translate>LB_DATE</span></th>
+					<th md-column><span translate>LB_LACK</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell><md-ico i=error_outline></md-ico><span ng-bind-html="highlight(row.sancion_tipo)"></span></td>
+					<td md-cell><md-ico i=event></md-ico><span ng-bind-html="highlight(row.sancion_fecha)"></span></td>
+					<td md-cell>
+						<md-ico i=error></md-ico><span ng-bind-html="highlight(row.sancion_falta)"></span><br>
+						<md-ico i=thumb_down></md-ico><span ng-bind-html="highlight(row.sancion_sancion)"></span>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

@@ -1,0 +1,137 @@
+﻿<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=event_available></md-ico>
+				<md-tooltip><span translate>TOOLBAR_EXTENSIONS</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.textFilter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_MAIN_TOOLBAR' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.textFilter!=''" ng-click="filterParent.textFilter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+
+	<md-divider ng-if="allow.permiso6202 || allow.permiso62011 || allow.permiso62012"></md-divider>
+	<md-toolbar  ng-if="allow.permiso6202 || allow.permiso62011 || allow.permiso62012">
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><i-fa i=barcode s=lg></i-fa></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="{{'LB_CODE_REQUEST' | translate}}" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+	  </form>
+	</md-toolbar>
+	
+	<md-table-container>
+		<table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="width:25%;">
+     	<col style="">
+     	<col style="width:25%;">
+     	<col style="width:3%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_EXTENSIONS</span></th>
+					<th md-column><span translate>LB_INSPECTION</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td class="text-uppercase" md-cell>
+						<a ui-sref="prevention.inspections.detailExtensions({id:row.prorroga_id})" target="_balnk"><md-ico i=transfer_within_a_station></md-ico></a><span ng-bind-html="highlight(row.prorroga_codigo)"></span> ({{row.prorroga_serie}})<br>
+						<div>
+							<md-ico i=event></md-ico><span>{{row.prorroga_desde | date:'fullDate'}}</span>
+							<md-tooltip>{{'LB_ENABLE_FROM' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=event_busy></md-ico><span>{{row.prorroga_hasta | date:'fullDate'}}</span>
+							<md-tooltip>{{'LB_ENABLE_UPTO' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=person></md-ico><span ng-bind-html="highlight(row.authorize.staff.person.persona_apellidos)"> </span><span ng-bind-html="highlight(row.authorize.staff.person.persona_nombres)"></span> 
+							<md-tooltip><span translate>LB_AUTHORIZED_BY</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=person_outline></md-ico><span ng-bind-html="highlight(row.requested.persona_apellidos)"> </span><span ng-bind-html="highlight(row.requested.persona_nombres)"></span> 
+							<md-tooltip><span translate>LB_PERSON_REQUESTING</span></md-tooltip>
+						</div>
+					</td>
+					<td class="text-uppercase" md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.inspection.inspeccion_estado]"></span><br>
+						<a ui-sref="prevention.inspections.detailInspections({id:row.inspection.inspeccion_id})" target="_balnk"><md-ico i=transfer_within_a_station></md-ico></a><span ng-bind-html="highlight(row.inspection.inspeccion_codigo)"></span><br>
+						<div>
+							<md-ico i=event></md-ico><span>{{row.inspection.inspeccion_fecha_inspeccion | date:'fullDate'}}</span>
+							<md-tooltip>{{'LB_REGISTRE_DATE' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=format_list_numbered></md-ico> <span ng-bind-html="highlight(row.inspection.inspeccion_informe_numero)"></span> 
+							<md-tooltip><span translate>LB_FORM_NUMBER</span></md-tooltip>
+						</div>
+							
+						<div class="margin-top font-10" ng-if="row.inspection.locals.length>0">
+						
+							<div class="card card-outline card-primary collapsed-card no-margin margin-bottom">
+	              <div class="card-header">
+	                <h3 class="card-title" translate>LB_LOCALS</h3>
+	                <div class="card-tools">
+										<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-plus"></i></button>
+									</div>
+	              </div>
+	        			<div class="card-body text-uppercase padding-all">
+	        				<div ng-repeat="item in row.inspection.locals">
+										<div>
+											<a ui-sref="src.detailEntities({entityId:item.local.entity.entidad_id})" target="_balnk"><md-ico i={{string2JSON('mdIconList')[item.local.entity.entidad_contribuyente]}}></md-ico></a><span ng-bind-html="highlight(item.local.entity.entidad_ruc)"></span>
+											<md-tooltip>{{item.local.entity.entidad_razonsocial}}</md-tooltip>
+										</div>
+										<a ui-sref="src.detailLocals({localId:item.local.local_id})" target="_balnk"><md-ico i=store_mall_directory></md-ico></a><span ng-bind-html="highlight(item.local.local_nombrecomercial)"></span>
+										<div>
+											<md-ico i=directions></md-ico><span ng-bind-html="highlight(item.local.local_principal+', '+item.local.local_secundaria)"></span>
+										</div>
+										<div>
+											<md-ico i=info></md-ico><span ng-bind-html="highlight(item.local.local_referencia)"></span>
+										</div>
+										<md-ico i=phone></md-ico><span ng-bind-html="highlight(item.local.local_telefono)"></span>
+										<div ng-if="item.local.local_clavecatastral!='' && item.local.local_clavecatastral!=null">
+											<i-fa i=podcast s=fw></i-fa><span ng-bind-html="highlight(item.local.local_clavecatastral)"></span>
+											<md-tooltip>{{'LB_CATASTRAL_KEY' | translate}}</md-tooltip>
+										</div>
+										<hr ng-if="row.inspection.locals.length>1 && !$last">
+	        				</div>
+	        			</div>
+							</div>
+							
+						</div>
+					</td>
+					<td md-cell>
+						<div class="text-uppercase" ng-if="row.prorroga_estado=='APROBADO'">
+							<md-ico i=event_available></md-ico> {{row.prorroga_aprobado | date:'fullDate'}}
+							<md-tooltip><span translate>LB_APPROVAL_DATE</span></md-tooltip>
+						</div>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.prorroga_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="row.prorroga_registro"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.user.usuario)"></span>
+						<div class="text-uppercase" ng-if="row.gallery>0">
+							<a ng-click="downloadAttachments(row.prorroga_id)">
+								<md-ico i=file_download></md-ico><span translate="LB_ATTACHED_FILES_X" translate-values="{x:row.gallery}"></span>
+							</a>
+						</div>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <menu-extensions></menu-extensions>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<datatable-footer></datatable-footer>
+		
+</md-card>

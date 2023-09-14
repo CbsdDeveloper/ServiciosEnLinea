@@ -1,0 +1,56 @@
+<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=voice_over_off></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_STAFF_NOMARKINGS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ui-sref="tthh.attendance.biometricperiods">
+				<md-ico i=reply></md-ico><md-tooltip><span translate>LB_MONTHLY_RECORD</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			
+		</div>
+	</md-toolbar>
+	<datatable-toolbar></datatable-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <col style="">
+     	<col style="width:30%">
+     	<col style="width:5%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_STAFF</span></th>
+					<th md-column><span translate>LB_RECORDS_WITH_ERRORS</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td md-cell>
+						<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.staff.person.persona_doc_identidad)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.staff.person.persona_apellidos)"></span> <span ng-bind-html="highlight(row.staff.person.persona_nombres)"></span><br>
+						<md-ico i=email></md-ico><span ng-bind-html="highlight(row.staff.personal_correo_institucional)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=list></md-ico><span ng-bind-html="highlight(row.total)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  
+						<button class="btn btn-info btn-sm" ng-click="goUI('tthh.attendance.biometricstaffnomarkings',{id:row.fk_periodo_id,staffId:row.fk_personal_id})">
+							<md-ico i=settings c=md-ico-menu></md-ico>
+							<md-tooltip><span translate>LB_JUSTIFY_NO_MARKINGS</span></md-tooltip>
+						</button>
+					  
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<datatable-footer></datatable-footer>
+</md-card>
+		

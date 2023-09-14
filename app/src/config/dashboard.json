@@ -1,0 +1,128 @@
+{
+	"view_prevencion":{
+		"training":{
+			"relation":{
+				"pk":"capacitacion_id",
+				"entity":"training_has_trainer",
+				"fk":"fk_capacitacion_id",
+				"profile":"fk_usuario"
+			}
+		},
+		
+		"inspecciones":{
+			"relation":{
+				"pk":"inspeccion_id",
+				"entity":"inspeccion_inspector",
+				"fk":"fk_inspeccion_id",
+				"profile":"fk_inspector_id"
+			}
+		},
+		
+		"transporteglp":{
+			"profile":"fk_inspector_id"
+		},
+		"planesemergencia":{
+			"profile":"fk_inspector_id"
+		}
+	},
+	
+	
+	"schemas":{
+		"UNIDAD DE PREVENCIÓN E INGENIERÍA DEL FUEGO":["inspecciones","citaciones","transporteglp","planesemergencia","ocasionales","vbp","habitabilidad","factibilidadglp","definitivoglp"],
+		"CAPACITACIONES CIUDADANAS":["training","training_has_people","simulacros","stands","visitas"],
+		"DIRECCIÓN FINANCIERA":["especies","solicitudes","ordenescobro"],
+		"PERMISOS DE FUNCIONAMIENTO":["denuncias","autoinspecciones","permisos","duplicados"]
+	},
+	
+	"sql":{
+			"inspecciones":{
+				"name":"Inspecciones a establecimientos",
+				"where":"SELECT COUNT(*) total FROM prevencion.tb_reinspecciones WHERE reinspeccion_fecha::date BETWEEN '{{init}}'::date AND '{{final}}'::date AND reinspeccion_estado<>'PENDIENTE'"
+			},
+			"citaciones":{
+				"name":"Citaciones a establecimientos",
+				"where":"SELECT COUNT(*) total FROM prevencion.tb_citaciones WHERE citacion_fecha::date BETWEEN '{{init}}'::date AND '{{final}}'::date"
+			},
+			
+			"transporteglp":{
+				"name":"Permisos de Transporte de GLP",
+				"where":"SELECT COUNT(*) total FROM prevencion.tb_transporteglp WHERE transporte_aprobado::date BETWEEN '{{init}}'::date AND '{{final}}'::date AND transporte_estado='APROBADO'"
+			},
+			"planesemergencia":{
+				"name":"Planes de Emergencia",
+				"where":"SELECT COUNT(*) total, SUM(orden_total) total_costo FROM prevencion.tb_planesemergencia p INNER JOIN recaudacion.tb_ordenescobro o ON o.orden_entidad='planesemergencia' AND o.orden_entidad_id=p.plan_id WHERE plan_aprobado::date BETWEEN '{{init}}'::date AND '{{final}}'::date AND plan_estado IN ('APROBADO','PAGADO')"
+			},
+			"ocasionales":{
+				"name":"Permisos Ocasionales de Funcionamiento",
+				"where":"SELECT COUNT(*) total, SUM(orden_total) total_costo FROM prevencion.tb_ocasionales p INNER JOIN recaudacion.tb_ordenescobro o ON o.orden_entidad='ocasionales' AND o.orden_entidad_id=p.ocasional_id WHERE ocasional_despachado::date BETWEEN '{{init}}'::date AND '{{final}}'::date AND ocasional_estado='APROBADO'"
+			},
+			"vbp":{
+				"name":"Aprobación de Planos",
+				"where":"SELECT COUNT(*) total, SUM(orden_total) total_costo FROM prevencion.tb_vbp p INNER JOIN recaudacion.tb_ordenescobro o ON o.orden_entidad='vbp' AND o.orden_entidad_id=p.vbp_id WHERE vbp_aprobado::date BETWEEN '{{init}}'::date AND '{{final}}'::date AND vbp_estado='APROBADO'"
+			},
+			"habitabilidad":{
+				"name":"Permiso de Ocupación y Habitabilidad",
+				"where":"SELECT COUNT(*) total, SUM(orden_total) total_costo FROM prevencion.tb_habitabilidad p INNER JOIN recaudacion.tb_ordenescobro o ON o.orden_entidad='habitabilidad' AND o.orden_entidad_id=p.habitabilidad_id WHERE habitabilidad_aprobado::date BETWEEN '{{init}}'::date AND '{{final}}'::date AND habitabilidad_estado='APROBADO'"
+			},
+			"factibilidadglp":{
+				"name":"Permiso de Factibilidad de GLP",
+				"where":"SELECT COUNT(*) total, SUM(orden_total) total_costo FROM prevencion.tb_factibilidadglp p INNER JOIN recaudacion.tb_ordenescobro o ON o.orden_entidad='factibilidadglp' AND o.orden_entidad_id=p.factibilidad_id WHERE factibilidad_aprobado::date BETWEEN '{{init}}'::date AND '{{final}}'::date AND factibilidad_estado='APROBADO'"
+			},
+			"definitivoglp":{
+				"name":"Certificado Definitivo de GLP",
+				"where":"SELECT COUNT(*) total, SUM(orden_total) total_costo FROM prevencion.tb_definitivoglp p INNER JOIN recaudacion.tb_ordenescobro o ON o.orden_entidad='definitivoglp' AND o.orden_entidad_id=p.definitivo_id WHERE definitivo_aprobado::date BETWEEN '{{init}}'::date AND '{{final}}'::date AND definitivo_estado='APROBADO'"
+			},
+		
+			"training":{
+				"name":"Capacitaciones Ciudadanas",
+				"where":"SELECT COUNT(*) total FROM prevencion.tb_training WHERE capacitacion_fecha::date BETWEEN '{{init}}'::date AND '{{final}}'::date AND capacitacion_estado IN ('DESPACHADA','EVALUADA')"
+			},
+			"training_has_people":{
+				"name":"Personas Capacitadas",
+				"where":"SELECT COUNT(*) total FROM prevencion.tb_training_has_people WHERE fk_capacitacion_id IN (SELECT capacitacion_id FROM prevencion.tb_training WHERE capacitacion_fecha::date BETWEEN '{{init}}'::date AND '{{final}}'::date) AND estado='ASISTIO'"
+			},
+			"simulacros":{
+				"name":"Simulacros",
+				"where":"SELECT COUNT(*) total FROM prevencion.tb_simulacros WHERE simulacro_fecha::date BETWEEN '{{init}}'::date AND '{{final}}'::date AND simulacro_estado IN ('DESPACHADA','EVALUADA')"
+			},
+			"stands":{
+				"name":"Casas Abiertas",
+				"where":"SELECT COUNT(*) total FROM prevencion.tb_stands WHERE stand_fecha::date BETWEEN '{{init}}'::date AND '{{final}}'::date AND stand_estado IN ('DESPACHADA','EVALUADA')"
+			},
+			"visitas":{
+				"name":"Visitas al Cuerpo de Bomberos",
+				"where":"SELECT COUNT(*) total FROM prevencion.tb_visitas WHERE visita_fecha::date BETWEEN '{{init}}'::date AND '{{final}}'::date AND visita_estado IN ('DESPACHADA','EVALUADA')"
+			},
+		
+			"especies":{
+				"name":"Especies valoradas",
+				"where":"SELECT SUM(total) total, SUM(total_costo) total_costo FROM recaudacion.vw_especies WHERE fecha_registro::date BETWEEN '{{init}}'::date AND '{{final}}'::date"
+			},
+			"solicitudes":{
+				"name":"Solicitudes",
+				"where":"SELECT COUNT(*) total, (COUNT(*)*3) total_costo FROM resources.tb_solicitudes WHERE solicitud_fecha::date BETWEEN '{{init}}'::date AND '{{final}}'::date"
+			},
+			"ordenescobro":{
+				"name":"Órdenes de cobro",
+				"where":"SELECT SUM(orden_total) total, COUNT(*) total_costo FROM recaudacion.tb_ordenescobro WHERE fecha_despachado::date BETWEEN '{{init}}'::date AND '{{final}}'::date"
+			},
+		
+			"denuncias":{
+				"name":"Denuncias ciudadanas",
+				"where":"SELECT COUNT(*) total FROM servicios.tb_denuncias WHERE mensaje_fecha::date BETWEEN '{{init}}'::date AND '{{final}}'::date"
+			},
+			"autoinspecciones":{
+				"name":"AutoInspecciones",
+				"where":"SELECT COUNT(*) total FROM permisos.tb_autoinspecciones WHERE autoinspeccion_fecha::date BETWEEN '{{init}}'::date AND '{{final}}'::date"
+			},
+			"permisos":{
+				"name":"Permisos Anuales de Funcionamiento",
+				"where":"SELECT COUNT(*) total, (COUNT(*)*3) total_costo FROM permisos.tb_permisos WHERE permiso_fecha::date BETWEEN '{{init}}'::date AND '{{final}}'::date"
+			},
+			"duplicados":{
+				"name":"Duplicados de Permisos",
+				"where":"SELECT COUNT(*) total, SUM(orden_total) total_costo FROM permisos.tb_duplicados p INNER JOIN recaudacion.tb_ordenescobro o ON o.orden_entidad='duplicados' AND o.orden_entidad_id=p.duplicado_id WHERE fecha_impreso::date BETWEEN '{{init}}'::date AND '{{final}}'::date"
+			}
+		
+	}
+}

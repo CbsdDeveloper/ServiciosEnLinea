@@ -1,0 +1,140 @@
+<div layout-padding>
+	<div flex class="box box-primary no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+			<div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus faa-ring animated"></i></button>
+      </div>
+		</div>
+		<div class="box-body box-bg-info" layout=column layout-wrap>
+			<div ng-bind-html="$parent.trustAsHtml(paramsConf.INFO_DETAIL_VISIT)"></div>
+		</div>
+	</div>
+</div>
+
+<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		<card-visit class="card-information" ng-if="detailConfig.show" flex></card-visit>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button" aria-label="button"><i-fa i=group s=lg></i-fa></md-button>
+						<h2>{{entity.visita_codigo}} ({{entity.visita_serie}})</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="reloadEntity()">
+							<md-ico i=refresh></md-ico>
+							<md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+						</md-button>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<i-fa i={{detailConfig.icon}}></i-fa>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<md-tabs md-dynamic-height md-border-bottom>
+					<md-tab label="{{'LB_GUIDES' | translate}}">
+						<div class="md-padding gallery-columns" layout-padding layout-wrap>
+							<div class="figure-gallery wow fadeInUp" ng-repeat="row in entity.capacitorsList" flex>
+								<div class="box box-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+									<div class="box-header text-center">
+										<img src="/app/src/img/users/default.png" ng-src="/app/src/img/users/{{row.persona_imagen}}"
+					 						 style="width:128px;height:128px;padding:5px;margin:auto" class="img-circle" alt="img" />
+									</div>
+									<div class="box-body">
+										<h3 class="profile-username">{{row.personal_nombre}}</h3>
+								    <hr>
+										<strong><i-fa i=star></i-fa> <span translate>LB_LEADERSHIP</span></strong>
+								    <p class="text-muted">{{row.direccion_nombre}}</p>
+								    <hr>
+										<strong><i-fa i=star-half-o></i-fa> <span translate>LB_JOB</span></strong>
+								    <p class="text-muted">{{row.puesto_nombre}}</p>
+								    <hr>
+										<strong><i-fa i=star-half-o></i-fa> <span translate>LB_ACTIVITY</span></strong>
+								    <p class="text-muted">{{row.capacitador_actividad}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</md-tab>
+					<md-tab label="{{'LB_MEDIA' | translate}}">
+						<div class="md-padding gallery-columns" layout-padding layout-wrap>
+							<div class="figure-gallery wow fadeInUp" ng-repeat="row in entity.gallery">
+								<div class="box box-{{string2JSON('colorCss')[$index+1]}} no-margin">
+									<div class="box-header with-border">
+			              <div class="user-block">
+			                <img class="img-circle" src="/app/src/img/users/default.png" ng-src="/app/src/img/users/{{row.profile}}" alt="User Image">
+			                <span class="username"><a href="#">{{row.usuario_nombre}}</a></span>
+			                <span class="description">{{row.perfil_nombre}}</span>
+			              </div>
+			            </div>
+			            <div class="box-body text-center no-padding">
+			            	<div ng-if="row.media_tipo=='IMG'">
+				              <img class="img-responsive pad" ng-src="/app/src/img/gallery/{{row.media_nombre}}" alt="Photo">
+			            	</div>
+			            	<div ng-if="row.media_tipo!='IMG'" class="md-padding">
+				              <a target="_blank" ng-href="/app/src/img/gallery/{{row.media_nombre}}" alt="Photo">
+			            			<i-fa i={{string2JSON('iFaIconList')[row.media_tipo]}} s=4x></i-fa><br> 
+				              	{{string2JSON('fileTypeList')[row.media_tipo]}}
+				              </a>
+			            	</div>
+			            </div>
+			            <div class="box-footer box-comments">
+			              <div class="box-comment">
+			                <div class="comment-text text-justify no-margin ">
+	                      <span class="username">
+	                      	{{row.media_titulo}}
+	                      	<span class="text-muted pull-right"><i-fa i=clock-o></i-fa> {{row.media_registro}}</span>
+	                      </span>
+	                  		{{row.media_descripcion}}
+			                </div>
+			              </div>
+			            </div>
+			          </div>
+							</div>
+						</div>
+					</md-tab>
+					<md-tab label="{{'LB_ACTIVITY_LOG' | translate}}">
+						<md-content ng-controller="historyEntityCtrl">
+							<div ng-controller="myTableCtrl">
+								<toolbar-filter-in-tab></toolbar-filter-in-tab>
+								<toolbar-filter></toolbar-filter>
+								<md-table-container>
+							    <table md-table class="md-primary table-hover" md-progress="deferred">
+							      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+											<tr md-row>
+												<th md-column><span translate>LB_REQUEST_NUMBER</span></th>
+												<th md-column><span translate>LB_DETAIL</span></th>
+												<th md-column><span translate>LB_REGISTRE_DATE</span></th>
+											</tr>
+							      </thead>
+							      <tbody>
+											<tr md-row data-ng-repeat="row in rowsParent.data">
+												<td md-cell>
+													<i-fa i=street-view></i-fa><span ng-bind-html="highlight(row.visita_codigo)"></span><br>
+													<i-fa i=shield></i-fa><span ng-bind-html="highlight(row.visita_solicitud)"></span>
+												</td>
+												<td md-cell>
+													<i-fa i=building></i-fa> <span ng-bind-html="highlight(row.visita_entidad)"></span><br>
+													<i-fa i=calendar-check-o></i-fa><span ng-bind-html="highlight(row.visita_fecha)"></span><br>
+													<i-fa i=group></i-fa><span ng-bind-html="highlight(row.visita_aforo)"></span>
+												</td>
+												<td md-cell>
+													<i-fa i=flag></i-fa><span ng-bind-html="highlight(statusLabel[row.visita_estado])"></span><br>
+													<i-fa i=calendar></i-fa> <span ng-bind-html="highlight(row.visita_registro)"></span><br>
+													<i-fa i=user></i-fa> <span ng-bind-html="highlight(row.usuario)"></span>
+												</td>
+											</tr>
+							      </tbody>
+							    </table>
+								</md-table-container>
+								<footer-table></footer-table>
+							</div>
+						</md-content>
+					</md-tab>
+				</md-tabs>
+			</md-card>
+		</div>
+	</div>
+</div>

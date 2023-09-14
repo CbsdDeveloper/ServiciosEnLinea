@@ -1,0 +1,46 @@
+<style>{{css}}p{font-size:14px;}table tbody th{background:#008000;}table td,table th{border-color:#222d32;}.table td{padding:6px;}</style>
+<page backtop="{{margin_top}}mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	
+	<!-- HEADER PROCESS CBSD -->
+	{{HEADER_PROCESS_CBSD}}
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE}}
+	<!-- CUERPO DE REPORTE -->
+	<div class="title-single text-center">{{informe}}</div>
+	
+	<!-- CUERPO DE REPORTE -->
+	<div class="text-right" style="margin:50px 0px">{{sistema_ciudad}}, {{inventario_fecha_registro_alt}}</div>
+	
+	<p>En la ciudad de Santo Domingo, a los {{inventarioDia}} días del mes de {{inventarioMesAnio}} se reúnen {{recibe}}, 
+	en calidad de {{recibe_puesto}} que hoy recibe, y {{entrega}} en calidad de {{entrega_puesto}}, quien entrega los materiales prehospitalarios para el equipamiento de {{bodega_nombre}}, mismos que se detallan a continuación.</p>
+	
+	<table class="table table-bordered table-stripped">
+		<col style="width:10%;text-align:center;">
+   	<col style="width:45%;">
+   	<col style="width:15%;text-align:center;">
+   	<col style="width:15%;text-align:center;">
+   	<col style="width:15%;text-align:center;">
+		<thead>
+			<tr><th colspan="5">LISTADO DE MATERIALES PREHOSPITALARIOS</th></tr>
+			<tr>
+				<th>#</th>
+				<th>PRODUCTO SOLICITADO</th>
+				<th>PRESENTACIÓN</th>
+				<th>CONCENTRACIÓN</th>
+				<th>CANTIDAD</th>
+			</tr>
+		</thead>
+		<tbody>{{suppliesList}}</tbody>
+	</table>
+	
+	<table class="table" style="margin-top:100px;">
+   	<col style="width:50%;text-align:center;">
+   	<col style="width:50%;text-align:center;">
+   	<tr>
+			<td>{{entrega_titulo}}<br><b>{{entrega_puesto}}</b><br>ENTREGA CONFORME<br>{{INSTITUTION_FULL_NAME}}</td>
+			<td>{{recibe_titulo}}<br><b>{{recibe_puesto}}</b><br>RECIBE CONFORME<br>{{INSTITUTION_FULL_NAME}}</td>
+		</tr>
+	</table>
+	
+	
+</page>

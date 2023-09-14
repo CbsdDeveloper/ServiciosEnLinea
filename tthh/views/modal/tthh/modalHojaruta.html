@@ -1,0 +1,65 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=touch_app></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_ROADMAP</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+			<div class="form-group required" flex>
+				<label translate>LB_SELECT_REGISTRATION_TYPE</label>
+				<div class="input-group">
+					<span class="input-group-addon"><md-ico i=flag></md-ico></span>
+					<select class="form-control" ng-model="frmParent.ruta_estado" ng-options="val as val for (key,val) in string2JSON('ROADMAP_STATUS')" required></select>
+				</div>
+			</div>
+    	<div layout-xs=column layout=row layout-padding>
+				<div class="form-group required" flex>
+					<label translate>LB_DATE_TIME_DEPARTURE</label>
+				  <div class="input-group" moment-picker="frmParent.ruta_salida" max-date="today">
+						<span class="input-group-addon"><md-ico i=event_note></md-ico></span>
+						<input ng-model="frmParent.ruta_salida" ng-model-options="{ updateOn: 'blur' }" class="form-control" placeholder="Ej. 2017-07-07" required />
+					</div>
+				</div>
+				<div class="form-group required" flex ng-if="frmParent.ruta_estado=='ACTIVIDAD FINALIZADA'">
+					<label translate>LB_DATE_TIME_RETURN</label>
+					<div class="input-group" moment-picker="frmParent.ruta_llegada" min-date="frmParent.ruta_salida" max-date="today">
+						<span class="input-group-addon"><md-ico i=event_available></md-ico></span>
+						<input ng-model="frmParent.ruta_llegada" ng-model-options="{ updateOn: 'blur' }" class="form-control" placeholder="Ej. 2017-07-07" required />
+					</div>
+				</div>
+			</div>
+			<div class="form-group required" flex>
+				<label translate>LB_DESTINATION_PLACE</label>
+				<div class="input-group">
+					<span class="input-group-addon"><md-ico i=place></md-ico></span>
+					<input ng-model="frmParent.ruta_destino" class="form-control" placeholder="Ej. Casa 2" required />
+				</div>
+			</div>
+			<div class="form-group required" flex>
+				<label translate>LB_REASON_EXIT</label>
+				<div class="input-group">
+					<span class="input-group-addon"><md-ico i=highlight></md-ico></span>
+					<textarea rows="5" ng-model="frmParent.ruta_motivo" class="form-control" placeholder="Ej. Conexión caida" required ></textarea>
+				</div>
+			</div>
+			<div class="form-group" flex>
+				<label translate>LB_OBSERVATION</label>
+				<div class="input-group">
+					<span class="input-group-addon"><md-ico i=comment></md-ico></span>
+					<textarea ng-model="frmParent.ruta_observacion" class="form-control" placeholder="Ej. En delegación por el ..."></textarea>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

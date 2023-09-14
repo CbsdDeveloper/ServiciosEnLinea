@@ -1,0 +1,102 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg" ng-controller="archingExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=move_to_inbox></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_ARCHING</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	
+    	<div flex class="card card-outline card-danger no-margin card-entity-information">
+			  <div class="card-header with-border text-center">
+			    <h3 class="card-title" translate>LB_INVOICES</h3>
+			  </div>
+			  <div class="card-body no-padding" layout=column layout-padding>
+			    <div layout-xs=column layout=row layout-padding>
+			    	<div class="form-group required" flex>
+			    		<label translate>LB_DATE</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+								<input class="form-control" ng-value="frmParent.cierre_fecha" readonly="readonly">
+							</div>
+			    	</div>
+			    	<div class="form-group required" flex>
+			    		<label translate>LB_TYPE</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+								<input class="form-control" ng-value="frmParent.cierre_tipo" readonly="readonly">
+							</div>
+			    	</div>
+			    </div>
+			    <div layout-xs=column layout=row layout-padding>
+			    	<div class="form-group required" flex>
+			    		<label translate>LB_SERIE</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+								<input type="number" min=1 step="1" parse-float class="form-control" ng-model="frmParent.cierre_serie" required>
+							</div>
+			    	</div>
+			    	<div class="form-group required" flex>
+			    		<label translate>LB_DIRECTED_FOR</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=record_voice_over></md-ico></div></div> 
+								<select class="form-control text-uppercase" ng-model="frmParent.fk_tesorero" ng-required="true" ng-options="row.ppersonal_id as row.personal_nombre for row in frmParent.fk_staff_leadership"></select>
+							</div>
+			    	</div>
+			    </div>
+			  </div>
+			</div>
+    	
+ 			<!-- FILTRO DE REGISTROS -->
+			<div layout-padding> 
+				<div class="card card-outline card-success no-margin margin-top">
+					<div class="card-body text-center">
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=search></md-ico></div></div> 
+							<input ng-model="frmParent.filter" class="form-control" placeholder="Ej. 1236587490" maxlength="20">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-if="frmParent.filter!=''" ng-click="frmParent.filter=''"><md-ico i=clear></md-ico></button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- ITERACIÓN DE REGISTRSO -->
+    	<div class="card card-outline card-primary no-margin margin-top" layout-padding ng-repeat="(type,invoices) in frmParent.orders">
+				<div class="card-header with-border text-center">
+				  <h3 class="card-title">COBROS EN {{type}}</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-6 col-xs-12 md-2-line contact-item" ng-repeat="item in invoices | filter : frmParent.filter">
+			        <label class="label">
+						    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.selected" checklist-value="item.orden_id" />
+						    <span class="label__text">
+						      <span class="label__check">
+						        <i class="fa fa-check icon"></i>
+						      </span>
+						    </span>
+						  </label>
+			        <div class="md-list-item-text compact">
+		          	<span class="text-bold" ng-bind-html="highlight(item.orden_codigo,frmParent.filter)"></span>({{item.orden_total | currency}})
+			          <p style="font-size:10px;" ng-bind-html="highlight('<b>USUARIO: </b>'+item.orden_cliente_nombre+'<br><b>CANCELADO: </b>'+item.fecha_despachado,frmParent.filter)"></p>
+			        </div>
+						</div>
+					</div>
+				</div>
+			</div>
+    	
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

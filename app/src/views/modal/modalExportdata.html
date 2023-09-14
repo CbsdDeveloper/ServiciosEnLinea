@@ -1,0 +1,47 @@
+<md-dialog aria-label="Form Data" class="modal-dialog" ng-controller="exportDataExtendsCtrl">
+  <form name="formData" ng-submit="submitFormPDF()">
+	  <md-toolbar>
+	    <div class="md-toolbar-tools">
+	    	<md-button class="md-icon-button"><md-ico i=save_alt></md-ico></md-button>
+				<h2 translate>LB_EXPORT</h2>
+	      <span flex></span>
+				<md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+	    </div>
+	  </md-toolbar> 
+	  <md-dialog-content>
+	    <md-content layout=column layout-padding>
+				
+				<div class="form-group required" flex ng-repeat="(key,item) in frmParent.fieldList.fields">
+					<label translate>{{item.label}}</label>
+					<div class="input-group" ng-if="item.type=='text'">
+						<span class="input-group-addon"><md-ico i=info></md-ico></span>
+						<input ng-model="frmParent.fieldList.fields[key].value" class="form-control" required />
+					</div>
+					<div class="input-group" moment-picker="frmParent.fieldList.fields[key].value" format="YYYY-MM-DD" max-date="today" ng-if="item.type=='date'">
+						<span class="input-group-addon"><md-ico i=event_note></md-ico></span>
+						<input ng-model="frmParent.fieldList.fields[key].value" ng-model-options="{ updateOn: 'blur' }" class="form-control" placeholder="Ej. 2017-07-07" required />
+					</div>
+				</div>
+	    	
+	    	<div>
+		    	<object ng-if="content" data="{{content}}" type="application/pdf" style="width:100%; height: 400px;"></object>
+	    	</div>
+	    	
+	    </md-content>
+	  </md-dialog-content>
+	  <md-dialog-actions layout=row>
+			<md-button type="submit" ng-disabled="formData.$invalid">
+				<md-ico i=send s=18></md-ico> <span translate>LB_GENERATE</span>
+			</md-button>
+			<!-- 
+			<md-button type="button" ng-if="content" ng-href="{{fileUrl}}" download="report.pdf">
+				<md-ico i=save_alt s=18></md-ico> <span translate>LB_DOWNLOAD</span>
+			</md-button>
+			 -->
+			<span flex></span>
+			<md-button type="button" ng-click="closeDialog()">
+				<md-ico i=clear s=18></md-ico> <span translate>LB_CLOSE</span>
+			</md-button>
+		</md-dialog-actions>
+	</form>
+</md-dialog>

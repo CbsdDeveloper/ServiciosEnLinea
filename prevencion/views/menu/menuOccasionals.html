@@ -1,0 +1,60 @@
+<md-menu md-position-mode="target-right target">
+  <md-button aria-label="Open demo menu" class="md-icon-button main-menu-icon" ng-click="$mdOpenMenu($event)">
+    <md-icon><i-fa i=cogs></i-fa></md-icon>
+  </md-button>
+  <md-menu-content width="5">
+    <md-menu-item ng-if="row.ocasional_estado=='PENDIENTE'">
+      <md-button aria-label="editar" ng-click="openModal(row)">
+         <div layout="row" flex>
+           <p flex translate>LB_EDIT</p>
+           <md-icon md-menu-align-target class="md-menu-btn-ico">
+             <i-fa i=pencil s=18></i-fa>
+           </md-icon>
+         </div>
+      </md-button>
+    </md-menu-item>
+    <md-divider ng-if="row.ocasional_estado=='PENDIENTE'"></md-divider>
+    <md-menu-item ng-if="row.ocasional_estado=='PENDIENTE'">
+      <md-button aria-label="editar" ng-click="openParentModal('Responsables',row)">
+        <div layout="row" flex>
+          <p flex translate>LB_RESPONSIBLE</p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+            <i-fa i=users s=18></i-fa>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="row.ocasional_estado=='PENDIENTE'">
+      <md-button aria-label="editar" ng-click="openParentModal('Recursos',row)">
+        <div layout="row" flex>
+          <p flex translate>LB_RESOURCES</p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+            <i-fa i=bookmark s=18></i-fa>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+		<md-divider ng-if="row.amenazas>0 && row.internos>0 && row.externos>0"></md-divider>
+    <md-menu-item ng-if="row.amenazas>0 && row.internos>0 && row.externos>0">
+      <md-button aria-label="editar" ng-click="exportWithDetail(row.ocasional_id)">
+        <div layout="row" flex>
+          <p flex translate>LB_PRINT_REQUEST</p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+            <i-fa i=print s=18></i-fa>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+		<md-divider></md-divider>
+    <md-menu-item>
+      <md-button aria-label="editar" ng-click="goEntity({id:row.ocasional_id})">
+         <div layout="row" flex>
+           <p flex translate>LB_DETAIL</p>
+           <md-icon md-menu-align-target class="md-menu-btn-ico">
+             <i-fa i=info></i-fa>
+           </md-icon>
+         </div>
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

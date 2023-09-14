@@ -1,0 +1,20 @@
+<div flex class="card card-outline card-danger text-center card-entity-information no-margin">
+  <div class="card-header with-border">
+    <h3 class="card-title" translate>LB_PERSONAL_INFORMATION</h3>
+  </div>
+  <div class="card-body row">
+    <div class="col-md-3">
+    	<p><img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{frmParent.persona_imagen}}" style="width:128px;margin:auto" class="img-responsive"/></p>
+    </div>
+    <div class="col-md-9 text-left">
+     	<p><md-ico i=people></md-ico> <b translate>LB_USER</b>: {{frmParent.usuario_login}}</p>
+     	<p><md-ico i=star></md-ico> <b translate>LB_PROFILE</b>: {{frmParent.perfil_nombre}}</p>
+     	<p><md-ico i=event></md-ico> <b translate>LB_DATE_ADMISSION</b>: {{frmParent.persona_fingreso}}</p>
+     	<hr>
+    	<p><md-ico i=person></md-ico> <b translate>LB_NAME</b>: {{frmParent.persona_apellidos}} {{frmParent.persona_nombres}}</p>
+    	<p><md-ico i=place></md-ico> <b translate>LB_ADDRESS</b>: {{frmParent.persona_direccion}}</p>
+    	<p><md-ico i=mail></md-ico> <b translate>LB_MAIL</b>: {{frmParent.persona_correo}}</p>
+     <p><md-ico i=phone></md-ico> <b translate>LB_TEL</b>: {{frmParent.persona_telefono}}</p>
+    </div>
+  </div>
+</div>

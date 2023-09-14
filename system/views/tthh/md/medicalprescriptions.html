@@ -1,0 +1,94 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=list_alt></md-ico>
+				<md-tooltip><span translate>TOOLBAR_MEDICALPRESCRIPTION</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.filter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_INPUT' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.filter!=''" ng-click="filterParent.filter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="">
+     	<col style="">
+     	<col style="width:20%;">
+     	<col style="width:3%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_PATIENT</span></th>
+					<th md-column><span translate>LB_CONSULTATION_DATA</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate></span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell class="text-uppercase">
+						<div>
+							<md-ico i=credit_card></md-ico><span ng-bind-html="row.persona_doc_identidad"></span><br>
+							<md-ico i=person></md-ico><span ng-bind-html="row.personal_nombre"></span>
+							<md-tooltip><span translate>LB_PATIENT</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=comment></md-ico><span ng-bind-html="row.consulta_motivo"></span>
+							<md-tooltip><span translate>LB_REASON_FOR_CONSULTATION</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell class="text-uppercase">
+						<div>
+							<md-ico i=fingerprint></md-ico><span ng-bind-html="row.consulta_serie"></span>
+							<md-tooltip><span translate>LB_NUMBER_ATTENTION</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=event></md-ico><span ng-bind-html="row.consulta_fecha_consulta"></span>
+							<md-tooltip><span translate>LB_DATE</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.consulta_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="row.consulta_registro"></span><br>
+						<md-ico i=people></md-ico><span ng-bind-html="row.doctor"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+						<button class="btn btn-info btn-sm" ng-if="allow.permiso8205" ng-click="exportEntity('prescripcionmedica',row.consulta_id)">
+							<md-ico i=print c=md-ico-menu></md-ico>
+							<md-tooltip><span translate>LB_PRINT_MEDICALPRESCRIPTION</span></md-tooltip>
+						</button>
+						<!-- 
+						<md-menu md-position-mode="target-right target" ng-if="allow.permiso8205">
+						  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+						    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+						  </md-button>
+						  <md-menu-content width="5">
+						    <md-menu-item>
+						      <md-button aria-label="editar" ng-click="exportEntity('prescripcionmedica',row.consulta_id)">
+						          <div layout="row" flex>
+						            <p flex translate>LB_PRINT_MEDICALPRESCRIPTION</p>
+						            <md-icon md-menu-align-target class="md-menu-btn-ico">
+						              <md-ico i=list_alt></md-ico>
+						            </md-icon>
+						          </div>
+						      </md-button>
+						    </md-menu-item>
+						  </md-menu-content>
+						</md-menu>
+						 -->
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

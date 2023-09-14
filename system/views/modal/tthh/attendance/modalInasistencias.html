@@ -1,0 +1,61 @@
+<md-dialog aria-label="Dialog" class="form-content-alt">
+  <form name="formData" ng-submit="submitForm()">
+	  <md-toolbar>
+	    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=alarm_off></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_ABSENCE_CONTROL</h2>
+	      <span flex></span>
+	      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+	    </div>
+	  </md-toolbar>
+	  <md-dialog-content>
+			<md-content layout=column layout-padding>
+				
+					<!-- INFORMACIÓN DE UNIDAD -->
+					<card-staff-information-alt layout-padding></card-staff-information-alt>
+					
+					<!-- FORMULARIO DE REGISTRO -->
+					<div class="card card-outline card-primary no-margin margin-top" layout-padding>
+						<div class="card-header text-center">
+						  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+						</div>
+						<div class="card-body padding-all" layout=column layout-padding>
+						 	
+						 	<div layout-xs=column layout=row layout-padding>
+								<div class="form-group required" flex>
+						 			<label translate>LB_SINCE</label>
+						  		<div class="input-group" max-date="today" moment-picker="frmParent.inasistencia_desde">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_available></md-ico></div></div> 
+										<input class="form-control" ng-model="frmParent.inasistencia_desde" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required />
+									</div>
+							 	</div>
+								<div class="form-group required" flex>
+						 			<label translate>LB_UNTIL</label>
+						  		<div class="input-group" min-date="frmParent.inasistencia_desde" max-date="today" moment-picker="frmParent.inasistencia_hasta">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_busy></md-ico></div></div> 
+										<input class="form-control" ng-model="frmParent.inasistencia_hasta" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required />
+									</div>
+							 	</div>
+						 	</div>
+						 	
+							<div class="form-group required" flex>
+					 			<label translate>LB_DETAIL</label>
+					  		<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+									<textarea rows="5" class="form-control" ng-model="frmParent.inasistencia_descripcion" placeholder="Ej. El personal no se presenta al lugar de trabajo..." required></textarea>
+								</div>
+						 	</div>
+							
+						</div>
+					</div>
+					
+			</md-content>
+		</md-dialog-content>
+		
+		<md-dialog-actions layout="row">
+			<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+			<span flex></span>
+			<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+		</md-dialog-actions>
+  </form>
+</md-dialog>

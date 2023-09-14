@@ -1,0 +1,40 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=group></md-ico></md-button>
+			<h2 translate>TOOLBAR_PEOPLE</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderPersonas">
+				<tr md-row>
+					<th md-column><span translate>LB_FULLNAME</span></th>
+					<th md-column><span translate>LB_CONTACT</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<md-ico i=credit_card></md-ico> <span ng-bind-html="highlight(row.persona_doc_identidad)"></span><br>
+						<md-ico i=person_outline></md-ico> <span ng-bind-html="highlight(row.persona_apellidos+' '+row.persona_nombres)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=email></md-ico> <span ng-bind-html="highlight(row.persona_correo)"></span><br>
+						<md-ico i=phone></md-ico> <span ng-bind-html="highlight(row.persona_telefono)"></span><br>
+						<md-ico i=phone_iphone></md-ico> <span ng-bind-html="highlight(row.persona_celular)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+						<menu-mini></menu-mini>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

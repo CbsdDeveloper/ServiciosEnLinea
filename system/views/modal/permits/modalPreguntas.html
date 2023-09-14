@@ -1,0 +1,81 @@
+<md-dialog aria-label="Dialog" class="modal-dialog modal-lg">
+  <form name="formData" ng-submit="submitFormFile()">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=add_alert></md-ico></md-button>
+				<h2 translate="TOOLBAR_QUESTION" translate-values="{value:frmParent.requirement}"></h2>
+				<span flex></span>
+				<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<md-content layout=row layout-xs=column layout-padding>
+				<!-- <div class="form-group">
+					<label translate>LB_REQUIREMENT</label>
+					<div class="input-group">
+		        <div class="input-group-prepend"><div class="input-group-text"><i-fa i={{frmParent.requerimiento_icono}}></md-ico></div></div> 
+		        <input ng-model="frmParent.requerimiento_nombre" class="form-control" readonly>
+		      </div>
+		    </div> -->
+		    <div layout=column layout-padding>
+			    <div class="form-group" ng-controller="requerimientosListCtrl">
+						<label translate>LB_REQUIREMENT</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=format_list_bulleted></md-ico></div></div> 
+							<select class="form-control" ng-model="frmParent.fk_requerimiento_id"
+											ng-options="row.requerimiento_id as row.requerimiento_nombre for row in list"></select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label translate>LB_TYPE</label>
+					  <div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+							<select class="form-control" ng-model="frmParent.pregunta_tipo" 
+											ng-options="val as val for (key,val) in preguntaType"></select>
+						</div>
+			    </div>
+			    <div class="form-group">
+						<label translate>LB_CARACTER</label>
+					  <div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+							<select class="form-control" ng-model="frmParent.pregunta_requerido" 
+											ng-options="key as val for (key,val) in itemRequerido"></select>
+						</div>
+			    </div>
+			    <div class="form-group" ng-if="toogleEditMode">
+						<label translate>LB_STATUS</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+							<select class="form-control" ng-model="frmParent.pregunta_estado"
+											ng-options="val as val for (key,val) in string2JSON('statusType')"></select>
+						</div>
+			    </div>
+				</div>
+				<div layout=column layout-padding>
+					<div class="form-group">
+						<label translate>LB_QUESTIONS</label>
+						<div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=add_alert></md-ico></div></div> 
+					    <textarea rows=5 ng-model="frmParent.pregunta_nombre" class="form-control" placeholder="Pregunta" required></textarea>
+					  </div>
+			    </div>
+					<div class="form-group">
+						<label translate>LB_PREVIEW</label>
+					  <div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=landscape></md-ico></div></div> 
+							<select class="form-control" ng-model="frmParent.pregunta_has_img" 
+											ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+							<input uploader-model="frmParent.pregunta_file" ng-if="frmParent.pregunta_has_img=='Si'" 
+										type="file" accept="image/*" class="form-control" />
+						</div>
+			    </div>
+				</div>
+			</md-content>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+			<span flex></span>
+			<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+		</md-dialog-actions>
+  </form>
+</md-dialog>

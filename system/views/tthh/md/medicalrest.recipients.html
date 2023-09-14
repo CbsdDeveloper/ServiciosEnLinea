@@ -1,0 +1,71 @@
+<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=record_voice_over></md-ico></md-button>
+			<h2 translate>LB_RECIPIENTS_MEDICAL_CERTIFICATE_NOTIFICATIONS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="toogleBar()" ng-if="allow.permiso8151">
+				<md-ico i={{showNewHistory?'close':'person_add'}}></md-ico>
+				<md-tooltip><span translate>LB_NEW_CLINICAL_HISTORY</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<md-divider ng-if="allow.permiso8151 && showNewHistory"></md-divider>
+	<md-toolbar  ng-if="allow.permiso8151 && showNewHistory">
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><md-ico i=credit_card></md-ico></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="{{'LB_CC_DNI_REQUEST' | translate}}" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+	  </form>
+	</md-toolbar>
+	
+	<datatable-toolbar></datatable-toolbar>
+	
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="">
+     	<col style="width:30%;">
+     	<col style="width:5%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_RECIPIENTS</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td md-cell>
+						<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.staff.person.persona_doc_identidad)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.staff.person.persona_apellidos+' '+row.staff.person.persona_nombres)"></span><br>
+						<md-ico i=email></md-ico><span ng-bind-html="highlight(row.staff.personal_correo_institucional)"></span>
+					</td>
+					<td md-cell>
+					  <md-ico i=event></md-ico><span ng-bind-html="highlight(row.destinatario_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.responsible.person.persona_apellidos+' '+row.responsible.person.persona_nombres)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  
+					  <button class="btn btn-danger btn-sm" ng-click="deleteUriItem('tthh/md/medicalrest/recipients/remove',row.destinatario_id)">
+							<md-ico i=delete c=md-ico-menu></md-ico>
+							<md-tooltip><span translate>LB_DELETE</span></md-tooltip>
+						</button>
+					  
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	
+	<datatable-footer></datatable-footer>
+	
+</md-card>

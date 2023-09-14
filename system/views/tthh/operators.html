@@ -1,0 +1,61 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=rowing></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_DRIVERS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-divider ng-if="allow.permiso80291"></md-divider>
+	<md-toolbar  ng-if="allow.permiso80291">
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><md-ico i=credit_card></md-ico></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="{{'LB_CC_DNI_REQUEST' | translate}}" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+	  </form>
+	</md-toolbar>
+	
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column md-order-by="personal_nombre"><span translate>LB_PERSONAL_INFORMATION</span></th>
+					<th md-column md-order-by="conductor_licencia_emision"><span translate>LB_DRIVERS_LICENSES</span></th>
+					<th md-column><span translate>LB_STATUS</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.persona_doc_identidad)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.conductor)"></span>
+					</td>
+					<td md-cell class="text-uppercase">
+						<md-ico i=flag></md-ico><span ng-bind-html="highlight(row.licencia_tipo)"></span> (<span ng-bind-html="highlight(row.licencia_categoria)"></span>)<br>
+						<md-ico i=event_available></md-ico>{{row.conductor_licencia_emision | date:'fullDate'}}<br>
+						<md-ico i=event_busy></md-ico>{{row.conductor_licencia_validez | date:'fullDate'}}<br>
+	          <a ng-click="openParentModal('PDFViewer',{embed:'tthh/'+row.conductor_pdf,label:row.conductor_nombre})" ng-if="row.conductor_pdf!='' && row.conductor_pdf!=null"><md-ico i=file_download></md-ico><b translate>LB_DOWNLOAD</b></a>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.conductor_estado]"></span><br>
+						<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.conductor_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <menu-mini></menu-mini>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

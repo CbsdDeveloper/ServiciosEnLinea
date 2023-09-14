@@ -1,0 +1,19 @@
+﻿<md-card ng-repeat="item in trash" ng-show="{{item.data.length>0}}" class="card card-outline card-secondary">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i={{item.icon}}></md-ico></md-button>
+			<h2>{{item.enty}}</h2>
+		</div>
+	</md-toolbar>
+	<md-content classs="md-padding" layout=row layout-padding layout-wrap>
+		<div ng-repeat="data in item.data" class="card card-outline card-primary" flex=20>
+			<h3 class="card-title text-center" style="margin:0px">{{data.nombre}}</h3>
+			<div class="pull-right box-tools"></div>
+			<div class="card-body">
+				<span><md-ico i=person s=18></md-ico>: {{data.userAudit}}</span><br>
+				<span><md-ico i=event s=18></md-ico>: {{data.fecha | date: 'short'}}</span><br>
+				<md-button ng-click="restoreItem(data,item.config)">Restaurar</md-button>
+			</div>
+		</div>
+	</md-content>
+</md-card>

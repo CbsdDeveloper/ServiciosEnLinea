@@ -1,0 +1,110 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="btn" class="md-icon-button"><md-ico i=bubble_chart></md-ico></md-button>
+			<h2 translate>TOOLBAR_REPORTS</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+			<div layout=column layout-padding>
+				<div class="card card-outline card-success no-padding no-margin">
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_MAIN_INFORMATION</h3>
+					</div>
+					<div class="card-body" layout=column layout-padding>
+						<div class="form-group required">
+							<label translate>LB_REPORTERS</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=bubble_chart></md-ico></div></div> 
+								<input ng-model="frmParent.dashboard_nombre" class="form-control" placeholder="Ej. " required/>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group" flex>
+								<label translate>LB_LABEL</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=spellcheck></md-ico></div></div> 
+									<input ng-model="frmParent.dashboard_label" class="form-control" placeholder="Ej. " />
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_ENTITIES</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=link></md-ico></div></div> 
+									<input ng-model="frmParent.dashboard_entidad" class="form-control" placeholder="Ej. " required/>
+								</div>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_ICON</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i={{frmParent.dashboard_icono}}></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.dashboard_icono" required
+													ng-options="val as val for (key,val) in string2JSON('materialIconList')"></select>
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_URL</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=link></md-ico></div></div> 
+									<input ng-model="frmParent.dashboard_url" class="form-control" placeholder="Ej. " required/>
+								</div>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_COLOR</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=palette></md-ico></div></div> 
+									<input ng-model="frmParent.dashboard_color" class="form-control" placeholder="Ej. " required/>
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_RGB</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=invert_colors></md-ico></div></div> 
+									<input ng-model="frmParent.dashboard_rgba" class="form-control" placeholder="Ej. " required/>
+								</div>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_DATE</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+									<input ng-model="frmParent.dashboard_fecha_field" class="form-control" placeholder="Ej. " required/>
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_STATUS</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+									<input ng-model="frmParent.dashboard_estado_field" class="form-control" placeholder="Ej. " required/>
+								</div>
+							</div>
+						</div>
+						<div class="form-group required" ng-if="toogleEditMode">
+							<label translate>LB_STATUS</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.dashboard_estado"
+												ng-options="val as val for (key,val) in string2JSON('statusType')"></select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

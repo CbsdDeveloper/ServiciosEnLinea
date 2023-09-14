@@ -1,0 +1,219 @@
+<div layout-padding>
+	<div flex class="box box-info collapsed-box no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+			<div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+      </div>
+		</div>
+		<div class="box-body box-bg-info" layout=column layout-wrap>
+			<div ng-bind-html="$parent.trustAsHtml(paramsConf.INFO_DETAIL_VBP)"></div>
+		</div>
+	</div>
+</div>
+
+<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		<card-vbp class="card-information" ng-if="detailConfig.show" flex></card-vbp>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button class="md-icon-button" aria-label="button"><i-fa i=map s=lg></i-fa></md-button>
+						<h2>{{entity.vbp_codigo}} ({{entity.vbp_serie}})</h2>
+						<span flex></span>
+						<md-button class="md-icon-button" ng-click="reloadEntity()">
+							<md-ico i=refresh></md-ico>
+							<md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+						</md-button>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<i-fa i={{detailConfig.icon}}></i-fa>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<md-tabs md-dynamic-height md-border-bottom>
+					
+					<md-tab label="{{'LB_PROFESSIONALS' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><i-fa i=graduation-cap></i-fa></md-button>
+								<h2 translate>TOOLBAR_RESPONSIBLES</h2>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+						<div class="md-padding" layout-xs=column layout=row layout-padding layout-wrap>
+							<div style="min-width:360px;max-width:480px;" ng-repeat="(key,row) in entity.professionals" flex>
+								<div class="box box-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+									<div class="box-header">
+										<i-fa i=user s=3x></i-fa><br>
+										<h3 class="box-title no-margin" translate>{{row.label}}</h3>
+									</div>
+									<div class="box-body">
+										<strong><i-fa i=credit-card></i-fa> <span translate>LB_IDENTIFICATION_TYPE</span></strong>
+										<p class="text-muted">{{row.person.persona_apellidos}} {{row.person.persona_nombres}}</p>
+								    <hr>
+										<strong><i-fa i=credit-card></i-fa> <span translate>LB_IDENTIFICATION_TYPE</span></strong>
+								    <p class="text-muted">{{string2JSON('identificationType')[row.person.persona_tipo_doc]}}</p>
+								    <hr>
+										<strong><i-fa i=id-card></i-fa> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+								    <p class="text-muted">{{row.person.persona_doc_identidad}}</p>
+							    	<hr>
+										<strong><i-fa i=envelope></i-fa> <span translate>LB_MAIL</span></strong>
+								    <p class="text-muted">{{row.person.persona_correo}}</p>
+								    <hr>
+										<strong><i-fa i=phone></i-fa> <span translate>LB_MOBILE</span></strong>
+								    <p class="text-muted">{{row.person.persona_celular}}</p>
+								    
+								    <hr>
+										<strong><i-fa i=signal></i-fa> <span translate>LB_TITLE_LEVEL</span></strong>
+								    <p class="text-muted">{{row.formacion_nivel}}</p>
+								    <hr>
+										<strong><i-fa i=copyright></i-fa> <span translate>LB_TITLE_SENESCYT</span></strong>
+								    <p class="text-muted">{{row.formacion_senescyt}}</p>
+								    <hr>
+										<strong><i-fa i=calendar-plus-o></i-fa> <span translate>LB_REGISTRE_DATE</span></strong>
+								    <p class="text-muted">{{row.formacion_fregistro}}</p>
+								    <hr>
+										<strong><i-fa i=university></i-fa> <span translate>LB_INSTITUTION</span></strong>
+								    <p class="text-muted">{{row.formacion_institucion}}</p>
+								    <hr>
+										<strong><i-fa i=mortar-board></i-fa> <span translate>LB_TITLE_NAME</span></strong>
+								    <p class="text-muted">{{row.formacion_titulo}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</md-tab>
+					
+					<md-tab label="{{'LB_TECHNICAL_INSPECTORS' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><i-fa i=address-book-o></i-fa></md-button>
+								<h2 translate>TOOLBAR_TECHNICAL_INSPECTORS</h2>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+						<div class="md-padding" layout-xs=column layout=row layout-padding layout-wrap>
+							<div style="min-width:360px;max-width:480px;" ng-repeat="(key,row) in entity.inspectors" flex>
+								<div class="box box-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+									<div class="box-header">
+										<img class="profile-user-img img-responsive" src="/app/src/img/users/default.png" ng-src="/app/src/img/users/{{row.persona_imagen}}" alt="profile" style="height:128px;width:128px;">
+									</div>
+									<div class="box-body">
+										<strong><i-fa i=credit-card></i-fa> <span translate>LB_IDENTIFICATION_TYPE</span></strong>
+										<p class="text-muted">{{row.personal_nombre}}</p>
+								    <hr>
+										<strong><i-fa i=graduation-cap></i-fa> <span translate>LB_JOB</span></strong>
+								    <p class="text-muted">{{row.puesto_definicion}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</md-tab>
+					
+					<md-tab label="{{'LB_RECORD_OF_REVISIONS' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><i-fa i=check></i-fa></md-button>
+								<h2 translate>TOOLBAR_RECORD_OF_REVISIONS</h2>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+						<div class="md-padding" layout=column layout-padding>
+							<div style="width:100%;" ng-repeat="(key,row) in entity.reviews" flex>
+								<div class="box box-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+									<div class="box-header">
+										<i-fa i=check s=3x></i-fa>
+									</div>
+									<div class="box-body">
+										<strong><i-fa i=calendar></i-fa> <span translate>LB_REGISTRE_DATE</span></strong>
+										<p class="text-muted">{{row.revision_fecha_registro}}</p>
+								    <hr>
+										<strong><i-fa i=flag></i-fa> <span translate>LB_STATUS</span></strong>
+										<p class="text-muted">{{row.revision_estado}}</p>
+								    <hr>
+										<strong><i-fa i=comments></i-fa> <span translate>LB_DESCRIPTION</span></strong>
+								    <p class="text-muted"><span ng-bind-html="highlight(row.revision_descripcion)"></span></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</md-tab>
+					
+					<md-tab label="{{'LB_ACTIVITY_LOG' | translate}}">
+						<md-content ng-controller="historyEntityCtrl">
+							<div ng-controller="myTableCtrl">
+								<toolbar-filter-in-tab></toolbar-filter-in-tab>
+								<toolbar-filter></toolbar-filter>
+								<md-table-container>
+							    <table md-table class="md-primary table-hover" md-progress="deferred">
+							      <thead md-head >
+											<tr md-row>
+												<th md-column><span translate>LB_PROJECTS</span></th>
+												<th md-column><span translate>LB_DETAIL</span></th>
+											</tr>
+							      </thead>
+							      <tbody>
+											<tr md-row data-ng-repeat="row in rowsParent.data">
+												<td md-cell>
+													<i-fa i=shield></i-fa><span ng-bind-html="highlight(row.vbp_codigo)"></span><br>
+													<div>
+														<i-fa i=calendar></i-fa><span ng-bind-html="highlight(row.vbp_proyecto)"></span>
+														<md-tooltip>{{'LB_PROJECT_NAME' | translate}}</md-tooltip>
+													</div>
+													<div>
+														<i-fa i=rss></i-fa><span ng-bind-html="highlight(row.actividad_nombre)"></span>
+														<md-tooltip>{{'LB_BUILDING_PURPOSE' | translate}}</md-tooltip>
+													</div>
+													<div>
+														<i-fa i=user></i-fa><span ng-bind-html="highlight(row.entidad_razonsocial)"></span> <md-tooltip>{{'LB_OWNER' | translate}}</md-tooltip>
+													</div>
+													<div ng-if="row.proyectista_id>0">
+														<i-fa i=user-o></i-fa><span ng-bind-html="highlight(row.proyectista)"></span> <md-tooltip>{{'LB_DESIGNER' | translate}}</md-tooltip>
+													</div>
+													<div ng-if="row.responsable_mt_rpmci>0">
+														<i-fa i=user-o></i-fa><span ng-bind-html="highlight(row.rpmci)"></span> <md-tooltip>{{'LB_RPMCI' | translate}}</md-tooltip>
+													</div>
+													<div ng-if="row.proyectista_id<1">
+														<span class="label label-fa label-danger"><i-fa i="times"></i-fa> <span translate>LB_DESIGNER</span></span>
+													</div>
+													<div ng-if="row.responsable_mt_rpmci<1">
+														<span class="label label-fa label-danger"><i-fa i="times"></i-fa> <span translate>LB_RPMCI</span></span>
+													</div>
+												</td>
+												<td md-cell>
+													<div>
+														<i-fa i=location-arrow></i-fa><span ng-bind-html="highlight(row.vbp_principal+' y '+row.vbp_secundaria)"></span>
+														<md-tooltip>{{row.vbp_parroquia}}</md-tooltip>
+													</div>
+													<div>
+														<i-fa i=key></i-fa><span ng-bind-html="highlight(row.vbp_clavecatastral)"></span>
+														<md-tooltip>{{'LB_CATASTRAL_KEY' | translate}}</md-tooltip>
+													</div>
+													<div>
+														<i-fa i=arrows-h></i-fa><span ng-bind-html="highlight(row.area_construccion+' m²')"></span>
+														<md-tooltip>{{'LB_CONSTRUCTION_AREA' | translate}}</md-tooltip>
+													</div>
+													<div>
+														<i-fa i=university></i-fa><span ng-bind-html="highlight(row.vbp_edificaciones)"></span>
+														<md-tooltip>{{'LB_NUMBER_BUILDINGS' | translate}}</md-tooltip>
+													</div>
+													<i-fa i=flag></i-fa><span ng-bind-html="statusLabel[row.vbp_estado]"></span><br>
+													<i-fa i=calendar></i-fa><span ng-bind-html="highlight(row.vbp_registro)"></span><br>
+													<i-fa i=user></i-fa><span ng-bind-html="highlight(row.usuario)"></span>
+												</td>
+											</tr>
+							      </tbody>
+							    </table>
+								</md-table-container>
+								<footer-table></footer-table>
+							</div>
+						</md-content>
+					</md-tab>
+				</md-tabs>
+			</md-card>
+		</div>
+	</div>
+</div>

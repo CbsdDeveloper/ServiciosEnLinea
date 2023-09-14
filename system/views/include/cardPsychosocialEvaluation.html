@@ -1,0 +1,15 @@
+<div class="card card-outline card-primary box-card-ico">
+  <div class="card-body box-profile text-center">
+		<h3 class="profile-username">{{dataEntity.form.formulario_nombre}}</h3>
+		<p class="text-muted text-center">{{dataEntity.seccion_registro}}</p>
+    <hr>
+		<strong><md-ico i=event_available s=18></md-ico><br><span translate>LB_ENABLE_FROM</span></strong>
+    <p class="text-muted">{{dataEntity.evaluacion_inicio | date:'fullDate'}}</p>
+    <hr>
+		<strong><md-ico i=event_busy s=18></md-ico><br><span translate>LB_ENABLE_UPTO</span></strong>
+    <p class="text-muted">{{dataEntity.evaluacion_cierre | date:'fullDate'}}</p>
+    <hr>
+		<strong><md-ico i=flag s=18></md-ico><br><span translate>LB_STATUS</span></strong>
+    <p class="text-muted"><span ng-bind-html="statusLabel[dataEntity.evaluacion_estado]"></span></p>
+  </div>
+</div>

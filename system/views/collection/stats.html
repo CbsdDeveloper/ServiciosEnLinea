@@ -1,0 +1,150 @@
+﻿<div class=no-padding layout-padding>
+
+	<div flex layout=row layout-wrap>
+		<div class="card card-outline card-danger text-center md-padding no-margin">
+			<div class="img-logo">
+				<img alt="Inicio" src="/app/src/img/system/logo.png" class="img-responsive">
+			</div>
+			<h1 translate>LB_HOME_MSG</h1>
+		</div>
+	</div>
+	
+	<div layout=column ng-controller="dashboardCtrl" ng-cloak>
+		<!-- Simple stats -->
+		<div class="row" ng-if="configDashboard.CONTADOR>0">
+			<div class="col-md-12">
+				<div class="card card-outline card-success">
+					<div class="card-header with-border text-center">
+						<h3 class="card-title text-uppercase">{{currentDate | date: 'fullDate'}}</h3>
+						<div class="card-tools">
+			        <button type="button" class="btn btn-tool" ng-click="refreshStats()"><i class="fa fa-refresh"></i></button>
+			        <button type="button" class="btn btn-tool" ng-click="exportStats('yyyy-MM-dd')"><i class="fa fa-print"></i></button>
+			        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+			      </div>
+					</div>
+					<div class="card-body">
+						<div class="row md-padding">
+							<div class="col-md-3 col-sm-4 col-xs-6" ng-repeat="item in chartViewer.CONTADOR">
+								<div class="info-box bg-{{item.color}}">
+								  <span class="info-box-icon"><md-ico i={{item.icon}} s=64></md-ico></span>
+								  <div class="info-box-content">
+								    <a ui-sref={{item.uri}} style="color:white"><span class="info-box-text" translate>{{item.name}}</span></a>
+								    <span class="info-box-number">{{item.count}}</span>
+								    <div class="progress">
+								      <div class="progress-bar" style="width: 50%"></div>
+								    </div>
+						        <span class="progress-description" translate>{{item.desc}}</span>
+								  </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Simple stats -->
+		
+		
+		<!-- PERMISOS Y DUPLICADOS - ANUALES -->
+		<div class="row" ng-if="configDashboard.ANUAL>0">
+			<div class="col-md-12">
+				<div class="card card-outline card-primary">
+					<div class="card-header with-border text-center">
+						<h3 class="card-title">REPORTE ANUAL</h3>
+						<div class="card-tools">
+			        <button type="button" class="btn btn-tool" ng-click="refreshStats()"><i class="fa fa-refresh"></i></button>
+			        <button type="button" class="btn btn-tool" ng-click="exportStats('yyyy')"><i class="fa fa-print"></i></button>
+			        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+			      </div>
+					</div>
+					<div class="card-body">
+						<canvas flex
+				        tc-chartjs-line
+				        chart-data="chartViewer.ANUAL"
+				        chart-legend="lineChart"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- PERMISOS Y DUPLICADOS - ANUALES -->
+		
+		<!-- PERMISOS Y DUPLICADOS - MENSUALES -->
+		<div class="row" ng-if="configDashboard.MENSUAL>0">
+			<div class="col-md-12">
+				<div class="card card-outline card-primary">
+					<div class="card-header with-border text-center">
+						<h3 class="card-title">REPORTE MENSUAL - PERIODO {{currentDate | date: 'yyyy'}}</h3>
+						<div class="card-tools">
+			        <button type="button" class="btn btn-tool" ng-click="refreshStats()"><i class="fa fa-refresh"></i></button>
+			        <button type="button" class="btn btn-tool" ng-click="exportStats('yyyy')"><i class="fa fa-print"></i></button>
+			        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+			      </div>
+					</div>
+					<div class="card-body">
+						<canvas flex
+				        tc-chartjs-line
+				        chart-data="chartViewer.MENSUAL"
+				        chart-legend="lineChart"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- PERMISOS Y DUPLICADOS - MENSUALES -->
+		
+		<!-- PERMISOS Y DUPLICADOS - DE LA SEMANA EN CURSO -->
+		<div class="row">
+			<div class="col-md-12" ng-if="configDashboard.SEMANAL>0">
+				<div class="card card-outline card-danger">
+					<div class="card-header with-border text-center">
+						<h3 class="card-title text-uppercase">REPORTE SEMANAL - PERIODO {{currentDate | date: 'yyyy'}}</h3>
+						<div class="card-tools">
+			        <button type="button" class="btn btn-tool" ng-click="refreshStats()"><i class="fa fa-refresh"></i></button>
+			        <button type="button" class="btn btn-tool" ng-click="exportStats('yyyy-MM')"><i class="fa fa-print"></i></button>
+			        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+			      </div>
+					</div>
+					<div class="card-body row">
+						<div class="md-padding">
+							<canvas
+					        tc-chartjs-line
+					        chart-data="chartViewer.SEMANAL"
+					        chart-legend="barChart"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="col-md-12 col-xs-12">
+				<div class="card card-outline card-danger">
+					<div class="card-header with-border text-center">
+						<h3 class="card-title">CAPACITACIONES CIUDADANAS</h3>
+						<div class="card-tools">
+			        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+			      </div>
+					</div>
+					<div class="card-body embed-container">
+						<iframe width="620" height="515" src="https://charts.qlikcloud.com/5c2f0928263e29000a81aed1/chart.html" frameborder="0"></iframe>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-xs-12">
+				<div class="card card-outline card-danger">
+					<div class="card-header with-border text-center">
+						<h3 class="card-title">DESEMPEÑO PERSONAL - CAPACITACIONES CIUDADANAS</h3>
+						<div class="card-tools">
+			        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+			      </div>
+					</div>
+					<div class="card-body embed-container">
+						<iframe width="620" height="515" src="https://charts.qlikcloud.com/5c2f138a60091e0010b480dd/chart.html" frameborder="0"></iframe>
+					</div>
+				</div>
+			</div>
+			 
+			 
+		</div>
+		<!-- PERMISOS Y DUPLICADOS - DE LA SEMANA EN CURSO -->
+	</div>
+
+</div>

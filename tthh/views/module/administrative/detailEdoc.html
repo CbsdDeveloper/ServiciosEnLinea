@@ -1,0 +1,121 @@
+<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		
+		<div class="card-information" ng-if="detailConfig.show" flex>
+			
+			<div class="box box-primary box-card-ico no-padding">
+			  <div class="box-body box-profile text-center">
+			    <div class="container-img-user">
+    				<img class="profile-user-img img-responsive" src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{dataEntity.subscribe.staff.person.persona_imagen}}" alt="profile">
+			    </div>
+					<h3 class="profile-username">{{dataEntity.subscribe.staff.person.persona_apellidos}} {{dataEntity.subscribe.staff.person.persona_nombres}}</h3>
+			    <hr>
+					<strong><md-ico i=credit_card></md-ico><br><span translate>LB_DOC_IDENTIFICATION</span></strong>
+			    <p class="text-muted">{{dataEntity.subscribe.staff.person.persona_doc_identidad}}</p>
+			    <hr>
+			    <strong><md-ico i=mail></md-ico><br><span translate>LB_MAIL</span></strong>
+			    <p class="text-muted">{{dataEntity.subscribe.staff.person.persona_correo}}</p>
+			    <hr>
+			    <strong><md-ico i=phone></md-ico><br><span translate>LB_TEL</span></strong>
+			    <p class="text-muted">{{dataEntity.subscribe.staff.person.persona_telefono}} - {{dataEntity.subscribe.staff.person.persona_celular}}</p>
+			  </div>
+			</div>
+			
+		</div>
+		
+		<div flex>
+			<md-card class="no-margin">
+				
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" ng-click="goUI('administrative.edocumentation',{})" class="md-icon-button"><md-ico i=backspace></md-ico></md-button>
+						<h2>{{dataEntity.delectronica_nombre}}</h2>
+						<span flex></span>
+						
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toggleEntity('delete')" ng-if="dataEntity.delectronica_estado!='ELIMINADO' && allow.permiso72420">
+							<md-ico i=delete></md-ico>
+							<md-tooltip><span translate>LB_DELETE</span></md-tooltip>
+						</md-button>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toggleEntity('restore')" ng-if="dataEntity.delectronica_estado=='ELIMINADO' && allow.permiso72421">
+							<md-ico i=restore></md-ico>
+							<md-tooltip><span translate>LB_RESTORE</span></md-tooltip>
+						</md-button>
+						
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				
+				<md-divider></md-divider>
+
+        <div class="card-body no-padding">
+          <div class="mailbox-read-info">
+            <h5><b translate>LB_FROM</b>: {{dataEntity.subscribe.staff.personal_correo_institucional}}
+              <span class="mailbox-read-time pull-right">{{dataEntity.delectronica_entregado}}</span></h5>
+          </div>
+          <div class="mailbox-read-message margin-top">
+            
+            <md-ico i=book_online s=15></md-ico> <label translate>LB_SENT_DATE</label><BR>
+            {{dataEntity.delectronica_entregado}}
+            
+            <br><br>
+            <md-ico i=flag s=15></md-ico> <label translate>LB_SUBJECT</label><BR>
+            {{dataEntity.delectronica_asunto}}
+            
+            <br><br>
+            <md-ico i=event s=15></md-ico> <label translate>LB_DOCUMENT_DATE</label><BR>
+						{{dataEntity.delectronica_fecha | date:'fullDate'}}
+            
+            <br><br>
+            <md-ico i=attachment s=15></md-ico> <label translate>LB_ATTACHED_FILES</label><br>
+            <a href="/app/src/edocumentation/{{row.delectronica_path}}/{{dataEntity.delectronica_documento_anexo}}" download>
+							{{dataEntity.delectronica_documento_anexo}}
+						</a>
+            
+            <br><br>
+            <md-ico i=info s=15></md-ico> <label translate>LB_DETAIL</label><BR>
+            {{dataEntity.delectronica_detalle}}
+
+          
+            <br><br>
+	          <table class="table no-margin valign-middle">
+				     	<col style="width:100px;">
+				     	<col style="">
+				     	<col style="width:15%;">
+				     	<thead>
+                <tr>
+                  <th></th>
+                  <th translate>LB_RECIPIENTS</th>
+                  <th translate>LB_MENU</th>
+                </tr>
+              </thead>
+	          	<tbody class="font-11">
+	          		<tr ng-repeat="row in dataEntity.recipients">
+	          			<td>
+	          				<img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{row.staff.person.persona_imagen}}" style="width:90px;height:90px;padding:5px" class="img-circle" alt="img" />
+	         				</td>
+	          			<td>
+	          				<md-ico i=person s=15></md-ico>{{row.staff.person.persona_apellidos+' '+row.staff.person.persona_nombres}}<br>
+				          	<md-ico i=email s=15></md-ico>{{row.staff.personal_correo_institucional}}<br>
+				          	<md-ico i=event s=15></md-ico>{{row.destinatario_registro}}<br>
+				          	<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.destinatario_estado]"></span>
+	         				</td>
+	          			<td>
+	          				<button type="button" class="btn btn-sm btn-warning" ng-click="deleteRecipient(row.destinatario_id)" ng-if="allow.permiso7243">
+						        	<i class="fa fa-trash"></i> <span translate>LB_DELETE</span>
+						        </button>
+	         				</td>
+	          		</tr>
+	          	</tbody>
+	          </table>
+        	
+        	</div>
+        </div>
+        
+          
+			</md-card>
+		</div>
+	</div>
+</div>

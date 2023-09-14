@@ -1,0 +1,124 @@
+<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		
+		<!-- INFORMACION DE EVALUACION -->
+		<div class="card-information" ng-if="detailConfig.show" flex>
+			<div class="card card-outline card-primary no-margin">
+			  <div class="card-header with-border text-center">
+				  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+			  <div class="card-body box-profile text-center">
+					<strong><md-ico i=verified_user s=15></md-ico><br><span translate>LB_SERIE</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.equipment.equipo_serial}}</p>
+			    <hr>
+					<strong><md-ico i=filter_none s=15></md-ico><br><span translate>LB_FORM_NAME</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.equipment.form.formulario_nombre}}</p>
+			    <hr>
+					<strong><md-ico i=category s=15></md-ico><br><span translate>LB_PLATOON</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.equipment.platoon.station.estacion_nombre}} - {{dataEntity.equipment.platoon.peloton_nombre}}</p>
+			    <hr>
+					<strong><md-ico i=category></md-ico><br><span translate>LB_CATEGORY</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.equipment.category.categoria_nombre}}</p>
+			    <hr>
+					<strong><md-ico i=info s=15></md-ico><br><span translate>LB_BRAND</span> / <span translate>LB_MODEL</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.equipment.equipo_marca}} / {{dataEntity.equipment.equipo_modelo}}</p>
+			    <hr>
+					<strong><md-ico i=comment s=15></md-ico><br><span translate>LB_DETAIL</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.equipment.equipo_detalle}}</p>
+			    <hr>
+					<strong><md-ico i=event s=15></md-ico><br><span translate>LB_MANUFACTURING_DATE</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.equipment.equipo_fecha_fabricacion | date:'fullDate'}}</p>
+			    <hr>
+					<strong><md-ico i=event s=15></md-ico><br><span translate>LB_ACQUISITION_DATE</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.equipment.equipo_fecha_compra | date:'fullDate'}}</p>
+			    <hr>
+					<strong><md-ico i=event s=15></md-ico><br><span translate>LB_DATE_FIRST_USE</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.equipment.equipo_fecha_asignacion | date:'fullDate'}}</p>
+			    <hr>
+					<strong><md-ico i=flag s=15></md-ico><br><span translate>LB_STATUS</span></strong>
+			    <p class="text-muted text-uppercase" ng-bind-html="statusLabel[dataEntity.equipment.equipo_estado]"></p>
+			  </div>
+			</div>
+		</div>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=history_toggle_off></md-ico></md-button>
+						<h2 translate>LB_USE_HISTORY</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="reloadData()">
+							<md-ico i=refresh></md-ico>
+							<md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+						</md-button>
+						
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				
+				<!-- DETALLE DE EQUIPO -->
+        <md-content>
+						<md-table-container>
+					    <table md-table class="md-primary table-hover" md-progress="deferred">
+					      <col style="">
+					     	<col style="">
+					     	<col style="width:25%">
+					      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+									<tr md-row>
+										<th md-column><span translate>LB_EVALUATION</span></th>
+										<th md-column><span translate>LB_DAMAGE_FORMS</span></th>
+										<th md-column><span translate>LB_DETAIL</span></th>
+									</tr>
+					      </thead>
+					      <tbody>
+									<tr md-row data-ng-repeat="row in dataEntity.usage">
+										<td md-cell>
+											<div>
+												<md-ico i=view_week></md-ico><span ng-bind-html="highlight(row.registro_codigo)"></span>
+												<md-tooltip>{{'LB_EVALUATION_CODE' | translate}}</md-tooltip>
+											</div>
+											<div>
+												<md-ico i=event></md-ico><span>{{row.registro_fecha_utilizacion | date:'fullDate'}}</span>
+												<md-tooltip>{{'LB_DATE_OF_USE' | translate}}</md-tooltip>
+											</div>
+											<div>
+												<md-ico i=schedule></md-ico><span ng-bind-html="highlight(row.registro_tiempouso)"></span>
+												<md-tooltip>{{'LB_USE_TIME' | translate}}</md-tooltip>
+											</div>
+											<div>
+												<md-ico i=info></md-ico><span ng-bind-html="highlight(row.registro_condiciones_preuso)"></span>
+												<md-tooltip>{{'LB_PREUSE_CONDITIONS' | translate}}</md-tooltip>
+											</div>
+											<div>
+												<md-ico i=info></md-ico><span ng-bind-html="highlight(row.registro_condiciones_postuso)"></span>
+												<md-tooltip>{{'LB_POSTUSE_CONDITIONS' | translate}}</md-tooltip>
+											</div>
+										</td>
+										<td md-cell>
+											<div>
+												<md-ico i=filter_none></md-ico><span ng-bind-html="highlight(row.form.formulario_nombre)"></span>
+												<md-tooltip>{{'LB_FORM_FOR_EVALUATION' | translate}}</md-tooltip>
+											</div>
+											<div>
+												<md-ico i=nature></md-ico><span ng-bind-html="highlight(row.platoon.station.estacion_nombre)"></span> - <span ng-bind-html="highlight(row.platoon.peloton_nombre)"></span>
+												<md-tooltip>{{'LB_PLATOON' | translate}}</md-tooltip>
+											</div>
+										</td>
+										<td md-cell>
+											<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.registro_estado]"></span><br>
+											<md-ico i=event></md-ico><span ng-bind-html="highlight(row.registro_registro)"></span><br>
+											<md-ico i=person></md-ico><span ng-bind-html="highlight(row.user.person.persona_apellidos+' '+row.user.person.persona_nombres)"></span>
+										</td>
+									</tr>
+					      </tbody>
+					    </table>
+						</md-table-container>
+        </md-content>
+				
+		</md-card>
+	</div>
+</div>

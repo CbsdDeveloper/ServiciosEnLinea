@@ -1,0 +1,48 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg" ng-controller="maintenanceordersInvoicesExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=monetization_on></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_EXPENSES</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-content layout=column layout-padding>
+				<!-- TRABAJOS A REALIZAR -->
+				<div class="card card-outline card-warning no-margin" layout-padding>
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_GENERATED_INVOICES</h3>
+					</div>
+					<div class="card-body no-padding">
+              <table class="table table-striped no-margin">
+                <tr>
+                 	<th class="text-center"><span translate>#</span></th>
+                 	<th class="text-center"><span translate>LB_TYPE</span></th>
+                 	<th class="text-center"><span translate>LB_DESCRIPTION</span></th>
+                 	<th class="text-center"><span translate>LB_VALUE</span></th>
+                 	<th class="text-center"><span translate>LB_ACTION</span></th>
+                </tr>
+                <tr ng-repeat="(key,invoice) in frmParent.invoicesList">
+                  <td class="text-center">{{$index+1}}</td>
+                  <td><select class="form-control input-sm" ng-model="invoice.factura_tipo" ng-options="val as val for (key,val) in string2JSON('replacementType')" required></select></td>
+                  <td><input type="text" class="form-control input-sm" ng-model="invoice.factura_numero" placeholder="Ej. N° 001-456-7889" required /></td>
+                  <td><input type="number" step="0.01" min="0" parse-float class="form-control input-sm" ng-model="invoice.factura_valor" placeholder="Ej. N° 001-456-7889" required /></td>
+                  <td class="text-center"><button type="button" class="btn btn-danger btn-sm" ng-click="removeItem(invoice)"><i-fa i=trash></i-fa></button></td>
+                </tr>
+              </table>
+					</div>
+					<div class="card-footer">
+						<button type="button" class="btn btn-block btn-primary btn-sm" ng-click="addJobToDo()"><span translate>LB_NEW</span></button>
+					</div>
+				</div>
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

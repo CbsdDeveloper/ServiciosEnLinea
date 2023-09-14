@@ -1,0 +1,76 @@
+<div class="card container-main">
+	<div class="card-header text-center">
+    <img alt="CBSD" src="/app/src/img/system/escudo.png" class="img-responsive">
+	</div>
+	
+  <form name="formData" ng-submit="submitForm()" class="form-fa" ng-hide="request.pass">
+    <div class="card-body">
+    	<div class="form-group">
+      	<i-fa i=user></i-fa>
+        <input name="user" autocomplete="off" autofocus="autofocus" ng-model="frmLogin.usuario_login" class="form-control" placeholder="Ingrese su usuario" required>
+    	</div>
+    	<div class="form-group">
+      	<i-fa i=lock></i-fa>
+        <input type="password" name="pass" ng-model="frmLogin.usuario_password" class="form-control" placeholder="Ingrese su contraseña" required>
+    	</div>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-success btn-block" ng-disabled="formData.$invalid">
+      	<span translate>BTN_LOGIN</span>
+      	<i-fa i=sign-in></i-fa>
+      </button>
+			<br>
+			<div class="text-right margin-top row pull-right">
+				<div class="col-md-6 col-xs-12 no-padding-right">
+					<a ui-sref="restore"><small translate>BTN_RECOVERY_PASS</small> <i-fa i="unlock"></i-fa></a>
+				</div>
+				<div class="col-md-6 col-xs-12 no-padding-right">
+					<a href="http://online.cbsd.gob.ec/denuncias-en-linea/" target="_blank"><small translate>LB_COMPLAINT_ONLINE</small> <i-fa i="inbox"></i-fa></a>
+				</div>
+				<div class="col-md-6 col-xs-12 no-padding-right"></div>
+				<div class="col-md-6 col-xs-12 no-padding-right">
+					<a href="/app/src/formats/manual_adminlogin.pdf" target="_blank"><small translate>LB_USER_MANUAL</small> <i-fa i="book"></i-fa></a>
+				</div>
+			</div>
+    </div>
+  </form>
+  
+  <form name="formData1" ng-submit="submitForm()" ng-show="request.pass">
+    <div class="card-body">
+    	<div class="form-group required">
+				<label translate>LB_USER</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><i-fa i=user></md-ico></div></div> 
+	        <input ng-model="frmLogin.usuario_login" class="form-control" placeholder="{{'LB_USER' | translate}}" readonly required>
+				</div>
+			</div>
+    	<div class="form-group required">
+				<label translate>LB_NEW_PASSWORD</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><i-fa i=unlock></md-ico></div></div> 
+	        <input type="password" ng-model="frmLogin.usuario_new_password" class="form-control" placeholder="Ej. ******" required>
+				</div>
+			</div>
+    	<div class="form-group required">
+				<label translate>LB_CONFIRM_PASSWORD</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><i-fa i=unlock-alt></md-ico></div></div> 
+	        <input type="password" ng-model="frmLogin.usuario_password_new" class="form-control" placeholder="Ej. ******" required>
+				</div>
+			</div>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary btn-block" ng-disabled="formData1.$invalid">
+      	<span translate>BTN_LOGIN</span>
+      	<i-fa i=sign-in></i-fa>
+      </button>
+      <button type="button" class="btn btn-info btn-block" ng-click="openInstructions()">
+      	<span translate>LB_HELP</span>
+      	<i-fa i=info></i-fa>
+      </button>
+    </div>
+  </form>
+  
+ </div>
+
+<div class="footer_bg"><div class="footer_bg_two"></div></div>

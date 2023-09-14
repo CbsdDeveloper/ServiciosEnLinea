@@ -1,0 +1,87 @@
+<md-dialog aria-label="Dialog" class="modal-dialog modal-lg">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=markunread_mailbox></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_COMPLAINTS</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	<div class="form-group required">
+				<label translate>LB_SENDER</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=person></md-ico></div></div> 
+			    <input type="text" ng-model="frmParent.mensaje_nombre" class="form-control" disabled="disabled">
+				</div>
+			</div>
+    	<div layout-xs=column layout=row layout-padding>
+	    	<div class="form-group required" flex>
+					<label translate>LB_TEL</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=phone></md-ico></div></div> 
+				    <input type="text" ng-model="frmParent.mensaje_telefono" class="form-control"  disabled="disabled">
+					</div>
+				</div>
+	    	<div class="form-group required" flex>
+					<label translate>LB_MAIL</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=mail></md-ico></div></div> 
+				    <input type="text" ng-model="frmParent.mensaje_email" class="form-control"  disabled="disabled">
+					</div>
+				</div>
+    	</div>
+    	<div class="form-group required">
+				<label translate>LB_SUBJECT</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+			    <input type="text" ng-model="frmParent.mensaje_asunto" class="form-control"  disabled="disabled">
+				</div>
+			</div>
+    	<div class="form-group required">
+				<label translate>LB_DETAIL</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+			    <textarea rows="7" ng-model="frmParent.mensaje_detalle" class="form-control text-justify"  disabled="disabled"></textarea>
+				</div>
+			</div>
+    	<div layout-xs=column layout=row layout-padding>
+	    	<div class="form-group required" flex>
+					<label translate>LB_DATE</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+				    <input type="text" ng-model="frmParent.mensaje_fecha" class="form-control"  disabled="disabled">
+					</div>
+				</div>
+	    	<div class="form-group required" flex>
+					<label translate>LB_PC</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=computer></md-ico></div></div> 
+				    <input type="text" ng-model="frmParent.mensaje_equipo" class="form-control"  disabled="disabled">
+					</div>
+				</div>
+    	</div>
+    	<div layout-xs=column layout=row layout-padding>
+	    	<div class="form-group required" flex>
+					<label translate>LB_IP</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info_outline></md-ico></div></div> 
+				    <input type="text" ng-model="frmParent.mensaje_ip" class="form-control"  disabled="disabled">
+					</div>
+				</div>
+	    	<div class="form-group required" flex>
+					<label translate>LB_ADDRESS</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=directions></md-ico></div></div> 
+				    <input type="text" ng-model="frmParent.mensaje_ubicacion" class="form-control"  disabled="disabled">
+					</div>
+				</div>
+    	</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>LB_CLOSE</span></md-button>
+	</md-dialog-actions>
+</md-dialog>

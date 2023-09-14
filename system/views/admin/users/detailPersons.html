@@ -1,0 +1,182 @@
+﻿<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		<card-person class="card-information" ng-if="detailConfig.show" flex></card-person>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=person></md-ico></md-button>
+						<h2>{{dataEntity.persona_apellidos}} {{dataEntity.persona_nombres}}</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<md-tabs md-dynamic-height md-border-bottom>
+						<md-tab label="{{'LB_ACADEMIC_TRAINING' | translate}}">
+							<md-content ng-controller="academicTrainingPersonCtrl">
+								<div ng-controller="myTableCtrl">
+									<div class="md-toolbar-tools">
+										<md-button aria-label="btn" class="md-icon-button"><md-ico i=school></md-ico></md-button>
+										<h2 translate>TOOLBAR_UTILS</h2>
+										<span flex></span>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="openModal(mergeData(dataEntity,{fk_persona_id:dataEntity.persona_id,edit:false}))"><md-ico i=add></md-ico></md-button>
+									</div>
+									<toolbar-filter></toolbar-filter>
+									<md-divider></md-divider>
+									<div layout-xs=column layout=row layout-padding layout-wrap>
+										<div style="min-width:350px;max-width:480px" flex ng-repeat="row in rowsParent.data">
+											<div class="card card-outline card-{{string2JSON('colorCss')[$index]}}">
+											  <div class="card-body box-profile text-center">
+											    <md-ico i=school s=64></md-ico>
+													<h3 class="profile-username text-center">{{row.formacion_titulo}}</h3>
+											    <hr>
+											    <strong><md-ico i=school s=18></md-ico> <span translate>LB_TITLE_LEVEL</span></strong>
+											    <p class="text-muted text-center">{{row.formacion_nivel}}</p>
+											    <hr>
+													<strong><md-ico i=business s=18></md-ico> <span translate>LB_INSTITUTION</span></strong>
+											    <p class="text-muted text-center">{{row.formacion_institucion}}</p>
+											    <hr>
+											    <strong><md-ico i=copyright s=18></md-ico>
+											    	<a href="http://www.senescyt.gob.ec/web/guest/consultas" target="blank_" ng-if="row.formacion_nivel=='BACHILLER'" translate>LB_REFLECTION_BACHILLER</a>
+											    	<a href="http://www.senescyt.gob.ec/web/guest/consultas" target="blank_" ng-if="row.formacion_nivel!='BACHILLER'" translate>LB_TITLE_SENESCYT</a>
+											    </strong>
+											    <p class="text-muted text-center">{{row.formacion_senescyt}}</p>
+											    <hr>
+											    <strong><md-ico i=flag s=18></md-ico> <span translate>LB_STATUS</span></strong>
+											    <p class="text-muted text-center" ng-bind-html="statusLabel[row.formacion_estado]"></p>
+											    <hr>
+											    <strong><md-ico i=event_note s=18></md-ico> <span translate>LB_BEGIN_STUDY</span></strong>
+											    <p class="text-muted text-center">{{row.formacion_fingreso | date:'longDate'}}</p>
+											    <div ng-if="row.formacion_estado=='FINALIZADO'">
+												    <hr>
+												    <strong><md-ico i=event_available s=18></md-ico> <span translate>LB_END_STUDY</span></strong>
+												    <p class="text-muted text-center">{{row.formacion_fsalida | date:'longDate'}}</p>
+											    </div>
+											  </div>
+												<div class="card-footer">
+											    <button ng-click="openModal(mergeData(dataEntity,row))" class="btn btn-primary btn-block">
+											    	<md-ico i=edit s=18></md-ico>
+											    	<b translate>BTN_UPDATE</b>
+											    </button>
+													<button class="btn btn-warning btn-block" ng-click="openParentModal('PDFViewer',{embed:'personal/'+row.formacion_pdf,label:row.formacion_titulo})" ng-if="row.formacion_pdf!='' && row.formacion_pdf!=null">
+														<md-ico i=file_download s=18></md-ico>
+											    	<b translate>LB_DOWNLOAD</b>
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<footer-table></footer-table>
+								</div>
+							</md-content>
+						</md-tab>
+						
+						<md-tab label="{{'LB_COURSES_COMPLETED' | translate}}">
+							<md-content ng-controller="trainingsPersonCtrl">
+								<div ng-controller="myTableCtrl">
+									<div class="md-toolbar-tools">
+										<md-button aria-label="btn" class="md-icon-button"><md-ico i=receipt></md-ico></md-button>
+										<h2 translate>TOOLBAR_UTILS</h2>
+										<span flex></span>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="openModal(mergeData(dataEntity,{fk_persona_id:dataEntity.persona_id,edit:false}))"><md-ico i=add></md-ico></md-button>
+									</div>
+									<toolbar-filter></toolbar-filter>
+									<md-divider></md-divider>
+									<div layout-xs=column layout=row layout-padding layout-wrap>
+										<div style="min-width:350px;max-width:480px" flex ng-repeat="row in rowsParent.data">
+											<div class="card card-outline card-{{string2JSON('colorCss')[$index]}}">
+											  <div class="card-body box-profile text-center">
+											    <md-ico i=receipt s=64></md-ico>
+													<h3 class="profile-username text-center">{{row.capacitacion_tema}}</h3>
+											    <hr>
+													<strong><md-ico i=business s=18></md-ico> <span translate>LB_INSTITUTION</span></strong>
+											    <p class="text-muted text-center">{{row.capacitacion_institucion}}</p>
+											    <hr>
+											    <strong><md-ico i=event s=18></md-ico> <span translate>LB_DATE</span></strong>
+											    <p class="text-muted text-center">{{row.capacitacion_fecha | date:'longDate'}}</p>
+											    <hr>
+											    <strong><md-ico i=timelapse s=18></md-ico> <span translate>LB_TRAINING_TIME</span></strong>
+											    <p class="text-muted text-center">{{row.capacitacion_horas}}</p>
+											  </div>
+												<div class="card-footer">
+											    <button ng-click="openModal(mergeData(dataEntity,row))" class="btn btn-primary btn-block">
+											    	<md-ico i=edit s=18></md-ico>
+											    	<b translate>BTN_UPDATE</b>
+											    </button>
+													<button class="btn btn-warning btn-block" ng-click="openParentModal('PDFViewer',{embed:'personal/'+row.capacitacion_pdf,label:row.capacitacion_tema})" ng-if="row.capacitacion_pdf!='' && row.capacitacion_pdf!=null">
+														<md-ico i=file_download s=18></md-ico>
+											    	<b translate>LB_DOWNLOAD</b>
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<footer-table></footer-table>
+								</div>
+							</md-content>
+						</md-tab>
+						
+						<md-tab label="{{'LB_EMPLOYMENT_HISTORY' | translate}}">
+							<md-content ng-controller="employmentsPersonCtrl">
+								<div ng-controller="myTableCtrl">
+									<div class="md-toolbar-tools">
+										<md-button aria-label="btn" class="md-icon-button"><md-ico i=assignment_ind></md-ico></md-button>
+										<h2 translate>TOOLBAR_UTILS</h2>
+										<span flex></span>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="openModal(mergeData(dataEntity,{fk_persona_id:dataEntity.persona_id,edit:false}))"><md-ico i=add></md-ico></md-button>
+									</div>
+									<toolbar-filter></toolbar-filter>
+									
+									<md-table-container>
+								    <table md-table class="md-primary table-hover" md-progress="deferred">
+								      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+												<tr md-row>
+													<th md-column md-order-by="experiencia_institucion"><span translate>LB_INSTITUTION</span></th>
+													<th md-column md-order-by="experiencia_cargo"><span translate>LB_JOB</span></th>
+													<th md-column md-order-by="experiencia_fingreso"><span translate>LB_DATES</span></th>
+													<th md-column><span translate>LB_MENU</span></th>
+												</tr>
+								      </thead>
+								      <tbody>
+												<tr md-row data-ng-repeat="row in rowsParent.data">
+													<td md-cell>
+														<md-ico i=business></md-ico><span ng-bind-html="highlight(row.experiencia_institucion)"></span><br>
+														<md-ico i=person></md-ico><span ng-bind-html="highlight(row.experiencia_responsable)"></span><br>
+														<md-ico i=phone></md-ico><span ng-bind-html="highlight(row.experiencia_telefono)"></span><br>
+														<md-ico i=mail></md-ico><span ng-bind-html="highlight(row.experiencia_correo)"></span>
+													</td>
+													<td md-cell>
+														<md-ico i=accessible></md-ico><span ng-bind-html="highlight(row.experiencia_area)"></span><br>
+														<md-ico i=accessibility></md-ico><span ng-bind-html="highlight(row.experiencia_cargo)"></span>
+													</td>
+													<td md-cell>
+														<md-ico i=event_available></md-ico>{{row.experiencia_fingreso | date:'longDate'}}<br>
+														<md-ico i=event_busy></md-ico>{{row.experiencia_fsalida | date:'longDate'}}<br>
+														<md-ico i=insert_comment></md-ico><span ng-bind-html="highlight(row.experiencia_msalida)"></span>
+													</td>
+													<td md-cell class="table-menu text-center">
+													  <menu-single></menu-single>
+													</td>
+												</tr>
+								      </tbody>
+								    </table>
+									</md-table-container>
+									<footer-table></footer-table>
+								</div>
+							</md-content>
+						</md-tab>
+				</md-tabs>
+			</md-card>
+		</div>
+	</div>
+</div>

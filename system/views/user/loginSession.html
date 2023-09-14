@@ -1,0 +1,29 @@
+<div class="card card-outline card-primary box-main" style="margin:0px auto;">
+	<div class="card-header">
+    <img alt="CBSD" src="/app/src/img/system/logo.png" class="img-responsive">
+	</div>
+	
+  <form name="formData" ng-submit="submitForm()" ng-hide="request.pass">
+    <div class="card-body">
+    	<div class="form-group required">
+    		<div class="input-group">
+	      	<div class="input-group-prepend"><div class="input-group-text"><md-ico i=account_circle></md-ico></div></div> 
+	        <input name="user" ng-model="frmLogin.usuario_login" class="form-control" placeholder="{{'LB_USER' | translate}}" required>
+    		</div>
+    	</div>
+    	<div class="form-group required">
+    		<div class="input-group">
+	      	<div class="input-group-prepend"><div class="input-group-text"><md-ico i=lock></md-ico></div></div> 
+	        <input type="password" name="pass" ng-model="frmLogin.usuario_password" class="form-control" placeholder="{{'LB_PASS' | translate}}" required>
+				</div>
+    	</div>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-success btn-block" ng-disabled="formData.$invalid">
+      	<span translate>BTN_LOGIN</span>
+      	<i-fa i=sign-in></i-fa>
+      </button>
+    </div>
+  </form>
+  
+ </div>

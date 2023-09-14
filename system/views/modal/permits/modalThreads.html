@@ -1,0 +1,34 @@
+<md-dialog aria-label="Dialog" class="modal-dialog modal-lg" ng-controller="FormThreadsCtrl">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=assignment></md-ico></md-button>
+				<h2 translate>TOOLBAR_QUESTION</h2>
+				<span flex></span>
+				<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<md-content layout-padding layout=column layout-wrap>
+				<div flex=100>
+         	<ul class="timeline" ng-repeat="(key, requerimientos) in jsonData">
+				    <li class="time-label"><span class="bg-green">{{key}}</span></li>
+				    <li ng-repeat="(key2, preguntas) in requerimientos">
+			        <i class="fa fa-{{icons[key2]}} bg-blue"></i>
+			        <div class="timeline-item">
+								<h3 class="timeline-header"><b>{{key2}}</b></h3>
+			          <div class="timeline-body" ng-repeat="pregunta in preguntas">
+			          	<md-checkbox ng-checked="exists(pregunta.pregunta_id, selected)"  ng-click="toggle(pregunta.pregunta_id, selected)">
+										{{pregunta.pregunta_id}}. {{pregunta.pregunta_nombre}} <i><b><span ng-if="exists(pregunta.pregunta_id, selected)">Activo</span></b></i>
+									</md-checkbox>
+								</div>
+			        </div>
+				    </li>
+					</ul>
+				</div>
+			</md-content>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<span flex></span>
+			<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+		</md-dialog-actions>
+</md-dialog>

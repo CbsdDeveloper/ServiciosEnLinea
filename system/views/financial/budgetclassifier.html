@@ -1,0 +1,44 @@
+﻿<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+	<md-toolbar  ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=class></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_BUDGET_CLASSIFIER_OF_INCOME_AND_EXPENSES</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<datatable-toolbar></datatable-toolbar>
+	<md-divider></md-divider>
+	<md-table-container>
+			<table md-table class="md-primary table-hover" md-progress="deferred">
+	      <col style="">
+	     	<col style="width:25%">
+	     	<col style="width:5%">
+				<thead md-head md-order="filterParent.sortData" md-on-reorder="onOrderParent">
+					<tr md-row>
+						<th md-column><span translate>LB_HIRING</span></th>
+						<th md-column><span translate>LB_DETAIL</span></th>
+						<th md-column><span translate>LB_MENU</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr md-row data-ng-repeat="row in rowsParent.rows">
+						<td md-cell class="text-uppercase">
+							
+							<md-ico i=flag></md-ico><span ng-bind-html="highlight(row.clasificador_codigo)"></span><br>
+							<md-ico i=flag></md-ico><span ng-bind-html="highlight(row.clasificador_nombre)"></span><br>
+							
+						</td>
+						<td md-cell class="text-uppercase">
+							
+						</td>
+						<td md-cell class="table-menu text-center">
+							
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</md-table-container>
+		<datatable-footer></datatable-footer>
+</md-card>

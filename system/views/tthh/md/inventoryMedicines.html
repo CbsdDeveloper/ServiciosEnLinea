@@ -1,0 +1,105 @@
+<form class="font-label-mini" name="formData">
+	
+	<!-- FORMULARIO -->
+	<md-card>
+		<md-toolbar ng-hide="filter.show" class="no-padding">
+			<div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=healing></md-ico></md-button>
+				<h2 translate>TOOLBAR_MEDICINES</h2>
+				<span flex></span>
+				<md-button type="button" ng-click="printStock()">
+					<span translate>LB_PRINT_STOCK</span>
+					<md-ico i=print s=18></md-ico>
+				</md-button>
+				<md-button type="button" ng-click="reloadList()">
+					<span translate>LB_UPDATE_RECORDS</span>
+					<md-ico i=refresh s=18></md-ico>
+				</md-button>
+				<md-button type="button" ng-click="goUI('tthh.medical.supplies')">
+					<span translate>LB_FULL_LIST</span>
+					<md-ico i=playlist_add_check s=18></md-ico>
+				</md-button>
+				<md-button type="button" ng-click="submitForm()" ng-disabled="formData.$invalid">
+					<span translate>LB_SAVE_CHANGES</span>
+					<i-fa i=angle-double-right></i-fa>
+				</md-button>
+			</div>
+		</md-toolbar>
+	</md-card>
+	
+	<!-- FILTRO DE PASAJEROS -->
+	<div class="padding-all">
+		<div class="card">
+			<div class="card-body padding-all text-center">
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=search></md-ico></div></div> 
+					<input ng-model="frmParent.filter" class="form-control" placeholder="Ej. 1236587490" maxlength="20">
+					<span class="input-group-prepend">
+						<button type="button" class="btn btn-default" ng-if="frmParent.filter!=''" ng-click="frmParent.filter=''"><md-ico i=clear></md-ico></button>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div> 
+	
+	<div class="row no-margin font-13">
+	
+		<div class="col-md-4 col-xs-12" ng-repeat="item in medicinesList | filter : frmParent.filter">
+			<div class="card margin-bottom">
+			
+		    <div class="card-header with-border">
+		      <h3 class="card-title"><small class="text-bold">{{item.medicamento_codigo}}. {{item.medicamento_nombre}}<br>{{'LB_PRESENTATION' | translate}}: {{item.medicamento_presentacion}}</small></h3>
+		      <div class="card-tools">
+						<button type="button" class="btn btn-tool" ng-click="$parent.openCustomModal('tthh/md','Medicamentos',item)">
+							<i class="fa fa-edit"></i>
+							<md-tooltip><span translate>LB_EDIT</span></md-tooltip>
+						</button>
+					</div>
+		    </div>
+		    
+		    <div class="card-body" layout=column layout-padding>
+					<div class="form-group">
+						<div class="input-group text-left">
+							<div class="input-group-prepend"><div class="input-group-text"><small translate>LB_STOCK</small></div></div> 
+							<input ng-model="item.total_medicamento" class="form-control font-digital form-control-sm" readonly="readonly">
+							<div class="input-group-prepend"><div class="input-group-text"><small>{{item.medicamento_dosis}}</small></div></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><small translate>LB_INCOME_OR_EGRESS</small></div></div> 
+							<input parse-float type="number" step="1" ng-model="item.inventario_cantidad" class="form-control font-digital form-control-sm">
+							<div class="input-group-prepend"><div class="input-group-text"><small>{{item.medicamento_dosis}}</small></div></div>
+						</div>
+					</div>
+					<div class="form-group" ng-if="item.inventario_cantidad!=0">
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div>
+							<textarea rows="2" ng-model="item.inventario_descripcion" class="form-control form-control-sm" required></textarea>
+						</div>
+					</div>
+					<div ng-if="item.inventario_cantidad!=0">
+		      	<button type="button" class="btn btn-success btn-block" ng-click="saveItem(item)"><span translate>BTN_SAVE</span></button>
+		    	</div>
+		  	</div>
+		  
+			</div>
+		</div>
+	
+	</div>
+		
+	<!-- BOTONES -->
+	<div layout-xs=column layout=row layout-padding>
+    <div flex>
+			<a class="btn btn-warning btn-block btn-sm" ui-sref="tthh.medical.supplies">
+		  	<i-fa i=angle-double-left></i-fa> <span translate>LB_DISCARD_CHANGES</span>
+			</a>
+		</div>
+		<div flex>
+			<button class="btn btn-success btn-block btn-sm" ng-click="submitForm()" ng-disabled="formData.$invalid">
+				<span translate>LB_SAVE_CHANGES</span> <i-fa i=angle-double-right></i-fa>
+			</button>
+		</div>
+  </div>
+  
+</form>

@@ -1,0 +1,72 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=chrome_reader_mode></md-ico></md-button>
+			<h2 translate>TOOLBAR_NEWS_BOOK</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal({edit:false,type:'new'})"><md-ico i=add></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-divider></md-divider>
+	<md-toolbar >
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><md-ico i=local_shipping></md-ico></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="(FLOTAS VEHICULARES) Ingresar las siglas de unidad más la clave de salida. Ej. R-13 7-98" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+	  </form>
+	</md-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="">
+     	<col style="width:25%;">
+     	<col style="width:10%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_BINNACLE</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody class="text-uppercase">
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<md-ico i=fingerprint></md-ico><span ng-bind-html="highlight(row.bitacora_codigo)"></span><br>
+						<md-ico i=chrome_reader_mode></md-ico><span ng-bind-html="highlight(row.bitacora_detalle)"></span><br>
+						<md-ico i=event></md-ico><span ng-class="[{'badge bg-green':row.bitacora_fecha_tipo=='SISTEMA'}]" ng-bind-html="highlight(row.bitacora_fecha)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.bitacora_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.bitacora_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+					</td>
+					<td md-cell>
+						
+						<md-menu md-position-mode="target-right target" >
+						  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+						    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+						  </md-button>
+						  <md-menu-content width="5">
+						    <md-menu-item>
+						      <md-button aria-label="editar" ng-click="openModal(mergeData(row,{type:'new'}))">
+						          <div layout="row" flex>
+						            <p flex translate>LB_EDIT</p>
+						            <md-icon md-menu-align-target class="md-menu-btn-ico">
+						              <md-ico i=edit s=18></md-ico>
+						            </md-icon>
+						          </div>
+						      </md-button>
+						    </md-menu-item>
+						  </md-menu-content>
+						</md-menu>
+						
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

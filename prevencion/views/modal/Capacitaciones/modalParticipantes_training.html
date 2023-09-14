@@ -1,0 +1,57 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg">
+	<form name="formData">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=people></md-ico></md-button>
+			<h2 translate>LB_CHOOSE_PEOPLE</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" aria-label="btn" ng-click="closeDialog()"><md-ico i=close></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content ng-controller="trainingExtendsCtrl">
+		<md-content layout=column layout-padding>
+			
+			<!-- FILTRO DE PARTICIPANTES -->
+			<div class="box box-primary no-margin">
+				<div class="box-body text-center">
+					<div class="input-group">
+						<span class="input-group-addon"><i-fa i=search></i-fa></span>
+						<input ng-model="frmParent.filter" class="form-control" placeholder="Ej. 1236587490" maxlength="20">
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-if="frmParent.filter!=''" ng-click="frmParent.filter=''"><i-fa i=eraser></i-fa></button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<!-- LISTADO DE PARTICIPANTES -->
+			<div class="box box-warning no-margin no-padding margin-top">
+				<div class="box-header with-border text-center">
+        	<h3 class="box-title" translate>LB_BRIGADISTS</h3>
+				</div>
+        <div class="row box-body no-margin">
+					<div class="col-md-6 col-xs-12 md-2-line contact-item" ng-repeat="row in list | filter : frmParent.filter">
+			      <label class="label">
+					    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.selected" checklist-value="row.participante_id" />
+					    <span class="label__text">
+					      <span class="label__check">
+					        <i class="fa fa-check icon"></i>
+					      </span>
+					    </span>
+					  </label>
+			      <div class="md-list-item-text compact">
+			       	<span class="text-bold" ng-bind-html="highlight(row.persona_apellidos+' '+row.persona_nombres,filterData)"></span>
+			        <p style="font-size:11px;" ng-bind-html="highlight(row.persona_doc_identidad,filterData)"></p>
+			      </div>
+					</div>
+				</div>
+			</div>
+			
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type=button ng-click="submitForm()" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+	</form>
+</md-dialog>

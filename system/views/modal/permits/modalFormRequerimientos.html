@@ -1,0 +1,37 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=assignment></md-ico></md-button>
+				<h2 translate>LB_REQUIREMENTS</h2>
+				<span flex></span>
+				<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content ng-controller="FormRequirementsCtrl">
+			<md-content layout=column layout-padding>
+				<div style="margin-top:8px;" ng-repeat="(key, requirements) in jsonData" layout-padding>
+					<div class="box no-margin box-success">
+	          <div class="card-header with-border text-center">
+	            <h3 class="card-title">{{key}}</h3>
+	          </div>
+	          <div class="card-body" layout=column layout-wrap>
+	          	<div flex ng-repeat="item in requirements">
+								<md-checkbox ng-checked="exists(item.requerimiento_id,selected)"  ng-click="toggle(item.requerimiento_id,selected)">
+								 {{item.requerimiento_id}}. 
+	          			<i-fa i={{item.requerimiento_icono}} s=lg c=fw></i-fa>
+								 {{item.requerimiento_nombre}} 
+								 <i><b><span ng-if="exists(item.requerimiento_id,selected)">Activo</span></b></i>
+								 <br><span>{{item.requerimiento_descripcion}}</span>
+								</md-checkbox>
+							</div>
+	          </div>
+	        </div>
+				</div>
+			</md-content>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<span flex></span>
+			<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+		</md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,67 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=record_voice_over></md-ico></md-button>
+			<h2 translate>TOOLBAR_TRAINERS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+		<md-divider ng-if="allow.permiso6121"></md-divider>
+	<md-toolbar  ng-if="allow.permiso6121">
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><i-fa i=barcode s=lg></i-fa></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="{{'LB_CC_DNI_REQUEST' | translate}}" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+	  </form>
+	</md-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="width:100px;">
+     	<col style="">
+     	<col style="width:20%;">
+     	<col style="width:20%;">
+     	<col style="width:3%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate></span></th>
+					<th md-column><span translate>LB_PERSONAL_INFORMATION</span></th>
+					<th md-column><span translate>LB_JOBS</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{row.persona_imagen}}" style="width:64px;height:64px;padding:5px" class="img-circle" alt="img" />
+						<md-tooltip>{{row.puesto_modalidad}}</md-tooltip>
+					</td>
+					<td md-cell>
+						<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.persona_doc_identidad)"></span><br>
+						<a ui-sref="tthh.detailStaff({id:row.personal_id})" target="_balnk"><md-ico i=person></md-ico></a><span ng-bind-html="highlight(row.personal_nombre)"></span><br>
+						<md-ico i=email></md-ico><span ng-bind-html="highlight(row.persona_correo)"></span><br>
+						<md-ico i=phone></md-ico><span ng-bind-html="highlight(row.persona_telefono)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="highlight(row.estacion)"></span><br>
+						<md-ico i=account_balance></md-ico><span ng-bind-html="highlight(row.direccion_nombre)"></span><br>
+						<md-ico i=wrap_text></md-ico><span ng-bind-html="highlight(row.puesto_nombre)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.trainer_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.trainer_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <menu-mini ng-if="allow.permiso6122"></menu-mini>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

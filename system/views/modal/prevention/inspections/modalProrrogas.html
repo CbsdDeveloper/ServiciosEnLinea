@@ -1,0 +1,45 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg">
+  <form name="formData" ng-submit="submitForm()" class="form-uppercase">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=event_available></md-ico></md-button>
+				<h2 translate>TOOLBAR_EXTENSIONS</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	<!-- INFORMACIÓN DEL PLAN DE EMERGENCIA -->
+    	<card-extension-information layout-padding></card-extension-information>
+			<!-- INFORMACIÓN DEL ESTABLECIMIENTO -->
+			<div class="card card-outline card-primary no-margin margin-top" layout-padding>
+				<div class="card-header text-center">
+				  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+				<div class="card-body padding-all" layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_STATUS</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.prorroga_estado" ng-options="val as val for (key,val) in string2JSON('extensionStatusList')"></select>
+						</div>
+					</div>
+					<div class="form-group required">
+						<label translate>LB_OBSERVATION</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><i-fa i=comments></md-ico></div></div> 
+					    <textarea rows="5" class="form-control input-sm" ng-model="frmParent.prorroga_observacion" required></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

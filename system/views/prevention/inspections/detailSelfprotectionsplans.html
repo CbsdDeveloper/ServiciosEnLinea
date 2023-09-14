@@ -1,0 +1,538 @@
+﻿<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+	
+		<!-- INFORMACION DE ENTIDAD -->
+		<card-plan class="card-information" ng-if="detailConfig.show" flex></card-plan>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=security></md-ico></md-button>
+						<h2>{{dataEntity.plan_codigo}}</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="reloadData()">
+							<md-ico i=refresh></md-ico>
+							<md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+						</md-button>
+						
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<md-tabs md-dynamic-height md-border-bottom>
+					
+					<!-- INFORMACION -->
+					<md-tab label="{{'LB_INFORMATION' | translate}}">
+						
+						<!-- INFORMACION DE LOCAL -->
+						<div class="padding-all row no-margin gallery-columns" layout-padding>
+							<table class="table table-bordered text-uppercase font-11">
+								<col style="width:30%;">
+								<col style="width:70%;">
+								<thead>
+									<tr><th colspan="2" class="text-center">{{dataEntity.local.local_nombrecomercial}}</th></tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>DETALLE DE EDIFICACIÓN</td>
+										<td>
+											<b>TIPO DE EDIFICACIÓN: </b>{{dataEntity.local.local_tipo_edificacion}} / {{dataEntity.local.local_edificacion}}<BR>
+											<b>NÚMERO DE EDIFICACIONES: </b>{{dataEntity.local.local_numero_edificaciones}}<BR>
+											<b>NÚMERO DE PLANTAS: </b>{{dataEntity.local.local_pisos}}<BR>
+											<b>Años de construcción de la edificación: </b>{{dataEntity.local.local_area_sector_incendio}}<BR>
+											<b>CLAVE CATASTRAL: </b>{{dataEntity.plan_clavecatastral}}
+										</td>
+									</tr>
+									<tr>
+										<td>DETALLE DE ÁREAS</td>
+										<td>
+											<b>ÁRA DEL TERRENO: </b>{{dataEntity.local.local_area_terreno}} m2<BR>
+											<b>ÁREA DE CONSTRUCCIÓN: </b>{{dataEntity.local.local_area_construccion}} m2 => <b>ÁREA ÚTIL DE TRABAJO: </b>{{dataEntity.local.local_area}} m2<BR>
+											<b>Área correspondiente al sector de incendio: </b>{{dataEntity.local.local_anios_construccion}} m2<BR>
+											<b>ALTURA DE LA EDIFICACIÓN: </b>{{dataEntity.local.local_altura_edificacion}} M
+										</td>
+									</tr>
+									<tr>
+										<td>CANTIDAD DE EMPLEADOS</td>
+										<td>
+											<b>{{dataEntity.local.local_aforo_hombres}}</b> HOMBRES + <b>{{dataEntity.local.local_aforo_mujeres}}</b> MUJERES = <b>{{dataEntity.local.local_empleados}} EMPLEADOS</b>
+										</td>
+									</tr>
+									<tr>
+										<td>CLASIFICACIÓN DE PERSONAL POR AREAS (<small>DEL TOTAL DE EMPLEADOS</small>)</td>
+										<td>
+											<b>PERSONAS QUE LABORAN FUERA DE LA OFICINA: </b>{{dataEntity.local.local_aforo_campo}}<BR>
+											<b>PERSONAS QUE LABORAN EN LA OFICINA: </b>{{dataEntity.local.local_aforo_planta}}
+										</td>
+									</tr>
+									<tr>
+										<td>PERSONAS CON CAPACIDADES ESPECIALES (<small>DEL TOTAL DE EMPLEADOS</small>)</td>
+										<td>
+											<b>HOMBRES: </b>{{dataEntity.local.local_aforo_especiales}}<BR>
+											<b>MUJERES: </b>{{dataEntity.local.local_aforo_especiales_mujeres}}
+										</td>
+									</tr>
+									<tr>
+										<td>DETALLE DE AFORO</td>
+										<td>
+											<b>NÚMERO DE USUARIOS MÁXIMO QUE PUEDE ATENDER DE MANERA SIMULTÁNEA: </b>{{dataEntity.local.local_aforo_simultaneo}}<BR>
+											<b>AFORO TOTAL [empleados en edificación + visitantes]: </b>{{dataEntity.local.local_aforo}}
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						
+						<!-- INFORMACION GENERAL -->
+						<div class="padding-all row no-margin gallery-columns" layout-padding>
+							<div class="col-md-4 col-xs-12">
+								<card-entity flex></card-entity>
+							</div>
+							<div class="col-md-4 col-xs-12">
+								<card-local flex></card-local>
+							</div>
+							
+							<!-- INFORMACION DE RESPONSABLE DE IMPLANTACIÓN DE PLAN -->
+							<div class="col-md-4 col-xs-12">
+								<div class="card card-outline card-dark text-center no-margin">
+									<div class="card-header with-border">
+										<h3 class="card-title" translate>LB_SELFPROTECTION_RESPONSIBLE</h3>
+									</div>
+									<div class="card-body card-entity-information">
+										<strong><md-ico i=person s=18></md-ico> <span translate>LB_NAME</span></strong>
+								    <p class="text-muted">{{dataEntity.sos.person.persona_apellidos}} {{dataEntity.sos.persona_nombres}}</p>
+								    <hr>
+										<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+								    <p class="text-muted">{{dataEntity.sos.persona_doc_identidad}}</p>
+								    <hr>
+										<strong><md-ico i=mail s=18></md-ico> <span translate>LB_MAIL</span></strong>
+								    <p class="text-muted">{{dataEntity.sos.persona_correo}}</p>
+								    <hr>
+										<strong><md-ico i=phone s=18></md-ico> <span translate>LB_TEL</span></strong>
+								    <p class="text-muted">{{dataEntity.sos.persona_telefono}} - {{dataEntity.sos.persona_celular}}</p>
+								    <hr>
+										<strong><md-ico i=flag s=18></md-ico> <span translate>LB_RESPONSIBLE_CHARGE</span></strong>
+								    <p class="text-muted">{{dataEntity.plan_sos}}</p>
+								    
+								    <div ng-if="dataEntity.plan_sos=='PROFESIONAL DE SEGURIDAD DE LA EMPRESA' || dataEntity.plan_sos=='PROFESIONAL CONTRATADO EXTERNAMENTE POR LA EMPRESA'">
+									    <hr>
+											<strong><md-ico i=school s=18></md-ico> <span translate>LB_TITLE_NAME</span></strong>
+									    <p class="text-muted">{{dataEntity.training.formacion_titulo}}</p>
+									    <hr>
+											<strong><md-ico i=account_balance s=18></md-ico> <span translate>LB_INSTITUTION</span></strong>
+									    <p class="text-muted">{{dataEntity.training.formacion_institucion}}</p>
+									    <hr>
+											<strong><md-ico i=event s=18></md-ico> <span translate>LB_REGISTRE_DATE</span></strong>
+									    <p class="text-muted">{{dataEntity.training.formacion_fregistro}}</p>
+									    <hr>
+											<strong><md-ico i=verified_user s=18></md-ico> <span translate>LB_TITLE_SENESCYT</span></strong>
+									    <p class="text-muted">{{dataEntity.training.formacion_senescyt}}</p>
+								    </div>
+								    
+									</div>
+								</div>
+							</div>
+							
+							<!-- INFORMACION DE RESPONSABLE DE TRAMITE -->
+							<div class="col-md-4 col-xs-12">
+								<div class="card card-outline card-purple text-center no-margin">
+									<div class="card-header with-border">
+										<h3 class="card-title" translate>LB_RESPONSIBLE_FOR_THE_PROCESS_DATA</h3>
+									</div>
+									<div class="card-body card-entity-information">
+										<strong><md-ico i=person s=18></md-ico> <span translate>LB_NAME</span></strong>
+								    <p class="text-muted">{{dataEntity.responsable.person.persona_apellidos}} {{dataEntity.responsable.persona_nombres}}</p>
+								    <hr>
+										<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+								    <p class="text-muted">{{dataEntity.responsable.persona_doc_identidad}}</p>
+								    <hr>
+										<strong><md-ico i=mail s=18></md-ico> <span translate>LB_MAIL</span></strong>
+								    <p class="text-muted">{{dataEntity.responsable.persona_correo}}</p>
+								    <hr>
+										<strong><md-ico i=phone s=18></md-ico> <span translate>LB_TEL</span></strong>
+								    <p class="text-muted">{{dataEntity.responsable.persona_telefono}} - {{dataEntity.responsable.persona_celular}}</p>
+								    <hr>
+										<strong><md-ico i=flag s=18></md-ico> <span translate>LB_RESPONSIBLE_CHARGE</span></strong>
+								    <p class="text-muted">{{dataEntity.plan_responsable_tramite}}</p>
+									</div>
+								</div>
+							</div>
+							
+							<!-- DATOS DE FACTURACIÓN -->
+							<div class="col-md-4 col-xs-12">
+								<div class="card card-outline card-warning text-center no-margin">
+									<div class="card-header with-border">
+										<h3 class="card-title" translate>LB_BILLING_INFORMATION</h3>
+									</div>
+									<div class="card-body card-entity-information">
+										
+										<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_RUC</span></strong>
+								    <p class="text-muted">{{dataEntity.billing.entidad_ruc}}<br>{{string2JSON('contribuyenteType')[dataEntity.billing.entidad_contribuyente]}}</p>
+								    <hr>
+										<strong><md-ico i={{string2JSON('mdIconList')[dataEntity.billing.entidad_contribuyente]}} s=18></md-ico> <span translate>LB_TRADENAME</span></strong>
+								    <p class="text-muted">{{dataEntity.billing.entidad_razonsocial}}</p>
+								    <hr>
+										<strong><md-ico i=directions s=18></md-ico> <span translate>LB_BILLING_ADDRESS</span></strong>
+								    <p class="text-muted">{{dataEntity.billing.entidad_direccionfacturacion}}</p>
+								    <hr>
+										<strong><md-ico i=email s=18></md-ico> <span translate>LB_MAIL</span></strong>
+								    <p class="text-muted">{{dataEntity.billing.entidad_correo}}</p>
+								    <hr>
+										<strong><md-ico i=phone s=18></md-ico> <span translate>LB_TEL</span></strong>
+								    <p class="text-muted">{{dataEntity.billing.person.persona_telefono}} - {{dataEntity.billing.person.persona_celular}}</p>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</md-tab>
+					
+					<!-- INSPECTORES ASIGNADOS -->
+					<md-tab label="{{'LB_TECHNICAL_INSPECTORS' | translate}}" ng-if="dataEntity.inspectors.length>0">
+						<div class="no-padding" layout-xs=column layout=row layout-padding layout-wrap>
+							<div style="min-width:350px;max-width:480px" ng-repeat="row in dataEntity.inspectors" flex>
+								<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+									<div class="card-header with-border text-center">
+										<img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{row.ppersonal.staff.person.persona_imagen}}" style="width:128px;height:128px;padding:5px;margin:auto" class="img-circle" alt="img" />
+									</div>
+									<div class="card-body card-entity-information">
+										<h4 class="profile-username">{{row.ppersonal.staff.person.persona_apellidos}} {{row.ppersonal.staff.person.persona_nombres}}</h4>
+										<p class="text-muted text-center"><md-ico i=event s=18></md-ico> {{row.ppersonal.personal_fecha_ingreso | date:'fullDate'}}</p>
+								    <hr>
+										<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+								    <p class="text-muted">{{row.ppersonal.staff.person.persona_doc_identidad}}</p>
+								    <hr>
+										<strong><md-ico i=account_balance s=18></md-ico> <span translate>LB_LEADERSHIP</span></strong>
+								    <p class="text-muted">{{row.ppersonal.job.leadership.direccion_nombre}}</p>
+								    <hr>
+										<strong><md-ico i=wrap_text s=18></md-ico> <span translate>LB_JOB</span></strong>
+								    <p class="text-muted">{{row.ppersonal.job.puesto_nombre}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</md-tab>
+					
+					<!-- REQUISITOS -->
+					<md-tab label="{{'LB_NECESSARY_REQUIREMENTS' | translate}}">
+						<md-content>
+							<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+								<div class="md-toolbar-tools">
+									<md-button aria-label="btn" class="md-icon-button"><md-ico i=store_mall_directory></md-ico></md-button>
+									<h2 translate>LB_ADMINISTRATION</h2>
+								</div>
+							</md-toolbar>
+							<md-table-container>
+						    
+						    <table class="table table-condensed font-12">
+	              	<col style="">
+	              	<col style="width:15%">
+	                <tr>
+	                  <th><span translate>LB_ANNEXES_FOR_THE_APPROVAL_OF_THE_SELFPROTECTIONPLAN</span></th>
+	                  <th><span translate>LB_MENU</span></th>
+	                </tr>
+	                <tr>
+	                  <td>
+	                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(dataEntity.local.entity.entidad_sitioweb))"></i>
+	                  	<small translate>LB_RUC_CERTIFICATE</small> / <b>{{dataEntity.local.entity.entidad_razonsocial}}</b>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openModal('Anexos',mergeData(dataEntity,{typeFile:'ruc_file',fileNameUpload:'ruc',tbEntity:'planesautoproteccion_anexos'}))">
+	                  		<i-fa i=upload></i-fa>
+	                  	</button>
+	                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/ruc/{{dataEntity.local.entity.entidad_sitioweb}}" download target="_blank" ng-if="isSetFile(dataEntity.local.entity.entidad_sitioweb)">
+	                  		<i-fa i=download></i-fa>
+	                  	</a>
+	                  </td>
+	                </tr>
+	                <tr>
+	                  <td>
+	                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(dataEntity.local.entity.person.persona_anexo_cedula))"></i>
+	                  	<small translate>LB_LEGAL_REPRESENTATIVE_ID</small> / <b>{{dataEntity.local.entity.person.persona_apellidos}} {{dataEntity.local.entity.person.persona_nombres}}</b>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openModal('Anexos',mergeData(dataEntity,{typeFile:'representantelegal_file',fileNameUpload:'representantelegal',tbEntity:'planesautoproteccion_anexos'}))">
+	                  		<i-fa i=upload></i-fa>
+	                  	</button>
+	                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/cedulas/{{dataEntity.local.entity.person.persona_anexo_cedula}}" download target="_blank" ng-if="isSetFile(dataEntity.local.entity.person.persona_anexo_cedula)">
+	                  		<i-fa i=download></i-fa>
+	                  	</a>
+	                  </td>
+	                </tr>
+	                
+	                
+	                
+	                <tr ng-if="dataEntity.local.entity.entidad_apoderado=='SI'">
+	                  <td>
+	                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(dataEntity.local.entity.adopted.persona_anexo_cedula))"></i>
+	                  	<small translate>LB_APPOINTMENT_AND_LOCAL_AUTHORITY_CERTIFICATE</small> / <b>{{dataEntity.local.entity.adopted.persona_apellidos}} {{dataEntity.local.entity.adopted.persona_nombres}}</b>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openParentModal('Anexos',mergeData(dataEntity.local.entity,{typeFile:'apoderado_file',fileNameUpload:'apoderado',tbEntity:'entidades_anexos'}))">
+	                  		<i-fa i=upload></i-fa>
+	                  		<md-tooltip><span translate>LB_CLICK_UPLOADED_CERTIFICATE</span></md-tooltip>
+	                  	</button>
+	                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/cedulas/{{dataEntity.local.entity.adopted.persona_anexo_cedula}}" download target="_blank" ng-if="isSetFile(dataEntity.local.entity.adopted.persona_anexo_cedula)">
+	                  		<i-fa i=download></i-fa>
+	                  		<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+	                  	</a>
+	                  </td>
+	                </tr>
+	                
+	                <tr>
+	                  <td>
+	                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(dataEntity.local.local_certificadostablecimiento))"></i>
+	                  	<small translate>LB_CERTIFICATE_ESTABLISHMENT</small> / <b>{{dataEntity.local.local_nombrecomercial}}</b>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openParentModal('Anexos',mergeData(dataEntity.local,{typeFile:'local_file',fileNameUpload:'establecimiento',tbEntity:'locales_anexos'}))">
+	                  		<i-fa i=upload></i-fa>
+	                  		<md-tooltip><span translate>LB_CLICK_UPLOADED_CERTIFICATE</span></md-tooltip>
+	                  	</button>
+	                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/locals/{{dataEntity.local.local_id}}/{{dataEntity.local.local_certificadostablecimiento}}" download target="_blank" ng-if="isSetFile(dataEntity.local.local_certificadostablecimiento)">
+	                  		<i-fa i=download></i-fa>
+	                  		<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+	                  	</a>
+	                  </td>
+	                </tr>
+	                
+	                
+	                
+	                <tr>
+	                  <td>
+	                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(dataEntity.local.local_impuestopredial))"></i>
+	                  	<small translate>LB_PAYMENT_PREDIAL_TAX_COPY</small>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openModal('Anexos',mergeData(dataEntity,{typeFile:'impuestopredial_file',fileNameUpload:'impuestopredial',tbEntity:'planesautoproteccion_anexos'}))">
+	                  		<i-fa i=upload></i-fa>
+	                  	</button>
+	                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/prevencion/locales/{{dataEntity.local.local_impuestopredial}}" download target="_blank" ng-if="isSetFile(dataEntity.local.local_impuestopredial)">
+	                  		<i-fa i=download></i-fa>
+	                  	</a>
+	                  </td>
+	                </tr>
+	                <tr>
+	                  <td>
+	                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(dataEntity.local.local_usodesuelo))"></i>
+	                  	<small translate>LB_CERTIFICATE_USE_SOIL_COPY</small>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openModal('Anexos',mergeData(dataEntity,{typeFile:'usodesuelo_file',fileNameUpload:'usodesuelo',tbEntity:'planesautoproteccion_anexos'}))">
+	                  		<i-fa i=upload></i-fa>
+	                  	</button>
+	                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/prevencion/locales/{{dataEntity.local.local_usodesuelo}}" download target="_blank" ng-if="isSetFile(dataEntity.local.local_usodesuelo)">
+	                  		<i-fa i=download></i-fa>
+	                  	</a>
+	                  </td>
+	                </tr>
+	                <tr ng-if="dataEntity.plan_sos=='PROFESIONAL DE SEGURIDAD DE LA EMPRESA' || dataEntity.plan_sos=='PROFESIONAL CONTRATADO EXTERNAMENTE POR LA EMPRESA'">
+	                  <td>
+	                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(dataEntity.training.formacion_pdf))"></i>
+	                  	<small translate>LB_COPY_SENESCYT_SOS</small>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openModal('Anexos',mergeData(dataEntity,{typeFile:'profesionaldeseguridad_file',fileNameUpload:'profesionaldeseguridad',tbEntity:'planesautoproteccion_anexos'}))">
+	                  		<i-fa i=upload></i-fa>
+	                  	</button>
+	                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/tthh/{{dataEntity.training.formacion_pdf}}" download target="_blank" ng-if="isSetFile(dataEntity.training.formacion_pdf)">
+	                  		<i-fa i=download></i-fa>
+	                  	</a>
+	                  </td>
+	                </tr>
+	                <tr ng-if="dataEntity.plan_responsable_tramite!=null && dataEntity.plan_responsable_tramite!='REPRESENTANTE LEGAL'">
+	                  <td>
+	                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(dataEntity.responsable.persona_anexo_cedula))"></i>
+	                  	<small translate>LB_RUC_COPY_RESPONSIBLE_FOR_THE_PROCESS_DATA</small>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openModal('Anexos',mergeData(dataEntity,{typeFile:'responsabledeltramite_file',fileNameUpload:'responsabledeltramite',tbEntity:'planesautoproteccion_anexos'}))">
+	                  		<i-fa i=upload></i-fa>
+	                  	</button>
+	                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/cedulas/{{dataEntity.responsable.persona_anexo_cedula}}" download target="_blank" ng-if="isSetFile(dataEntity.responsable.persona_anexo_cedula)">
+	                  		<i-fa i=download></i-fa>
+	                  	</a>
+	                  </td>
+	                </tr>
+	              </table>
+						    
+							</md-table-container>
+	        	</md-content>
+					</md-tab>
+					
+					<!-- ANEXOS -->
+					<md-tab label="{{'LB_ANNEXES' | translate}}" ng-if="dataEntity.gallery.length>0 || dataEntity.annexes.length>0">
+						<md-content>
+							<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+								<div class="md-toolbar-tools">
+									<md-button aria-label="btn" class="md-icon-button"><md-ico i=store_mall_directory></md-ico></md-button>
+									<h2 translate>LB_ADMINISTRATION</h2>
+									<span flex></span>
+									<md-button aria-label="btn" class="md-icon-button" ng-click="downloadAttachmentsFolder('planesemergencia',dataEntity.plan_id)">
+										<md-ico i=delete_sweep></md-ico>
+										<md-tooltip><span translate>LB_DELETE_DATA</span></md-tooltip>
+									</md-button>
+									<md-button aria-label="btn" class="md-icon-button" ng-click="downloadAttachmentsFolder('planesemergencia',dataEntity.plan_id)">
+										<md-ico i=get_app></md-ico>
+										<md-tooltip><span translate>LB_DOWNLOAD_ATTACHED</span></md-tooltip>
+									</md-button>
+									
+									<md-button aria-label="btn" class="md-icon-button" ng-click="openModal('Autoproteccion_anexos',{fk_plan_id:dataEntity.plan_id,edit:false})">
+										<md-ico i=add></md-ico>
+										<md-tooltip><span translate>LB_NEW</span></md-tooltip>
+									</md-button>
+								</div>
+							</md-toolbar>
+							
+							<md-table-container>
+						    
+						    <table md-table class="table table-condensed table-hover" md-progress="deferred">
+						      <col style="">
+						     	<col style="width:25%">
+						     	<col style="width:180px">
+						      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+										<tr md-row>
+											<th md-column><span translate>LB_ATTACHED_FILES</span></th>
+											<th md-column><span translate>LB_DETAIL</span></th>
+											<th md-column><span translate>LB_MENU</span></th>
+										</tr>
+						      </thead>
+						      <tbody>
+										
+										<!-- ANEXOS SUBIDOS POR EL INSPECTOR -->
+										<tr data-ng-repeat="row in dataEntity.gallery">
+											<td class="text-uppercase">
+												<md-ico i=attach_file></md-ico><span ng-bind-html="highlight(row.media_nombre)"></span>
+											</td>
+											<td>
+												<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.media_registro)"></span><br>
+												<md-ico i=person></md-ico><span ng-bind-html="highlight(row.user.usuario)"></span>
+											</td>
+											<td>
+												<a class="btn btn-info btn-sm" target="_blank" href="{{setting.uri.src}}prevencion/planes/{{dataEntity.plan_codigo}}/{{row.media_nombre}}">
+													<md-ico i=get_app></md-ico>
+													<md-tooltip><span translate>LB_DOWNLOAD</span></md-tooltip>
+												</a>
+												<button class="btn btn-danger btn-sm" ng-click="deleteItem('planesemergencia',{galleryId:row.media_id,planId:dataEntity.plan_id})">
+													<md-ico i=delete_forever></md-ico>
+													<md-tooltip><span translate>LB_DELETE</span></md-tooltip>
+												</button>
+											</td>
+										</tr>
+										
+										<!-- ANEXOS SUBIDOS POR EL USUARIO -->
+		                <tr ng-repeat="item in dataEntity.annexes">
+		                  <td>
+		                  	<small>
+		                  		<i-fa i=flag></i-fa> {{item.anexo_clasificacion}}<BR>
+		                  		<b><i-fa i=comments></i-fa>{{item.anexo_nombre}}</b><br>
+		                  		<i><a href="/app/src/prevencion/planes/{{dataEntity.plan_codigo}}/anexos/{{item.anexo_adjunto}}" target="_blank"><b><i-fa i=link></i-fa> {{item.anexo_adjunto}}</a></b></i>
+		                  	</small>
+		                  </td>
+		                  <td></td>
+		                  <td>
+		                  	<button type="button" class="btn btn-info btn-sm" ng-click="openModal('Autoproteccion_anexos',mergeData(item,{fk_plan_id:dataEntity.plan_id}))">
+		                  		<i-fa i=pencil></i-fa>
+		                  	</button>
+		                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/prevencion/planes/{{dataEntity.plan_codigo}}/anexos/{{item.anexo_adjunto}}" target="_blank">
+		                  		<i-fa i=download></i-fa>
+		                  	</a>
+		                  	<button type="button" class="btn btn-danger btn-sm" ng-click="deleteAnnexes(item.anexo_id)">
+		                  		<i-fa i=trash></i-fa>
+		                  	</button>
+		                  </td>
+		                </tr>
+		                
+									</tbody>
+								</table>
+						    
+						    
+							</md-table-container>
+	        	</md-content>
+					</md-tab>
+					
+					<!-- ANEXOS DE MANTENIMIENTOS -->
+					<md-tab label="{{'LB_MAINTENANCES' | translate}}" ng-if="dataEntity.maintenances.length>0">
+						<md-content>
+							<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+								<div class="md-toolbar-tools">
+									<md-button aria-label="btn" class="md-icon-button"><md-ico i=store_mall_directory></md-ico></md-button>
+									<h2 translate>LB_ADMINISTRATION</h2>
+								</div>
+							</md-toolbar>
+							<md-table-container>
+						    
+						    <table class="table table-condensed">
+	              	<col style="">
+	              	<col style="width:15%">
+	                <tr>
+	                  <th><span translate>LB_ANNEXES_OF_MAINTENANCE_CARRIED_OUT</span></th>
+	                  <th><span translate>LB_MENU</span></th>
+	                </tr>
+	                <tr ng-repeat="item in dataEntity.maintenances">
+	                  <td>
+	                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(item.mantenimiento_adjunto))"></i><small>{{item.resource.recurso_nombre}}</small>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openModal('Anexos',mergeData(item,{planId:dataEntity.plan_id,tbEntity:'autoproteccion_mantenimiento_files',typeFile:'media_file'}))">
+	                  		<i-fa i=upload></i-fa>
+	                  	</button>
+	                  	<a type="button" ng-if="item.mantenimiento_adjunto!='NA'" class="btn btn-warning btn-sm" href="/app/src/prevencion/planes/{{dataEntity.plan_codigo}}/anexos/{{item.mantenimiento_adjunto}}" target="_blank">
+	                  		<i-fa i=download></i-fa>
+	                  	</a>
+	                  </td>
+	                </tr>
+	              </table>
+	              
+							</md-table-container>
+	        	</md-content>
+					</md-tab>
+					
+					<!-- DETALLE DE ACTIVIDAD -->
+					<md-tab label="{{'LB_ACTIVITY_LOG' | translate}}">
+						<md-content ng-controller="historyEntityCtrl">
+							<div ng-controller="myTableCtrl">
+								<toolbar-filter-in-tab></toolbar-filter-in-tab>
+								<toolbar-filter></toolbar-filter>
+								<md-table-container>
+							    <table md-table class="md-primary table-hover" md-progress="deferred">
+							      <col style="">
+							      <col style="width:20%">
+							      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+											<tr md-row>
+												<th md-column><span translate>LB_DETAIL</span></th>
+												<th md-column><span translate>LB_STATUS</span></th>
+											</tr>
+							      </thead>
+							      <tbody>
+											<tr md-row data-ng-repeat="row in rowsParent.data">
+												<td md-cell>
+													<md-ico i=security></md-ico> <span ng-bind-html="highlight(row.plan_codigo)"></span><br>
+													<md-ico i=group></md-ico><span translate>LB_AFORO</span>: <span ng-bind-html="highlight(row.plan_aforo)"></span><br>
+													<md-ico i=business></md-ico><span translate>LB_FLOORS</span>: <span ng-bind-html="highlight(row.plan_plantas)"></span><br>
+													<md-ico i=flip_to_back></md-ico><span translate>LB_AREA</span>: <span ng-bind-html="highlight(row.plan_area)"></span><br>
+													<i-fa i=podcast></i-fa><span ng-bind-html="highlight(row.plan_clavecatastral)"></span><br>
+													<md-ico i=comment></md-ico> <span ng-bind-html="highlight(row.plan_observacion)"></span>
+												</td>
+												<td md-cell>
+													<md-ico i=flag></md-ico> <span ng-bind-html="highlight(statusLabel[row.plan_estado])"></span><br>
+													<md-ico i=event></md-ico> <span ng-bind-html="highlight(row.plan_registro)"></span><br>
+													<md-ico i=people></md-ico> <span ng-bind-html="highlight(row.usuario)"></span><BR>
+												</td>
+											</tr>
+							      </tbody>
+							    </table>
+								</md-table-container>
+								<footer-table></footer-table>
+							</div>
+						</md-content>
+					</md-tab>
+					
+				</md-tabs>
+			</md-card>
+		</div>
+	</div>
+</div>

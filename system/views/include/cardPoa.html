@@ -1,0 +1,19 @@
+<div class="card card-outline card-primary">
+  <div class="card-body box-profile text-center text-uppercase">
+		<strong><md-ico i=star_half s=18></md-ico><br><span translate>LB_PERIOD</span></strong>
+    <p class="text-muted">{{dataEntity.poa_periodo}}</p>
+    <hr>
+		<strong><md-ico i=attach_money s=18></md-ico><br><span translate>LB_BUDGET</span></strong>
+    <p class="text-muted">{{dataEntity.poa_presupuesto | currency}}</p>
+    <hr>
+		<strong><md-ico i=event s=18></md-ico><br><span translate>LB_PERIOD</span></strong>
+    <p class="text-muted">{{dataEntity.poa_periodo_inicio | date:'fullDate'}}<br>A<br>{{dataEntity.poa_periodo_cierre | date:'fullDate'}}</p>
+    
+    <hr>
+    <strong><md-ico i=addchart s=18></md-ico><br><span translate>LB_REFORM</span></strong>
+    <p class="text-muted">{{reform.reforma_nombre}} ({{reform.reforma_numero}})<br>{{reform.reforma_fecha | date:'fullDate'}}</p>
+    <hr>
+    <strong><md-ico i=history s=18></md-ico><br><span translate>LB_ACTIVITY_LOG</span></strong>
+    <p class="text-muted"><span ng-bind-html="statusLabel[reform.reforma_estado]"></span><br>{{dataEntity.user.person.persona_apellidos}} {{dataEntity.user.person.persona_nombres}}<br>{{dataEntity.poa_registro}}</p>
+  </div>
+</div>

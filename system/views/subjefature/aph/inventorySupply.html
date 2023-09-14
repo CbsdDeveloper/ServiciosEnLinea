@@ -1,0 +1,76 @@
+<form class="font-label-mini" name="formData">
+	<md-card>
+		<md-toolbar ng-hide="filter.show" class="no-padding">
+			<div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=import_export></md-ico></md-button>
+				<h2>{{'LB_SUPPLY_REGISTRY' | translate}} => {{sourcesModel.inventory.inventario_codigo}}</h2>
+				<span flex></span>
+				<md-button aria-label="btn" class="md-icon-button" ng-click="reloadList()">
+					<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_UPDATE_RECORDS</span></md-tooltip>
+				</md-button>
+<!-- 				<md-button aria-label="btn" class="md-icon-button" ng-click="submitForm()" ng-if="formData.$valid && allow.permiso8415 && sourcesModel.inventory.inventario_estado=='EN EDICION'"> -->
+<!-- 					<md-ico i=save></md-ico><md-tooltip><span translate>LB_SAVE_CHANGES</span></md-tooltip> -->
+<!-- 				</md-button> -->
+			</div>
+		</md-toolbar>
+	</md-card>
+	
+	<!-- FILTRO DE PASAJEROS -->
+	<div class="padding-all no-padding-top">
+		<!-- LISTADO DE REGISTROS -->
+		<div class="box box-default">
+			<div class="card-body" layout=column layout-padding>
+		  
+			  <table class="table table-bordered table-sttriped">
+		     	<col style="">
+		     	<col style="width:10%;">
+		     	<col style="width:10%;">
+		     	<col style="width:10%;">
+		     	<col style="width:8%;">
+			  	<thead>
+			  		<tr>
+			  			<th><span translate>LB_MEDICAL_SUPPLIES</span></th>
+			  			<th class="text-center"><span translate>LB_CELLAR</span></th>
+			  			<th><span translate>LB_STOCK</span></th>
+			  			<th><span translate>LB_INCOME_OR_EGRESS</span></th>
+			  			<th><span translate></span></th>
+			  		</tr>
+			  	</thead>
+			  	<tbody>
+			  		<tr ng-repeat="(key,item) in sourcesModel.suppliesList">
+			  			<td>
+			  				<small><b>{{item.insumo_codigo}}</b>. {{item.insumo_nombre}}<br><b translate>LB_PRESENTATION</b>: {{item.insumo_presentacion}} ({{item.insumo_concentracion}})</small>
+			  			</td>
+			  			<td class="text-center" style="vertical-align:middle;">{{sourcesModel.stockList[key]}}</td>
+			  			<td class="text-center" style="vertical-align:middle;">{{item.stock}}</td>
+			  			<td class="text-center" style="vertical-align:middle;">
+			  				<input parse-float type="number" step="1" min="{{-1 * item.stock}}" max="{{sourcesModel.stockList[key]}}" ng-model="item.movimiento_cantidad" class="form-control input-sm text-center" required>
+			  			</td>
+			  			<td class="text-center" style="vertical-align:middle;">
+								<div ng-if="item.movimiento_cantidad!=0 && item.movimiento_cantidad <= sourcesModel.stockList[key] && item.movimiento_cantidad >= (-1 * item.stock)">
+						    	<button type="button" class="btn btn-success btn-block btn-sm" ng-click="saveItem(item)"><md-ico i=send></md-ico></button>
+					      </div>
+		      		</td>
+			  		</tr>
+			  	</tbody>
+			  </table>    
+		      
+		  </div>
+		  
+		  <div layout-xs=column layout=row layout-padding>
+	      <div flex>
+					<a ui-sref="permits.selfInspection.step1({id:local.local_id})" class="btn btn-warning btn-block">
+				  	<i-fa i=angle-double-left></i-fa> <span translate>BTN_PREV</span>
+					</a>
+				</div>
+				<div flex>
+					<button ng-click="getForm()" ng-disabled="formData.$invalid" class="btn btn-success btn-block">
+						<span translate>LB_SAVE_CHANGES</span> <i-fa i=angle-double-right></i-fa>
+					</button>
+				</div>
+		  </div>
+		</div>
+		
+	</div>
+	
+</form>

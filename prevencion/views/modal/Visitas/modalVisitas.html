@@ -1,0 +1,60 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg form-fa" ng-controller="visitExtendsCtrl">
+	<form name="formData" ng-submit="submitForm()">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="btn"><i-fa i=group s=lg></i-fa></md-button>
+			<h2 hide-xs><span translate>TOOLBAR_VISITS</span></h2>
+			<span flex></span>
+			<md-button class="md-icon-button" aria-label="btn" ng-click="closeDialog()"><md-ico i=close></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content layout-padding class="no-padding">
+		<md-content layout=column layout-padding>
+			<div>
+				<div class="callout callout-info no-margin">
+				  <p ng-bind-html="trustAsHtml(paramsConf.INFO_NEW_VISIT)"></p>
+				</div>
+			</div>
+			<div style="padding-top:0px;">
+				<div class="box box-info form-fa no-margin">
+					<div class="box-header text-center">
+						<h3 class="box-title" translate>LB_VISIT_INFO</h3>
+					</div>
+					<div class="box-body md-padding" layout=column layout-padding>
+						<div class="form-group" flex>
+							<i-fa i=building></i-fa>
+							<label translate>LB_ENTITY</label>
+					    <input ng-model="frmParent.visita_entidad" class="form-control" placeholder="Ej. U.E. Santo Domingo">
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex min-date="today" moment-picker="frmParent.visita_fecha">
+								<i-fa i=calendar-check-o></i-fa>
+								<label translate>LB_DATE</label>
+						    <input class="form-control" ng-model="frmParent.visita_fecha" ng-model-options="{ updateOn: 'blur' }" placeholder="{{'LB_DATE' | translate}}" required>
+							</div>
+							<div class="form-group required" flex>
+								<i-fa i=group></i-fa>
+								<label translate>LB_EVENT_PEOPLE</label>
+						    <input parse-float type="number" step="1" min=1 class="form-control" ng-model="frmParent.visita_aforo" placeholder="Ej. 30" required>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<i-fa i=comments></i-fa>
+							<label translate>LB_DESCRIPTION</label>
+					    <textarea ng-model="frmParent.visita_descripcion" class="form-control" placeholder="Ej. Describa las actividades que desea sean realizadas por el Cuerpo de Bomberos SD" required></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div style="padding-top:0px;">
+				<frm-personas-basic></frm-personas-basic>
+			</div>
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

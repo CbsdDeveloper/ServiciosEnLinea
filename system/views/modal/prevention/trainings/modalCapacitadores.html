@@ -1,0 +1,85 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg">
+  <form name="formData">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=group></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_TRAINERS</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+  	<md-content layout=column layout-padding>
+			<!-- INFORMACIÓN DE CAPACITACIÓN -->
+			<card-training-information layout-padding ng-if="frmParent.entity=='training'"></card-training-information>
+			<card-stand-information layout-padding ng-if="frmParent.entity=='stands'"></card-stand-information>
+			<card-simulation-information layout-padding ng-if="frmParent.entity=='simulacros'"></card-simulation-information>
+			<card-visit-information layout-padding ng-if="frmParent.entity=='visitas'"></card-visit-information>
+			<!-- FILTRO DE CAPACITADORES -->
+			<div style="margin-top:9px;" layout-padding>
+					<div class="card card-outline card-success no-margin">
+						<div class="card-body text-center">
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=search></md-ico></div></div> 
+								<input ng-model="frmParent.filter" class="form-control" placeholder="Ej. 1236587490" maxlength="20">
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-default" ng-if="frmParent.filter!=''" ng-click="frmParent.filter=''"><md-ico i=clear></md-ico></button>
+								</span>
+							</div>
+						</div>
+					</div>
+			</div>
+			<!-- LISTADO DE CAPACITADORES -->
+			<div class="card card-outline card-info no-margin no-padding margin-top" ng-controller="trainersPreventionExtendsCtrl">
+				<div class="card-header with-border text-center">
+					<h3 class="card-title no-margin" translate>LB_TRAINERS</h3>
+				</div>
+				<div class="card-body">
+					<!-- LISTADO DE PARTICIPANTES -->
+					<div layout-xs=column layout=row layout-padding layout-wrap class="no-padding">
+						<div style="min-width:360px;" ng-repeat="item in list | filter : frmParent.filter" flex>
+							<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} no-margin no-padding">
+								<div class="card-header with-border">
+				        	<h3 class="card-title">
+				        		<md-checkbox class="no-margin text-left" ng-checked="exists(item.fk_personal_id)" ng-click="toggle(item.fk_personal_id)">
+				        			{{item.fk_personal_id}}. <span ng-bind-html="highlight(item.personal_nombre,frmParent.filter)"></span>
+										</md-checkbox>
+				        	</h3>
+								</div>
+				        <div class="card-body no-padding" layout=row layout-padding>
+									<img src="/app/src/img/users/default.png" ng-src="/app/src/img/users/{{item.persona_imagen}}"
+					 						 style="width:64px;height:64px;margin:auto" class="img-circle" alt="img" />
+					 				<div style="width:100%;margin:auto;font-size:11px;">
+					 					<md-ico i=credit_card s=18></md-ico> <b translate>LB_DOC_IDENTIFICATION</b>: <span ng-bind-html="highlight(item.persona_doc_identidad,frmParent.filter)"></span><br>
+						 				<md-ico i=account_balance s=18></md-ico> <b translate>LB_LEADERSHIP</b>: <span ng-bind-html="highlight(item.direccion_nombre,frmParent.filter)"></span><br>
+						 				<md-ico i=wrap_text s=18></md-ico> <b translate>LB_JOB</b>: <span ng-bind-html="highlight(item.puesto_nombre,frmParent.filter)"></span><br>
+						 				<md-ico i=flag s=18></md-ico> <b translate>LB_STATION</b>: <span ng-bind-html="highlight(item.estacion,frmParent.filter)"></span><br>
+						 				<md-ico i=email s=18></md-ico> <b translate>LB_MAIL</b>: <span ng-bind-html="highlight(item.persona_correo,frmParent.filter)"></span><br>
+						 				<md-ico i=phone s=18></md-ico> <b translate>LB_TEL</b>: <span ng-bind-html="highlight(item.persona_telefono,frmParent.filter)"></span>
+					 				</div>
+								</div>
+								<div class="card-footer no-padding" ng-if="exists(item.fk_personal_id)">
+						    	<div class="form-group required">
+										<label translate>LB_PERFORMANCE</label>
+									  <div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+											<select class="form-control" ng-model="frmParent.model[item.fk_personal_id].capacitador_actividad" required
+															ng-options="val as val for (key,val) in functionsList"></select>
+										</div>
+									</div>
+									<textarea rows=2 ng-model="frmParent.model[item.fk_personal_id].capacitador_descripcion" class="form-control no-margin" placeholder="Ej. Actividad desempéñada"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+  	</md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="button"  ng-click="submitForm()" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,246 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg" style="width:90%">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="btn" class="md-icon-button"><md-ico i=print></md-ico></md-button>
+			<h2 translate>TOOLBAR_REPORTS</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content class="no-padding" layout=column layout-padding>
+    	<div class="no-padding" layout=row>
+				<div class="padding-top" layout=column layout-padding flex>
+					<div class="card card-outline card-success no-padding no-margin margin-bottom">
+						<div class="card-header text-center">
+						  <h3 class="card-title" translate>LB_MAIN_INFORMATION</h3>
+						</div>
+						<div class="card-body" layout=column layout-padding>
+							<div class="form-group required">
+								<label translate>LB_REPORTS</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=print></md-ico></div></div> 
+									<input ng-model="frmParent.reporte_nombre" class="form-control" placeholder="Titulo" required/>
+								</div>
+							</div>
+							<div class="form-group required">
+								<label translate>LB_HEADER</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=title></md-ico></div></div> 
+									<input ng-model="frmParent.reporte_header" class="form-control" placeholder="Titulo" required/>
+								</div>
+							</div>
+						
+							<div layout-xs=column layout=row layout-padding>
+								<div class="form-group required" flex>
+									<label translate>LB_PAPER</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=book></md-ico></div></div> 
+										<select ng-model="frmParent.reporte_hoja" class="form-control" required
+														ng-options="key as val for (key,val) in string2JSON('paperReport')"></select>
+									</div>
+								</div>
+								<div class="form-group required" flex>
+									<label translate>LB_ORIENTATION</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i="{{frmParent.reporte_orientacion=='P'?'screen_lock_portrait':'screen_lock_landscape'}}"></md-ico></div></div> 
+										<select ng-model="frmParent.reporte_orientacion" class="form-control" required
+														ng-options="key as val for (key,val) in string2JSON('orientationPaper')"></select>
+									</div>
+								</div>
+							</div>
+						
+							<div layout-xs=column layout=row layout-padding>
+								<div class="form-group required" flex>
+									<label translate>LB_TOP_MARGIN</label>
+									<div class="input-group">
+										<span class="input-group-addon">MT</span>
+										<input type="number" step="1" parse-float ng-model="frmParent.margin_top" class="form-control" placeholder="Margin" required />
+										<span class="input-group-addon">mm</span>
+									</div>
+								</div>
+								<div class="form-group required" flex>
+									<label translate>LB_BOTTOM_MARGIN</label>
+									<div class="input-group">
+										<span class="input-group-addon">MB</span>
+										<input type="number" step="1" parse-float ng-model="frmParent.margin_bottom" class="form-control" placeholder="Margin" required />
+										<span class="input-group-addon">mm</span>
+									</div>
+								</div>
+							</div>
+							
+							<div layout-xs=column layout=row layout-padding>
+								<div class="form-group required" flex>
+									<label translate>LB_LEFT_MARGIN</label>
+									<div class="input-group">
+										<span class="input-group-addon">ML</span>
+										<input type="number" step="1" parse-float ng-model="frmParent.margin_left" class="form-control" placeholder="Margin" required />
+										<span class="input-group-addon">mm</span>
+									</div>
+								</div>
+								<div class="form-group required" flex>
+									<label translate>LB_RIGHT_MARGIN</label>
+									<div class="input-group">
+										<span class="input-group-addon">MR</span>
+										<input type="number" step="1" parse-float ng-model="frmParent.margin_right" class="form-control" placeholder="Margin" required />
+										<span class="input-group-addon">mm</span>
+									</div>
+								</div>
+							</div>
+							
+							<div layout-xs=column layout=row layout-padding>
+								<div class="form-group required" flex>
+									<label translate>LB_DOWNLOAD</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i="{{frmParent.reporte_autodownload=='true'?'file_download':'remove_red_eye'}}"></md-ico></div></div> 
+										<select ng-model="frmParent.reporte_autodownload" class="form-control" required
+														ng-options="key as val for (key,val) in string2JSON('autoDownload')"></select>
+									</div>
+								</div>
+								<div class="form-group required" flex>
+									<label translate>LB_PRINTING_MODE</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=print></md-ico></div></div> 
+										<select ng-model="frmParent.reporte_printmode" class="form-control" required
+														ng-options="key as val for (key,val) in string2JSON('printMode')"></select>
+									</div>
+								</div>
+							</div>
+							
+							<div layout-xs=column layout=row layout-padding>
+								<div class="form-group required" flex ng-if="!toogleEditMode">
+									<label translate>LB_CODE</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=print></md-ico></div></div> 
+										<input ng-model="frmParent.reporte_id" class="form-control" required />
+									</div>
+								</div>
+								<div class="form-group required" flex>
+									<label translate>LB_TEMPLATE</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=book></md-ico></div></div> 
+										<input ng-model="frmParent.reporte_template" class="form-control" ng-readonly="toogleEditMode" />
+									</div>
+								</div>
+								<div class="form-group required" flex>
+									<label translate>LB_PERMIT_NUMBER</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+										<input ng-model="frmParent.reporte_permiso" class="form-control" />
+									</div>
+								</div>
+							</div>
+							<div class="form-group required">
+								<label translate>LB_LIST_REQUIREMENTS</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=playlist_add></md-ico></div></div> 
+									<input ng-model="frmParent.reporte_requisitos" class="form-control" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="padding-top" layout=column layout-padding flex>	
+					<div class="card card-outline card-success no-padding no-margin margin-bottom">
+						<div class="card-header text-center">
+						  <h3 class="card-title" translate>LB_RESPONSABLE</h3>
+						</div>
+						<div class="card-body" layout=column layout-padding>
+							<div class="form-group required">
+								<label translate>LB_LEADERSHIP</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=star></md-ico></div></div> 
+									<input ng-model="frmParent.reporte_jefatura" class="form-control" placeholder="Ej. Segunda Jefatura" required />
+								</div>
+							</div>
+							<div class="form-group required">
+								<label translate>LB_DEPARTAMENTS</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=star_half></md-ico></div></div> 
+									<input ng-model="frmParent.reporte_departamento" class="form-control" placeholder="Ej. Jefatura Técnica de Prevención" required />
+								</div>
+							</div>
+							<div class="form-group required">
+								<label translate>LB_CHARGE_RESPONSIBLE</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=star_border></md-ico></div></div> 
+									<input ng-model="frmParent.responsable_cargo" class="form-control" placeholder="Ej. Jefe Técnico de Prevención" required />
+								</div>
+							</div>
+							<div class="form-group required">
+								<label translate>LB_RESPONSABLE</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=person></md-ico></div></div> 
+									<input ng-model="frmParent.responsable_nombre" class="form-control" placeholder="Ej. Ing. Arturo Andrade C." required />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="no-padding " layout=column>
+				<div class="no-padding-top no-padding-bottom" layout-padding>
+					<div class="card card-outline card-warning no-margin no-padding">
+						<div class="card-header text-center">
+						  <h3 class="card-title" translate>LB_TEMPLATE_XLS</h3>
+						</div>
+						<div class="card-body" layout=column layout-padding>
+							<div class="form-group required">
+								<label translate>LB_HEADERS</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><i-fa i=file-excel-o></md-ico></div></div> 
+									<input ng-model="frmParent.reporte_headers_xls" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group required">
+								<label translate>LB_FIELDS</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><i-fa i=file-excel-o></md-ico></div></div> 
+									<input ng-model="frmParent.reporte_fields_xls" class="form-control" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div layout-padding>
+					<div class="card card-outline card-info no-margin no-padding">
+						<div class="card-header text-center">
+						  <h3 class="card-title" translate>LB_TEMPLATE_PDF</h3>
+						</div>
+						<div class="card-body" layout=column layout-padding>
+							<div class="form-group required">
+								<label translate>LB_STYLE</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><i-fa i=css3></md-ico></div></div> 
+									<input ng-model="frmParent.reporte_css_pdf" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group required">
+								<label translate>LB_HEADERS</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><i-fa i=file-pdf-o></md-ico></div></div> 
+									<input ng-model="frmParent.reporte_headers_pdf" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group required">
+								<label translate>LB_FIELDS</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><i-fa i=file-pdf-o></md-ico></div></div> 
+									<input ng-model="frmParent.reporte_fields_pdf" class="form-control" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

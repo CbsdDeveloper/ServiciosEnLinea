@@ -1,0 +1,30 @@
+<div class="card card-outline card-primary">
+  <div class="card-body box-profile text-center">
+    <div class="container-profile small">
+    	<img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{dataEntity.persona_imagen}}" alt="profile">
+    </div>
+		<h3 class="profile-username">{{dataEntity.personal_nombre}}</h3>
+		<p class="text-muted text-center">{{dataEntity.personal_fecha_ingreso}}</p>
+    <hr>
+		<strong><md-ico i=star_half s=18></md-ico> <span translate>LB_EMPLOYMENT</span></strong>
+    <p class="text-muted">{{dataEntity.puesto_nombre}}</p>
+    <hr>
+		<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+    <p class="text-muted">{{string2JSON('identificationType')[dataEntity.persona_tipo_doc]}} {{dataEntity.persona_doc_identidad}}</p>
+    <hr>
+		<strong><i-fa i=birthday-cake></i-fa> <span translate>LB_BIRTHDATE</span></strong>
+    <p class="text-muted">{{dataEntity.persona_fnacimiento | date:'longDate'}}<BR>{{dataEntity.edad}}</p>
+    <hr>
+		<strong><md-ico i=favorite_border s=18></md-ico> <span translate>LB_MARITAL_STATUS</span></strong>
+    <p class="text-muted">{{dataEntity.persona_estadocivil}}</p>
+    <hr>
+		<strong><md-ico i=place s=18></md-ico> <span translate>LB_ADDRESS</span></strong>
+    <p class="text-muted">{{dataEntity.persona_direccion}}</p>
+    <hr>
+    <strong><md-ico i=mail s=18></md-ico> <span translate>LB_MAIL</span></strong>
+    <p class="text-muted">{{dataEntity.persona_correo}}</p>
+    <hr>
+    <strong><md-ico i=phone s=18></md-ico> <span translate>LB_TEL</span></strong>
+    <p class="text-muted">{{dataEntity.persona_telefono}} - {{dataEntity.persona_celular}}</p>
+  </div>
+</div>

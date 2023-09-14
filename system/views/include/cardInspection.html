@@ -1,0 +1,68 @@
+﻿<div class="card card-outline card-primary">
+	<div class="card-header with-border text-center">
+		<md-ico i=transfer_within_a_station s=64></md-ico>
+		<h3 class="profile-username">{{dataEntity.i.inspeccion_codigo}} ({{dataEntity.i.inspeccion_serie}})</h3>
+		<p class="text-muted no-margin"><md-ico i=event s=18></md-ico> {{dataEntity.i.inspeccion_fingreso}}</p>
+	</div>
+	<div class="card-body box-profile text-center card-entity-information">
+		<strong><md-ico i=person s=18></md-ico> <span translate>LB_POLLEE_TYPE</span></strong>
+		<p class="text-muted text-center">{{dataEntity.i.entrevistado_cargo}}</p>
+		
+		<hr>
+		<strong><md-ico i=person s=18></md-ico> <span translate>LB_ASSIGNED_INSPECTOR</span></strong>
+		<p class="text-muted text-center">{{dataEntity.i.inspector}}</p>
+		
+		<hr>
+		<strong><i-fa i=calendar-check-o></i-fa> <span translate>LB_INSPECTION_HOURS</span></strong>
+		<p class="text-muted text-center">{{dataEntity.i.inspeccion_hora_ingreso}} / {{dataEntity.i.inspeccion_hora_salida}}</p>
+		
+		<hr>
+		<strong><md-ico i=playlist_add_check s=18></md-ico> <span translate>LB_PERFORMED_INSPECTION</span></strong>
+		<p class="text-muted text-center">{{dataEntity.i.inspeccion_realiza_inspeccion}}</p>
+		<hr>
+		<strong><md-ico i=format_list_numbered s=18></md-ico> <span translate>LB_REPORT_NUMBER</span></strong>
+		<p class="text-muted text-center">{{dataEntity.i.inspeccion_informe_numero}}</p>
+		
+		<div ng-if="dataEntity.i.entrevistado_cargo!='PROPIETARIO'">
+			<hr>
+			<strong><md-ico i=person s=18></md-ico> <span translate>LB_POLLEE_NAME</span></strong>
+			<p class="text-muted text-center">{{dataEntity.i.entrevistado.persona_apellidos}} {{dataEntity.i.entrevistado.persona_nombre}}</p>
+			<hr>
+			<strong><md-ico i=person s=18></md-ico> <span translate>LB_POLLEE_IDENTIFICATION</span></strong>
+			<p class="text-muted text-center">{{dataEntity.i.entrevistado.persona_doc_identidad}}</p>
+		</div>
+		
+		<hr>
+		<strong><i-fa i=comments></i-fa> <span translate>LB_STATUS_INSPECTION</span></strong>
+		<p class="text-muted text-center" ng-bind-html="statusLabel[dataEntity.i.inspeccion_estado]"></p>
+		
+		<div ng-if="dataEntity.i.inspeccion_estado!='APROBADO'">
+			<div ng-if="dataEntity.reinspections.total>0">
+				<hr>
+				<strong><md-ico i=event_busy s=18></md-ico> </md-ico> <span translate>LB_DATE_REINSPECTION</span></strong>
+				<p class="text-muted text-center">{{dataEntity.i.reinspeccion | date:'fullDate'}}</p>
+			</div>
+		</div>
+		
+		<div ng-if="dataEntity.i.inspeccion_estado=='APROBADO'">
+			<hr>
+			<strong><i-fa i=calendar-check-o></i-fa> </md-ico> <span translate>LB_APPROVAL_DATE</span></strong>
+			<p class="text-muted text-center">{{dataEntity.i.inspeccion_fecha_aprobado}}</p>
+		</div>
+		<div ng-if="dataEntity.i.inspeccion_estado=='PRIMERA CITACION' || dataEntity.i.inspeccion_estado=='SEGUNDA CITACION'">
+			<hr>
+			<strong><i-fa i=calendar-check-o></i-fa> </md-ico> <span translate>LB_CITATION_NUMBER</span></strong>
+			<p class="text-muted text-center">{{dataEntity.i.citacion_numero}}</p>
+		</div>
+		
+		<hr>
+		<strong><i-fa i=comments></i-fa> <span translate>LB_OBSERVATION</span></strong>
+		<p class="text-muted text-center" ng-bind-html="dataEntity.i.inspeccion_observacion"></p>
+	</div>
+	
+	<div class="card-footer">
+		<button class="btn btn-block btn-primary" ng-click="exportWithDetail(dataEntity.i.inspeccion_id)">	
+			<i-fa i=download s=lg></i-fa> <span translate>LB_PRINT_REPORT</span>
+		</button>
+	</div>
+</div>

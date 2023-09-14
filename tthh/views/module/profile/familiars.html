@@ -1,0 +1,50 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=group></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_FAMILY_RESPONSIBILITIES</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal({fk_persona_id:session.persona_id,edit:false})"><md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+  <div layout-xs=column layout=row layout-padding layout-wrap>
+    <div style="min-width:350px;max-width:480px" flex ng-repeat="row in rowsParent.data">
+      <div class="box box-{{string2JSON('colorCss')[$index]}}">
+        <div class="box-body box-profile text-center">
+          <i-fa i="{{string2JSON('iFaIconList')[row.persona_sexo]}}" s=3x></i-fa>
+          <h3 class="profile-username text-center">{{row.carga_nombre}} <br> {{row.persona_doc_identidad}}</h3>
+          <hr>
+          <strong><md-ico i=favorite s=18></md-ico> <span translate>LB_RELATIONSHIP</span></strong>
+          <p class="text-muted text-center text-uppercase">{{row.carga_parentesco}}</p>
+          <hr>
+          <strong><md-ico i=cake s=18></md-ico> <span translate>LB_BIRTHDATE</span></strong>
+          <p class="text-muted text-center text-uppercase">{{row.persona_fnacimiento | date:'longDate'}}</p>
+          <hr>
+          <strong><md-ico i=info s=18></md-ico> <span translate>LB_AGE</span></strong>
+          <p class="text-muted text-center text-uppercase">{{row.edad}}</p>
+          <hr>
+          <strong><md-ico i=comment s=18></md-ico> <span translate>LB_OBSERVATIONS</span></strong>
+          <p class="text-muted text-center text-uppercase" ng-bind-html="highlight(row.carga_observaciones)"></p>
+        </div>
+        <div class="box-footer">
+          <button ng-click="openModal(row)" class="btn btn-primary btn-block">
+            <md-ico i=edit s=18></md-ico>
+            <b translate>BTN_UPDATE</b>
+          </button>
+          <button class="btn btn-warning btn-block" ng-click="openParentModal('PDFViewer',{embed:'tthh/'+row.carga_pdf,label:row.carga_nombre})" ng-if="row.carga_pdf!='' && row.carga_pdf!=null">
+            <md-ico i=file_download s=18></md-ico>
+            <b translate>LB_DOWNLOAD</b>
+          </button>
+			    <button ng-click="deleteItem(row.carga_id)" class="btn btn-danger btn-block">
+			    	<md-ico i=delete_forever s=18></md-ico>
+			    	<b translate>LB_DELETE</b>
+			    </button>
+        </div>
+      </div>
+    </div>
+  </div>
+	<footer-table></footer-table>
+</md-card>

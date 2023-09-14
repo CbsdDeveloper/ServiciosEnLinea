@@ -1,0 +1,142 @@
+<md-card ng-cloak>
+	<md-content>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=spellcheck></md-ico></md-button>
+				<h2 class="md-flex" translate>TOOLBAR_REQUIREMENTS</h2>
+			</div>
+		</md-toolbar>
+		<md-tabs md-dynamic-height md-border-bottom class="no-margin-bottom-input">
+      
+      <md-tab label="{{'LB_KINDS_PART' | translate}}">
+      	<div flex ng-controller="kindsPartCtrl">
+	        <md-content ng-controller="myTableCtrl">
+						<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=format_list_bulleted></md-ico></md-button>
+								<h2 translate>TOOLBAR_UTILS</h2>
+								<span flex></span>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()"><md-ico i=add></md-ico></md-button>
+							</div>
+						</md-toolbar>
+						<toolbar-filter></toolbar-filter>
+						<md-table-container>
+								<table md-table class="md-primary table-hover" md-progress="deferred">
+									<thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+										<tr md-row>
+											<th md-column md-order-by="clase_id"><span translate>LB_CODE</span></th>
+											<th md-column md-order-by="clase_tipo"><span translate>LB_TYPE</span></th>
+											<th md-column md-order-by="clase_parte"><span translate>LB_CLASS</span></th>
+											<th md-column md-order-by="clase_estado"><span translate>LB_STATUS</span></th>
+											<th md-column><span translate>LB_MENU</span></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr md-row data-ng-repeat="row in rowsParent.data">
+											<td md-cell><span ng-bind-html="highlight(row.clase_id)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.clase_tipo)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.clase_parte)"></span></td>
+											<td md-cell><span ng-bind-html="statusLabel[row.clase_estado]"></span></td>
+											<td md-cell class="table-menu text-center" layout=row>
+												<menu-single></menu-single>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</md-table-container>
+							<footer-table></footer-table>
+	        </md-content>
+				</div>
+      </md-tab>
+      
+      <md-tab label="{{'LB_CAUSES_PART' | translate}}">
+      	<div flex ng-controller="causesPartCtrl">
+	        <md-content ng-controller="myTableCtrl">
+						<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=format_list_numbered></md-ico></md-button>
+								<h2 translate>TOOLBAR_UTILS</h2>
+								<span flex></span>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()"><md-ico i=add></md-ico></md-button>
+							</div>
+						</md-toolbar>
+						<toolbar-filter></toolbar-filter>
+						<md-table-container>
+								<table md-table class="md-primary table-hover" md-progress="deferred">
+									<thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+										<tr md-row>
+											<th md-column md-order-by="causa_id"><span translate>LB_CODE</span></th>
+											<th md-column md-order-by="causa_tipo"><span translate>LB_TYPE</span></th>
+											<th md-column md-order-by="causa_parte"><span translate>LB_CAUSES</span></th>
+											<th md-column md-order-by="causa_estado"><span translate>LB_STATUS</span></th>
+											<th md-column><span translate>LB_MENU</span></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr md-row data-ng-repeat="row in rowsParent.data">
+											<td md-cell><span ng-bind-html="highlight(row.causa_id)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.causa_tipo)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.causa_parte)"></span></td>
+											<td md-cell><span ng-bind-html="statusLabel[row.causa_estado]"></span></td>
+											<td md-cell class="table-menu text-center" layout=row>
+												<menu-single></menu-single>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</md-table-container>
+							<footer-table></footer-table>
+	        </md-content>
+				</div>
+      </md-tab>
+      
+      <md-tab label="{{'LB_NATURES_CAUSES' | translate}}">
+      	<div flex ng-controller="naturePartCtrl">
+	        <md-content ng-controller="myTableCtrl">
+						<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=format_list_numbered></md-ico></md-button>
+								<h2 translate>TOOLBAR_UTILS</h2>
+								<span flex></span>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()"><md-ico i=add></md-ico></md-button>
+							</div>
+						</md-toolbar>
+						<toolbar-filter></toolbar-filter>
+						<md-table-container>
+								<table md-table class="md-primary table-hover" md-progress="deferred">
+									<thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+										<tr md-row>
+											<th md-column md-order-by="naturaleza_id"><span translate>LB_CODE</span></th>
+											<th md-column md-order-by="naturaleza_tipo"><span translate>LB_TYPE</span></th>
+											<th md-column md-order-by="naturaleza_causa"><span translate>LB_NATURE</span></th>
+											<th md-column md-order-by="naturaleza_estado"><span translate>LB_STATUS</span></th>
+											<th md-column><span translate>LB_MENU</span></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr md-row data-ng-repeat="row in rowsParent.data">
+											<td md-cell><span ng-bind-html="highlight(row.naturaleza_id)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.naturaleza_tipo)"></span></td>
+											<td md-cell><span ng-bind-html="highlight(row.naturaleza_causa)"></span></td>
+											<td md-cell><span ng-bind-html="statusLabel[row.naturaleza_estado]"></span></td>
+											<td md-cell class="table-menu text-center" layout="row">
+												<menu-single></menu-single>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</md-table-container>
+							<footer-table></footer-table>
+	        </md-content>
+				</div>
+      </md-tab>
+      
+		</md-tabs>
+	</md-content>
+</md-card>

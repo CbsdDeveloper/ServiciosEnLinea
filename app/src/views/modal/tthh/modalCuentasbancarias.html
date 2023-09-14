@@ -1,0 +1,49 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData">
+	<md-toolbar>
+	  <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=account_balance></md-ico></md-button>
+			<h2 translate>TOOLBAR_BANK_ACCOUNTS</h2>
+	    <span flex></span>
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+	  </div>
+	</md-toolbar>
+	<md-dialog-content>
+		<md-content layout=column layout-padding>		
+			<div class="form-group required" flex>
+				<label translate>LB_BANK</label>
+				<div class="input-group">
+					<span class="input-group-addon"><md-ico i=account_balance></md-ico></span>
+					<input class="form-control" ng-model="frmParent.banco_nombre" required>
+				</div>
+			</div>
+			<div class="form-group required" flex>
+				<label translate>LB_ACCOUNT_TYPE</label>
+				<div class="input-group">
+					<span class="input-group-addon"><md-ico i=flag></md-ico></span>
+					<select class="form-control" ng-model="frmParent.banco_cuenta_tipo" required ng-options="val as val for (key,val) in string2JSON('BANK_ACCOUNTS_TYPE')"></select>
+				</div>
+			</div>
+	   	<div class="form-group required" flex>
+	   		<label translate>LB_ACCOUNT_NUMBER</label>
+			  <div class="input-group">
+					<span class="input-group-addon"><md-ico i=how_to_vote></md-ico></span>
+					<input class="form-control" ng-model="frmParent.banco_cuenta_numero" required>
+				</div>
+	   	</div>
+	   	<div class="form-group required" ng-if="toogleEditMode">
+	   		<label translate>LB_STATUS</label>
+			  <div class="input-group">
+					<span class="input-group-addon"><md-ico i=flag></md-ico></span>
+					<select class="form-control" ng-model="frmParent.banco_estado" required ng-options="val as val for (key,val) in string2JSON('BANK_ACCOUNTS_STATUS')"></select>
+				</div>
+	   	</div>
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="button" ng-click="submitForm()" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,91 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg">
+  <form name="formData" ng-submit="submitForm()">
+	  <md-toolbar>
+	    <div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=fire_extinguisher></md-ico></md-button>
+				<h2 class="md-flex" translate>LB_FIRE_EXTINGUISHERS</h2>
+	      <span flex></span>
+	      <md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+	    </div>
+	  </md-toolbar>
+	  <md-dialog-content>
+	    <md-content layout=column layout-padding>
+		    	
+					<!-- FORMULARIO DE REGISTRO -->
+					<div class="card card-outline card-primary no-margin" layout-padding>
+						<div class="card-header with-border text-center">
+						  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+						</div>
+						<div class="card-body padding-all" layout=column layout-padding>
+							
+							<div layout-xs=column layout=row layout-padding>
+								<div class="form-group required" flex>
+									<label translate>LB_SERIE</label>
+								  <div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=fire_extinguisher></md-ico></div></div> 
+										<input ng-model="frmParent.extintor_serie" class="form-control" required />
+									</div>
+								</div>
+								<div class="form-group required" flex>
+									<label translate>LB_STATION</label>
+									<div class="input-group" flex ng-controller="stationsListCtrl">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assistant_photo></md-ico></div></div> 
+										<select class="form-control" ng-model="frmParent.fk_estacion_id" required ng-options="row.estacion_id as (row.estacion_nombre+' - '+row.estacion_nombre_alterno) for row in list"></select>
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-group required" flex>
+								<label translate>LB_DESCRIBE_YOUR_LOCATION</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=room></md-ico></div></div> 
+									<input ng-model="frmParent.extintor_ubicacion" class="form-control" required />
+								</div>
+							</div>
+							
+							<div layout-xs=column layout=row layout-padding>
+					    	<div class="form-group required" ng-controller="workdaysListCtrl" flex>
+									<label translate>LB_FIRE_EXTINGUISHING_AGENT</label>
+								  <div class="input-group">
+								    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=fire_extinguisher></md-ico></div></div> 
+								    <select class="form-control" ng-model="frmParent.extintor_agente" required ng-options="val as val for (key,val) in string2JSON('FIRE_EXTINGUISHING_AGENT_LIST')"></select>
+								  </div>
+								</div>
+								<div class="form-group required" flex>
+									<label translate>LB_CAPACITY</label>
+									<div class="input-group" flex>
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=compress></md-ico></div></div> 
+										<input type="number" min="0" step="1" ng-model="frmParent.extintor_libras" class="form-control" required />
+										<div class="input-group-prepend"><div class="input-group-text">Lbs</div></div> 
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-group" flex>
+								<label translate>LB_OBSERVATIONS</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+									<textarea rows="3" ng-model="frmParent.extintor_observacion" class="form-control"></textarea>
+								</div>
+							</div>
+					
+							<div class="form-group required" ng-if="toogleEditMode">
+								<label translate>LB_STATUS</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.estintor_estado" ng-options="val as val for (key,val) in string2JSON('MAIN_STATUS_SINGLE')"></select>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+			
+	    </md-content>
+	  </md-dialog-content>
+	  <md-dialog-actions layout="row">
+			<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+			<span flex></span>
+			<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+		</md-dialog-actions>
+  </form>
+</md-dialog>

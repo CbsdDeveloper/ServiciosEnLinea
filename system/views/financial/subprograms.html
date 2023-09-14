@@ -1,0 +1,48 @@
+﻿<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+	<md-toolbar  ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=layers></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_SUBPROGRAMS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<datatable-toolbar></datatable-toolbar>
+	<md-divider></md-divider>
+	
+	<md-table-container>
+		<table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="width:25%">
+      <col style="">
+     	<col style="width:25%">
+     	<col style="width:5%">
+			<thead md-head md-order="filterParent.sortData" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_PROGRAMS</span></th>
+					<th md-column><span translate>LB_SUBPROGRAMS</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td md-cell class="text-uppercase">
+						<md-ico i=public></md-ico><span ng-bind-html="highlight(row.program.programa_codigo+' '+row.program.programa_descripcion)"></span>
+					</td>
+					<td md-cell class="text-uppercase">
+						<md-ico i=layers></md-ico><span ng-bind-html="highlight(row.subprograma_codigo+' '+row.subprograma_descripcion)"></span>
+					</td>
+					<td md-cell class="text-uppercase">
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.subprograma_estado]"></span><br>
+						<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.subprograma_registro)"></span><br>
+					</td>
+					<td md-cell class="table-menu text-center">
+						
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</md-table-container>
+	<datatable-footer></datatable-footer>
+</md-card>

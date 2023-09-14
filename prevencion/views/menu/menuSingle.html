@@ -1,0 +1,39 @@
+<md-menu md-position-mode="target-right target" >
+  <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+    <md-icon><i-fa i=cogs></i-fa></md-icon>
+  </md-button>
+  <md-menu-content width="5">
+    <md-menu-item>
+      <md-button aria-label="editar" ng-click="openModal(row)">
+          <div layout="row" flex>
+            <p flex translate>LB_EDIT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=edit></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-divider ng-if="allow.permiso4"></md-divider>
+    <md-menu-item ng-if="allow.permiso4">
+      <md-button aria-label="editar" ng-click="openModal(mergeData(row,{edit:false}))">
+          <div layout="row" flex>
+            <p flex translate>LB_DUPLICATE</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=content_copy></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-divider ng-if="allow.permiso7"></md-divider>
+    <md-menu-item ng-if="allow.permiso7">
+      <md-button aria-label="editar" ng-click="deleteAuto(row)">
+          <div layout="row" flex>
+            <p flex translate>LB_DELETE</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=delete></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

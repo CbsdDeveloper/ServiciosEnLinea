@@ -1,0 +1,22 @@
+<div class="card card-outline card-primary no-margin">
+	<div class="card-body box-profile text-center">
+		<md-ico i=content_paste s=64></md-ico><br>
+		<h3 class="profile-username">{{dataEntity.ciiu_codigo}}</h3>
+		<p class="text-muted text-center">{{dataEntity.ciiu_registro}}</p>
+		<hr>
+		<strong><md-ico i=import_contacts s=18></md-ico> <span translate>LB_CIIU</span></strong>
+		<p class="text-muted">{{dataEntity.ciiu_nombre}}</p>
+		<hr>
+		<strong><md-ico i=fingerprint s=18></md-ico> <span translate>LB_CODE_V3</span></strong>
+		<p class="text-muted">{{dataEntity.ciiu_codigo_v3}}</p>
+		<hr>
+		<strong><md-ico i=content_paste s=18></md-ico> <span translate>LB_CIIU_ACTIVITY_V3</span></strong>
+		<p class="text-muted">{{dataEntity.ciiu_nombre_v3}}</p>
+		<hr>
+		<strong><md-ico i=monetization_on s=18></md-ico> <span translate>LB_TAXES</span></strong>
+		<p class="text-muted">{{dataEntity.taxe.tasa_nombre}}</p>
+		<hr>
+		<strong><md-ico i=import_contacts s=18></md-ico> <span translate>LB_ACTIVITY</span></strong>
+		<p class="text-muted">{{dataEntity.taxe.activity.actividad_nombre}}</p>
+	</div>
+</div>

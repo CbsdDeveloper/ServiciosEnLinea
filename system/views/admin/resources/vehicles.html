@@ -1,0 +1,44 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=local_taxi></md-ico></md-button>
+			<h2 translate>TOOLBAR_VEHICLES</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="exportToXLS()"><i-fa i=file-excel-o s=lg></i-fa></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_VEHICLES</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_STATUS</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<md-ico i=directions_car></md-ico><span ng-bind-html="highlight(row.vehiculo_placa)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=directions_car></md-ico><span ng-bind-html="highlight(row.vehiculo_tipo)"></span> - <span ng-bind-html="highlight(row.vehiculo_marca)"></span><br>
+						<md-ico i=local_car_wash></md-ico><span ng-bind-html="highlight(row.vehiculo_modelo)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=event></md-ico><span ng-bind-html="row.vehiculo_registro"></span><br>
+						<md-ico i=people></md-ico><span ng-bind-html="row.usuario"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <menu-mini></menu-mini>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

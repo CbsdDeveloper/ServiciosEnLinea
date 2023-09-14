@@ -1,0 +1,106 @@
+<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=access_time></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_DIAL_REGISTER</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ui-sref="tthh.attendance.biometricperiods">
+				<md-ico i=reply></md-ico><md-tooltip><span translate>LB_MONTHLY_RECORD</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="allow.permiso803323" ng-click="$parent.$parent.openModal('Importar_marcaciones',{edit:false,fk_periodo_id:periodId})">
+				<md-ico i=cloud_upload></md-ico><md-tooltip><span translate>LB_UPLOAD_FILES</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<datatable-toolbar></datatable-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <col style="">
+      <col style="">
+      <col style="">
+      <col style="">
+      <col style="">
+     	<col style="width:20%">
+     	<col style="width:5%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_STAFF</span></th>
+					<th md-column><span translate>LB_INCOME_REGISTRATION</span></th>
+					
+					<th md-column><span translate>LB_EXIT_TO_RECESS</span></th>
+					<th md-column><span translate>LB_RETURN_FROM_BREAK</span></th>
+					
+					<th md-column><span translate>LB_CHECK_OUT</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td md-cell>
+						<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.staff.person.persona_doc_identidad)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.staff.person.persona_apellidos)"></span> <span ng-bind-html="highlight(row.staff.person.persona_nombres)"></span> <span>({{row.fk_biometrico_id}})</span><br>
+						<md-ico i=info></md-ico><span ng-bind-html="highlight(row.station.estacion_nombre+' / '+row.workday.jornada_nombre)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.marcacion_ingreso_sistema)"></span><br>
+						<md-ico i=event_busy></md-ico><span ng-bind-html="highlight(row.marcacion_ingreso)"></span>
+						<div ng-if="row.marcacion_ingreso_extras!=0">
+							<md-ico i=info></md-ico><span ng-class="[{'text-bold text-danger':row.marcacion_ingreso_extras<0,'text-bold text-success':row.marcacion_ingreso_extras>0}]" translate="LB_MINUTES_X" translate-values="{x:row.marcacion_ingreso_extras}"></span>
+						</div>
+					</td>
+					
+					<td md-cell>
+						<div ng-if="row.marcacion_ingreso_break_sistema!=null">
+							<md-ico i=event></md-ico><span ng-bind-html="highlight(row.marcacion_ingreso_break_sistema)"></span><br>
+							<md-ico i=event_busy></md-ico><span ng-bind-html="highlight(row.marcacion_ingreso_break)"></span>
+							<div ng-if="row.marcacion_ingreso_break_extras!=0">
+								<md-ico i=info></md-ico><span ng-class="[{'text-bold text-danger':row.marcacion_ingreso_break_extras<0,'text-bold text-success':row.marcacion_ingreso_break_extras>0}]" translate="LB_MINUTES_X" translate-values="{x:row.marcacion_ingreso_break_extras}"></span>
+							</div>
+						</div>
+					</td>
+					<td md-cell>
+						<div ng-if="row.marcacion_salida_break_sistema!=null">
+							<md-ico i=event></md-ico><span ng-bind-html="highlight(row.marcacion_salida_break_sistema)"></span><br>
+							<md-ico i=event_busy></md-ico><span ng-bind-html="highlight(row.marcacion_salida_break)"></span>
+							<div ng-if="row.marcacion_salida_break_extras!=0">
+								<md-ico i=info></md-ico><span ng-class="[{'text-bold text-danger':row.marcacion_salida_break_extras<0,'text-bold text-success':row.marcacion_salida_break_extras>0}]" translate="LB_MINUTES_X" translate-values="{x:row.marcacion_salida_break_extras}"></span>
+							</div>
+						</div>
+					</td>
+					
+					<td md-cell>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.marcacion_salida_sistema)"></span><br>
+						<md-ico i=event_busy></md-ico><span ng-bind-html="highlight(row.marcacion_salida)"></span>
+						<div ng-if="row.marcacion_salida_extras!=0">
+							<md-ico i=info></md-ico><span ng-class="[{'text-bold text-danger':row.marcacion_salida_extras<0,'text-bold text-success':row.marcacion_salida_extras>0}]" translate="LB_MINUTES_X" translate-values="{x:row.marcacion_salida_extras}"></span>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.marcacion_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.marcacion_registro)"></span>
+						<div ng-if="row.marcacion_estado!='REGISTRO CORRECTO'">
+							<md-ico i=comment></md-ico><span ng-bind-html="highlight(row.marcacion_observacion)"></span>
+						</div>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  
+						<button class="btn btn-info btn-sm" ng-click="openParentModal('Marcaciones','tthh/attendance/biometric/staff/markings',row)" ng-if="allow.permiso8033231">
+							<md-ico i=edit c=md-ico-menu></md-ico>
+							<md-tooltip><span translate>LB_JUSTIFY_NO_MARKINGS</span></md-tooltip>
+						</button>
+						
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<datatable-footer></datatable-footer>
+</md-card>
+		

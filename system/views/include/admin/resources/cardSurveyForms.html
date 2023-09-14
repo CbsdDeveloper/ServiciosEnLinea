@@ -1,0 +1,9 @@
+<div class="card card-outline card-primary box-card-ico">
+  <div class="card-body box-profile text-center">
+		<h3 class="profile-username">{{dataEntity.formulario_nombre}}</h3>
+		<p class="text-muted text-center">{{dataEntity.formulario_registro}}</p>
+    <hr>
+		<strong><md-ico i=flag s=18></md-ico><br><span translate>LB_STATUS</span></strong>
+    <p class="text-muted"><span ng-bind-html="statusLabel[dataEntity.formulario_estado]"></span></p>
+  </div>
+</div>

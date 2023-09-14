@@ -1,0 +1,114 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=assignment_ind></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_EMPLOYMENT_HISTORY</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+			<!-- INFORMACIÓN PERSONAL -->
+    	<card-person-information layout-padding></card-person-information>
+			<!-- DATOS GENERALES DEL EVENTO -->
+			<div class="card card-outline card-info no-margin margin-top" layout-padding>
+				<div class="card-header text-center">
+					<h3 class="card-title" translate>LB_MAIN_INFORMATION</h3>
+				</div>
+				<div class="card-body md-padding padding-all" layout=column layout-padding>
+    	
+			    <div class="form-group required">
+						<label translate>LB_INSTITUTION</label>
+					  <div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=business></md-ico></div></div> 
+					    <input class="form-control" ng-model="frmParent.experiencia_institucion" placeholder="Ej. CBSD" required >
+					  </div>
+					</div>
+			    <div class="form-group required">
+						<label translate>LB_BOSS_REFERENCE</label>
+					  <div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=account_circle></md-ico></div></div> 
+					    <input class="form-control" ng-model="frmParent.experiencia_responsable" placeholder="Ej. Juan Heredia" required >
+					  </div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_TEL</label>
+						  <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=phone></md-ico></div></div> 
+						    <input class="form-control" ng-model="frmParent.experiencia_telefono" placeholder="Ej. 369852147 ext 102" required >
+						  </div>
+						</div>
+				    <div class="form-group required" flex>
+							<label translate>LB_MAIL</label>
+						  <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=email></md-ico></div></div> 
+						    <input class="form-control" ng-model="frmParent.experiencia_correo" placeholder="Ej. talento@empresa.com" required >
+						  </div>
+						</div>
+					</div>
+					
+		    	<div class="form-group required">
+						<label translate>LB_WORK_AREA</label>
+					  <div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=accessible></md-ico></div></div> 
+					    <input class="form-control" ng-model="frmParent.experiencia_area" placeholder="Ej. Talento Humano" required >
+					  </div>
+					</div>
+		    	<div class="form-group required">
+						<label translate>LB_JOB</label>
+					  <div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=accessibility></md-ico></div></div> 
+					    <input class="form-control" ng-model="frmParent.experiencia_cargo" placeholder="Ej. Analista de talento humano" required >
+					  </div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+			    	<div class="form-group required" flex>
+							<label translate>LB_DATE_ADMISSION</label>
+						  <div class="input-group" moment-picker="frmParent.experiencia_fingreso" format="YYYY-MM-DD" max-date="frmParent.experiencia_fsalida">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_available></md-ico></div></div> 
+						    <input class="form-control" ng-model="frmParent.experiencia_fingreso" placeholder="Ej. 2017-07-07" required >
+						  </div>
+						</div>
+			    	<div class="form-group required" flex>
+							<label translate>LB_DEPARTURE_DATE</label>
+						  <div class="input-group" moment-picker="frmParent.experiencia_fsalida" format="YYYY-MM-DD" min-date="frmParent.experiencia_fingreso" max-date="today">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_busy></md-ico></div></div> 
+						    <input class="form-control" ng-model="frmParent.experiencia_fsalida" placeholder="Ej. 2017-07-07" required >
+						  </div>
+						</div>
+					</div>
+		    	<div class="form-group required">
+						<label translate>LB_REASON_EXIT</label>
+					  <div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=insert_comment></md-ico></div></div> 
+					    <input class="form-control" ng-model="frmParent.experiencia_msalida" placeholder="Ej. Finalización de contrato" required >
+					  </div>
+					</div>
+		    	<div class="form-group">
+						<label translate>LB_SKILLS</label>
+					  <div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=playlist_add_check></md-ico></div></div> 
+					    <textarea class="form-control" ng-model="frmParent.experiencia_destrezas" ></textarea>
+					  </div>
+					</div>
+		    	<div class="form-group">
+						<label translate>LB_OBSERVATIONS</label>
+					  <div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+					    <textarea class="form-control" ng-model="frmParent.experiencia_observacion" ></textarea>
+					  </div>
+					</div>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

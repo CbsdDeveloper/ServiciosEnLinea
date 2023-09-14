@@ -1,0 +1,26 @@
+<div class="card card-outline card-info no-margin text-center card-entity-information">
+  <div class="card-header with-border">
+    <h3 class="card-title" translate>LB_PERSONAL_INFORMATION</h3>
+		<div class="card-tools">
+			<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+		</div>
+  </div>
+  <div class="card-body">
+  	<div class="row">
+	    <div class="col-md-3">
+	    	<p><img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{frmParent.persona_imagen}}" style="width:128px;margin:auto" class="img-responsive"/></p>
+	    </div>
+	    <div class="col-md-9 text-left">
+				<p><span><md-ico i=credit_card></md-ico> <b translate>LB_DOC_IDENTIFICATION</b>: {{frmParent.persona_doc_identidad}}</p>
+				<p><span><md-ico i=person></md-ico> <b translate>LB_NAME</b>: {{frmParent.personal_nombre}}</p>
+				<p><span><md-ico i=mail></md-ico> <b translate>LB_MAIL</b>: {{frmParent.persona_correo}}</p>
+				<p><span><md-ico i=phone></md-ico> <b translate>LB_TEL</b>: {{frmParent.persona_telefono}}</p>
+				<hr>
+				<p><span><md-ico i=account_balance></md-ico> <b translate>LB_LEADERSHIP</b>: {{frmParent.direccion_nombre}}</p>
+				<p><span><md-ico i=wrap_text></md-ico> <b translate>LB_JOB</b>: {{frmParent.puesto_nombre}}</p>
+				<p><span><md-ico i=photo_filter></md-ico> <b translate>LB_CONTRACT_TYPE</b>: {{frmParent.personal_contrato}}</p>
+				<p><span><md-ico i=gavel></md-ico> <b translate>LB_BUDGET_ITEM</b>: {{frmParent.personal_baselegal}}</p>
+	  	</div>
+    </div>
+  </div>
+</div>

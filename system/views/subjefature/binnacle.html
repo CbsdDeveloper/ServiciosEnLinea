@@ -1,0 +1,40 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=chrome_reader_mode></md-ico></md-button>
+			<h2 translate>TOOLBAR_NEWS_BOOK</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="">
+     	<col style="width:20%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_BINNACLE</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<md-ico i=fingerprint></md-ico><span ng-bind-html="highlight(row.bitacora_codigo)"></span><br>
+						<md-ico i=flag></md-ico><span ng-bind-html="highlight(row.estacion)"></span><br>
+						<md-ico i=nature></md-ico><span ng-bind-html="highlight(row.peloton_nombre)"></span><br>
+						<md-ico i=chrome_reader_mode></md-ico><span ng-bind-html="highlight(row.bitacora_detalle)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.bitacora_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.bitacora_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.personal_nombre)"></span>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

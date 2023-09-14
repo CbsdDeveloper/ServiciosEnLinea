@@ -1,0 +1,86 @@
+<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		
+		<!-- INFORMACION DE PERFIL -->
+		<card-profile class="card-information" ng-if="detailConfig.show" flex></card-profile>
+		
+		<!-- DETALLES DE CUENTA -->
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=person></md-ico></md-button>
+						<h2>{{dataEntity.personal_nombre}}</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="$parent.openModal(tbParent,dataEntity)">
+							<md-ico i=edit></md-ico>
+							<md-tooltip><span translate>LB_EDIT</span></md-tooltip>
+						</md-button>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="exportToPDF()">
+							<md-ico i=archive></md-ico>
+							<md-tooltip><span translate>LB_DOWNLOAD_CV</span></md-tooltip>
+						</md-button>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+					<md-tabs md-dynamic-height md-border-bottom>
+							<!-- INFORMACION PERSONAL -->
+							<md-tab label="{{'LB_PERSONAL_INFORMATION' | translate}}">
+								<md-content class=no-padding layout-xs=column layout=row layout-padding>
+									
+									<card-job flex ng-repeat="item in dataEntity.job"></card-job>
+									
+									<div flex>
+										<div class="box box-warning no-margin">
+										  <div class="box-header text-center">
+											  <h3 class="box-title" translate>LB_EMERGENCY_CONTACT</h3>
+											</div>
+										  <div class="box-body box-profile text-center">
+										    <h3 class="profile-username">{{dataEntity.persona_cemergencia_nombre}}</h3>
+												<p class="text-muted text-center">{{dataEntity.persona_cemergencia_parentesco}}</p> 
+										    <hr>
+												<strong><md-ico i=phone></md-ico><br><span translate>LB_TEL</span></strong>
+										    <p class="text-muted">{{dataEntity.persona_cemergencia_telefono}}</p>
+										    <hr>
+												<strong><md-ico i=place></md-ico><br><span translate>LB_ADDRESS</span></strong>
+										    <p class="text-muted">{{dataEntity.persona_cemergencia_direccion}}</p>
+										  </div>
+										</div>
+									</div>
+									
+								</md-content>
+							</md-tab>
+							<md-tab label="{{'LB_BINNACLE' | translate}}">
+								<md-content ng-controller="myTableCtrl">
+									<toolbar-filter-in-tab></toolbar-filter-in-tab>
+									<toolbar-filter></toolbar-filter>
+									<md-divider></md-divider>
+									<ul class="timeline timeline-inverse" layout=column layout-padding layout-wrap>
+										<li class="time-label" flex>
+											<span class="bg-red">{{currentDate | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+										</li>
+										<li ng-repeat="row in rowsParent.data" style="padding:0px;margin-bottom:0px" flex>
+											<i class="fa {{recordTypeColor[row.tipo]}}"><md-ico i={{recordTypeIcon[row.tipo]}} s=18></i>
+											<div class="timeline-item">
+												<span class="time"><md-ico i=access_time s=18></md-ico> {{row.fecha}}</span>
+												<h3 class="timeline-header"><a href="#">{{row.descripcion}}</a></h3>
+				                  <div class="timeline-body">
+				                    <md-ico i=computer s=18></md-ico> {{row.equipo}}<br>
+				                    <md-ico i=info_outline s=18></md-ico> {{row.ipaddress}}
+				                  </div>
+											</div>
+										</li>
+										<li><i class="fa bg-gray"><md-ico i=access_time s=18></md-ico></i></li>
+									</ul>
+									<footer-table></footer-table>
+								</md-content>
+							</md-tab>
+					</md-tabs>
+			</md-card>
+		</div>
+		
+	</div>
+</div>

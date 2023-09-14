@@ -1,0 +1,60 @@
+<div class="box box-{{string2JSON('colorCss')[$index]}} text-center">
+	<div class="box-header">
+		<i-fa i=street-view s=3x></i-fa>
+	</div>
+	<div class="box-body">
+		<h3 class="profile-username">{{entity.capacitacion_codigo}}</h3>
+    <hr>
+		<strong><i-fa i=book></i-fa> <span translate>LB_TOPIC</span></strong>
+    <p class="text-muted"><a ui-sref="main.detailTopics({id:entity.tema_id})"><i-fa i=link></i-fa> {{entity.tema_nombre}}</a></p>
+    <hr>
+		<strong><i-fa i=user-o></i-fa> <span translate>LB_COORDINATOR</span></strong>
+    <p class="text-muted">{{entity.persona_apellidos}} {{entity.persona_nombres}}</p>
+    <hr>
+		<strong><i-fa i=id-card-o></i-fa> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+    <p class="text-muted">{{string2JSON('identificationType')[entity.persona_tipo_doc]}} / {{entity.persona_doc_identidad}}</p>
+    <hr>
+		<strong><i-fa i=id-card-o></i-fa> <span translate>LB_MAIL</span></strong>
+    <p class="text-muted">{{entity.persona_correo}}</p>
+    <hr>
+		<strong><i-fa i=users></i-fa> <span translate>LB_PEOPLE</span></strong>
+    <p class="text-muted">[{{entity.people_present}} / {{entity.people_in_training}}]</p>
+    <hr>
+		<strong><i-fa i=calendar-check-o></i-fa> <span translate>LB_DATE</span></strong>
+    <p class="text-muted">{{entity.capacitacion_fecha}}</p>
+    <hr>
+		<strong><i-fa i=map-marker></i-fa> <span translate>LB_ADDRESS</span></strong>
+    <p class="text-muted">{{entity.capacitacion_parroquia}}</p>
+    <p class="text-muted">{{entity.capacitacion_principal}} y {{entity.capacitacion_secundaria}}</p>
+    <div ng-if="entity.capacitacion_estado=='PENDIENTE' || entity.capacitacion_estado=='ANULADA'">
+	    <hr>
+			<strong><i-fa i=calendar-times-o></i-fa> <span translate>LB_CONFIRMATION_DATE</span></strong>
+	    <p class="text-muted text-capitalize"><label class="label label-danger">{{entity.capacitacion_confirmacion | date: 'fullDate'}}</label></p>
+    </div>
+    <hr>
+		<strong><i-fa i=flag></i-fa> <span translate>LB_STATUS</span></strong>
+    <p class="text-muted"><span ng-bind-html="statusLabel[entity.capacitacion_estado]"></span></p>
+	</div>
+	<div class="box-footer" ng-if="entity.capacitacion_estado=='PENDIENTE' || entity.capacitacion_estado=='EVALUADA'">
+		<div ng-if="entity.capacitacion_estado=='PENDIENTE'">
+			<button class="btn btn-block btn-warning" ng-click="openParentModal('ParticipantesLista',entity)">
+				<i-fa i=user-plus s=fw></i-fa><span translate>LB_LOAD_LIST_PARTICIPANTS</span>
+			</button>
+			<button class="btn btn-block btn-warning" ng-click="openParentModal('People',entity)">
+				<i-fa i=user-plus></i-fa> <span translate>LB_CHOOSE_PEOPLE</span>
+			</button>
+			<button class="btn btn-block btn-warning" ng-click="openParentModal('Coordinador',entity)">
+				<i-fa i=user-o></i-fa> <span translate>LB_COORDINATOR</span>
+			</button>
+			<button class="btn btn-block btn-info" ng-click="exportWithDetail(entity.capacitacion_id)" ng-if="entity.people_in_training>0">
+				<i-fa i=print></i-fa> <span translate>LB_PRINT_REQUEST</span>
+			</button>
+		</div>
+		<button class="btn btn-block btn-danger" ng-if="entity.capacitacion_estado=='EVALUADA' && entity.gallery_entity<3" ng-click="openParentModal('Gallery',{edit:false,fk_table:'training',fk_id:entity.capacitacion_id,media_tipo:'IMG'})">
+			<i-fa i=upload s=lg></i-fa> <span translate>LB_UPLOAD_EVIDENCE</span>
+		</button>
+		<button class="btn btn-block btn-primary" ng-if="entity.capacitacion_estado=='EVALUADA' && entity.gallery_entity>0" ng-click="downloadCertificate(entity.capacitacion_id)">	
+			<i-fa i=download s=lg></i-fa> <span translate>LB_DOWNLOAD_CERTIFICATE</span>
+		</button>
+	</div>
+</div>

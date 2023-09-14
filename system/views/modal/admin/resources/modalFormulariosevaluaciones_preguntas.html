@@ -1,0 +1,100 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=chrome_reader_mode></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_FORM_QUESTIONS</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	
+    	<!-- FORMULARIO DE REGISTRO -->
+			<div class="card card-outline card-primary no-margin" layout-padding>
+				<div class="card-header with-border text-center">
+				  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+				<div class="card-body padding-all" layout=column layout-padding>
+				
+					<div class="form-group required" flex>
+						<label translate>LB_FORM_NUMBER</label>
+					  <div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+							<input type="number" min="0" max="100" step="1" parse-float class="form-control" ng-model="frmParent.pregunta_index" required />
+						</div>
+					</div>
+					
+					<div class="form-group required" flex>
+						<label translate>LB_DEFINE_FORM_QUESTIONS</label>
+					  <div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+							<input ng-model="frmParent.pregunta_descripcion" class="form-control" placeholder="Ej. ¿Ha salido de casa sin gorra?" required />
+						</div>
+					</div>
+					
+					<div layout-padding layout-xs=column layout=row>
+						<div class="form-group required" flex ng-controller="surveysRatingSystemListCtrl">
+							<label translate>LB_PUNCTUATION_SYSTEM</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.fk_sistemacalificacion_id" ng-options="row.recurso_id as row.recurso_nombre for row in jsonList"></select>
+							</div>
+						</div>
+						<div class="form-group required" flex ng-if="frmParent.fk_sistemacalificacion_id==113 || frmParent.fk_sistemacalificacion_id==114">
+							<label translate>LB_PARAMETER_FOR_DESCRIPTION</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+								<input ng-model="frmParent.pregunta_seleccion_descripcion" class="form-control" placeholder="Ej. SI" required />
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="form-group required" flex ng-if="frmParent.fk_sistemacalificacion_id==113 || frmParent.fk_sistemacalificacion_id==114">
+						<label translate>LB_DESCRIPTION</label>
+					  <div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=help></md-ico></div></div> 
+								<input ng-model="frmParent.pregunta_detalle" class="form-control" placeholder="Ej. SI" required />
+						</div>
+					</div>
+					
+					
+					<div layout-padding layout-xs=column layout=row>
+						<div class="form-group required" flex>
+							<label translate>LB_MARK_AS_ALERT</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=help></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.pregunta_alerta" ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+							</div>
+						</div>
+						<div class="form-group required" flex ng-if="frmParent.pregunta_alerta=='SI'">
+							<label translate>LB_RESPONSE_TO_ALERT</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+								<input ng-model="frmParent.pregunta_alerta_respuesta" class="form-control" placeholder="Ej.SI" required />
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group required" ng-if="toogleEditMode">
+						<label translate>LB_STATUS</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+							<select class="form-control" ng-model="frmParent.pregunta_estado" ng-options="val as val for (key,val) in string2JSON('MAIN_STATUS_SINGLE')"></select>
+						</div>
+					</div>
+				
+				</div>
+			</div>
+    	
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

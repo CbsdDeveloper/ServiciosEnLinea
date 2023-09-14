@@ -1,0 +1,111 @@
+<div layout-xs=column layout=row layout-padding>
+	<div layout=column flex>
+	
+		<ul class="timeline margin-top">
+			<li class="time-label text-uppercase">
+        <span class="bg-red padding-all" translate>LB_SELFPROTECTION_STEP7</span>
+      </li>
+			<li>
+				<i class="fa fa-info bg-maroon"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header text-uppercase"><a href="#"><span translate>LB_SELFPROTECTION_STEP7_1</span></a></h3>
+		      <div class="timeline-body" layout-padding>
+		      	<div class="form-group required" flex>
+						  <label translate>LB_SELFPROTECTION_STEP7_1_DESCRIPTION</label>
+						  <div class="input-group">
+					      <span class="input-group-addon"><md-ico i=history></md-ico></span>
+					      <select class="form-control" ng-model="frmParent.alarma_deteccion" ng-change="updateStep7_1()" ng-options="val as val for (key,val) in string2JSON('LIST_DETECTION_EMERGENCY_TYPE')" required></select>
+					    </div>
+						</div>
+		      </div>
+				</div>
+			</li>
+			
+			<li>
+				<i class="fa fa-info bg-blue"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header text-uppercase"><a href="#"><span translate>LB_SELFPROTECTION_STEP7_2</span></a></h3>
+		      <div class="timeline-body" layout-padding>
+						
+						<div class="form-group required" flex>
+						  <label translate>LB_SELFPROTECTION_STEP7_21_DESCRIPTION</label>
+						  <div class="input-group">
+					      <span class="input-group-addon"><md-ico i=history></md-ico></span>
+					      <select class="form-control" ng-model="frmParent.alarma_aplicacion_tipo" ng-change="updateStep7_21()" ng-options="val as val for (key,val) in string2JSON('SELFPROTECTION_72_APLICAR_ALARMA')" required></select>
+					    </div>
+						</div>
+						<div class="form-group required" flex ng-if="frmParent.alarma_aplicacion_tipo!='' && frmParent.alarma_aplicacion_tipo!=null && frmParent.alarma_aplicacion_tipo!='PROPUESTA POR EL CUERPO DE BOMBEROS'">
+					  	<textarea class="form-control" ckeditor="editorOptions" ng-model="frmParent.alarma_aplicacion" required></textarea>
+						</div>
+						<div class="form-group required" flex ng-if="frmParent.alarma_aplicacion_tipo=='PROPUESTA POR EL CUERPO DE BOMBEROS'" ng-bind-html="highlight(frmParent.alarma_aplicacion)"></div>
+						
+		      </div>
+				</div>
+			</li>
+			
+			<li>
+				<i class="fa fa-info bg-yellow"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header text-uppercase"><a href="#"><span translate>LB_SELFPROTECTION_STEP7_3</span></a></h3>
+		      <div class="timeline-body" layout-padding>
+						
+						<div class="form-group required" flex>
+						  <label translate>LB_SELFPROTECTION_STEP7_31_DESCRIPTION</label>
+						  <div class="input-group">
+					      <span class="input-group-addon"><md-ico i=history></md-ico></span>
+					      <select class="form-control" ng-model="frmParent.alarma_grado_i" ng-change="updateStep7_31()" ng-options="val as val for (key,val) in string2JSON('SELFPROTECTION_73_NEVEL_EMERGENCY')" required></select>
+					    </div>
+						</div>
+						<div class="form-group required" flex ng-if="frmParent.alarma_grado_i!='' && frmParent.alarma_grado_i!=null && frmParent.alarma_grado_i!='GRADOS DE EMERGENCIA PROPUESTOS POR EL CUERPO DE BOMBEROS'">
+					  	<textarea class="form-control" ckeditor="editorOptions" ng-model="frmParent.alarma_grado_ii" required></textarea>
+						</div>
+						<div class="form-group required" flex ng-if="frmParent.alarma_grado_i=='GRADOS DE EMERGENCIA PROPUESTOS POR EL CUERPO DE BOMBEROS'" ng-bind-html="highlight(frmParent.alarma_grado_ii)"></div>
+						
+		      </div>
+				</div>
+			</li>
+			<li>
+				<i class="fa fa-info bg-purple"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header text-uppercase"><a href="#"><span translate>LB_SELFPROTECTION_STEP7_4</span></a></h3>
+		      <div class="timeline-body" layout-padding>
+						<div class="form-group required" flex>
+						  <label translate>LB_SELFPROTECTION_STEP7_41_DESCRIPTION</label>
+						  <div class="input-group">
+					      <span class="input-group-addon"><md-ico i=history></md-ico></span>
+					      <textarea rows="4" ng-model="frmParent.alarma_comunicacion_internos" class="form-control" required></textarea>
+					    </div>
+						</div>
+						
+						<div class="form-group required" flex>
+						  <label translate>LB_SELFPROTECTION_STEP7_42_DESCRIPTION</label>
+						  <div class="input-group">
+					      <span class="input-group-addon"><md-ico i=history></md-ico></span>
+					      <textarea rows="4" ng-model="frmParent.alarma_comunicacion_externos" class="form-control" required></textarea>
+					    </div>
+						</div>
+		      </div>
+				</div>
+			</li>
+			<li>
+				<i class="fa fa-paper-plane bg-red"></i>
+		    <div class="timeline-item">
+		      <div class="timeline-body" layout=row layout-padding layout-align="space-between center">
+			      <div flex>
+							<button type="button" ng-click="goUI('permits.editSelfProtection.step6',{planId:frmParent.plan_id})" class="btn btn-warning btn-block">
+								<i-fa i=angle-double-left></i-fa> <span translate>BTN_CANCEL</span>
+							</button>
+							</div>
+						<div flex>
+							<button type="button" ng-click="submitForm()" class="btn btn-success btn-block" ng-disabled="formData.$invalid">
+								<span translate>BTN_NEXT</span> <i-fa i=angle-double-right></i-fa>
+							</button>
+						</div>
+		      </div>
+		  	</div>
+		  </li>
+		  <li><i class="fa fa-clock-o bg-gray"></i></li>
+		</ul>
+		
+	</div>
+</div>

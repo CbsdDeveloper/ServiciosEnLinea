@@ -1,0 +1,90 @@
+<div flex class="box no-margin">
+	<div class="box-header with-border text-center">
+		<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+		<div class="box-tools pull-right">
+       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+     </div>
+	</div>
+	<div class="box-body box-bg-info" layout=column>
+		<div ng-bind-html="$parent.trustAsHtml(paramsConf.SELFINSPECTION_STEP1)"></div>
+	</div>
+</div>
+
+<div class="no-padding" layout-xs=column layout=row layout-padding>
+	
+	<!-- INFORMACION DEL RUC -->
+	<div flex>
+		<ul class="timeline margin-top">
+			<li class="time-label text-uppercase">
+			  <span class="bg-blue padding-all" translate>LB_RUC_INFORMATION</span>
+			</li>
+			<li>
+				<i class="fa fa-building bg-green"></i>
+			  <div class="timeline-item">
+			    <div class="timeline-body no-padding">
+						<card-entity></card-entity>
+					</div>
+				</div>
+			</li>
+			<li>
+				<i class="fa fa-user bg-maroon"></i>
+			  <div class="timeline-item">
+			    <div class="timeline-body no-padding">
+						<card-agent></card-agent>
+					</div>
+				</div>
+			</li>
+			<li ng-if="entity.entidad_apoderado=='SI'">
+				<i class="fa fa-user-o bg-yellow"></i>
+			  <div class="timeline-item">
+			    <div class="timeline-body no-padding">
+						<card-adopted></card-adopted>
+					</div>
+				</div>
+			</li>
+			<li><i class="fa fa-clock-o bg-gray"></i></li>
+		</ul>
+	</div>
+	
+	<!-- FORMULARIO DE VALIDACION DE DATOS -->
+	<div flex>
+		<ul class="timeline margin-top">
+			<li class="time-label text-uppercase">
+			  <span class="bg-blue padding-all" translate>LB_ACTIVITY_INFORMATION</span>
+			</li>
+			<li>
+				<i class="fa fa-edit bg-green"></i>
+			  <div class="timeline-item">
+						<div class="box box-primary no-margin">
+							<div class="box-header text-center">
+							  <h3 class="box-title">{{frmLocales.local_nombrecomercial}}</h3>
+							</div>
+							<div class="box-body" layout=column layout-padding ng-controller="localsExtendsCtrl">
+								<frm-economic-activities layout-padding></frm-economic-activities>
+							</div>
+						</div>
+				</div>
+			</li>
+		  <li>
+				<i class="fa fa-paper-plane-o bg-red"></i>
+		    <div class="timeline-item">
+		      <div class="timeline-body" layout-xs=column layout=row layout-padding>
+		      	<div flex>
+							<button ng-click="goUI('permits.economicActivities')" class="btn btn-warning btn-block">
+								<i-fa i=angle-double-left></i-fa>
+								<span translate>BTN_CANCEL</span>
+							</button>
+						</div>
+						<div flex>
+							<button ng-click="goStep2(frmLocales.local_id)" class="btn btn-success btn-block" ng-disabled="formData.$invalid"> <!--  || !isSetFile(frmParent.local_certificadostablecimiento) -->
+								<span translate>BTN_NEXT</span>
+								<i-fa i=angle-double-right></i-fa>
+							</button>
+						</div>
+		      </div>
+				</div>
+			</li>
+			<li><i class="fa fa-clock-o bg-gray"></i></li>
+		</ul>
+	</div>
+</div>

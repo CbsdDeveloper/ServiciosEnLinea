@@ -1,0 +1,79 @@
+﻿<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=spellcheck></md-ico>
+				<md-tooltip><span translate>LB_ARCHIVE_FILE_REVIEWS</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.textFilter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_MAIN_TOOLBAR' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.textFilter!=''" ng-click="filterParent.textFilter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()" ng-if="allow.permiso81051">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="width:12%">
+      <col style="">
+     	<col style="width:20%">
+     	<col style="width:3%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_PERIOD</span></th>
+					<th md-column><span translate>LB_DOCUMENTARY_SERIES</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td md-cell>
+						<span ng-bind-html="highlight(row.period.periodo_nombre)"></span>
+					</td>
+					
+					<td md-cell>
+						<div ng-if="row.serie.serie_nombre!=null && row.serie.serie_nombre!=''">
+							<md-ico i=category></md-ico><span ng-bind-html="highlight(row.serie.codigo_archivo+' '+row.serie.serie_nombre)"></span>
+							<md-tooltip><span translate>LB_DOCUMENTARY_SERIE</span></md-tooltip>
+						</div>
+						<div ng-if="row.serie.subserie_nombre!=null && row.serie.subserie_nombre!=''">
+							<md-ico i=info></md-ico><span ng-bind-html="highlight(row.serie.subserie_nombre)"></span>
+							<md-tooltip><span translate>LB_DOCUMENTARY_SUBSERIE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=account_balance></md-ico><span ng-bind-html="highlight(row.serie.section.direccion_nombre)"></span>
+							<md-tooltip><span translate>LB_SECTION</span></md-tooltip>
+						</div>
+						<div ng-if="row.serie.subsection!=null">
+							<md-ico i=wrap_text></md-ico><span ng-bind-html="highlight(row.serie.subsection.direccion_nombre)"></span>
+							<md-tooltip><span translate>LB_SUBSECTION</span></md-tooltip>
+						</div>
+					</td>
+					
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.pserie_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="row.pserie_registro"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.user.person.persona_apellidos+' '+row.user.person.persona_nombres)"></span>
+					</td>
+					
+					<td md-cell class="table-menu text-center">
+					  <menu-archive-reviews></menu-archive-reviews>
+					</td>
+					
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<datatable-footer></datatable-footer>
+</md-card>

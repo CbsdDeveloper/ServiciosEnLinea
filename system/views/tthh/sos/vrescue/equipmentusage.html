@@ -1,0 +1,208 @@
+<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		
+		<!-- INFORMACION DE EVALUACION -->
+		<div class="card-information" flex>
+			<div class="card card-outline card-primary no-margin">
+			  <div class="card-header with-border text-center">
+				  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+			  <div class="card-body box-profile text-center">
+					<strong><md-ico i=verified_user s=15></md-ico><br><span translate>LB_SERIE</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.equipment.equipo_serial}}</p>
+			    <hr>
+					<strong><md-ico i=filter_none s=15></md-ico><br><span translate>LB_FORM_NAME</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.equipment.form.formulario_nombre}}</p>
+			    <hr>
+					<strong><md-ico i=category s=15></md-ico><br><span translate>LB_PLATOON</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.equipment.platoon.station.estacion_nombre}} - {{dataEntity.equipment.platoon.peloton_nombre}}</p>
+			    <hr>
+					<strong><md-ico i=category></md-ico><br><span translate>LB_CATEGORY</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.equipment.category.categoria_nombre}}</p>
+			    <hr>
+					<strong><md-ico i=info s=15></md-ico><br><span translate>LB_BRAND</span> / <span translate>LB_MODEL</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.equipment.equipo_marca}} / {{dataEntity.equipment.equipo_modelo}}</p>
+			    <hr>
+					<strong><md-ico i=comment s=15></md-ico><br><span translate>LB_DETAIL</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.equipment.equipo_detalle}}</p>
+			    <hr>
+					<strong><md-ico i=event s=15></md-ico><br><span translate>LB_MANUFACTURING_DATE</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.equipment.equipo_fecha_fabricacion | date:'fullDate'}}</p>
+			    <hr>
+					<strong><md-ico i=event s=15></md-ico><br><span translate>LB_ACQUISITION_DATE</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.equipment.equipo_fecha_compra | date:'fullDate'}}</p>
+			    <hr>
+					<strong><md-ico i=event s=15></md-ico><br><span translate>LB_DATE_FIRST_USE</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.equipment.equipo_fecha_asignacion | date:'fullDate'}}</p>
+			    <hr>
+					<strong><md-ico i=flag s=15></md-ico><br><span translate>LB_STATUS</span></strong>
+			    <p class="text-muted text-uppercase" ng-bind-html="statusLabel[dataEntity.equipment.equipo_estado]"></p>
+			  </div>
+			</div>
+		</div>
+		
+		<!-- FORMULARIO -->
+		<form name="formData" flex>
+			<md-card class="no-margin">
+
+				<!-- ENCABEZADO -->
+				<md-toolbar ng-hide="filter.show">
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=filter_none></md-ico></md-button>
+						<h2 class="md-flex" translate>LB_FORM_QUESTIONS</h2>
+					</div>
+				</md-toolbar>
+				
+				<!-- FORMULARIO DE ROLES -->
+				<div class="timeline margin-top font-12">
+					
+					<!-- IFNROMACION GENERAL -->
+					<div>
+						<i class="fa fa-bookmark-o bg-blue"></i>
+					  <div class="timeline-item">
+					     <div class="timeline-body no-padding">
+						
+									<div class="card card-outline card-primary no-margin">
+										<div class="box-header with-border">
+											<h3 class="box-title" translate>LB_MAIN_INFORMATION</h3>
+										</div>
+										<div class="card-body" layout-padding>
+											
+											<div layout-xs=column layout=row layout-padding>
+												<div class="form-group required" flex>
+													<label translate>LB_DATE_OF_USE</label>
+													<div class="input-group" moment-picker="frmParent.registro_fecha_utilizacion" format="YYYY-MM-DD">
+														<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+											    	<input class="form-control" ng-model="frmParent.registro_fecha_utilizacion" ng-model-options="{ updateOn: 'blur' }" required>
+											    </div>
+												</div>
+												<div class="form-group required" flex>
+													<label translate>LB_USE_TIME</label>
+												  <div class="input-group">
+														<div class="input-group-prepend"><div class="input-group-text"><md-ico i=schedule></md-ico></div></div> 
+														<input type="number"  ng-model="frmParent.registro_tiempouso" class="form-control" required />
+													</div>
+												</div>
+											</div>
+											
+											<div layout-xs=column layout=row layout-padding>
+												<div class="form-group required" flex>
+													<label translate>LB_PREUSE_CONDITIONS</label>
+												  <div class="input-group">
+														<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+														<select class="form-control" ng-model="frmParent.registro_condiciones_preuso" ng-options="val as val for (key,val) in string2JSON('VRESCUE_EQUIPMENT_STATUS_LIST')" required></select>
+													</div>
+												</div>
+												<div class="form-group required" flex>
+													<label translate>LB_POSTUSE_CONDITIONS</label>
+												  <div class="input-group">
+														<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+														<select class="form-control" ng-model="frmParent.registro_condiciones_postuso" ng-options="val as val for (key,val) in string2JSON('VRESCUE_EQUIPMENT_STATUS_LIST')" required></select>
+													</div>
+												</div>
+											</div>
+												
+											<div layout-xs=column layout=row layout-padding>
+												<div class="form-group required" flex>
+													<label translate>LB_ACTIVITY_EXECUTED</label>
+												  <div class="input-group">
+														<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+														<textarea rows="4" ng-model="frmParent.registro_actividad" class="form-control" required></textarea>
+													</div>
+												</div>
+											</div>
+											
+										</div>
+									</div>
+								
+							</div>
+						</div>
+						
+					</div>
+					
+					<!-- REGISTRO DE FORMULARIOS -->
+					<div ng-repeat="data in dataEntity.sectionsList" ng-if="frmParent.registro_condiciones_postuso!=null && !(frmParent.registro_condiciones_postuso=='BUENO' || frmParent.registro_condiciones_postuso=='OPTIMO')">
+						<i class="fa fa-check-square-o bg-black"></i>
+					  <div class="timeline-item">
+					     <div class="timeline-body no-padding">
+						
+									<div class="card card-outline card-black no-margin">
+										<div class="box-header with-border">
+											<h3 class="box-title">{{data.seccion_index}}. {{data.seccion_nombre}}</h3>
+										</div>
+										<div class="card-body" layout-padding>
+												<div class="padding-all" ng-repeat="item in data.questions">
+											    	<h3 class="timeline-header no-margin" layout=column>
+											    		<b>{{item.pregunta_index}}. {{item.pregunta_descripcion}}</b>
+											    		<br>
+											    		<div ng-if="item.rating.recurso_tipo_formulario=='SELECCION MULTIPLE'">
+												    		<md-radio-group ng-model="frmParent.test[item.pregunta_id].respuesta_resultado" layout=row required>
+														      <md-radio-button class="md-warn" ng-value="k" ng-repeat="(k,v) in string2JSONExternal(item.rating.recurso_lista_valores)">{{v}}</md-radio-button>
+														    </md-radio-group>
+											    		</div>
+											    	</h3>
+												</div>
+										</div>
+									</div>
+								
+							</div>
+						</div>
+						
+					</div>
+					
+					<!-- IFNROMACION ADICIONAL -->
+					<div>
+						<i class="fa fa-info bg-maroon"></i>
+						<div class="timeline-item">
+							<div class="timeline-body no-padding">
+						
+									<div class="card card-outline card-maroon no-margin">
+										<div class="box-header with-border">
+											<h3 class="box-title" translate>LB_EXTRA_INFORMATION</h3>
+										</div>
+										<div class="card-body" layout-padding>
+											
+											<div layout-xs=column layout=row layout-padding>
+												<div class="form-group required" flex>
+													<label translate>LB_OBSERVATIONS</label>
+												  <div class="input-group">
+														<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comments></md-ico></div></div> 
+														<textarea rows="4" ng-model="frmParent.registro_observaciones" class="form-control" required></textarea>
+													</div>
+												</div>
+											</div>
+											
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<!-- BOTONERA -->
+					<div>
+						<i class="fa fa-paper-plane-o bg-green"></i>
+					   <div class="timeline-item">
+					     <div class="timeline-body no-padding" layout-xs=column layout=row layout-padding>
+					      <div flex>
+									<a ui-sref="tthh.sos.vrescue.equipments" class="btn btn-warning btn-block">
+										<i-fa i=angle-double-left></i-fa> <span translate>BTN_CANCEL</span>
+									</a>
+								</div>
+								<div flex>
+									<button type="button" ng-click="submitForm()" class="btn btn-success btn-block" ng-disabled="formData.$invalid">
+										<span translate>BTN_SUBMIT</span> <i-fa i=angle-double-right></i-fa>
+									</button>
+								</div>
+					     </div>
+						</div>
+					</div>
+					
+					<div><i class="fa fa-clock-o bg-gray"></i></div>
+					
+				</div>
+					
+			</md-card>	
+		</form>
+		
+	</div>
+</div>

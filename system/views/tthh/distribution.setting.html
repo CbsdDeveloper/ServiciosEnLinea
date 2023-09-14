@@ -1,0 +1,138 @@
+<div layout-padding class="no-padding multiDemo">
+	
+	<div class="card card-danger no-padding handle">
+		<div class="card-header padding-all" draggable>
+			<h3 class="card-title">PERSONAL SIN ASIGNAR</h3>
+			<div class="card-tools">
+		    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+		  </div>
+		</div>
+		<div class="card-body padding-all">
+			
+			<div class="form-group margin-bottom" flex>
+				<input ng-model="filterData" class="form-control" placeholder="Ej. 1236587490" maxlength="20">
+			</div>
+			
+			<ul class="no-margin" dnd-list dnd-drop="onDrop(frmParent.personal, item, index)">
+				<li ng-repeat="item in frmParent.personal.items | filter : filterData"
+		        dnd-draggable="getSelectedItemsIncluding(frmParent.personal, item)"
+		        dnd-dragstart="onDragstart(frmParent.personal, event)"
+		        dnd-moved="onMoved(frmParent.personal)"
+		        dnd-dragend="frmParent.personal.dragging = false"
+		        dnd-selected="item.selected = !item.selected"
+		        ng-class="{'selected': item.selected}"
+		        ng-hide="frmParent.personal.dragging && item.selected">
+		        <small>{{item.nombre}}<br><b>{{item.puesto}}</b></small>
+				</li>
+			</ul>
+			
+		</div>
+	</div>
+	
+	<div class="card card-warning no-padding handle">
+		<div class="card-header padding-all" draggable>
+			<h3 class="card-title">PERSONAL COMPLETO</h3>
+			<div class="card-tools">
+		    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+		  </div>
+		</div>
+		<div class="card-body padding-all">
+			
+			<div class="form-group margin-bottom" flex>
+				<input ng-model="filterData" class="form-control" placeholder="Ej. 1236587490" maxlength="20">
+			</div>
+			
+			<ul class="no-margin" dnd-list dnd-drop="onDrop(frmParent.staff, item, index)">
+				<li ng-repeat="item in frmParent.staff.items | filter : filterData"
+		        dnd-draggable="getSelectedItemsIncluding(frmParent.staff, item)"
+		        dnd-dragstart="onDragstart(frmParent.staff, event)"
+		        dnd-dragend="frmParent.staff.dragging = false"
+		        dnd-selected="item.selected = !item.selected"
+		        ng-class="{'selected': item.selected}">
+		        <small>{{item.nombre}}<br><b>{{item.puesto}}</b></small>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<form name="formData" layout-xs=column layout=row layout-padding>
+		
+		<div flex>
+			
+			<md-card class="no-margin">
+				
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=flag></md-ico></md-button>
+						<h2 translate>TOOLBAR_DISTRIBUTION</h2>
+						<span flex></span>
+						<md-button type="button" ng-click="submitForm()" ng-disabled="formData.$invalid">
+							<span translate>BTN_SUBMIT</span>
+						</md-button>
+					</div>
+				</md-toolbar>
+				
+				<md-tabs md-dynamic-height md-border-bottom>
+				
+						<md-tab label="{{station}}" ng-repeat="(station,platoonsList) in frmParent.platoons">
+							
+							<md-content>
+									
+									<div class="md-toolbar-tools">
+										<md-button aria-label="btn" class="md-icon-button"><md-ico i=settings></md-ico></md-button>
+										<h2 translate>TOOLBAR_UTILS</h2>
+									</div>
+									<md-divider></md-divider>
+									<div class="md-padding row no-margin">
+										
+										<div class="col-md-4 col-xs-12" ng-repeat="distributionsList in platoonsList">
+												
+												<div class="card card-outline card-{{string2JSON('colorCss')[$index]}}">
+													<div class="card-header with-border">
+													  <h3 class="card-title">{{distributionsList.info.id}}. {{distributionsList.info.nombre}}</h3>
+													  <div class="card-tools">
+													    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+													  </div>
+													</div>
+												  <div class="card-body padding-all">
+													    
+													    <div class="card" ng-repeat="list in distributionsList.functions">
+																<div class="card-header">
+																    <h3 class="card-title">{{list.listName}}</h3>
+																</div>
+																<div class="card-body padding-all">
+																	<ul class="no-margin" dnd-list dnd-drop="onDrop(list, item, index)">
+																		<li ng-repeat="item in list.items"
+																		    dnd-draggable="getSelectedItemsIncluding(list, item)"
+																		    dnd-dragstart="onDragstart(list, event)"
+																		    dnd-moved="onMoved(list)"
+																		    dnd-dragend="list.dragging = false"
+																		    dnd-selected="item.selected = !item.selected"
+																		    ng-class="{'selected': item.selected}"
+																		    ng-hide="list.dragging && item.selected">
+																		    {{item.nombre}}<br><small class="text-bold">{{item.puesto}}</small>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+															
+												  </div>
+											 	</div>
+											 	
+										</div>
+										
+									</div>
+									
+							</md-content>
+							
+						</md-tab>
+				
+				</md-tabs>
+				
+			</md-card>
+			
+		</div>
+	
+	</form>
+
+</div>

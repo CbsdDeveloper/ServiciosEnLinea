@@ -1,0 +1,73 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=format_list_bulleted></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_CONTRACTING_PROCEDURES</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	
+    	<div class="card card-outline card-danger no-margin">
+				<div class="card-header text-center with-border">
+				  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+				<div class="card-body no-padding" layout=column layout-padding>
+					
+		    	<div class="form-group required" flex>
+		    		<label translate>LB_CONTRACTING_PROCEDURE</label>
+				    <div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+					    <input ng-model="frmParent.procedimiento_contratacion" class="form-control input-sm" required />
+					  </div>
+					</div>
+					
+					<div layout-xs=column layout=row layout-padding>
+			    	<div class="form-group required" flex>
+			    		<label translate>LB_CONTRACTING_OBJECT</label>
+					    <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+						    <select class="form-control input-sm text-uppercase" ng-model="frmParent.procedimiento_tipo_contratacion" ng-required="true" ng-options="val as val for (key,val) in string2JSON('FINANCIAL_PROCESSES_CONTRACT_SETTING')['OBJETOS']"></select>
+						  </div>
+						</div>
+						<div class="form-group required" flex>
+			    		<label translate>LB_STANDARDIZED</label>
+					    <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=attach_money></md-ico></div></div> 
+						    <select class="form-control input-sm text-uppercase" ng-model="frmParent.procedimiento_normalizado" ng-required="true" ng-options="val as val for (key,val) in string2JSON('FINANCIAL_PROCESSES_CONTRACT_SETTING')['NORMALIZADO']"></select>
+						  </div>
+			    	</div>
+			    </div>
+					
+					<div layout-xs=column layout=row layout-padding>
+			    	<div class="form-group required" flex>
+			    		<label translate>LB_MINIMUM_AMOUNT</label>
+					    <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+						    <input type="number" parse-float step="0.01" min=0 ng-model="frmParent.procedimiento_monto_minimo" placeholder="Ej. 1000" class="form-control input-sm text-center" required />
+						  </div>
+						</div>
+						<div class="form-group required" flex>
+			    		<label translate>LB_MAXIMUM_AMOUNT</label>
+					    <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=attach_money></md-ico></div></div> 
+						    <input type="number" parse-float step="0.01" min={{procedimiento_monto_minimo}} ng-model="frmParent.procedimiento_monto_maximo" placeholder="Ej. 3" class="form-control input-sm text-center" required />
+						  </div>
+			    	</div>
+			    </div>
+					
+    		</div>
+    	</div>
+    	
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,87 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	
+	<md-toolbar>
+	  <div class="md-toolbar-tools">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><md-ico i=search></md-ico></md-button>
+	    <form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.filter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_MAIN_TOOLBAR' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.filter!=''" ng-click="filterParent.filter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="toogleBar()" ng-if="allow.permiso8151">
+				<md-ico i={{showNewHistory?'close':'person_add'}}></md-ico>
+				<md-tooltip><span translate>LB_NEW_MEDICAL_CONSULTATION</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+	  </div>
+	</md-toolbar>
+	
+	<md-divider ng-if="allow.permiso8162 && showNewHistory"></md-divider>
+	<md-toolbar  ng-if="allow.permiso8162 && showNewHistory">
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><md-ico i=credit_card></md-ico></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="Ingresar número de cédula para generar nueva consula" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+	  </form>
+	</md-toolbar>
+	
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="">
+     	<col style="width:15%;">
+     	<col style="width:25%;">
+     	<col style="width:5%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_PATIENT</span></th>
+					<th md-column><span translate>LB_CONSULTATION_DATA</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell class="text-uppercase">
+						<div>
+							<md-ico i=credit_card></md-ico><span ng-bind-html="row.persona_doc_identidad"></span><br>
+							<md-ico i=person></md-ico><span ng-bind-html="row.personal_nombre"></span>
+							<md-tooltip><span translate>LB_PATIENT</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=comment></md-ico><span ng-bind-html="row.consulta_motivo"></span>
+							<md-tooltip><span translate>LB_REASON_FOR_CONSULTATION</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell class="text-uppercase">
+						<div>
+							<md-ico i=fingerprint></md-ico><span ng-bind-html="row.consulta_serie"></span>
+							<md-tooltip><span translate>LB_NUMBER_ATTENTION</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=event></md-ico><span ng-bind-html="row.consulta_fecha_consulta"></span>
+							<md-tooltip><span translate>LB_DATE</span></md-tooltip>
+						</div>
+						<div>
+							<small class="badge bg-blue" style="font-size:8px;" ng-if="row.consulta_descansomedico=='SI'" translate>LB_MEDICAL_REST</small>
+							<small class="badge bg-blue" style="font-size:8px;" ng-if="row.consulta_cita_subsecuente=='SI'" translate>LB_SUBSEQUENT_APPOINTMENT</small>
+							<small class="badge bg-blue" style="font-size:8px;" ng-if="row.consulta_medicamento=='SI'" translate>LB_MEDICINE</small>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.consulta_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="row.consulta_registro"></span><br>
+						<md-ico i=people></md-ico><span ng-bind-html="row.doctor"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+						<menu-medical-consultation ng-if="allow.permiso8164 || allow.permiso8165 || allow.permiso8205 || allow.permiso8215"></menu-medical-consultation>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

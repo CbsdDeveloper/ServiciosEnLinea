@@ -1,0 +1,65 @@
+<div class="padding-all no-padding-bottom">
+	<div flex class="box box-info collapsed-box no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+			<div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+      </div>
+		</div>
+		<div class="box-body box-bg-info" layout=column layout-wrap>
+			<div ng-bind-html="$parent.trustAsHtml(paramsConf.SI_INFO_TGLP)"></div>
+		</div>
+	</div>
+</div>
+
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="button"><md-ico i=whatshot></md-ico></md-button>
+			<h2><span translate>TOOLBAR_GLP_VEHICLES</span></h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip></md-button>
+			<md-button class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip></md-button>
+			<md-button class="md-icon-button" ng-click="openModal()"><md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+		<table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_VEHICLES</span></th>
+					<th md-column><span translate>LB_OWNER</span></th>
+					<th md-column><span translate>LB_OTHER</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell class="text-uppercase">
+						<div ng-if="row.transporte_id>0">
+							<i-fa i=fire></i-fa><span class="label label-primary" ng-bind-html="row.tglp_codigo"></span>
+						</div>
+						<md-ico i=directions_car></md-ico><span ng-bind-html="highlight(row.vehiculo_placa)"></span><br>
+						<i-fa i=info></i-fa><span ng-bind-html="highlight(row.vehiculo_marca+' / '+row.vehiculo_modelo)"></span>
+					</td>
+					<td md-cell class="text-uppercase">
+						<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.persona_doc_identidad)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.propietario)"></span>
+					</td>
+					<td md-cell>
+						<div ng-if="row.transporte_id>0">
+							<i-fa i=shield></i-fa><span class="label label-primary" ng-bind-html="row.codigo_per"></span><br>
+							<i-fa i=flag></i-fa><span ng-bind-html="statusLabel[row.tglp_estado]"></span><br>
+							<i-fa i=calendar></i-fa><span ng-bind-html="row.tglp_registro"></span>
+						</div>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <menu-glp-transport></menu-glp-transport>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

@@ -1,0 +1,66 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=delete></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_FILTERS_WATERFALL</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+			<div class="form-group required" flex>
+				<label translate>LB_CAPACITY_IN_HOURS</label>
+			  <div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=waves></md-ico></div></div> 
+					<input parse-float type="number" min="1" step="1" ng-model="frmParent.filtro_capacidad" class="form-control" placeholder="Ej. 45" required />
+				</div>
+			</div>
+			<div class="form-group required" flex>
+				<label translate>LB_NOTIFICATION_TIME</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=format_list_numbered_rtl></md-ico></div></div> 
+					<input parse-float type="number" min="1" step="1" ng-model="frmParent.filtro_notificacion" class="form-control" placeholder="Ej. 15" required />
+				</div>
+			</div>
+			
+    	<div layout-xs=column layout=row layout-padding>
+				<div class="form-group required" flex>
+					<label translate>LB_DATE_PLACEMENT</label>
+				  <div class="input-group" moment-picker="frmParent.filtro_fecha_ingreso" max-date="today" format="YYYY-MM-DD">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=access_time></md-ico></div></div> 
+						<input ng-model="frmParent.filtro_fecha_ingreso" class="form-control" placeholder="Ej. 2017-07-07" required />
+					</div>
+				</div>
+				<div class="form-group required" flex ng-if="toogleEditMode && frmParent.filtro_estado=='CAMBIADO'">
+					<label translate>LB_EXCHANGE_DATE</label>
+					<div class="input-group" moment-picker="frmParent.filtro_fecha_cambio" min-date="frmParent.filtro_hora_inicio" max-date="today" format="YYYY-MM-DD">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=access_alarms></md-ico></div></div> 
+						<input ng-model="frmParent.filtro_fecha_cambio" class="form-control" placeholder="Ej. 2017-07-07" required />
+					</div>
+				</div>
+			</div>
+			<div class="form-group required" ng-if="toogleEditMode">
+				<label translate>LB_STATUS</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.filtro_estado" ng-options="val as val for (key,val) in string2JSON('FILTER_WATERFALL_STATUS')"></select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label translate>LB_OBSERVATION</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+					<textarea ng-model="frmParent.cascada_observacion" class="form-control" placeholder="Ej. Observación..." required ></textarea>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

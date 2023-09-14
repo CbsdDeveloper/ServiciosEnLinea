@@ -1,0 +1,121 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg" style="width:90%">
+  <form name="formData" ng-submit="submitFormFile()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+    	<md-button aria-label="btn" class="md-icon-button"><md-ico i=account_circle></md-ico></md-button>
+			<h2 translate>TOOLBAR_ACCOUNT</h2>
+      <span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content class="no-padding" layout-xs=column layout=row layout-padding>
+    	<div layout=column layout-padding flex>
+				<frm-personas-advanced></frm-personas-advanced>
+			</div>
+			<div style="padding:8px" layout=column layout-padding flex>
+				<div class="card card-outline card-primary no-padding no-margin" style="margin-bottom:8px!important">
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_EXTRA_INFORMATION</h3>
+					</div>
+					<div class="card-body" layout=column layout-padding layout-wrap>
+						<div class="form-group required" flex>
+							<label translate>LB_PROFILE</label>
+							<div class="input-group">
+					      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=landscape></md-ico></div></div> 
+					      <input uploader-model="frmParent.persona_file" type="file" accept="image/*" class="form-control" />
+					    </div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_LANGUAGE</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=translate></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.usuario_idioma"
+												ng-options="key as val for (key,val) in string2JSON('languageList')"></select>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="card card-outline card-success no-padding no-margin" style="margin-bottom:8px!important">
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_USER_INFORMATION</h3>
+					</div>
+					<div class="card-body" layout=column layout-padding layout-wrap>
+						<div class="form-group required" flex>
+							<label translate>LB_USER</label>
+						  <div class="input-group">
+				        <div class="input-group-prepend"><div class="input-group-text"><md-ico i=account_circle></md-ico></div></div> 
+				        <input ng-model="frmParent.usuario_login" class="form-control" placeholder="ID de usuario" ng-required="true">
+				      </div>
+			      </div>
+						<div class="form-group required" flex>
+							<label translate>LB_PASSWORD</label>
+				      <div class="input-group">
+				        <div class="input-group-prepend"><div class="input-group-text"><md-ico i=lock></md-ico></div></div> 
+				        <input type="password" ng-model="frmParent.usuario_password" class="form-control" placeholder="Contraseña ** requerido" ng-required="true">
+				      </div>
+			      </div>
+						<div class="form-group" flex>
+							<label translate>LB_NEW_PASSWORD</label>
+				      <div class="input-group">
+				        <div class="input-group-prepend"><div class="input-group-text"><md-ico i=lock></md-ico></div></div> 
+				        <input type="password" ng-model="frmParent.usuario_new_password" class="form-control" placeholder="Nueva contraseña * opcional">
+				      </div>
+			      </div>
+			     </div>
+				</div>
+			      
+				<div class="card card-outline card-warning no-padding no-margin" style="margin-bottom:8px!important">
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_NOTIFY</h3>
+					</div>
+					<div class="card-body" layout=column layout-padding layout-wrap>
+						<md-checkbox 
+						    ng-model="frmParent.usuario_acceso_correcto"
+						    aria-label="Acceso correcto"
+						    ng-true-value="true"
+						    ng-false-value="false"
+						    class="md-align-top-left no-padding">
+						  Notificar acceso exitoso al sistema<br/>
+						  <span class="ipsum">
+						    Enviar una notificación electrónica a su dirreción email <b>{{frmParent.persona_correo}}</b>.
+						  </span>
+						</md-checkbox>
+						<md-checkbox 
+						    ng-model="frmParent.usuario_acceso_fallido"
+						    aria-label="Acceso falldo"
+						    ng-true-value="true"
+						    ng-false-value="false"
+						    class="md-align-top-left no-padding">
+						  Notificar acceso fallido<br/>
+						  <span class="ipsum">
+						    Enviar una notificación electrónica a su dirreción email <b>{{frmParent.persona_correo}}</b>.
+						  </span>
+						</md-checkbox>
+						<md-checkbox 
+						    ng-model="frmParent.usuario_cambio_perfil"
+						    aria-label="Cambios en su cuenta"
+						    ng-true-value="true"
+						    ng-false-value="false"
+						    class="md-align-top-left no-padding">
+						  Notificar cambios en su cuenta<br/>
+						  <span class="ipsum">
+						    Enviar una notificación electrónica a su dirreción de email <b>{{frmParent.persona_correo}}</b> cuando se realice cambios en su perfil de cuenta.
+						  </span>
+						</md-checkbox>
+			     <div layout=row class="text-center">
+			       <span class="text-danger"><b>Importante</b><br> Por su seguridad, cualquier cambio realizado en la configuración de notificaciones será procesado a partir de la siguiente actualización..</span>
+			     </div>
+					</div>
+				</div>
+			</div>
+		</md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout=row>
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

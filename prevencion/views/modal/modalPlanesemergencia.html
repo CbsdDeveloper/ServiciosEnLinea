@@ -1,0 +1,31 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg form-digital" ng-controller="alertNewSelfprotectionsPlansCtrl">
+  <form name="formData" ng-submit="newSelfprotectionPlan()" class="form-uppercase">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="btn" class="md-icon-button"><md-ico i=security></md-ico></md-button>
+			<h2 translate>LB_EMERGENCY_PLAN</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-content class="padding-all" layout=column layout-padding>
+			
+			<!-- INSTRUCCIONES -->
+			<div class="callout callout-warning no-margin margin-bottom">
+			  <div class="text-center margin-bottom"><i class="icon fa fa-bell-o fa-3x faa-ring animated"></i></div>
+			  <p class="padding-all" ng-bind-html="trustAsHtml(paramsConf.PREVENCION_ALERT_NEW_PLAN)"></p>
+			</div>
+			
+			<!-- FORMULARIO DE DATOS DE VEHICULO -->
+			<card-local-information layout-padding></card-local-information>
+			
+    </md-content>
+  </md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type=submit ng-disabled="formData.$invalid"><span translate>LB_ACCEPT_AND_CONTINUE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

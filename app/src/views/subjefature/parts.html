@@ -1,0 +1,105 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=style></md-ico></md-button>
+			<h2 translate>TOOLBAR_PARTS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-divider></md-divider>
+	<md-toolbar >
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><md-ico i=code></md-ico></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="{{'Ingrese la clave del parte a elaborar. Ej. 10-12' | translate}}" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+	  </form>
+	</md-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <col style="width:25%">
+<!--       <col style="width:15%"> -->
+      <col style="">
+     	<col style="width:25%">
+     	<col style="width:5%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_CODE</span></th>
+					<!-- <th md-column><span translate>LB_DETAIL</span></th> -->
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_STATUS</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<div>
+							<md-ico i=style></md-ico><span ng-bind-html="highlight(row.parte_codigo)"></span>
+							<md-tooltip><span translate>LB_CODE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=assistant_photo></md-ico><span ng-bind-html="highlight(row.estacion_nombre)"></span> - <span ng-bind-html="highlight(row.peloton_nombre)"></span>
+							<md-tooltip><span translate>{{row.parte_clasedia}}</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=code></md-ico><span ng-bind-html="highlight(row.codigo_clave+' '+row.codigo_detalle)"></span>
+							<md-tooltip><span translate>LB_TYPE_OF_ASSISTANCE</span></md-tooltip>
+						</div>
+					</td>
+					<!-- 
+					<td md-cell>
+						<div>
+							<md-ico i=info></md-ico><span ng-bind-html="highlight(row.parte_aviso_forma)"></span>
+							<md-tooltip><span translate>LB_WAY_OF_NOTICE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=access_time></md-ico><span ng-bind-html="highlight(row.parte_aviso_hora)"></span>
+							<md-tooltip><span translate>LB_NOTICE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=access_time></md-ico><span ng-bind-html="highlight(row.parte_aviso_salida_personal)"></span>
+							<md-tooltip><span translate>LB_STAFF_EXIT</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=access_time></md-ico><span ng-bind-html="highlight(row.parte_aviso_llegada_personal)"></span>
+							<md-tooltip><span translate>LB_STAFF_EXIT_PLACE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=access_time></md-ico><span ng-bind-html="highlight(row.parte_aviso_retorno)"></span>
+							<md-tooltip><span translate>LB_END_OPERATIONS_RETURN</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=access_time></md-ico><span ng-bind-html="highlight(row.parte_aviso_ingreso_cuartel)"></span>
+							<md-tooltip><span translate>LB_ENTRANCE_HEADQUARTERS</span></md-tooltip>
+						</div>
+					</td>
+					 -->
+					<td md-cell>
+						<md-ico i=location_on></md-ico><span ng-bind-html="highlight(row.parte_localizacion_direccion)"></span><br>
+						<md-ico i=contact_phone></md-ico><span ng-bind-html="highlight(row.parte_localizacion_telefono)"></span><br>
+						<md-ico i=healing></md-ico><span ng-bind-html="highlight(row.heridos)"></span><br>
+						<md-ico i=airline_seat_individual_suite></md-ico><span ng-bind-html="highlight(row.fallecidos)"></span><br>
+						<md-ico i=business></md-ico><span ng-bind-html="highlight(row.atendidos)"></span>
+<!-- 						<div> -->
+<!-- 							<md-ico i=info></md-ico><span ng-bind-html="highlight(row.parte_novedades)"></span> -->
+<!-- 							<md-tooltip><span translate>LB_NEWS_PARTS</span></md-tooltip> -->
+<!-- 						</div> -->
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.parte_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.parte_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.personal)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <menu-parts></menu-parts>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

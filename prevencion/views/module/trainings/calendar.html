@@ -1,0 +1,28 @@
+<div layout-padding>
+	<div class="box box-info collapsed-box no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+			<div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+      </div>
+		</div>
+		<div class="box-body box-bg-info">
+			<div ng-bind-html="trustAsHtml(paramsConf.INFO_CALENDAR_TRAINING)"></div>
+		</div>
+	</div>
+</div>
+<md-card>
+		<calendar-md flex layout layout-fill
+			  calendar-direction="direction"
+			  on-day-click="dayClick"
+			  title-format="'MMMM y'"
+			  ng-model='selectedDate'
+			  week-starts-on="firstDayOfWeek"
+			  tooltips="tooltips"
+			  day-format="dayFormat"
+			  day-label-format="'EEE'"
+			  day-label-tooltip-format="'EEEE'"
+			  day-tooltip-format="'fullDate'"
+			  day-content="setDayContent"
+			  disable-past-selection="true"></calendar-md>
+</md-card>

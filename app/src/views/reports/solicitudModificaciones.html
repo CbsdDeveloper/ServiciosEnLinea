@@ -1,0 +1,87 @@
+<style>{{css}}table tr td span,p{line-height:1.5;text-align:justify;font-size:14px;}</style>
+<page backtop="{{margin_top}}mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	<!-- HEADER DE SOLICITUD -->
+	{{HEADER_REQUEST}}
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE}}
+	<!-- CUERPO DE REPORTE -->
+	{{MODIFICACIONES_SOLICITUD}}
+</page>
+
+<page backtop="30mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	<!-- HEADER DE SOLICITUD -->
+	{{HEADER_ENTITY}}
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE}}
+	
+	<!-- CUERPO DE REPORTE -->
+	<h1 class="title-single text-center text-uppercase" style="margin:0px;font-size:20px;">{{reporte_header}}</h1>
+	<br/>
+	<br/>
+	<table class="table table-bordered text-uppercase">
+		<col style="width:30%">
+		<col style="width:70%">
+		<thead><tr><th colspan="2">DATOS DE LA ENTIDAD SOLICITANTE</th></tr></thead>
+		<tbody>
+			<tr><td>RUC</td><td>{{entidad_ruc}}</td></tr>
+			<tr><td>RAZÓN SOCIAL</td><td>{{entidad_razonsocial}}</td></tr>
+			<tr><td>REPRESENTANTE LEGAL</td><td>{{representantelegal_ruc}} / {{representantelegal_nombre}}</td></tr>
+			<tr><td>TELF. / E-MAIL</td><td>Telf: {{representantelegal_telefono}} / {{representantelegal_celular}} / E-mail: {{representantelegal_email}}</td></tr>
+		</tbody>
+	</table>
+	<br/>
+	<table class="table table-bordered text-uppercase">
+		<col style="width:100%">
+		<thead>
+			<tr><th>GEOREFERENCIACIÓN DEL LUGAR </th></tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="height:300px;" class="no-padding">
+					<img src="src/coordenadas/{{coordenada_thumbnail}}" style="height:300px;width:100%;" />
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<table class="table table-bordered text-uppercase">
+		<col style="width:30%;">
+		<col style="width:70%">
+		<thead><tr><th colspan="2">INFORMACIÓN DEL PROYECTO</th></tr></thead>
+		<tbody>
+			<tr><td>NOMBRE DEL PROYECTO</td><td><b>{{vbp_proyecto}}</b></td></tr>
+			<tr><td>PROPÓSITO DEL PROYECTO</td><td>{{actividad_nombre}}</td></tr>
+			<tr><td>TIPO DE PROYECTO</td><td>{{vbp_tipo}}</td></tr>
+			<tr><td>PARROQUIA / UBICACIÓN</td><td>{{vbp_parroquia}} / {{vbp_principal}} y {{vbp_secundaria}} / MZ. {{vbp_manzana}}, LOT. {{vbp_manzana}}</td></tr>
+			<tr><td>CLAVE CATASTRAL (PREDIO)</td><td>{{vbp_clavecatastral}}</td></tr>
+			<tr><td>COORDENADAS UTM</td><td>{{vbp_longitud}} ; {{vbp_latitud}}</td></tr>
+			<tr><td>ÁREA (M2)</td><td>{{area_terreno}} m2 de terreno / {{area_construccion}} m2 CONSTRUCCIÓN</td></tr>
+			<tr><td>ÁLTURA DE CONSTRUCCIÓN (M)</td><td>{{vbp_altura}} m</td></tr>
+			<tr><td>Número de edificaciones</td><td>{{vbp_edificaciones}}</td></tr>
+			<tr><td>Detalle de la construcción</td><td>{{vbp_detalle}}</td></tr>
+			<tr><td>Material de construcción</td><td>{{vbp_longitud}}</td></tr>
+		</tbody>
+	</table>
+	<br>
+	<table class="table table-bordered text-uppercase">
+		<col style="width:30%;">
+		<col style="width:70%">
+		<thead><tr><th colspan="2">MODIFICACIÓN DE PLANOS</th></tr></thead>
+		<tbody>
+			<tr><td>FECHA DE MODIFICACION</td><td>{{modificacion_fecha}}</td></tr>
+			<tr><td>ÁREA (M2)</td><td>{{modificacion_area_terreno}} m2 de terreno / {{modificacion_area_construccion}} m2 CONSTRUCCIÓN</td></tr>
+			<tr><td>ÁREA MODIFICADA (M2)</td><td>{{modificacion_area_modificada}} m2</td></tr>
+			<tr><td>ÁLTURA DE CONSTRUCCIÓN (M)</td><td>{{modificacion_altura}} m</td></tr>
+			<tr><td>Número de edificaciones</td><td>{{modificacion_plantas}} EDIFICACIONES NUEVAS</td></tr>
+			<tr><td>MOTIVO DE MODIFICACION</td><td>{{modificacion_detalle}}</td></tr>
+		</tbody>
+	</table>
+	<br>
+	<!-- DATOS DE PROFESIONALES -->
+	{{TbProfessionals}}
+	<br>
+	<!-- DATOS DE FACTURACIÓN -->
+	{{TbBilling}}
+	<!-- LISTA DE REQUISITOS -->
+	{{REQUIREMETS_LIST}}
+</page>

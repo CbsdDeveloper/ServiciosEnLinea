@@ -1,0 +1,44 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=nature_people></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_PLATOONS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_PERSONAL_INFORMATION</span></th>
+					<th md-column><span translate>LB_PERFORMANCE</span></th>
+					<th md-column><span translate>LB_STATUS</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.persona_doc_identidad)"></span><br>
+						<a ui-sref="tthh.detailStaff({id:row.personal_id})" target="_balnk"><md-ico i=person></md-ico></a><span ng-bind-html="highlight(row.personal_nombre)"></span><br>
+						<md-ico i=wrap_text></md-ico><span ng-bind-html="highlight(row.puesto_nombre)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=local_convenience_store></md-ico><span ng-bind-html="highlight(row.estacion_nombre)"></span><br>
+						<md-ico i=group></md-ico><span ng-bind-html="highlight(row.peloton_nombre)"></span><br>
+						<md-ico i=extension></md-ico><span ng-bind-html="highlight(row.tropa_cargo)"></span><br>
+						<md-ico i=comment></md-ico><span ng-bind-html="highlight(row.tropa_detalle)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.tropa_estado]"></span><br>
+						<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.tropa_registro)"></span><br>
+						<md-ico i=people></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

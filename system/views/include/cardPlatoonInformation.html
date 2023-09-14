@@ -1,0 +1,16 @@
+<div flex class="card card-outline card-danger no-margin text-center card-entity-information">
+  <div class="card-header with-border">
+    <h3 class="card-title">{{frmParent.peloton_nombre}}</h3>
+  </div>
+  <div class="card-body row">
+    <div class="col-md-3">
+    	<p><img src="/app/src/img/stations/default.png" style="width:128px;margin:auto" class="img-responsive"/></p>
+    </div>
+    <div class="col-md-9 text-left">
+    	<p><md-ico i=flag></md-ico> <b translate>LB_STATION</b>: {{frmParent.estacion}}</p>
+    	<p><md-ico i=nature></md-ico> <b translate>LB_PLATOON</b>: {{frmParent.peloton_nombre}}</p>
+    	<p><md-ico i=event></md-ico> <b translate>LB_REGISTRE_DATE</b>: {{frmParent.peloton_registro}}</p>
+    	<p><md-ico i=flag></md-ico> <b translate>LB_STATUS</b>: <span ng-bind-html="statusLabel[frmParent.peloton_estado]"></span></p>
+    </div>
+  </div>
+</div>

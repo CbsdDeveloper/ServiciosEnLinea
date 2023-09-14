@@ -1,0 +1,19 @@
+#	Author:	Lalytto
+#	Email:	lalytto@live.com
+#	Date:	Sunday 21th of September 2014 09:51:06 AM
+#	
+#	NOTE: 	The robots.txt file ALWAYS MUST be at the site root
+#			at e.g. www.yourpage.com/robots.txt.
+#			
+#			For more information about the robots.txt standard, see:
+#			http://www.robotstxt.org/orig.html
+#			
+#			For syntax checking, see:
+#			http://tool.motoricerca.info/robots-checker.phtml
+
+User-Agent: *
+Disallow: /services
+Disallow: /app
+Disallow: /cgi-bin
+
+Sitemap: http://servicios.cbsd.gob.ec/sitemap.xml

@@ -1,0 +1,70 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg" ng-controller="supportExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="btn" class="md-icon-button"><md-ico i=folder_shared></md-ico></md-button>
+      <h2 translate>TOOLBAR_USER_SUPPORT</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-content layout=column layout-padding>
+			<!-- INFORMACIÓN DE ENTIDADES -->
+			<card-inspection-information class="margin-bottom" layout-padding ng-if="frmParent.fk_tb=='inspecciones'"></card-inspection-information>
+			<card-training-information class="margin-bottom" layout-padding ng-if="frmParent.fk_tb=='training'"></card-training-information>
+			<card-simulation-information class="margin-bottom" layout-padding ng-if="frmParent.fk_tb=='simulacros'"></card-simulation-information>
+			<card-stand-information class="margin-bottom" layout-padding ng-if="frmParent.fk_tb=='stands'"></card-stand-information>
+			<card-visit-information class="margin-bottom" layout-padding ng-if="frmParent.fk_tb=='visitas'"></card-visit-information>
+			<card-plan-information class="margin-bottom" layout-padding ng-if="frmParent.fk_tb=='planesemergencia'"></card-plan-information>
+			<card-occasional-information class="margin-bottom" layout-padding ng-if="frmParent.fk_tb=='ocasionales'"></card-occasional-information>
+			<card-glp-transport-information class="margin-bottom" layout-padding ng-if="frmParent.fk_tb=='transporteglp'"></card-glp-transport-information>
+      <!-- FORULARIO DE USUARIO -->
+			<frm-personas-custom layout-padding></frm-personas-custom>
+			<!-- REGISTRO DE INFORMACION -->
+			<div class="card card-outline card-success no-padding no-margin margin-top">
+			  <div class="card-header with-border text-center">
+			    <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+			  </div>
+        <div class="card-body" layout=column layout-padding>
+					<div layout-xs=column layout=row layout-padding ng-if="frmParent.fk_tb!=''">
+					  <div class="form-group required" flex>
+					    <label translate>LB_NEW_ENTITY</label>
+					    <div class="input-group">
+					      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=verified_user></md-ico></div></div> 
+					      <input ng-model="frmParent.fk_name" class="form-control" readonly="readonly" />
+					    </div>
+					  </div>
+					  <div class="form-group required" flex>
+					    <label translate>LB_CODE_PROJECT</label>
+					    <div class="input-group">
+					      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=fingerprint></md-ico></div></div> 
+					      <input ng-model="frmParent.fk_codigo" class="form-control" readonly="readonly" />
+					    </div>
+					  </div>
+					</div>
+					<div class="form-group required" flex>
+					  <label translate>LB_OPENING_DATE</label>
+					  <div class="input-group" moment-picker="frmParent.atencion_fecha">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+					    <input class="form-control" ng-model="frmParent.atencion_fecha" placeholder="Ej. 2006-06-06" required>
+					  </div>
+					</div>
+					<div class="form-group required">
+					  <label translate>LB_DESCRIPTION</label>
+					  <div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+					    <textarea rows="5" ng-model="frmParent.atencion_descripcion" class="form-control" placeholder="Ej. Realizar cambio de lámparas de..." required></textarea>
+					  </div>
+					</div>
+        </div>
+      </div>
+		</md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

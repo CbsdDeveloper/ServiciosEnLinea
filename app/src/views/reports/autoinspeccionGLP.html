@@ -1,0 +1,23 @@
+<style>{{css}}</style>
+<page backtop="{{margin_top}}mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	<!-- HEADER DE SOLICITUD -->
+	{{HEADER_REQUEST}}
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE}}
+	<!-- CUERPO DE REPORTE -->
+	{{AUTOINSPECCION_DECLARACION}}
+	{{AUTOINSPECCION_TERMINOS_LEGALES}}
+</page>
+
+<page backtop="30mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	<!-- HEADER DE SOLICITUD -->
+	{{HEADER_ENTITY}}
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE}}
+	<!-- CUERPO DE REPORTE -->
+	<h1 class="title-single text-center text-uppercase">{{informe}} {{current_year}}</h1><br>
+	<!-- CUERPO DE REPORTE -->
+	{{extraHTML}}
+	<!-- LISTA DE REQUISITOS -->
+	{{REQUIREMETS_LIST}}
+</page>

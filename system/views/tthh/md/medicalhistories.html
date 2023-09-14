@@ -1,0 +1,101 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	
+	<md-toolbar>
+	  <div class="md-toolbar-tools">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><md-ico i=search></md-ico></md-button>
+	    <form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.filter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_MAIN_TOOLBAR' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.filter!=''" ng-click="filterParent.filter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="toogleBar()" ng-if="allow.permiso8151">
+				<md-ico i={{showNewHistory?'close':'person_add'}}></md-ico>
+				<md-tooltip><span translate>LB_NEW_CLINICAL_HISTORY</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+	  </div>
+	</md-toolbar>
+	
+	<md-divider ng-if="allow.permiso8151 && showNewHistory"></md-divider>
+	<md-toolbar  ng-if="allow.permiso8151 && showNewHistory">
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><md-ico i=credit_card></md-ico></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="{{'LB_CC_DNI_REQUEST' | translate}}" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+	  </form>
+	</md-toolbar>
+	
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="">
+     	<col style="width:30%;">
+     	<col style="width:10%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_PERSONAL</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell class="text-uppercase">
+						<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.persona_doc_identidad)"></span><br>
+						<a ui-sref="tthh.detailMedicalhistories({id:row.historia_id})" target="_balnk"><i-fa i="{{string2JSON('iFaIconList')[row.persona_sexo]}}"></i-fa></a><span ng-bind-html="highlight(row.personal_nombre)"></span> ({{row.historia_serie}})<br>
+						<div>
+							<md-ico i=credit_card></md-ico><span ng-bind-html="row.historia_serie"></span> 
+							<md-tooltip><span translate># Historia Clínica</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=cake></md-ico><span ng-bind-html="row.edad"></span> 
+							<md-tooltip><span translate>LB_AGE</span></md-tooltip>
+						</div>
+						<div>
+							<i-fa i=medkit></i-fa><span ng-bind-html="row.persona_tiposangre"></span> 
+							<md-tooltip><span translate>LB_BLOOD_TYPE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=contact_phone></md-ico><span ng-bind-html="row.persona_telefono+' - '+row.persona_celular"></span>
+							<md-tooltip><span translate>LB_CONTACT</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell class="text-uppercase">
+						<div>
+							<span class="badge" ng-class="[{'bg-red':row.historia_drogas=='SI','bg-green':row.historia_drogas=='NO'}]" translate>LB_DRUGS</span>
+	            <span class="badge" ng-class="[{'bg-red':row.historia_tabaco=='SI','bg-green':row.historia_tabaco=='NO'}]" translate>LB_TOBACCO</span>
+	            <span class="badge" ng-class="[{'bg-red':row.historia_alcohol=='SI','bg-green':row.historia_alcohol=='NO'}]" translate>LB_ALCOHOLIC_BEVERAGES</span>
+						</div>
+						<div>
+	            <span class="badge" ng-class="[{'bg-red':row.apf=='SI','bg-green':row.apf=='NO'}]">APF</span>
+	            <span class="badge" ng-class="[{'bg-red':row.app=='SI','bg-green':row.app=='NO'}]">APP</span>
+	            <span class="badge" ng-class="[{'bg-red':row.aqx=='SI','bg-green':row.aqx=='NO'}]">AQX</span>
+	            <span class="badge" ng-class="[{'bg-red':row.alergias=='SI','bg-green':row.alergias=='NO'}]" translate>LB_ALLERGIES</span>
+	            <span class="badge" ng-class="[{'bg-red':row.discapacidad=='SI','bg-green':row.discapacidad=='NO'}]" translate>LB_DISABILITY</span>
+						</div> 
+						<md-ico i=add_alert></md-ico><span>{{row.consultas}}</span> <span translate>LB_MEDICAL_CONSULTATIONS</span>
+					</td>
+					<td md-cell class="table-menu text-right">
+						<button class="btn btn-info btn-sm" ng-click="goEntity({id:row.historia_id})">
+							<md-ico i=list_alt c=md-ico-menu></md-ico>
+							<md-tooltip><span translate>LB_DETAIL</span></md-tooltip>
+						</button>
+						<button class="btn btn-warning btn-sm" ng-click="goUI('tthh.medical.newMedicalConsultation',{historyId:row.historia_id})">
+							<md-ico i=add_alert c=md-ico-menu></md-ico>
+							<md-tooltip><span translate>LB_NEW_MEDICAL_CONSULTATION</span></md-tooltip>
+						</button>
+						
+						<!-- 
+						<menu-medical-history ng-if="allow.permiso8152"></menu-medical-history>
+						 -->
+						
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

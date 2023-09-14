@@ -1,0 +1,86 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=transfer_within_a_station></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_DAILY_ACTIVITIES</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+			<div class="form-group required" flex>
+				<label translate>LB_DESIGNATED_ACTIVITY</label>
+				<div class="input-group">
+					<span class="input-group-addon"><md-ico i=transfer_within_a_station></md-ico></span>
+					<input type="text" ng-model="frmParent.actividad_actividad" class="form-control" placeholder="Ej. Conexión caida" required />
+				</div>
+			</div>
+			<div class="form-group required" ng-controller="staffListCtrl">
+				<label translate>LB_REQUIRED_BY</label>
+				<div class="input-group">
+			      <span class="input-group-addon"><md-ico i=person></md-ico></span>
+			      <ui-select ng-model="frmParent.fk_solicitante_id" reset-search-input="false" required>
+		         	<ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.solicitante,'Seleccione el solicitante')  | translate}}">
+								{{$select.selected.personal_nombre}}
+		         	</ui-select-match>
+							<ui-select-choices class="list-personal" repeat="item.ppersonal_id as item in jsonList | filter: { personal_nombre: $select.search }">
+								<img src="/app/src/img/users/default.png" style="width:48px;height:48px;padding:3px" class="img-circle" alt="img" />
+								<div flex>
+									<div ng-bind-html="item.personal_nombre | highlight: $select.search"></div>
+									<small ng-bind-html="'Dirección: '+item.direccion_nombre"></small><br>
+									<small ng-bind-html="'Cargo.: '+item.puesto_nombre"></small>
+								</div>
+							</ui-select-choices>
+			      </ui-select>
+			    </div>
+			</div>
+			
+			<div class="form-group required" flex>
+				<label translate>LB_STATUS_ACTIVITY</label>
+				<div class="input-group">
+					<span class="input-group-addon"><md-ico i=flag></md-ico></span>
+					<select class="form-control" ng-model="frmParent.actividad_estado" required
+								ng-options="val as val for (key,val) in string2JSON('DAILYACTIVITIES_STATUS')"></select>
+				</div>
+			</div>
+    	<div layout-xs=column layout=row layout-padding>
+				<div class="form-group required" flex>
+					<label translate>LB_START_TIME</label>
+				  <div class="input-group" moment-picker="frmParent.actividad_fecha_inicio" max-date="today">
+						<span class="input-group-addon"><md-ico i=event_note></md-ico></span>
+						<input ng-model="frmParent.actividad_fecha_inicio" ng-model-options="{ updateOn: 'blur' }" class="form-control" placeholder="Ej. 2017-07-07" required />
+					</div>
+				</div>
+				<div class="form-group required" flex ng-if="frmParent.actividad_estado=='FINALIZADA'">
+					<label translate>LB_ENDING_TIME</label>
+					<div class="input-group" moment-picker="frmParent.actividad_fecha_finalizacion" min-date="frmParent.actividad_fecha_inicio" max-date="today">
+						<span class="input-group-addon"><md-ico i=event_available></md-ico></span>
+						<input ng-model="frmParent.actividad_fecha_finalizacion" ng-model-options="{ updateOn: 'blur' }" class="form-control" placeholder="Ej. 2017-07-07" required />
+					</div>
+				</div>
+			</div>
+			<div class="form-group required" flex>
+				<label translate>LB_DESCRIPTION</label>
+				<div class="input-group">
+					<span class="input-group-addon"><md-ico i=info></md-ico></span>
+					<textarea rows="4" ng-model="frmParent.actividad_descripcion" class="form-control" placeholder="Ej. No se presentó la otra parte..." required></textarea>
+				</div>
+			</div>
+	    <div class="form-group">
+				<label translate>LB_VERIFICATION_SOURCE</label>
+		    <div class="input-group">
+		      <span class="input-group-addon"><md-ico i=attachment></md-ico></span>
+		      <input uploader-model="frmParent.actividad_file" type="file" accept="{{string2JSON('fileTypeMime')['PDF']}}" class="form-control" />
+		    </div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

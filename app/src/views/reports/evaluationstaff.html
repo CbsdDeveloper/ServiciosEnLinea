@@ -1,0 +1,54 @@
+<style>{{css}}.table-font-11 td{font-size:8px;}.table-font-10 td{font-size:10px;}</style>
+<page backtop="{{margin_top}}mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	
+	<!-- HEADER PROCESS CBSD -->
+	{{HEADER_PROCESS_CBSD}}
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGINATION_MAIN}}
+	
+	<!-- CUERPO DE REPORTE -->
+	<div class="title-single text-center text-bold">{{formulario_nombre}}</div>
+	
+	<br>	
+	
+	<!-- ENCABEZADO DE REPORTE -->
+	<table class="no-border text-uppercase table-font-10">
+		<col style="width:22%">
+		<col style="width:28%">
+		<col style="width:22%">
+		<col style="width:28%">
+		<tbody>
+			<tr>
+				<td><b>CÓDIGO EVALUACIÓN: </b></td><td colspan="3">{{evaluacion_codigo}}</td>
+			</tr>
+			<tr>
+				<td><b>HABILITADO DESDE: </b></td><td>{{evaluacion_inicio}}</td>
+				<td><b>HABILITADO HASTA: </b></td><td>{{evaluacion_cierre}}</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<br>
+	
+	<!-- LISTADO DE PERSONAL -->
+	<table class="table table-bordered text-uppercase table-font-10">
+		<col style="width:5%">
+		<col style="width:55%">
+		<col style="width:20%">
+		<col style="width:20%">
+		<thead>
+			<tr>
+				<th>NO.</th>
+				<th>FUNCIONARIO</th>
+				<th>F. INSCRIPCION</th>
+				<th>F. EVALUACION</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{staffList}}
+		</tbody>
+	</table>
+	
+	
+	
+</page>

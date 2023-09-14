@@ -1,0 +1,111 @@
+<style>{{css}}p{font-size:12px;}table td,table th{border-color:#222d32;}</style>
+<page backtop="{{margin_top}}mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	<div class="section_header"><img src="src/img/reports/escudo.jpg"></div>
+	<div class="header" style="margin-bottom:15px">
+		<table><tbody>
+			<tr>
+				<td style="width:50%;vertical-align:bottom" class="headerLogo">
+					<img src="{{REPORT_HEADER_IMG_PATH}}" style="width:228px;height:64px">
+				</td>
+				<td style="width:50%;vertical-align:bottom" class="text-right">
+					{{BARCODE}}
+				</td>
+			</tr>
+		</tbody></table>
+	</div>
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE_MAIN}}
+	<!-- CUERPO DE REPORTE -->
+	{{MODIFICACIONES_PERMISO}}
+</page>
+
+<page backtop="35mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	<!-- ENCABEZADO DE PERMISO -->
+	{{HEADER_ENTITY}}
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE}}
+	<!-- CUERPO DE REPORTE -->
+	<h1 class="title-single text-center text-uppercase">{{informe}} {{modificacion_serie}}</h1>
+	<table class="table table-bordered text-uppercase">
+		<col style="width:30%">
+		<col style="width:70%">
+		<thead><tr><th colspan="2">DATOS GENERALES DEL PROYECTO</th></tr></thead>
+		<tbody>
+			<tr><td>PROYECTO</td><td><b>{{vbp_proyecto}}</b></td></tr>
+			<tr><td>RAZÓN SOCIAL</td><td>{{entidad_razonsocial}} <B>C.I./RUC:</B> {{entidad_ruc}}</td></tr>
+			<tr>
+				<td>UBICACIÓN</td>
+				<td>
+					<B>LONG (X):</B> {{vbp_longitud}}<BR>
+					<B>LAT (Y):</B> {{vbp_latitud}}<BR>
+					<B>DIRECCIÓN:</B> {{vbp_parroquia}} / {{vbp_principal}} Y {{vbp_secundaria}}<br>Mz. {{vbp_manzana}}, Lot. {{vbp_lote}}<BR>
+					<B>CLAVE CATASTRAL:</B> {{vbp_clavecatastral}}
+				</td>
+			</tr>
+			<tr><td>PROPÓSITO DEL PROYECTO</td><td>{{actividad_nombre}}</td></tr>
+			<tr><td>NÚMERO DE PLANTAS</td><td>{{vbp_edificaciones}} plantas</td></tr>
+			<tr><td>DETALLE DE UNIDADES</td><td>{{vbp_detalle}}</td></tr>
+			<tr>
+				<td>ÁREA Y ALTURA DE CONSTRUCCIÓN</td>
+				<td>
+					<b>ÁREA del terreno: </b>{{area_terreno}} m²<br>
+					<b>ÁREA de Construcción: </b>{{area_construccion}} m²<br>
+					<b>ALTURA de la edificación: </b>{{vbp_altura}} m
+				</td>
+			</tr>
+			<tr><td>F. DE REGISTRO</td><td><b>F. DE ELABORACIÓN:</b> {{vbp_aprobado}}<br><b>F. DE APROBACIÓN:</b> {{vbp_aprobado}}</td></tr>
+		</tbody>
+	</table>
+	<table class="table table-bordered text-uppercase">
+		<col style="width:30%;">
+		<col style="width:70%">
+		<thead><tr><th colspan="2">MODIFICACIÓN DE PLANOS</th></tr></thead>
+		<tbody>
+			<tr><td>FECHA DE MODIFICACION</td><td>{{modificacion_fecha}}</td></tr>
+			<tr><td>Número de edificaciones</td><td>{{modificacion_plantas}} EDIFICACIONES NUEVAS</td></tr>
+			<tr>
+				<td>ÁREA Y ALTURA DE CONSTRUCCIÓN</td>
+				<td>
+					<b>ÁREA del terreno: </b>{{modificacion_area_terreno}} m²<br>
+					<b>ÁREA de Construcción: </b>{{modificacion_area_construccion}} m²<br>
+					<b>ÁREA DE CONSTRUCCIÓN MODIFICADA (M2): </b>{{modificacion_area_modificada}} m²<br>
+					<b>ALTURA de la edificación: </b>{{modificacion_altura}} m
+				</td>
+			</tr>
+			<tr><td>MOTIVO DE MODIFICACION</td><td>{{modificacion_detalle}}</td></tr>
+		</tbody>
+	</table>
+	<table class="table table-bordered text-uppercase">
+		<col style="width:30%">
+		<col style="width:70%">
+		<thead><tr><th colspan="2">Responsables de la Memoria tecnica y planos del sistema contra incendios</th></tr></thead>
+		<tbody>
+			<tr><td>PROYECTISTA</td><td>{{modificacion_proyectista}} <b>C.I.:</b> {{modificacion_proyectista_doc_identidad}}<br>{{modificacion_proyectista_titulo}} <b>R. SENESCYT:</b> {{modificacion_proyectista_senescyt}}</td></tr>
+			<tr><td>RESPONSABLE MT-RPMPCI</td><td>{{modificacion_rpmci}} <b>C.I.:</b> {{modificacion_rpmci_doc_identidad}}<br>{{modificacion_rpmci_titulo}} <b>R. SENESCYT:</b> {{modificacion_rpmci_senescyt}}</td></tr>
+		</tbody>
+	</table>
+	<table class="table table-bordered text-uppercase">
+		<col style="width:30%">
+		<col style="width:70%">
+		<thead><tr><th colspan="2">DATOS PARA FACTURACIÓN</th></tr></thead>
+		<tbody>
+			<tr><td>C.I. / RUC / RAZÓN SOCIAL</td><td>{{orden_doc_identidad}} / {{orden_cliente_nombre}}</td></tr>
+			<tr><td>TELÉFONO(S) / CORREO</td><td>Telf: {{orden_telefono}} / {{orden_email}}</td></tr>
+			<tr><td>DIRECCIÓN</td><td>{{orden_direccion}}</td></tr>
+			<tr><td><b>VALOR TOTAL CANCELADO</b></td><td>${{orden_total}} ({{orden_total_text}})</td></tr>
+		</tbody>
+	</table>
+	<table class="table table-bordered text-uppercase">
+		<col style="width:10%;text-align:center;">
+		<col style="width:90%">
+		<thead><tr><th colspan="2">PERSONAL TÉCNICO DESIGNADO PARA REVISIÓN</th></tr></thead>
+		<tbody>{{listaTecnicos}}</tbody>
+	</table>
+	<br><br><br><br>
+	<div style="text-align:center">.........................................................................................</div>
+	<div class="text-center text-uppercase" style="line-height:12px">
+		<small style="font-size:11px">{{jtpa}}</small><br>
+		<small style="font-size:11px">{{jtpa_puesto}}</small><br>
+		<small style="font-size:11px">{{INSTITUTION_FULL_NAME}}</small>
+	</div>
+</page>

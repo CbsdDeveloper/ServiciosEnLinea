@@ -1,0 +1,351 @@
+<div flex class="box no-margin">
+	<div class="box-header with-border text-center">
+		<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+		<div class="box-tools pull-right">
+       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+     </div>
+	</div>
+	<div class="box-body box-bg-info" layout=column layout-wrap>
+		<div ng-bind-html="$parent.trustAsHtml(paramsConf.SELFINSPECTION_STEP2)"></div>
+	</div>
+</div>
+
+<div class="no-padding" layout=column layout-padding ng-controller="geoExtendsCtrl">
+	
+	<!-- GEOREFERENCIACION -->
+	<div>
+		<ul class="timeline margin-top">
+			<li class="time-label text-uppercase">
+		      <span class="bg-blue padding-all" translate>LB_GEOREFERENCING</span>
+		    </li>
+		    <!-- GEOREFERENCIACION -->
+			<li>
+				<i class="fa fa-map-marker bg-green"></i>
+		    <div class="timeline-item">
+		      <div class="timeline-body" layout-padding>
+		 					<div class="no-padding">
+							<leaflet id="myOSM" lf-center="myOSM" layers="layers" controls="controls" markers="markers" defaults="defaults" height="500px" width="100%"></leaflet>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_LONGITUDE</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i-fa i=long-arrow-right></i-fa></span>
+									<input ng-model="myOSM.lng" class="form-control" placeholder="Ej. -79,16" required readonly="readonly" />
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_LATITUDE</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i-fa i=long-arrow-down></i-fa></span>
+									<input ng-model="myOSM.lat" class="form-control" placeholder="Ej. -79,16" required readonly="readonly" />
+								</div>
+							</div>
+							<div class="form-group" flex>
+								<label translate>LB_CANT_SEE_THE_MAP</label>
+								<button type="button" class="btn btn-warning btn-block" ng-click="resetCoordinates()">
+									<i-fa i=repeat></i-fa> <span translate>LB_RESET_COORDINATES</span>
+								</button>
+							</div>
+						</div>
+						
+		      </div>
+				</div>
+			</li>
+		  <li><i class="fa fa-clock-o bg-gray"></i></li>
+		</ul>
+	</div>
+	
+	<!-- INFORMACION Y AFORO DEL ESTABLECIMIENTO -->
+	<div layout-xs=column layout=row layout-padding>
+		
+		<!-- INFORMACION DEL ESTABLECIMIENTO -->
+		<div flex>
+			
+			<ul class="timeline margin-top">
+				
+				<!-- INFORMACION DE PROPIETARIO -->
+				<li class="time-label text-uppercase">
+	        <span class="bg-blue padding-all" translate>LB_PROPERTY_INFORMATION</span>
+	      </li>
+	      
+	      <!-- DATOS DEL ESTABLECIMIENTO -->
+			  <li>
+					<i class="fa fa-edit bg-purple"></i>
+			    <div class="timeline-item">
+			      <div class="timeline-body no-padding">
+			    		
+			    		<div class="box box-info">
+								<div class="box-header text-center">
+									<h3 class="box-title" translate>LB_ESTABLISHMENT_DATA</h3>
+								</div>
+								<div class="box-body" layout=column layout-padding>
+					    		
+					    		<div layout-xs=column layout=row layout-padding>
+										<div class="form-group required" flex>
+											<label translate>LB_TYPE_OF_BUILDING</label>
+										  <div class="input-group">
+												<div class="input-group-addon"><i-fa i=rss></i-fa></div>
+												<select class="form-control" ng-model="frmParent.local_tipo_edificacion" required ng-options="val as val for (key,val) in string2JSON('typeProjectList')"></select>
+											</div>
+										</div>
+										<div class="form-group required" flex>
+											<label translate>LB_EDIFICATION</label>
+										  <div class="input-group">
+												<div class="input-group-addon"><i-fa i=rss></i-fa></div>
+												<select class="form-control" ng-model="frmParent.local_edificacion" required ng-options="val as val for (key,val) in string2JSON('BUILDING_TYPE')"></select>
+											</div>
+										</div>
+									</div>
+									
+									<div class="form-group required" flex ng-if="frmParent.local_edificacion=='PROPIA'">
+									  <label translate>LB_CATASTRAL_KEY</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i-fa i=podcast></i-fa></span>
+											<input class="font-digital form-control" name="local_clavecatastral" ng-model="frmParent.local_clavecatastral" placeholder="Ej. 170256314" required />
+										</div>
+										<field-validation field="formData.local_clavecatastral"></field-validation>
+									</div>
+									<div class="form-group required" flex>
+										<label translate>LB_NUMBER_BUILDINGS</label>
+									  <div class="input-group">
+											<div class="input-group-addon"><md-ico i=location_city></md-ico></div>
+											<input class="form-control" type="number" step="1" min=1 max=100 parse-float name="local_numero_edificaciones" ng-model="frmParent.local_numero_edificaciones" required />
+										</div>
+										<field-validation field="formData.local_numero_edificaciones" min=1 max=100></field-validation>
+									</div>
+									
+									<div class="form-group required">
+									  <label translate>LB_BUILDING_PLANTS</label>
+									  <div class="input-group">
+									  	<div class="input-group-addon"><md-ico i=info_outline></md-ico></div>
+									    <input class="form-control" type="number" step="1" min=1 required parse-float name="local_pisos" ng-model="frmParent.local_pisos" ng-change="getFloor()" />
+									  </div>
+									  <field-validation field="formData.local_pisos" min=1></field-validation>
+									</div>
+									<div class="form-group required">
+									  <label translate>LB_SUBSOILS_PLACE</label>
+									  <div class="input-group">
+									  	<div class="input-group-addon"><md-ico i=info_outline></md-ico></div>
+									    <input class="form-control" type="number" step="1" min=0 parse-float name="local_subsuelos" ng-model="frmParent.local_subsuelos" ng-change="getFloor()" required />
+									  </div>
+									  <field-validation field="formData.local_subsuelos" min=0></field-validation>
+									</div>
+									<div class="form-group required">
+									  <label translate>LB_PLACE_FLOOR</label>
+									  <div class="input-group">
+									    <div class="input-group-addon"><md-ico i=business></md-ico></div>
+									    <input class="form-control" type="number" step="1" min=1 readonly parse-float name="local_plantas" ng-model="frmParent.local_plantas" />
+									  </div>
+									  <field-validation field="formData.local_plantas"></field-validation>
+									</div>
+									
+								</div>
+							</div>
+							
+			      </div>
+					</div>
+				</li>
+				
+				<!-- AREA DEL ESTABLECIMIENTO -->
+		    <li>
+					<i class="fa fa-building bg-yellow"></i>
+			    <div class="timeline-item">
+			      <div class="timeline-body no-padding">
+							
+							<div class="box box-info">
+								<div class="box-header text-center">
+									<h3 class="box-title" translate>LB_PLACE_AREA</h3>
+								</div>
+								<div class="box-body" layout=column layout-padding>
+									<div layout-xs=column layout=row layout-padding>
+										<div class="form-group required" flex>
+											<label translate>LB_BUILDING_HEIGHT</label>
+											<div class="input-group">
+												<div class="input-group-addon"><md-ico i=business></md-ico></div>
+												<input class="form-control" type="number" step="0.01" min=0 parse-float name="local_altura_edificacion" ng-model="frmParent.local_altura_edificacion" required />
+											</div>
+											<field-validation field="formData.local_altura_edificacion" min=0></field-validation>
+										</div>
+										<div class="form-group required" flex>
+											<label translate>LB_LAND_AREA</label>
+											<div class="input-group">
+												<div class="input-group-addon"><md-ico i=info_outline></md-ico></div>
+												<input class="form-control" type="number" step="0.01" min=0 max="10000000" parse-float name="local_area_terreno" ng-model="frmParent.local_area_terreno" required />
+											</div>
+											<field-validation field="formData.local_area_terreno" min=0 max=10000000></field-validation>
+										</div>
+									</div>
+									<div class="form-group required">
+										<label translate>LB_EDIFICATION_AREA</label>
+										<div class="input-group">
+											<div class="input-group-addon"><md-ico i=info_outline></md-ico></div>
+											<input class="form-control" type="number" step="0.01" min=0 max="100000" required parse-float name="local_area_planta_baja" ng-model="frmParent.local_area_planta_baja" ng-change="getArea()" />
+										</div>
+										<field-validation field="formData.local_area_planta_baja" min=0 max=100000></field-validation>
+									</div>
+									<div class="form-group required" ng-if="frmParent.local_subsuelos>0">
+										<label translate>LB_SUBSOILS_AREA</label>
+										<div class="input-group">
+											<div class="input-group-addon"><md-ico i=info_outline></md-ico></div>
+											<input class="form-control" type="number" step="0.01" min=0 max=100000 parse-float name="local_area_subsuelos" ng-model="frmParent.local_area_subsuelos" ng-change="getArea()" required />
+										</div>
+										<field-validation field="formData.local_area_subsuelos" min=0 max=100000></field-validation>
+									</div>
+									<div class="form-group required" flex>
+										<label translate>LB_CONSTRUCTION_AREA</label>
+										<div class="input-group">
+											<div class="input-group-addon"><md-ico i=info_outline></md-ico></div>
+											<input class="form-control" type="number" step="0.01" min=1 readonly parse-float name="local_area_construccion" ng-model="frmParent.local_area_construccion" />
+										</div>
+										<field-validation field="formData.local_area_construccion" min=1></field-validation>
+									</div>
+									<div class="form-group required">
+										<label translate>LB_USEFUL_WORK_AREA</label>
+										<div class="input-group">
+											<div class="input-group-addon"><md-ico i=aspect_ratio></md-ico></div>
+											<input class="form-control" type="number" step="0.01" min=1 max="{{frmParent.local_area_construccion}}" parse-float name="local_area" ng-model="frmParent.local_area" required />
+										</div>
+										<field-validation field="formData.local_area" min=1 max={{frmParent.local_area_construccion}}></field-validation>
+									</div>
+									<div class="form-group required" flex>
+										<label translate>LB_FIRE_SECTOR</label>
+										<div class="input-group">
+											<div class="input-group-addon"><md-ico i=aspect_ratio></md-ico></div>
+											<input class="form-control" type="number" step="1" min=0 max={{frmParent.local_area}} parse-float name="local_area_sector_incendio" ng-model="frmParent.local_area_sector_incendio" required />
+										</div>
+										<field-validation field="formData.local_area_sector_incendio" min=1 max={{frmParent.local_area}}></field-validation>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</li>
+				
+				<li><i class="fa fa-clock-o bg-gray"></i></li>
+			</ul>
+		</div>
+		
+		<!-- AFORO DEL ESTABLECIMIENTO -->
+		<div flex>
+		
+			<ul class="timeline margin-top">
+				
+				<!-- CAPACIDAD DE ESTABLECIMIENTO -->
+				<li class="time-label text-uppercase">
+		    	<span class="bg-blue padding-all" translate>LB_CAPACITY_PLACE</span>
+				</li>
+		     
+				<!-- CANTIDAD DE EMPLEADOS -->
+				<li>
+					<i class="fa fa-users bg-red"></i>
+			    <div class="timeline-item">
+			      <div class="timeline-body no-padding">
+			      	<div class="box box-info">
+								<div class="box-header text-center">
+									<h3 class="box-title" translate>LB_QUANTITY_EMPLOYEES</h3>
+								</div>
+								<div class="box-body" layout=column layout-padding>
+									<div layout-xs=column layout=row layout-padding>
+										<div class="form-group required" flex>
+										  <label translate>LB_EMPLOYEES_MENS</label>
+										  <div class="input-group">
+										    <div class="input-group-addon"><i-fa i=male></i-fa></div>
+										    <input class="form-control" type="number" step="1" min=0 parse-float name="local_aforo_hombres" ng-model="frmParent.local_aforo_hombres" ng-change="getAforo()" required />
+										  </div>
+											<field-validation field="formData.local_aforo_hombres" min=0></field-validation>
+										</div>
+										<div class="form-group required" flex>
+										  <label translate>LB_EMPLOYEES_WOMEN</label>
+										  <div class="input-group">
+										    <div class="input-group-addon"><i-fa i=female></i-fa></div>
+										    <input class="form-control" type="number" step="1" min=0 parse-float name="local_aforo_mujeres" ng-model="frmParent.local_aforo_mujeres" ng-change="getAforo()" required />
+										  </div>
+											<field-validation field="formData.local_aforo_mujeres" min=0></field-validation>
+										</div>
+									</div>
+									<div layout=column layout-padding>
+										<!-- 
+										<div class="form-group required" flex>
+										  <label translate>LB_PEOPLE_WITH_SPECIAL_CAPABILITIES_MEN</label>
+										  <div class="input-group">
+										    <div class="input-group-addon"><i-fa i=male></i-fa></div>
+										    <input class="form-control" type="number" step="1" min=0 parse-float name="local_aforo_especiales" ng-model="frmParent.local_aforo_especiales" required />
+										  </div>
+										  <field-validation field="formData.local_aforo_especiales" min=0></field-validation>
+										</div>
+										<div class="form-group required" flex>
+										  <label translate>LB_PEOPLE_WITH_SPECIAL_CAPABILITIES_WOMEN</label>
+										  <div class="input-group">
+										    <div class="input-group-addon"><i-fa i=female></i-fa></div>
+										    <input class="form-control" type="number" step="1" min=0 parse-float name="local_aforo_especiales_mujeres" ng-model="frmParent.local_aforo_especiales_mujeres" required />
+										  </div>
+										  <field-validation field="formData.local_aforo_especiales_mujeres" min=0></field-validation>
+										</div>
+										 -->
+										<div class="form-group required" flex>
+										  <label translate>LB_PEOPLE_PERFORM_FIELD_ACTIVITIES</label>
+										  <div class="input-group">
+										    <div class="input-group-addon"><md-ico i=record_voice_over></md-ico></div>
+										    <input class="form-control" type="number" step="1" min=0 parse-float name="local_aforo_campo" ng-model="frmParent.local_aforo_campo" ng-change="getAforo()" required />
+										  </div>
+										  <field-validation field="formData.local_aforo_campo" min=0></field-validation>
+										</div>
+										<div class="form-group" flex>
+										  <label translate>LB_PEOPLE_WITHIN_COMPANY</label>
+										  <div class="input-group">
+										    <div class="input-group-addon"><i-fa i=user-md></i-fa></div>
+										    <input class="form-control" type="number" step="1" min=0 parse-float name="local_aforo_planta" ng-model="frmParent.local_aforo_planta" readonly="readonly" required />
+										  </div>
+										</div>
+									</div>
+									
+									<div class="form-group required" flex>
+									  <label translate>LB_CUSTOMERS_SERVED_SIMULTANEOUSLY</label>
+									  <div class="input-group">
+									    <div class="input-group-addon"><i-fa i=users></i-fa></div>
+									    <input class="form-control" type="number" step="1" min=0 parse-float name="local_aforo_simultaneo" ng-model="frmParent.local_aforo_simultaneo" ng-change="getAforo()" required />
+									  </div>
+									  <field-validation field="formData.local_aforo_simultaneo" min=0></field-validation>
+									</div>
+									<div class="form-group" flex>
+									  <label translate>LB_TOTAL_ASSESSMENT</label>
+									  <div class="input-group">
+									    <div class="input-group-addon"><md-ico i=people></md-ico></div>
+									    <input class="form-control" type="number" step="1" min=0 parse-float name="local_aforo" ng-model="frmParent.local_aforo" required readonly="readonly" />
+									  </div>
+									  <field-validation field="formData.local_aforo" min=0></field-validation>
+									</div>
+								</div>
+							</div>
+			      </div>
+					</div>
+				</li>
+				
+				<!-- BOTONERA -->
+			  <li>
+					<i class="fa fa-paper-plane-o bg-red"></i>
+			    <div class="timeline-item">
+			      <div class="timeline-body" layout-xs=column layout=row layout-padding>
+				      <div flex>
+								<a ui-sref="permits.selfInspection.step1({id:local.local_id})" class="btn btn-sm btn-warning btn-block">
+							  	<i-fa i=angle-double-left></i-fa> <span translate>BTN_PREV</span>
+								</a>
+							</div>
+							<div flex>
+								<button ng-click="getForm()" ng-disabled="formData.$invalid" class="btn btn-sm btn-success btn-block">
+									<span translate>BTN_NEXT</span> <i-fa i=angle-double-right></i-fa>
+								</button>
+							</div>
+			      </div>
+					</div>
+				</li>
+				
+			  <li><i class="fa fa-clock-o bg-gray"></i></li>
+			</ul>
+		</div>
+	
+	</div>
+
+</div>

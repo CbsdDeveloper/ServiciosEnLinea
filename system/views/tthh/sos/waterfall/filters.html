@@ -1,0 +1,74 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=delete></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_FILTERS_WATERFALL</h2>
+			<span flex></span>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <col style="">
+     	<col style="width:30%">
+     	<col style="width:5%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_FILTERS</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<div>
+							<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.filtro_fecha_ingreso)"></span>
+							<md-tooltip><span translate>LB_DATE_PLACEMENT</span></md-tooltip>
+						</div>
+						<div ng-if="row.filtro_estado=='CAMBIADO'">
+							<md-ico i=event_busy></md-ico><span ng-bind-html="highlight(row.filtro_fecha_cambio)"></span>
+							<md-tooltip><span translate>LB_EXCHANGE_DATE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=waves></md-ico><span ng-bind-html="highlight(row.filtro_capacidad)"></span>
+							<md-tooltip><span translate>LB_CAPACITY_IN_HOURS</span></md-tooltip>
+						</div>
+						<div ng-if="row.filtro_descripcion!='' && row.filtro_descripcion!=null">
+							<md-ico i=highlight></md-ico><span ng-bind-html="highlight(row.filtro_notificacion)"></span>
+							<md-tooltip><span translate>LB_NOTIFICATION_TIME</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=info></md-ico><span ng-bind-html="highlight(row.horas_uso)"></span>
+							<md-tooltip><span translate>LB_HOURS_OF_USE</span></md-tooltip>
+						</div>
+						<div ng-if="row.filtro_descripcion!='' && row.filtro_descripcion!=null">
+							<md-ico i=comment></md-ico><span ng-bind-html="highlight(row.filtro_descripcion)"></span>
+							<md-tooltip><span translate>LB_OBSERVATION</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.filtro_estado]"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.personal)"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.filtro_registro)"></span>
+					</td>
+					<td md-cell>
+						<menu-filters></menu-filters>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

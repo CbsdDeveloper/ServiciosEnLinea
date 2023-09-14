@@ -1,0 +1,44 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog moda-lg" ng-controller="evaluationQuestionsExtendsCtrl">
+  <form name="formData" ng-submit="submitRequestForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=chrome_reader_mode></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_FORM_QUESTIONS</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding ng-controller="evaluationQuestionsListCtrl">
+			
+			<!-- SECCIONES DE FORMULARIO -->
+			<div class="card card-outline card-info no-margin margin-top no-padding" ng-repeat="sections in jsonList">
+				<div class="card-header with-border">
+					<h3 class="card-title no-margin">{{sections.seccion_index}}. {{sections.seccion_nombre}}</h3>
+				</div>
+				<div class="card-body">
+					<div class="col-md-6 col-xs-12 md-2-line contact-item" ng-repeat="item in sections.questions">
+		        <label class="label">
+					    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.selected" checklist-value="item.pregunta_id" />
+					    <span class="label__text">
+					      <span class="label__check">
+					        <i class="fa fa-check icon"></i>
+					      </span>
+					    </span>
+					  </label>
+		        <div class="md-list-item-text compact">
+	          	<small class="text-bold">{{item.pregunta_index}}. {{item.question.recurso_nombre}}</small>
+		        </div>
+					</div>
+				</div>
+			</div>
+			
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

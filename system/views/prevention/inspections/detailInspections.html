@@ -1,0 +1,326 @@
+﻿<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		<card-inspection class="card-information" ng-if="detailConfig.show" flex></card-inspection>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=settings_input_antenna></md-ico></md-button>
+						<h2>{{dataEntity.i.inspeccion_codigo}} ({{dataEntity.i.inspeccion_serie}})</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<md-tabs md-dynamic-height md-border-bottom>
+					
+					<!-- LISTADO DE LOCALES RELACIONADOS EN LA INSPECCIÓN -->
+					<md-tab label="{{'LB_LOCALS' | translate}}">
+						<div style="background:#ecf0f5;" layout=column layout-padding ng-repeat="(keyEntity,information) in dataEntity.locals">
+							<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} no-margin" flex>
+								<div class="card-header text-center">
+									<h3 class="card-title" translate>{{information.entity.entidad_razonsocial}}</h3>
+								</div>
+							</div>
+							<div class="md-padding gallery-columns" layout-padding layout-wrap>
+								<!-- INFORMACIÓN DE RUC -->
+								<div class="figure-gallery" style="background:#ecf0f5;">
+									<div class="card card-outline card-danger no-margin">
+										<div class="card-body box-profile text-center">
+											<div class="container-img-user">
+									    	<img class="profile-user-img img-responsive" src="/app/src/img/entities/default.png" ng-src="{{setting.uri.img}}entities/{{dataEntity.entidad_imagen}}" alt="profile">
+									    </div>
+									    <h3 class="profile-username">{{information.entity.entidad_razonsocial}}</h3>
+											<p class="text-muted text-center"><md-ico i=event s=18></md-ico> {{information.entity.entidad_registro}}</p>
+											<hr>
+											<strong><md-ico i=business s=18></md-ico> <span translate>LB_TAXPAYER_TYPE</span></strong>
+											<p class="text-muted">{{string2JSON('contribuyenteType')[information.entity.entidad_contribuyente]}}</p>
+											<hr>
+											<strong><md-ico i=business s=18></md-ico> <span translate>LB_RUC</span></strong>
+											<p class="text-muted">{{information.entity.entidad_ruc}}</p>
+											<hr>
+											<strong><md-ico i=person s=18></md-ico> <span translate>LB_AGENT</span></strong>
+											<p class="text-muted">{{information.entity.representantelegal_nombre}}</p>
+											<hr>
+											<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_SSN</span></strong>
+											<p class="text-muted">{{information.entity.representantelegal_ruc}}</p>
+											<hr>
+											<strong><md-ico i=email s=18></md-ico> <span translate>LB_MAIL</span></strong>
+											<p class="text-muted">{{information.entity.representantelegal_email}}</p>
+										</div>
+									</div>
+								</div>
+								<!-- LISTADO DE LOCALES -->
+								<div class="figure-gallery" style="background:#ecf0f5;" ng-repeat="(key,row) in information.list">
+									<div class="card card-outline card-{{string2JSON('colorCss')[$parent.$index]}} no-margin">
+										<div class="card-body box-profile text-center">
+											<md-ico i=store_mall_directory s=64></md-ico>
+									    <h3 class="profile-username">{{row.local_nombrecomercial}}</h3>
+											<p class="text-muted text-center"><md-ico i=event s=18></md-ico> {{row.local_fecha_registro}}</p>
+											<hr>
+											<strong><md-ico i=directions s=18></md-ico> <span translate>LB_PARISH</span></strong>
+											<p class="text-muted">{{row.local_parroquia}}</p>
+											<hr>
+											<strong><md-ico i=directions s=18></md-ico> <span translate>LB_ADDRESS</span></strong>
+											<p class="text-muted">{{row.local_principal}}, {{dataEntity.local_secundaria}}</p>
+											<hr>
+											<strong><md-ico i=place s=18></md-ico> <span translate>LB_REFERENCE</span></strong>
+											<p class="text-muted">{{row.local_referencia}}</p>
+											<hr>
+											<strong><md-ico i=phone s=18></md-ico> <span translate>LB_TEL</span></strong>
+											<p class="text-muted">{{row.local_telefono}}</p>
+											<hr>
+											<strong><i-fa i=lightbulb-o></i-fa> <span translate>LB_LIGHTMETER_SHORT</span></strong>
+											<span class="text-muted">{{row.local_medidor}}</span>
+											<hr>
+											<strong><i-fa i=podcast></i-fa> <span translate>LB_CATASTRAL_KEY</span></strong>
+											<span class="text-muted">{{row.local_clavecatastral}}</span>
+											<hr>
+											<strong><md-ico i=group s=18></md-ico> <span translate>LB_AFORO</span></strong>
+											<span class="text-muted">{{row.local_aforo}}</span>
+											<hr>
+											<strong><md-ico i=business s=18></md-ico> <span translate>LB_FLOORS</span></strong>
+											<span class="text-muted">{{row.local_plantas}}</span>
+											<hr>
+											<strong><md-ico i=aspect_ratio s=18></md-ico> <span translate>LB_TOTAL_AREA</span></strong>
+											<span class="text-muted">{{row.local_area_construccion}}</span>
+											<hr>
+											<strong><md-ico i=aspect_ratio s=18></md-ico> <span translate>LB_USEFUL_AREA</span></strong>
+											<span class="text-muted">{{row.local_area}}</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</md-tab>
+					
+					<!-- LISTADO DE LOCALES RELACIONADOS EN LA INSPECCIÓN -->
+					<md-tab label="{{'LB_PREVIOUS_INSPECTIONS' | translate}}" ng-if="dataEntity.reinspections.total>0">
+						<div class="padding-all row no-margin gallery-columns" layout-padding>
+							<div class="col-md-4 col-xs-12" ng-repeat="row in dataEntity.reinspections.data">
+								<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+									<div class="card-body card-entity-information">
+										<h3 class="profile-username">{{row.reinspeccion_estado}}</h3>
+										<p class="text-muted text-center"><md-ico i=event s=18></md-ico> {{row.reinspeccion_registro}}</p>
+								    <hr>
+										<strong><md-ico i=event s=18></md-ico> <span translate>LB_INSPECTION_DATE</span></strong>
+								    <p class="text-muted text-uppercase">{{row.reinspeccion_fecha | date:'fullDate'}}</p>
+								    <hr>
+										<strong><md-ico i=access_time s=18></md-ico> <span translate>LB_INSPECTION_TIME</span></strong>
+								    <p class="text-muted">{{row.hora_ingreso}} - {{row.hora_salida}}</p>
+								    <hr>
+										<strong><md-ico i=list s=18></md-ico> <span translate>LB_REPORT_NUMBER</span></strong>
+								    <p class="text-muted">{{row.reinspeccion_informe_numero}}</p>
+								    <hr>
+										<strong><md-ico i=flag s=18></md-ico> <span translate>LB_TYPE</span></strong>
+								    <p class="text-muted">{{row.reinspeccion_tipo}}</p>
+								    <span ng-bind-html="statusLabel[row.reinspeccion_estado]"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</md-tab>
+					
+					<!-- INSPECTORES ASIGNADOS -->
+					<md-tab label="{{'LB_TECHNICAL_INSPECTORS' | translate}}" ng-if="dataEntity.inspectors.length>0">
+						<div class="padding-all row no-margin" layout-padding>
+							<div class="col-md-4 col-xs-12" ng-repeat="row in dataEntity.inspectors">
+								<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+									<div class="card-header with-border text-center">
+										<img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{row.persona_imagen}}" style="width:128px;height:128px;padding:5px;margin:auto" class="img-circle" alt="img" />
+									</div>
+									<div class="card-body card-entity-information">
+										<h3 class="profile-username">{{row.inspector}}</h3>
+								    <hr>
+										<strong><md-ico i=wrap_text s=18></md-ico> <span translate>LB_JOB</span></strong>
+								    <p class="text-muted">{{row.direccion_nombre}}<br>{{row.puesto_nombre}}</p>
+								    <hr>
+										<strong><md-ico i=mail s=18></md-ico> <span translate>LB_CONTACT</span></strong>
+								    <p class="text-muted">{{row.persona_telefono}} - {{row.persona_correo}}</p>
+								    <hr>
+										<strong><md-ico i=person s=18></md-ico> <span translate>LB_ASSIGNED_BY</span></strong>
+										<p class="text-muted text-center">{{row.asignador}}<br>{{row.relacion_registro | date:'fullDate'}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</md-tab>
+					
+					<!-- RECURSOS DE INSPECCIÓN -->
+					<md-tab label="{{'LB_STATUS_INSPECTION' | translate}}">
+						<div style="font-size:12px;background:#ecf0f5;" ng-repeat="(key, resources) in dataEntity.src.list" layout-padding>
+							<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} no-margin" flex>
+								<div class="card-header with-border text-center">
+									<h3 class="card-title">{{key}}</h3>
+								</div>
+								<div class="card-body" style="background:#e5e9ee;padding-top:16px;" layout=row>
+									<div class="timeline" style="width:100%">
+										<div ng-repeat="(key, list) in resources">
+											<i class="fa fa-{{dataEntity.src.icon[key]}} bg-{{string2JSON('colorName')[$index+$parent.$index]}}"></i>
+									    <div class="timeline-item" style="margin-top:-5px;">
+									    	<h3 class="timeline-header" layout=row layout-wrap>
+									    		<b>{{key}}</b>
+									    		<span flex></span>
+									    		<md-radio-group ng-model="dataEntity.comments[dataEntity.src.comments[key]].comentario_require" layout=row layout-wrap>
+											      <md-radio-button ng-disabled="true" value="SI" class="md-primary">SI CUMPLE</md-radio-button>
+											      <md-radio-button ng-disabled="true" value="NO" class="md-warn">NO CUMPLE</md-radio-button>
+											      <md-radio-button ng-disabled="true" value="NA" class="md-accent">NO APLICA</md-radio-button>
+											    </md-radio-group>
+									    	</h3>
+									      <div class="timeline-body" ng-if="dataEntity.comments[dataEntity.src.comments[key]].comentario_require=='NO'" layout-xs=column layout=row layout-wrap layout-padding>
+													<div class="margin-top" style="min-width:50%" ng-repeat="item in list" layout-padding flex>
+														<div ng-if="dataEntity.src.info[item].src_type=='CONTROL' || dataEntity.src.info[item].src_type=='AUMENTAR' || dataEntity.src.info[item].src_type=='MANTENIMIENTO'" layout-padding flex>
+															<span><b>{{item}}. {{dataEntity.src.info[item].src_name}}</b></span>
+															<div ng-if="dataEntity.src.info[item].src_type=='CONTROL' || dataEntity.src.info[item].src_type=='AUMENTAR'">
+																<md-radio-group ng-model="dataEntity.model[item].incrementar_recurso" layout=row layout-wrap>
+														      <md-radio-button ng-disabled="true" value="NO" class="md-primary">SI CUMPLE</md-radio-button>
+														      <md-radio-button ng-disabled="true" value="SI" class="md-warn">NO CUMPLE</md-radio-button>
+														      <md-radio-button ng-disabled="true" value="NA" class="md-accent">NA</md-radio-button>
+														    </md-radio-group>
+															  <div ng-if="dataEntity.model[item].incrementar_recurso=='SI'">
+															  	<div class="form-group required margin-top" flex>
+																		<div class="input-group">
+																			<div class="input-group-prepend"><div class="input-group-text">INCREMENTAR</div></div>
+																			<input class="form-control" ng-model="dataEntity.model[item].incrementar_recurso_cantidad" ng-disabled="true" placeholder="Ej. 2 CO2 .... " required />
+																		</div>
+																	</div>
+															  </div>
+															</div>
+														</div>
+														<div ng-if="dataEntity.src.info[item].src_type=='CUMPLE'" layout-padding flex>
+															<span><b>{{item}}. {{dataEntity.src.info[item].src_name}}</b></span>
+											    		<md-radio-group ng-model="dataEntity.model[item].cumple_recurso" layout=row layout-wrap>
+													      <md-radio-button ng-disabled="true" value="SI" class="md-primary">SI CUMPLE</md-radio-button>
+													      <md-radio-button ng-disabled="true" value="NO" class="md-warn">NO CUMPLE</md-radio-button>
+													    </md-radio-group>
+														</div>
+														
+														<div ng-if="dataEntity.src.info[item].src_type=='IMPLEMENTAR'" layout-padding flex>
+															<span><b>{{item}}. {{dataEntity.src.info[item].src_name}}</b></span>
+											    		<md-radio-group ng-model="dataEntity.model[item].implementar_recurso" layout=row layout-wrap>
+													      <md-radio-button ng-disabled="true" value="NO" class="md-primary">SI CUMPLE</md-radio-button>
+													      <md-radio-button ng-disabled="true" value="SI" class="md-warn">NO CUMPLE</md-radio-button>
+													      <md-radio-button ng-disabled="true" value="NA" class="md-accent">NA</md-radio-button>
+													    </md-radio-group>
+														  <div style="padding-top:0px;" ng-if="dataEntity.model[item].implementar_recurso=='SI'">
+														  	<div class="form-group required" flex>
+																	<div class="input-group">
+																		<div class="input-group-prepend"><div class="input-group-text"><span translate>LB_OBSERVATION</span></div></div>
+																		<input class="form-control" ng-model="dataEntity.model[item].incrementar_recurso_cantidad" ng-disabled="true" placeholder="Ej. 2 CO2 .... " required />
+																	</div>
+																</div>
+														  </div>
+														</div>
+														
+														<div ng-if="dataEntity.src.info[item].src_type=='INFORME'" layout-padding flex>
+															<span><b>{{item}}. {{dataEntity.src.info[item].src_name}}</b></span>
+											    		<md-radio-group ng-model="dataEntity.model[item].informe_tecnico" layout=row layout-wrap>
+													      <md-radio-button ng-disabled="true" value="SI" class="md-warn">PRESENTAR</md-radio-button>
+													      <md-radio-button ng-disabled="true" value="NA" class="md-accent">NA</md-radio-button>
+													    </md-radio-group>
+														</div>
+														
+														<div ng-if="dataEntity.src.info[item].src_type=='ACTUALIZAR'" layout-padding flex>
+															<div class="text-uppercase" ng-repeat="(localId,local) in dataEntity.plans">
+																<span><b>{{item}}. {{dataEntity.src.info[item].src_name}} / {{local.local_nombrecomercial}}</b></span>
+												    		<md-radio-group ng-model="dataEntity.model[item]['locals'][localId].implementar_recurso" layout=row layout-wrap>
+														      <md-radio-button ng-disabled="true" value="IMPLEMENTAR" class="md-warn">IMPLEMENTAR</md-radio-button>
+														      <md-radio-button ng-disabled="true" value="ACTUALIZAR" class="md-warn">ACTUALIZAR</md-radio-button>
+														      <md-radio-button ng-disabled="true" value="VIGENTE" class="md-primary">VIGENTE</md-radio-button>
+														      <md-radio-button ng-disabled="true" value="NA" class="md-accent">NA</md-radio-button>
+														    </md-radio-group>
+															</div>
+														</div>
+													</div>
+													<div class="form-group required" ng-if="dataEntity.comments[dataEntity.src.comments[key]].comentario_descripcion!=''" flex>
+														<div class="input-group">
+															<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+															<textarea class="form-control" ng-model="dataEntity.comments[dataEntity.src.comments[key]].comentario_descripcion" ng-disabled="true" placeholder="Ej. Mantenimiento por ..." ></textarea>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									  <div><i class="fa fa-clock-o bg-gray"></i></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</md-tab>
+		      
+		      <!-- Open tab history -->
+		      <md-tab label="{{'LB_HISTORY' | translate}}">
+						<md-content ng-controller="historyEntityCtrl">
+							<div ng-controller="myTableCtrl">
+								<toolbar-filter-in-tab></toolbar-filter-in-tab>
+								<md-table-container>
+							    <table md-table class="md-primary table-hover" md-progress="deferred">
+							      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+											<tr md-row>
+												<th md-column><span translate>LB_INSPECTION</span></th>
+												<th md-column><span translate>LB_COMERTIAL</span></th>
+												<th md-column><span translate>LB_DETAIL</span></th>
+											</tr>
+							      </thead>
+							      <tbody>
+											<tr md-row data-ng-repeat="row in rowsParent.data">
+												<td class="text-uppercase" md-cell>
+													<a ui-sref="prevention.detailInspections({id:row.inspeccion_id})" target="_balnk"><md-ico i=transfer_within_a_station></md-ico></a><span ng-bind-html="highlight(row.inspeccion_codigo)"></span> ({{row.inspeccion_serie}})<br>
+													<md-ico i=person></md-ico><span ng-bind-html="highlight(row.inspector)"></span> - <span ng-bind-html="highlight(row.inspeccion_informe_numero)"></span> 
+													<div>
+														<md-ico i=event></md-ico><span class="label label-info"">{{row.inspeccion_fingreso | date:'fullDate'}}</span>
+														<md-tooltip>{{'LB_REGISTRE_DATE' | translate}}</md-tooltip>
+													</div>
+													<div ng-if="(row.inspeccion_estado!='PENDIENTE' && row.inspeccion_estado!='APROBADO')">
+														<md-ico i=event_busy></md-ico><span class="label label-{{string2JSON('inspectionLabelStatus')[row.inspeccion_estado]}}">{{row.reinspeccion | date:'fullDate'}}</span> 
+														<md-tooltip>{{'LB_NEXT_INSPECTION' | translate}}</md-tooltip>
+													</div>
+													<div ng-if="row.inspeccion_estado=='APROBADO'">
+														<md-ico i=event_available></md-ico><span class="label label-{{string2JSON('inspectionLabelStatus')[row.inspeccion_estado]}}" ng-bind-html="highlight(row.inspeccion_fecha_aprobado)"></span>
+														<md-tooltip>{{'LB_APPROVAL_DATE' | translate}}</md-tooltip>
+													</div>
+												</td> 
+												<td class="text-uppercase" md-cell>
+													<div>
+														<a ui-sref="src.detailEntities({entityId:row.entidad_id})" target="_balnk"><md-ico i={{string2JSON('mdIconList')[row.entidad_contribuyente]}}></md-ico></a><span ng-bind-html="highlight(row.entidad_ruc)"></span>
+														<md-tooltip>{{row.entidad_razonsocial}}</md-tooltip>
+													</div>
+													<a ui-sref="src.detailLocals({localId:row.local_id})" target="_balnk"><md-ico i=store_mall_directory></md-ico></a><span ng-bind-html="highlight(row.local_nombrecomercial)"></span>
+													<div>
+														<md-ico i=directions></md-ico><span ng-bind-html="highlight(row.local_principal+', '+row.local_secundaria)"></span>
+														<md-tooltip>{{row.local_referencia}}</md-tooltip>
+													</div>
+													<md-ico i=phone></md-ico><span ng-bind-html="highlight(row.local_telefono)"></span> - <span ng-bind-html="highlight(row.representantelegal_email)"></span>
+													<div ng-if="row.local_clavecatastral!='' && row.local_clavecatastral!=null">
+														<i-fa i=podcast s=fw></i-fa><span ng-bind-html="highlight(row.local_clavecatastral)"></span>
+														<md-tooltip>{{'LB_CATASTRAL_KEY' | translate}}</md-tooltip>
+													</div>
+												</td>
+												<td md-cell>
+													<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.inspeccion_estado]"></span><br>
+													<md-ico i=event></md-ico><span ng-bind-html="row.inspeccion_registro"></span><br>
+													<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+													<div class="text-uppercase" ng-if="row.gallery>0">
+														<a ng-click="downloadAttachments(row.inspeccion_id)">
+															<md-ico i=file_download></md-ico><span translate="LB_ATTACHED_FILES_X" translate-values="{x:row.gallery}"></span>
+														</a>
+													</div>
+												</td>
+											</tr>
+							      </tbody>
+							    </table>
+								</md-table-container>
+								<footer-table></footer-table>
+							</div>
+		        </md-content>
+					</md-tab>
+					<!-- Close tab history -->
+					
+				</md-tabs>
+			</md-card>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,148 @@
+﻿<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		
+		<div class="card-information" ng-if="detailConfig.show" flex>
+			<div class="card card-outline card-dark no-margin">
+			  <div class="card-header text-center">
+				  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+			  <div class="card-body box-profile text-center">
+					<strong><md-ico i=verified_user></md-ico><br><span translate>LB_EVALUATION_CODE</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.evaluacion_codigo}}</p>
+			    <hr>
+					<strong><md-ico i=info></md-ico><br><span translate>LB_FORM_NAME</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.form.formulario_nombre}}</p>
+			    <hr>
+					<strong><md-ico i=event_available></md-ico><br><span translate>LB_OPENING_DATE</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.evaluacion_inicio}}</p>
+			    <hr>
+					<strong><md-ico i=event_busy></md-ico><br><span translate>LB_DEADLINE</span></strong>
+			    <p class="text-muted text-uppercase">{{dataEntity.evaluacion_cierre}}</p>
+			  </div>
+			  <div class="card-footer" ng-if="allow.permiso804141 || allow.permiso804142">
+			  	<button class="btn btn-primary btn-block" ng-click="exportEntityById('evaluacionespersonal',dataEntity.evaluacion_id)" ng-if="allow.permiso804141">
+			  		<md-ico i=print s=15></md-ico> <span translate>LB_PRINT_SURVEYSTAFF</span>
+			  	</button>
+			  	<button class="btn btn-warning btn-block" ng-click="exportEntity('evaluacionespersonal',dataEntity.evaluacion_id)" ng-if="allow.permiso804142">
+			  		<md-ico i=print s=15></md-ico> <span translate>LB_PRINT_ALERT_REPORT</span>
+			  	</button>
+			  </div>
+			</div>
+		</div>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=verified_user></md-ico></md-button>
+						<h2>{{dataEntity.evaluacion_codigo}} - {{dataEntity.form.formulario_nombre}}</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<md-tabs md-dynamic-height md-border-bottom>
+						
+					<!-- SITUACIONES DE ALERTA -->
+					<md-tab label="{{'LB_ALERT_SITUATIONS' | translate}}">
+						<md-content class="padding-all">
+							
+							<div class="row d-flex align-items-stretch">
+								
+		            <div class="col-12 col-sm-6 col-md-4 margin-bottom" ng-repeat="row in entityInfo.alerts">
+		              <div class="card bg-light">
+		                <div class="card-header text-muted border-bottom-0 text-center"><b>{{row.test_id}}. {{row.evaluado}}</b></div>
+		                <div class="card-body pt-0">
+	                    <div class="text-center text-muted margin-bottom"><b>{{row.evaluado_cargo}}</b></div>
+		                  <div class="row">
+		                    <div class="col-7">
+		                      <ul class="ml-4 mb-0 fa-ul text-muted">
+		                        <li><span class="fa-li"><i-fa i=birthday-cake></i-fa></span> <span>{{row.evaluado_edad}}</span></li>
+		                        <li><span class="fa-li"><i-fa i=envelope></i-fa></span> <span>{{row.evaluado_correo}}</span></li>
+		                        <li><span class="fa-li"><i-fa i=phone></i-fa></span> <span>{{row.evaluado_telefonos}}</span></li>
+		                        
+		                        <li><span class="fa-li"><i-fa i=calendar-o></i-fa></span> <span>{{row.evaluado_fechainscripcion}}</span></li>
+		                        
+		                        <li><span class="fa-li"><i-fa i=flag></i-fa></span> <span ng-bind-html="statusLabel[row.test_estado]"></span></li>
+		                        <li ng-if="row.test_estado!='INSCRITO'">
+		                        	<span class="fa-li"><i-fa i=calendar-check-o></i-fa></span> <span>{{row.evaluado_fechaevaluacion}}</span>
+		                        </li>
+		                      </ul>
+		                    </div>
+		                    <div class="col-5 text-center">
+		                    	<div class="container-profile small">
+			                      <img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{row.persona_imagen}}" alt="">
+		                    	</div>
+		                    </div>
+		                  </div>
+		                </div>
+		                <div class="card-footer" ng-if="allow.permiso804140">
+											<div class="text-right">
+												<button class="btn btn-sm btn-primary" ng-click="exportEntity('getSurveys',row.test_id)" ng-disabled="row.test_estado=='INSCRITO'">
+													<i-fa i=print></i-fa> <span translate>LB_PRINT_REPORT_ALT</span>
+												</button>
+											</div>
+		                </div>
+		              </div>
+		            </div>
+							
+							</div>
+							
+						</md-content>
+					</md-tab>
+						
+					<!-- TABULACION DE RESULTADOS -->
+					<md-tab label="{{'LB_TABULATION_OF_RESULTS' | translate}}">
+						<md-content class="padding-all">
+							
+							<div class="row d-flex align-items-stretch">
+								
+		            <div class="col-12 col-sm-6 col-md-4 margin-bottom" ng-repeat="row in entityInfo.evaluations">
+		              <div class="card bg-light">
+		                <div class="card-header text-muted border-bottom-0 text-center"><b>{{row.test_id}}. {{row.staff.person.persona_apellidos}} {{row.staff.person.persona_nombres}}</b></div>
+		                <div class="card-body pt-0">
+	                    <div class="text-center text-muted margin-bottom"><b>{{row.evaluado_cargo}}</b></div>
+		                  <div class="row">
+		                    <div class="col-7">
+		                      <ul class="ml-4 mb-0 fa-ul text-muted">
+		                        <li><span class="fa-li"><i-fa i=birthday-cake></i-fa></span> <span>{{row.evaluado_edad}}</span></li>
+		                        <li><span class="fa-li"><i-fa i=envelope></i-fa></span> <span>{{row.evaluado_correo}}</span></li>
+		                        <li><span class="fa-li"><i-fa i=phone></i-fa></span> <span>{{row.evaluado_telefonos}}</span></li>
+		                        
+		                        <li><span class="fa-li"><i-fa i=calendar-o></i-fa></span> <span>{{row.evaluado_fechainscripcion}}</span></li>
+		                        
+		                        <li><span class="fa-li"><i-fa i=flag></i-fa></span> <span ng-bind-html="statusLabel[row.test_estado]"></span></li>
+		                        <li ng-if="row.test_estado!='INSCRITO'">
+		                        	<span class="fa-li"><i-fa i=calendar-check-o></i-fa></span> <span>{{row.evaluado_fechaevaluacion}}</span>
+		                        </li>
+		                      </ul>
+		                    </div>
+		                    <div class="col-5 text-center">
+		                    	<div class="container-profile small">
+			                      <img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{row.staff.person.persona_imagen}}" alt="">
+		                    	</div>
+		                    </div>
+		                  </div>
+		                </div>
+		                <div class="card-footer">
+											<div class="text-right" ng-if="allow.permiso804140">
+												<button class="btn btn-sm btn-primary" ng-click="exportEntity('getSurveys',row.test_id)" ng-disabled="row.test_estado=='INSCRITO'">
+													<i-fa i=print></i-fa> <span translate>LB_PRINT_REPORT_ALT</span>
+												</button>
+											</div>
+		                </div>
+		              </div>
+		            </div>
+							
+							</div>
+							
+						</md-content>
+					</md-tab>
+					
+				</md-tabs>
+			</md-card>
+		</div>
+	</div>
+</div>

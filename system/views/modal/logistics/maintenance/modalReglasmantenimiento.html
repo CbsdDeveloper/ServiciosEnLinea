@@ -1,0 +1,102 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg" ng-controller="rulesMaintenancesExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=settings></md-ico></md-button>
+			<h2 translate>TOOLBAR_RULES</h2>
+      <span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	
+    	<!-- DATOS DE REGISTRO -->
+			<div class="card card-outline card-success no-margin" style="padding:8px" layout-padding>
+				<div class="card-header text-center">
+				  <h3 class="card-title" translate>LB_MAIN_INFORMATION</h3>
+				</div>
+				<div class="card-body" layout=column layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_MODEL</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_taxi></md-ico></div></div> 
+					    <input ng-model="frmParent.plan_modelo" class="form-control" readonly="readonly">
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_STARING_KILOMETER</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=playlist_add_check></md-ico></div></div> 
+						    <input type="number" min="1" step="1" parse-float ng-model="frmParent.mantenimiento_km_inicio" class="form-control" placeholder="Ej. 15000" required>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_ITERATION_KILOMETER</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=refresh></md-ico></div></div> 
+						    <input type="number" min="1" step="1" parse-float ng-model="frmParent.mantenimiento_km_intervalo" class="form-control" placeholder="Ej. 20000" required>
+							</div>
+						</div>
+						<div class="form-group required" flex ng-if="toogleEditMode">
+							<label translate>LB_STATUS</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.mantenimiento_estado"
+												ng-options="val as val for (key,val) in string2JSON('statusType')"></select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- FILTRO DE CAPACITADORES -->
+			<div class="margin-top" layout-padding>
+					<div class="card card-outline card-success no-margin">
+						<div class="card-body text-center">
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=search></md-ico></div></div> 
+								<input ng-model="frmParent.filter" class="form-control" placeholder="Ej. 1236587490" maxlength="20">
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-default" ng-if="frmParent.filter!=''" ng-click="frmParent.filter=''"><md-ico i=clear></md-ico></button>
+								</span>
+							</div>
+						</div>
+					</div>
+			</div>
+			<!-- LISTADO DE CAPACITADORES -->
+			<div class="margin-top" layout-padding ng-repeat="(key, resources) in list.data.resources">
+				<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} no-margin no-padding">
+					<div class="card-header text-center">
+						<h3 class="card-title no-margin" translate>{{key}}</h3>
+					</div>
+					<div class="card-body">
+						<!-- LISTADO DE PARTICIPANTES -->
+						<div class="row" style="padding:8px;">
+							<div class="col-md-4 col-xs-12 md-2-line contact-item" ng-repeat="item in resources | filter : frmParent.filter">
+				        <label class="label">
+							    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.selected" checklist-value="item.recurso_id" />
+							    <span class="label__text">
+							      <span class="label__check">
+							        <i class="fa fa-check icon"></i>
+							      </span>
+							    </span>
+							  </label>
+				        <div class="md-list-item-text compact">
+			          	<span class="text-bold" ng-bind-html="highlight(item.recurso_codigo,frmParent.filter)"></span>
+				          <p style="font-size:11px;" ng-bind-html="highlight(item.recurso_descripcion,frmParent.filter)"></p>
+				        </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

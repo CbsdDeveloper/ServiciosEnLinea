@@ -1,0 +1,92 @@
+<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		<card-psychosocial-evaluation class="card-information" ng-if="detailConfig.show" flex></card-psychosocial-evaluation>
+		
+		<div class="no-padding" flex>
+			<md-card>
+
+				<md-toolbar ng-hide="filter.show">
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=filter_none></md-ico></md-button>
+						<h2 class="md-flex" translate>LB_FORM_QUESTIONS</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				
+				<md-tabs md-dynamic-height md-border-bottom>
+						
+					<!-- PREGUNTAS DEL FORMULARIO -->
+					<md-tab label="{{'LB_FORM_QUESTIONS' | translate}}">
+						<md-content ng-controller="evaluations.questionsCtrl">
+							<div ng-controller="myTableCtrl">
+								<div class="md-toolbar-tools">
+									<md-button aria-label="btn" class="md-icon-button"><md-ico i=school></md-ico></md-button>
+									<h2 translate>TOOLBAR_UTILS</h2>
+									<span flex></span>
+									<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+										<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+									</md-button>
+									<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+										<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+									</md-button>
+									<md-button aria-label="btn" class="md-icon-button" ng-click="openParentModal('Evaluacionesriesgopsicosocial_preguntas',{edit:false,evaluationId:dataEntity.evaluacion_id,tb:'tthh/sos/psychosocial/evaluation/questions'})">
+										<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+									</md-button>
+								</div>
+								<toolbar-filter></toolbar-filter>
+								<md-table-container>
+							    <table md-table class="md-primary table-hover" md-progress="deferred">
+							      <tbody>
+											<tr md-row data-ng-repeat="row in rowsParent.data">
+												<td md-cell>
+													{{row.pregunta_index}}. <span ng-bind-html="highlight(row.recurso_nombre)"></span><br>
+													<span ng-bind-html="highlight(row.seccion_nombre)"></span>
+												</td>
+											</tr>
+							      </tbody>
+							    </table>
+								</md-table-container>
+								<footer-table></footer-table>
+							</div>
+						</md-content>
+					</md-tab>
+						
+					<!-- EVALUACIONES REALIZADAS -->
+					<md-tab label="{{'LB_RESULTS' | translate}}">
+						<md-content ng-controller="evaluations.questionsCtrl">
+							<div ng-controller="myTableCtrl">
+								<div class="md-toolbar-tools">
+									<md-button aria-label="btn" class="md-icon-button"><md-ico i=school></md-ico></md-button>
+									<h2 translate>TOOLBAR_UTILS</h2>
+									<span flex></span>
+								</div>
+								<toolbar-filter></toolbar-filter>
+								<md-table-container>
+							    <table md-table class="md-primary table-hover" md-progress="deferred">
+							      <tbody>
+											<tr md-row data-ng-repeat="row in rowsParent.data">
+												<td md-cell>
+													{{row.pregunta_index}}. <span ng-bind-html="highlight(row.recurso_nombre)"></span><br>
+													<span ng-bind-html="highlight(row.seccion_nombre)"></span>
+												</td>
+											</tr>
+							      </tbody>
+							    </table>
+								</md-table-container>
+								<footer-table></footer-table>
+							</div>
+						</md-content>
+					</md-tab>
+					
+					
+					
+				</md-tabs>
+				
+			</md-card>
+		</div>
+	</div>
+</div>

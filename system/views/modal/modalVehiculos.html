@@ -1,0 +1,28 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog" ng-controller="vehiclesExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+    	<md-button aria-label="btn" class="md-icon-button"><md-ico i=local_shipping></md-ico></md-button>
+      <h2 translate>TOOLBAR_VEHICLES</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-content layout=column layout-padding>
+    	
+    	<!-- FORMULARIO DE PROPIETARIO -->
+			<frm-personas-custom layout-padding></frm-personas-custom>
+    	
+    	<!-- FORMULARIO DE VEHÍCULOS -->
+			<frm-vehiculos-advanced class="margin-top" layout-padding></frm-vehiculos-advanced>
+			
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

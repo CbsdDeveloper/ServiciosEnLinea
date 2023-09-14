@@ -1,0 +1,146 @@
+﻿<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		
+		<!-- INFORMACION DE ESTABLECIMIENTO -->
+		<card-local class="card-information" ng-if="detailConfig.show" flex></card-local>
+		
+		<div flex>
+			<md-card class="no-margin">
+			
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=store_mall_directory></md-ico></md-button>
+						<h2>{{entity.local_nombrecomercial}}</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				
+				<md-tabs md-dynamic-height md-border-bottom class="no-margin-bottom-input">
+				
+					<!-- PERMISOS DE FUNCIONAMIENTO -->
+					<md-tab label="{{'LB_PERMITS' | translate}}" ng-if="permitsList.length>0">
+						<md-content class="padding-all">
+								<div class="row no-margin">
+									<div class="wow fadeInUp margin-bottom col-xs-12 col-md-4" ng-repeat="row in permitsList">
+										<div class="box box-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+											<div class="box-header with-border">
+												<md-ico i=assignment_turned_in s=48></md-ico><br>
+												<h3 class="profile-username"><span ng-bind-html="highlight(row.codigo_per)"></span></h3>
+											</div>
+											<div class="box-body box-card-ico no-padding-bottom">
+												<strong><md-ico i=event></md-ico> <span translate>LB_DATE</span></strong>
+												<p class="text-muted text-center"><span ng-bind-html="highlight(row.permiso_fecha)"></span></p>
+										    <hr>
+												<strong><md-ico i=person></md-ico> <span translate>LB_USER</span></strong>
+												<p class="text-muted text-center"><span ng-bind-html="highlight(row.usuario)"></span></p>
+												<hr>
+												<strong><md-ico i=assignment_turned_in></md-ico> <span translate>LB_PERMIT_NUMBER</span></strong>
+												<p class="text-muted text-center"><span ng-bind-html="highlight(row.permiso_numero)"></span></p>
+												<hr>
+												<strong><md-ico i=confirmation_number></md-ico> <span translate>LB_REQUEST_NUMBER</span></strong>
+												<p class="text-muted text-center"><span ng-bind-html="highlight(row.numero_solicitud)"></span></p>
+											</div>
+											<div class="box-footer">
+												<button class="btn btn-info btn-block btn-sm" ng-click="exportById('autoinspecciones',row.fk_autoinspeccion_id)">
+													<md-ico i=print s=15></md-ico> <span translate>LB_SELFINSPECTION</span>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+						</md-content>
+					</md-tab>
+					
+					<!-- INSPECCIONES -->
+					<md-tab label="{{'LB_INSPECTIONS' | translate}}" ng-if="inspectionsList.length>0">
+						<md-content class="padding-all">
+								<div class="row no-margin">
+									<div class="wow fadeInUp margin-bottom col-xs-12 col-md-4" ng-repeat="row in inspectionsList">
+										<div class="box box-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+											<div class="box-header with-border">
+												<md-ico i=transfer_within_a_station s=48></md-ico><br>
+												<h3 class="profile-username">{{row.inspeccion_codigo}}</h3>
+											</div>
+											<div class="box-body box-card-ico no-padding-bottom">
+												<strong><i-fa i=calendar-o></i-fa> <span translate>LB_INSPECTION_DATE</span></strong>
+										    <p class="text-muted text-uppercase">{{row.inspeccion_fecha_inspeccion | date:'fullDate'}}</p>
+										    <hr>
+												<div ng-if="(row.inspeccion_estado!='PENDIENTE' && row.inspeccion_estado!='APROBADO')">
+													<strong><i-fa i=calendar-times-o></i-fa> <span translate>LB_NEXT_INSPECTION</span></strong>
+											    <p class="text-muted text-uppercase">{{row.reinspeccion | date:'fullDate'}}</p>
+											    <hr>
+												</div>
+												<div ng-if="row.inspeccion_estado=='APROBADO'">
+													<strong><md-ico i=event></md-ico> <span translate>LB_APPROVAL_DATE</span></strong>
+											    <p class="text-muted text-uppercase">{{row.inspeccion_fecha_aprobado}}</p>
+											    <hr>
+												</div>
+												<strong><md-ico i=person></md-ico> <span translate>LB_INSPECTOR</span></strong>
+										    <p class="text-muted no-margin" ng-repeat="insp in row.inspectors">{{insp.user.usuario}}</p>
+										    <hr>
+												<strong><md-ico i=flag></md-ico> <span translate>LB_STATUS</span></strong>
+										    <p class="text-muted"><span ng-bind-html="statusLabel[row.inspeccion_estado]"></span></p>
+											</div>
+											<div class="box-footer" ng-if="!(row.inspeccion_estado=='APROBADO')">
+												<button class="btn btn-block btn-info" ng-click="exportWithDetail(row.inspeccion_id)">
+													<md-ico i=print s=18></md-ico><span translate>LB_PRINT_REPORT</span>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+						</md-content>
+					</md-tab>
+					
+					<!-- PLANES DE AUTOPROTECCION -->
+					<md-tab label="{{'LB_EMERGENCY_PLAN' | translate}}" ng-if="plansList.length>0">
+						<md-content class="padding-all">
+								<div class="row no-margin">
+									<div class="wow fadeInUp margin-bottom col-xs-12 col-md-4" ng-repeat="row in plansList" flex>
+										<div class="box box-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+											<div class="box-header with-border">
+												<md-ico i=security s=32></md-ico><br>
+			              		<h3 class="profile-username">{{row.plan_codigo}}</h3>
+											</div>
+											<div class="box-body box-card-ico no-padding-bottom">
+												<strong><md-ico i=event></md-ico> <span translate>LB_REGISTRE_DATE</span></strong>
+										    <p class="text-muted text-uppercase">{{row.plan_registro | date:'fullDate'}}</p>
+										    <hr>
+												<strong><md-ico i=event></md-ico> <span translate>LB_ELABORATED</span></strong>
+										    <p class="text-muted text-uppercase">{{row.plan_elaborado | date:'fullDate'}}</p>
+										    <hr>
+												<div ng-if="row.plan_estado=='APROBADO'">
+													<strong><md-ico i=event_available></md-ico> <span translate>LB_APPROVAL_DATE</span></strong>
+											    <p class="text-muted text-uppercase">{{row.plan_aprobado | date:'fullDate'}}</p>
+											    <hr>
+													<strong><md-ico i=event_busy></md-ico> <span translate>LB_VALID_UNTIL</span></strong>
+											    <p class="text-muted text-uppercase">{{row.plan_caduca | date:'fullDate'}}</p>
+											    <hr>
+												</div>
+												<strong><md-ico i=comment></md-ico> <span translate>LB_OBSERVATIONS</span></strong>
+										    <p class="text-muted">{{row.plan_observacion}}</p>
+										    <hr>
+												<strong><md-ico i=flag></md-ico> <span translate>LB_STATUS</span></strong>
+										    <p class="text-muted"><span ng-bind-html="statusLabel[row.plan_estado]"></span></p>
+											</div>
+											<div class="box-footer" ng-if="(row.plan_estado=='PENDIENTE' || row.plan_estado=='INGRESADO')">
+												<button class="btn btn-info btn-block btn-sm" ng-click="exportEntity('planesemergencia',row.plan_id)">
+													<md-ico i=print s=18></md-ico> <span translate>LB_PRINT_REQUEST</span>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+						</md-content>
+					</md-tab>
+					
+				</md-tabs>
+			
+			</md-card>
+		</div>
+	</div>
+</div>

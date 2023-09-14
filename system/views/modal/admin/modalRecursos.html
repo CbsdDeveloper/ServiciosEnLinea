@@ -1,0 +1,83 @@
+<md-dialog aria-label="Form Data" class="modal-dialog">
+  <form name="formData" ng-submit="submitFormFile()" ng-controller="resourcesListExtendsCtrl">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+    	<md-button aria-label="btn" class="md-icon-button"><md-ico i=assignment></md-ico></md-button>
+			<h2 translate>TOOLBAR_RESOURCES</h2>
+      <span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+			<div class="form-group required">
+				<label translate>LB_RESOURCES</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assignment></md-ico></div></div> 
+					<input ng-model="frmParent.recurso_nombre" class="form-control" placeholder="Ej. Incendios" required />
+				</div>
+			</div>
+			<div layout-xs=column layout=row layout-padding>
+				<div class="form-group required" flex>
+					<label translate>LB_TYPE</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=merge_type></md-ico></div></div> 
+						<select class="form-control" ng-model="frmParent.recurso_icon_tipo" ng-options="key as val for (key,val) in string2JSON('iconsType')"></select>
+					</div>
+				</div>
+				<div class="form-group required" flex>
+					<label translate>LB_ICON</label>
+					<div class="input-group">
+						<span class="input-group-addon">
+							<md-ico ng-if="frmParent.recurso_icon_tipo=='materialIconList'" i={{frmParent.recurso_icon}}></md-ico>
+							<i-fa ng-if="frmParent.recurso_icon_tipo=='fontAwesomeList'" i={{frmParent.recurso_icon}}></i-fa>
+						</span>
+						<select class="form-control" ng-model="frmParent.recurso_icon" ng-options="val as val for (key,val) in string2JSON(frmParent.recurso_icon_tipo) track by val"></select>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label translate>LB_DESCRIPTION</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+					<textarea ng-model="frmParent.recurso_descripcion" class="form-control" placeholder="Ej. Control de personal"></textarea>
+				</div>
+			</div>
+			<div class="form-group required" ng-if="toogleEditMode">
+				<label translate>LB_STATUS</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.recurso_estado" ng-options="val as val for (key,val) in string2JSON('statusType')"></select>
+				</div>
+			</div>
+			
+			<div class="form-group required">
+				<label translate>Clasificación de recursos</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assignment></md-ico></div></div> 
+					<input ng-model="frmParent.recurso_clasificacion" class="form-control" placeholder="Ej. Incendios" />
+				</div>
+			</div>
+			<div class="form-group required">
+				<label translate>Tipo de formulario</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assignment></md-ico></div></div> 
+					<input ng-model="frmParent.recurso_tipo_formulario" class="form-control" placeholder="Ej. Incendios" />
+				</div>
+			</div>
+			<div class="form-group required">
+				<label translate>LB_VALUE</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=mode_edit></md-ico></div></div> 
+					<div style="height:360px;" ng-jsoneditor="editorLoaded" ng-model="frmParent.recurso_lista_valores" prefer-text="true" options="options"></div>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

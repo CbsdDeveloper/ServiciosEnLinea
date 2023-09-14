@@ -1,0 +1,50 @@
+<md-dialog aria-label="Dialog" class="modal-dialog" ng-controller="ciiuExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="btn" class="md-icon-button"><md-ico i=content_paste></md-ico></md-button>
+			<h2 translate>TOOLBAR_CIIU</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content class="my-dialog-content">
+    <md-content layout-padding layout=column layout-wrap>
+	   	<div class="input-group" flex=100 ng-controller=actividadesListCtrl>
+	      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=import_contacts></md-ico></div></div> 
+	      <select ng-model="frmParent.fk_actividad_id" class="form-control" ng-change="refreshTaxes()" required 
+	      				ng-options="row.actividad_id as (row.actividad_id+'. '+row.actividad_nombre) for row in list"></select>
+	    </div>
+	    
+			<div class="input-group" flex=100>
+	      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=monetization_on></md-ico></div></div> 
+	      <select ng-model="frmParent.fk_tasa_id" class="form-control" required 
+	      				ng-options="row.tasa_id as (row.tasa_codigo+'. '+row.tasa_nombre) for row in tasasList"></select>
+	    </div>
+	    
+			<div class="input-group">
+		    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=fingerprint></md-ico></div></div> 
+		    <input type="text" ng-model="frmParent.ciiu_codigo" class="form-control" placeholder="{{'LB_CODE' | translate}}" required>
+		  </div>
+		  <div class="input-group">
+		    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+		    <textarea rows=3 type="text" ng-model="frmParent.ciiu_nombre" class="form-control" placeholder="{{'LB_CIIU_ACTIVITY' | translate}}" required></textarea>
+		  </div>
+		  
+			<div class="input-group">
+		    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=fingerprint></md-ico></div></div> 
+		    <input type="text" ng-model="frmParent.ciiu_codigo_v3" class="form-control" placeholder="{{'LB_CODE_V3' | translate}}">
+		  </div>
+		  <div class="input-group">
+		    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+		    <textarea rows=3 type="text" ng-model="frmParent.ciiu_nombre_v3" class="form-control" placeholder="{{'LB_CIIU_ACTIVITY_V3' | translate}}"></textarea>
+		  </div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

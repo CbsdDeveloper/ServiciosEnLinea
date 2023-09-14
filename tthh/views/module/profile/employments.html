@@ -1,0 +1,54 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=assignment_ind></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_EMPLOYMENT_HISTORY</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal({fk_persona_id:session.persona_id,edit:false})"><md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+  <div layout-xs=column layout=row layout-padding layout-wrap>
+    <div style="min-width:350px;max-width:480px" flex ng-repeat="row in rowsParent.data">
+      <div class="box box-{{string2JSON('colorCss')[$index]}}">
+        <div class="box-body box-profile text-center">
+          <md-ico i=assignment_ind s=64></md-ico>
+          <h3 class="profile-username text-center">{{row.experiencia_cargo}}</h3>
+          <hr>
+          <strong><md-ico i=business s=18></md-ico> <span translate>LB_INSTITUTION</span></strong>
+          <p class="text-muted text-center text-uppercase">{{row.experiencia_institucion}}</p>
+          <hr>
+          <strong><md-ico i=accessible s=18></md-ico> <span translate>LB_WORK_AREA</span></strong>
+          <p class="text-muted text-center text-uppercase">{{row.experiencia_area}}</p>
+          <hr>
+          <strong><md-ico i=flag s=18></md-ico> <span translate>LB_STATUS</span></strong>
+          <p class="text-muted text-center text-uppercase" ng-bind-html="statusLabel[row.experiencia_estado]"></p>
+          <hr>
+          <strong><md-ico i=event_available s=18></md-ico> <span translate>LB_DATE_ADMISSION</span></strong>
+          <p class="text-muted text-center text-uppercase">{{row.experiencia_fingreso}}</p>
+          <div ng-if="row.experiencia_estado=='SALIDA'">
+	          <hr>
+	          <strong><md-ico i=event_busy s=18></md-ico> <span translate>LB_DEPARTURE_DATE</span></strong>
+	          <p class="text-muted text-center text-uppercase">{{row.experiencia_fsalida}}</p>
+	          <hr>
+	          <strong><md-ico i=insert_comment s=18></md-ico> <span translate>LB_REASON_EXIT</span></strong>
+	          <p class="text-muted text-center text-uppercase">{{row.experiencia_msalida}}</p>
+          </div>
+        </div>
+        <div class="box-footer">
+          <button ng-click="openModal(row)" class="btn btn-primary btn-block">
+            <md-ico i=edit s=18></md-ico>
+            <b translate>BTN_UPDATE</b>
+          </button>
+			    <button ng-click="deleteItem(row.experiencia_id)" class="btn btn-danger btn-block">
+			    	<md-ico i=delete_forever s=18></md-ico>
+			    	<b translate>LB_DELETE</b>
+			    </button>
+        </div>
+      </div>
+    </div>
+  </div>
+	<footer-table></footer-table>
+</md-card>

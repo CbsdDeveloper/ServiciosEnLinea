@@ -1,0 +1,63 @@
+<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=account_balance></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_LEADERSHIPS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()" ng-if="allow.permiso80121">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<datatable-toolbar></datatable-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary" md-progress="deferred">
+    	<col style="">
+     	<col style="width:20%;">
+     	<col style="width:3%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderPersonas">
+				<tr md-row>
+					<th md-column><span translate>LB_LEADERSHIPS</span></th>
+<!-- 					<th md-column><span translate>LB_DIRECTOR</span></th> -->
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td class="text-uppercase" md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.direccion_tipo]"></span><br>
+						<md-ico i=account_balance></md-ico>{{row.direccion_id}}. <span ng-bind-html="highlight(row.direccion_nombre)"></span>, <span ng-bind-html="highlight(row.direccion_codigo)"></span>
+						<div ng-if="row.direccion_baselegal!=null">
+							<md-ico i=gavel></md-ico><span ng-bind-html="highlight(row.direccion_baselegal)"></span>
+						</div>
+						<div ng-if="row.direccion_fecha_creacion!=null">
+							<md-ico i=event></md-ico>{{row.direccion_fecha_creacion | date:'fullDate'}}
+						</div>
+					</td>
+<!-- 					<td md-cell> -->
+<!-- 						<div ng-if="row.grado>0"> -->
+<!-- 							<md-ico i={{string2JSON('mdIconList')[row.grado]}}></md-ico><span ng-bind-html="highlight(row.puesto)"></span><span ng-if="row.definicion=='ENCARGADO'" class="text-info text-bold" ng-bind-html="highlight(', '+row.definicion)"></span><br> -->
+<!-- 							<md-ico i=person></md-ico><span ng-class="{'text-info text-bold':row.definicion=='ENCARGADO'}" ng-bind-html="highlight(row.director)"></span> -->
+<!-- 						</div> -->
+<!-- 					</td> -->
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.direccion_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="row.direccion_registro"></span><br>
+						<md-ico i=people></md-ico><span ng-bind-html="row.user.usuario"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+						<menu-leaderships ng-if="(allow.permiso80121 || allow.permiso80122 || allow.permiso80131)"></menu-leaderships>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<datatable-footer></datatable-footer>
+</md-card>

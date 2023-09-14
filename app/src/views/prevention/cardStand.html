@@ -1,0 +1,37 @@
+<div class="box box-{{string2JSON('colorCss')[$index]}} text-center">
+	<div class="box-header">
+		<i-fa i=caret-square-o-right s=3x></i-fa>
+	</div>
+	<div class="box-body">
+		<h3 class="profile-username">{{entity.stand_codigo}}</h3>
+    <hr>
+		<strong><i-fa i=book></i-fa> <span translate>LB_TOPIC</span></strong>
+    <p class="text-muted">{{entity.stand_tema}}</p>
+    <hr>
+		<strong><i-fa i=user-o></i-fa> <span translate>LB_COORDINATOR</span></strong>
+    <p class="text-muted">{{entity.coordinador}} [{{entity.persona_doc_identidad}}]</p>
+    <hr>
+		<strong><i-fa i=users></i-fa> <span translate>LB_ENTITY</span></strong>
+    <p class="text-muted">{{entity.stand_entidad}}</p>
+    <hr>
+		<strong><i-fa i=calendar-check-o></i-fa> <span translate>LB_DATE</span></strong>
+    <p class="text-muted">{{entity.stand_fecha}}</p>
+    <hr>
+		<strong><i-fa i=map-marker></i-fa> <span translate>LB_ADDRESS</span></strong>
+    <p class="text-muted">{{entity.stand_parroquia}} - {{entity.stand_direccion}}</p>
+    <hr>
+		<strong><i-fa i=calendar-times-o></i-fa> <span translate>LB_DESCRIPTION</span></strong>
+    <p class="text-muted">{{entity.stand_descripcion}}</p>
+    <hr>
+		<strong><i-fa i=flag></i-fa> <span translate>LB_STATUS</span></strong>
+    <p class="text-muted"><span ng-bind-html="statusLabel[entity.stand_estado]"></span></p>
+    <div class="box-footer" ng-if="entity.stand_estado=='PENDIENTE'">
+    	<button class="btn btn-block btn-{{string2JSON('colorCss')[$index]}}" ng-click="exportWithDetail(entity.stand_id)">
+				<i-fa i=print></i-fa> <span translate>LB_PRINT_REQUEST</span>
+			</button>
+			<button class="btn btn-block btn-danger" ng-if="entity.stand_estado=='EVALUADA' && entity.gallery_entity<3" ng-click="openParentModal('Gallery',{edit:false,fk_table:'stands',fk_id:entity.stand_id,media_tipo:'IMG'})">
+				<i-fa i=upload s=lg></i-fa> <span translate>LB_UPLOAD_EVIDENCE</span>
+			</button>
+    </div>
+	</div>
+</div>

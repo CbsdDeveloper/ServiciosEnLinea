@@ -1,0 +1,54 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg">
+  <form name="formData" ng-submit="submitForm()" class="form-uppercase">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=widgets></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_APPLICATION_ENTRY</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+			<!-- DETALLE DE REGISTROS -->
+    	<card-extension-information layout-padding ng-if="frmParent.tb=='prorrogas'"></card-extension-information>
+    	<card-training-information layout-padding ng-if="frmParent.tb=='training'"></card-training-information>
+    	<card-simulation-information layout-padding ng-if="frmParent.tb=='simulacros'"></card-simulation-information>
+    	<card-stand-information layout-padding ng-if="frmParent.tb=='stands'"></card-stand-information>
+    	<card-visit-information layout-padding ng-if="frmParent.tb=='visitas'"></card-visit-information>
+    	<card-plan-information layout-padding ng-if="frmParent.tb=='planesemergencia'"></card-plan-information>
+    	<card-occasional-information layout-padding ng-if="frmParent.tb=='ocasionales'"></card-occasional-information>
+    	<card-glp-transport-information layout-padding ng-if="frmParent.tb=='transporteglp'"></card-glp-transport-information>
+    	<card-vbp-information layout-padding ng-if="frmParent.tb=='vbp'"></card-vbp-information>
+    	<card-habitability-information layout-padding ng-if="frmParent.tb=='habitabilidad'"></card-habitability-information>
+    	<card-modification-information layout-padding ng-if="frmParent.tb=='vbp_modificaciones'"></card-modification-information>
+			<card-feasibility-information ng-if="frmParent.entity=='factibilidadglp'" layout-padding></card-feasibility-information>
+			<card-definitive-information ng-if="frmParent.entity=='definitivoglp'" layout-padding></card-definitive-information>
+			<!-- FORMULARIO DE REGISTRO -->
+			<div class="form-group required" layout-padding ng-if="frmParent.REQUIRED_FORM=='SI'">
+				<label translate>LB_REQUEST_NUMBER</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=confirmation_number></md-ico></div></div>
+					<input class="form-control" ng-model="frmParent.capacitacion_solicitud" onkeypress="return onlyNumber(event)" maxlength="6" placeholder="Ej. 23155" required ng-if="frmParent.tb=='training'" />
+					<input class="form-control" ng-model="frmParent.simulacro_solicitud" onkeypress="return onlyNumber(event)" maxlength="6" placeholder="Ej. 23155" required ng-if="frmParent.tb=='simulacros'" />
+					<input class="form-control" ng-model="frmParent.stand_solicitud" onkeypress="return onlyNumber(event)" maxlength="6" placeholder="Ej. 23155" required ng-if="frmParent.tb=='stands'" />
+					<input class="form-control" ng-model="frmParent.visita_solicitud" onkeypress="return onlyNumber(event)" maxlength="6" placeholder="Ej. 23155" required ng-if="frmParent.tb=='visitas'" />
+					<input class="form-control" ng-model="frmParent.plan_solicitud" onkeypress="return onlyNumber(event)" maxlength="6" placeholder="Ej. 23155" required ng-if="frmParent.tb=='planesemergencia'" />
+					<input class="form-control" ng-model="frmParent.ocasional_solicitud" onkeypress="return onlyNumber(event)" maxlength="6" placeholder="Ej. 23155" required ng-if="frmParent.tb=='ocasionales'" />
+					<input class="form-control" ng-model="frmParent.transporte_solicitud" onkeypress="return onlyNumber(event)" maxlength="6" placeholder="Ej. 23155" required ng-if="frmParent.tb=='transporteglp'" />
+					<input class="form-control" ng-model="frmParent.vbp_solicitud" onkeypress="return onlyNumber(event)" maxlength="6" placeholder="Ej. 23155" required ng-if="frmParent.tb=='vbp'" />
+					<input class="form-control" ng-model="frmParent.habitabilidad_solicitud" onkeypress="return onlyNumber(event)" maxlength="6" placeholder="Ej. 23155" required ng-if="frmParent.tb=='habitabilidad'" />
+					<input class="form-control" ng-model="frmParent.modificacion_solicitud" onkeypress="return onlyNumber(event)" maxlength="6" placeholder="Ej. 23155" required ng-if="frmParent.tb=='vbp_modificaciones'" />
+					<input class="form-control" ng-model="frmParent.factibilidad_solicitud" onkeypress="return onlyNumber(event)" maxlength="6" placeholder="Ej. 23155" required ng-if="frmParent.tb=='factibilidadglp'" />
+					<input class="form-control" ng-model="frmParent.definitivo_solicitud" onkeypress="return onlyNumber(event)" maxlength="6" placeholder="Ej. 23155" required ng-if="frmParent.tb=='definitivoglp'" />
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

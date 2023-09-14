@@ -1,0 +1,67 @@
+<md-dialog aria-label="Dialog" class="modal-dialog" ng-controller="uploadCiiuExtendsCtrl">
+  <form name="formData" ng-submit="submitFormFile()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="btn" class="md-icon-button"><md-ico i=content_paste></md-ico></md-button>
+      <h2 translate>TOOLBAR_CIIU</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout-padding layout=column layout-wrap>
+	    <div class="input-group" flex>
+	      <div class="input-group-prepend"><div class="input-group-text"><i-fa i="image"></md-ico></div></div> 
+	      <input uploader-model="frmParent.ciiu_file" type="file" accept="{{fileTypeMime.EXCEL}}" class="form-control" required/>
+	    </div>
+	    
+	    <div flex layout=row layout-wrap layout-padding>
+	    	<div class="input-group" flex=100 ng-controller=actividadesListCtrl>
+		      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=import_contacts></md-ico></div></div> 
+		      <select ng-model="frmParent.fk_actividad_id" class="form-control" required 
+		      				ng-options="row.actividad_id as (row.actividad_id+'. '+row.actividad_nombre) for row in list"></select>
+		    </div>
+	    	<div class="input-group" flex=100>
+		      <span class="input-group-addon">Fila Código de Tasa</span>
+		      <input ng-model="frmParent.codigoTasa" class="form-control" placeholder="Ej. A" required/>
+		    </div>
+	    	<div class="input-group" flex=50>
+		      <span class="input-group-addon" style="width:123px">Num. Hoja</span>
+		      <input ng-model="frmParent.hoja_numero" class="form-control" placeholder="Ej. 1" required/>
+		    </div>
+	    	<div class="input-group" flex=50>
+		      <span class="input-group-addon" style="width:123px">Colm. Código</span>
+		      <input ng-model="frmParent.codigo" class="form-control" placeholder="Ej. B" required/>
+		    </div>
+	    	<div class="input-group" flex=50>
+		      <span class="input-group-addon" style="width:123px">Colm. Nombre</span>
+		      <input ng-model="frmParent.nombre" class="form-control" placeholder="Ej. C" required/>
+		    </div>
+	    	<div class="input-group" flex=50>
+		      <span class="input-group-addon" style="width:123px">Colm. Nivel</span>
+		      <input ng-model="frmParent.nivel" class="form-control" placeholder="Ej. D" required/>
+		    </div>
+		    
+	    	<div class="input-group" flex=50>
+		      <span class="input-group-addon">Primera fila</span>
+		      <input ng-model="frmParent.fila_inicio" class="form-control" placeholder="Ej. A2" required/>
+		    </div>
+	    	<div class="input-group" flex=50>
+		      <span class="input-group-addon">Última fila</span>
+		      <input ng-model="frmParent.fila_final" class="form-control" placeholder="Ej. C500" required/>
+		    </div>
+	    </div>
+	    <div class="md-padding">
+	    	<div class="alert alert-info">
+		    	<b>Recuerde: </b><span>La Columna 'E:F' son para el código y nombre de CIIU anterior.</span>
+		    </div>
+	    </div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

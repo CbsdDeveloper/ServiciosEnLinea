@@ -1,0 +1,143 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog" ng-controller="speciesExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=attach_money></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_SPECIES</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	
+    	<div class="card card-outline card-warning no-margin margin-bottom" ng-if="frmParent.especie_estado=='CAJA CERRADA'">
+				<div class="card-header text-center with-border">
+				  <h3 class="card-title" translate>LB_ARCHING</h3>
+				</div>
+				<div class="card-body no-padding" layout=column layout-padding>
+			    	<div class="form-group required" flex>
+			    		<label translate>LB_DIRECTED_FOR</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=record_voice_over></md-ico></div></div> 
+								<select class="form-control input-sm text-uppercase" ng-model="frmParent.fk_tesorero" ng-required="true" ng-options="row.ppersonal_id as row.personal_nombre for row in frmParent.fk_staff_leadership"></select>
+							</div>
+			    	</div>
+				</div>
+			</div>
+    	
+			<div class="card card-outline card-danger no-margin">
+				<div class="card-header text-center with-border">
+				  <h3 class="card-title" translate>LB_VALUED_SPECIES</h3>
+				</div>
+				<div class="card-body no-padding" layout=column layout-padding>
+					<div layout-xs=column layout=row layout-padding>
+			    	<div class="form-group" flex>
+			    		<label translate>LB_DATE</label>
+					    <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+						    <input ng-model="frmParent.fecha_registro" class="form-control input-sm text-center" readonly />
+						  </div>
+						</div>
+						<div class="form-group required" flex>
+			    		<label translate>LB_COST</label>
+					    <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=attach_money></md-ico></div></div> 
+						    <input type="number" parse-float step="any" min=0 ng-model="frmParent.especie_costo" ng-change="change()" placeholder="Ej. 3" class="form-control input-sm text-center" required />
+						  </div>
+			    	</div>
+			    </div>
+		    	<div layout-xs=column layout=row layout-padding>
+			    	<div class="form-group required" flex>
+			    		<label translate>LB_OPENING</label>
+					    <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=done></md-ico></div></div> 
+						    <input type="number" parse-float step="1" min=0 ng-model="frmParent.especie_inicio" ng-change="change()" placeholder="Ej. 123456" class="form-control input-sm text-center" required />
+						  </div>
+						</div>
+			    	<div class="form-group required" flex ng-if="toogleEditMode">
+			    		<label translate>LB_ENDING</label>
+					    <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=done></md-ico></div></div> 
+						    <input type="number" parse-float step="1" min="{{frmParent.especie_inicio}}" ng-model="frmParent.especie_fin" ng-change="change()" placeholder="Ej. 123500" class="form-control input-sm text-center" required />
+						  </div>
+						</div>
+		    	</div>
+		    	<div layout-xs=column layout=row layout-padding>
+			    	<div class="form-group" flex>
+			    		<label translate>LB_TOTAL</label>
+					    <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=done_all></md-ico></div></div> 
+						    <input type="number" parse-float ng-model="frmParent.especie_total" class="form-control input-sm text-center" readonly />
+						  </div>
+						</div>
+			    	<div class="form-group" flex>
+			    		<label translate>LB_PAY</label>
+					    <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=attach_money></md-ico></div></div> 
+						    <input type="number" parse-float step="any" min=0 ng-model="frmParent.especie_costo_total" class="form-control input-sm text-center" readonly />
+						  </div>
+						</div>
+					</div>
+    		</div>
+    	</div>
+    	
+			<div class="card card-outline card-success no-margin margin-top">
+				<div class="card-header text-center with-border">
+				  <h3 class="card-title" translate>LB_NON_VALUED_SPECIES</h3>
+				</div>
+				<div class="card-body no-padding" layout=column layout-padding>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+			    		<label translate>LB_COST</label>
+					    <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=attach_money></md-ico></div></div> 
+						    <input type="number" parse-float step="any" min=0 ng-model="frmParent.especie_novalorada_costo" placeholder="Ej. 3" class="form-control input-sm text-center" required />
+						  </div>
+			    	</div>
+			    </div>
+		    	<div layout-xs=column layout=row layout-padding>
+			    	<div class="form-group required" flex>
+			    		<label translate>LB_OPENING</label>
+					    <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=done></md-ico></div></div> 
+						    <input type="number" parse-float step="1" min=0 ng-model="frmParent.especie_novalorada_inicio" placeholder="Ej. 123456" class="form-control input-sm text-center" required />
+						  </div>
+						</div>
+			    	<div class="form-group required" flex ng-if="toogleEditMode">
+			    		<label translate>LB_ENDING</label>
+					    <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=done></md-ico></div></div> 
+						    <input type="number" parse-float step="1" min="{{frmParent.especie_novalorada_inicio}}" ng-model="frmParent.especie_novalorada_fin" placeholder="Ej. 123500" class="form-control input-sm text-center" required />
+						  </div>
+						</div>
+		    	</div>
+		    	<div layout=column layout-padding ng-if="toogleEditMode">
+			    	<div class="form-group required" flex>
+			    		<label translate>LB_TOTAL_DAMAGED</label>
+					    <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=done></md-ico></div></div> 
+						    <input type="number" parse-float step="1" min="0" ng-model="frmParent.especie_novalorada_baja_total" placeholder="Ej. 5" class="form-control input-sm text-center" required />
+						  </div>
+						</div>
+			    	<div class="form-group required" flex>
+			    		<label translate>LB_DAMAGED_SPECIES</label>
+					    <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=done></md-ico></div></div> 
+						    <input type="text" ng-model="frmParent.especie_novalorada_baja" placeholder="Ej. Describir series dañadas" class="form-control input-sm text-center" required />
+						  </div>
+						</div>
+		    	</div>
+					
+    		</div>
+    	</div>
+    	
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

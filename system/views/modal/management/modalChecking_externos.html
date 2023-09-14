@@ -1,0 +1,89 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog" ng-controller="checkingExtendsCtrl">
+  <form name="formData" ng-submit="submitFormFile()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=folder_shared></md-ico></md-button>
+			<h2 translate>TOOLBAR_CHECKING</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-content layout=column layout-padding>
+				
+				<frm-personas-custom layout-padding></frm-personas-custom>
+				
+				<div class="card card-outline card-success no-padding no-margin margin-top">
+					<div class="card-header with-border text-center">
+					  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+					</div>
+					<div class="card-body" layout=column layout-padding>
+						<div class="form-group required">
+							<label translate>LB_DELEGATE_OF</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=account_balance></md-ico></div></div> 
+				        <input ng-model="frmParent.checking_entidad" class="form-control" placeholder="Ej. GADM-SD" required />
+							</div>
+						</div>
+						<div class="form-group required" ng-controller="leadershipsListCtrl">
+							<label translate>LB_CHECKING_OPTIONS</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.checking_motivo" required
+												ng-options="key as val for (key,val) in string2JSON('CHECKING_OPTIONS')"></select>
+							</div>
+						</div>
+						
+						<div class="form-group required" ng-controller="leadershipsListCtrl">
+							<label translate>LB_DESTINATION_LEADERSHIP</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=account_balance></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.fk_direccion_id" required
+												ng-options="row.direccion_id as row.direccion_nombre for row in jsonList"></select>
+							</div>
+						</div>
+			      
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_ENTRY_TIME</label>
+					      <div class="input-group" min-date="today" moment-picker="frmParent.checking_ingreso">
+					        <div class="input-group-prepend"><div class="input-group-text"><md-ico i=timer></md-ico></div></div> 
+					        <input ng-model="frmParent.checking_ingreso" ng-model-options="{ updateOn: 'blur' }" class="form-control" placeholder="Ej. Invitación a Expo-Feria 2021" required />
+					      </div>
+				      </div>
+							<div class="form-group required" flex ng-if="frmParent.checking_estado=='SALIDA'">
+								<label translate>LB_DEPARTURE_TIME</label>
+					      <div class="input-group" min-date="frmParent.checking_ingreso" moment-picker="frmParent.checking_salida">
+					        <div class="input-group-prepend"><div class="input-group-text"><md-ico i=timer_off></md-ico></div></div> 
+					        <input ng-model="frmParent.checking_salida" ng-model-options="{ updateOn: 'blur' }" class="form-control" placeholder="Ej. Invitación a Expo-Feria 2021" required />
+					      </div>
+				      </div>
+						</div>
+						
+						<div class="form-group required">
+							<label translate>LB_SUBJECT</label>
+				      <div class="input-group">
+				        <div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+				        <textarea ng-model="frmParent.checking_asunto" class="form-control" placeholder="Ej. Invitación a Expo-Feria 2021" required ></textarea>
+				      </div>
+			      </div>
+			      
+				    <div class="form-group" ng-if="frmParent.checking_estado!='SALIDA'">
+							<label translate>LB_FILE</label>
+					    <div class="input-group">
+					      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=attachment></md-ico></div></div> 
+					      <input uploader-model="frmParent.checking_file" type="file" accept="{{string2JSON('fileTypeMime')['PDF']}}" class="form-control" />
+					    </div>
+						</div>
+			     </div>
+				</div>
+			      
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

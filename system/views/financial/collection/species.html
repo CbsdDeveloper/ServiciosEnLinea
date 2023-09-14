@@ -1,0 +1,62 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=filter_9_plus></md-ico>
+				<md-tooltip><span translate>TOOLBAR_SPECIES</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.filter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_INPUT' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.filter!=''" ng-click="filterParent.filter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()" ng-if="allow.permiso2001"><md-ico i=add></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	
+	<md-table-container>
+			<table md-table class="md-primary table-hover" md-progress="deferred">
+	    	<col style="">
+	    	<col style="">
+	    	<col style="width:20%">
+	    	<col style="width:3%">
+				<thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+					<tr md-row>
+						<th md-column><span translate>LB_VALUED_SPECIES</span></th>
+						<th md-column><span translate>LB_NON_VALUED_SPECIES</span></th>
+						<th md-column><span translate>LB_DETAIL</span></th>
+						<th md-column><span translate>LB_MENU</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr md-row data-ng-repeat="row in rowsParent.data">
+						<td md-cell class="text-uppercase">
+							<md-ico i=format_list_numbered></md-ico> <span>{{row.especie_inicio}} - {{row.especie_fin}}</span><br>
+							<md-ico i=info></md-ico> <span>{{row.especie_costo | currency}}</span><br>
+							<md-ico i=info_outline></md-ico> <span>{{row.total}} (<b>{{row.total_costo | currency}}</b>)</span>
+						</td>
+						<td md-cell class="text-uppercase">
+							<md-ico i=format_list_numbered></md-ico> <span>{{row.especie_novalorada_inicio}} - {{row.especie_novalorada_fin}}</span><br>
+							<md-ico i=info></md-ico> <span>{{row.especie_novalorada_costo | currency}}</span>
+						</td>
+						<td md-cell>
+							<md-ico i=event></md-ico> <span class="text-uppercase">{{row.fecha_registro | date:'fullDate'}}</span><br>
+							<md-ico i=person></md-ico> <span ng-bind-html="highlight(row.usuario)"></span><br>
+							<md-ico i=flag></md-ico> <span ng-bind-html="statusLabel[row.especie_estado]"></span>
+						</td>
+						<td md-cell class="table-menu text-center">
+							<menu-species></menu-species>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</md-table-container>
+		<footer-table></footer-table>
+</md-card>

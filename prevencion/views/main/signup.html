@@ -1,0 +1,202 @@
+<div class="container">
+	
+	<!-- FORMULARIO DE CONSULTA DE USUARIO -->
+	<div class="center-block" ng-if="!registrationForm">
+    <div class="col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-sm-12 col-xs-12 no-padding" style="z-index:1">
+      <div class="mlt-carousel">
+        <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            <div class="item" ng-class="[{'active':$first}]" ng-repeat="row in slides">
+              <img class="img-responsive center-block" ng-src="/app/src/img/gallery/{{row.slide_imagen}}" alt="step1">
+              <div class="item-content">
+                 <h3>{{row.slide_titulo}}</h3>
+                 <p>{{row.slide_descripcion}}</p>
+              </div>
+            </div>
+          </div>
+          <ol class="carousel-indicators"><li data-target="#myCarousel" data-slide-to="{{$index}}" ng-class="[{'active':$first}]" ng-repeat="row in slides"></li></ol>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Login -->
+    <div class="col-lg-6 col-lg-offset-right-1 col-md-6 col-md-offset-right-1 col-sm-12 col-xs-12 no-padding">
+      <div class="mlt-content">
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade in active" id="login">
+	          
+	          <!-- HEADER -->
+	          <div class="box-header">
+					    <img alt="CBSD" src="/app/src/img/system/logo.png" class="img-responsive">
+						</div>
+	          
+	          <!--FORMULARIO DE REGISTRO-->
+	          <form name="formData" class="text-left form-login" ng-submit="searchEntity()" ng-hide="request.pass">
+	          	<div class="form-group required">
+	          		<label translate>LB_ENTER_YOUR_ID_NUMBER</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-id-card-o fa-fw"></i></span>
+									<input class="form-control input-sm" placeholder="{{'LB_ENTER_YOUR_ID_NUMBER' | translate}}" id="user" name="user" ng-model="frmParent.ruc" required autofocus autocomplete="off" />
+								</div>
+							</div>
+							<button type="submit" class="btn btn-success btn-sm btn-block" ng-disabled="formData.$invalid">
+							  <span translate>LB_CONSULT_USER</span> <i-fa i="search"></i-fa>
+							</button>
+							
+							<div class="text-right margin-top row pull-right">
+								<div class="col-md-6 col-xs-12 no-padding-right">
+									<a href="http://online.cbsd.gob.ec/denuncias-en-linea/" target="_blank"><small translate>LB_COMPLAINT_ONLINE</small> <i-fa i="inbox"></i-fa></a>
+								</div>
+								<div class="col-md-6 col-xs-12 no-padding-right">
+									<a ui-sref="main"><small translate>LB_ALREADY_REGISTERED</small> <i-fa i="sign-in"></i-fa></a>
+								</div>
+								<div class="col-md-6 col-xs-12 no-padding-right">
+									<a ui-sref="signup_new"><small translate>LB_DONT_HAVE_RUC</small> <i-fa i="user-secret"></i-fa></a>
+								</div>
+								<div class="col-md-6 col-xs-12 no-padding-right">
+									<a ui-sref="signup"><small translate>LB_REGISTER_AND_ACTIVATE_USER</small> <i-fa i="user-plus"></i-fa></a>
+								</div>
+								<div class="col-md-6 col-xs-12 no-padding-right">
+									<a href="http://servicios.cbsd.gob.ec/consultas" target="_blank"><small translate>LB_CHECK_RUC_STATE</small> <i-fa i="check-square-o"></i-fa></a>
+								</div>
+								<div class="col-md-6 col-xs-12 no-padding-right">
+									<a href="http://online.cbsd.gob.ec/creacion-de-usuario/" target="_blank"><small translate>LB_USER_MANUAL</small> <i-fa i="book"></i-fa></a>
+								</div>
+							</div>
+	          </form>
+	          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+	
+	<!-- FORMULARIO DE REGISTRO -->
+	<div ng-if="registrationForm">
+	
+		<div class="register-logo">
+			<a ui-sref="main"><b>Cuerpo de Bomberos</b> Santo Domingo</a>
+		</div>
+				  
+	  <!-- FORMULARIO DE REGISTRO -->
+	  <div class="box box-success" ng-if="registrationForm">
+	    
+	    <div class="box-header text-center">
+			  <h3 class="box-title" translate>LB_REGISTRATION_FORM</h3>
+			</div>
+			<div class="box-body">
+			
+				<form name="formData2" class="row">
+    
+	    		<!-- DATOS DE ENTIDAD REGISTRADA & DATOS DE LA PERSONA QUE REALIZA EL REGISTRO -->
+		    	<div class="col-xs-12 col-md-6">
+		    		<!-- DATOS DE ENTIDAD REGISTRADA -->
+		    		<div class="box box-default">
+		    			<div class="box-header text-center">
+							  <h3 class="box-title" translate>LB_REGISTERING_ENTITY_INFORMATION</h3>
+							</div>
+							<div class="box-body md-padding" layout=column layout-padding>
+								<div class="form-group has-feedback required">
+					      	<label translate>LB_INPUT_LOGIN</label>
+					        <input type="text" class="form-control" ng-value="frmParent.entidad_ruc" readonly="readonly">
+					        <span class="fa fa-credit-card-alt form-control-feedback"></span>
+					      </div>
+								<div class="form-group has-feedback required">
+					      	<label translate>LB_TRADENAME</label>
+					        <input type="text" class="form-control" ng-value="frmParent.entidad_razonsocial" readonly="readonly">
+					        <span class="fa fa-building form-control-feedback" ng-if="(frmParent.entidad_contribuyente=='publica' || frmParent.entidad_contribuyente=='privada' || frmParent.entidad_contribuyente=='fiscal')"></span>
+					        <span class="fa fa-user-circle-o form-control-feedback" ng-if="!(frmParent.entidad_contribuyente=='publica' || frmParent.entidad_contribuyente=='privada' || frmParent.entidad_contribuyente=='fiscal')"></span>
+					      </div>
+								<div class="form-group has-feedback required" ng-if="(frmParent.entidad_contribuyente=='publica' || frmParent.entidad_contribuyente=='privada' || frmParent.entidad_contribuyente=='fiscal')">
+					      	<label translate>LB_AGENT</label>
+					        <input type="text" class="form-control" ng-value="frmParent.representantelegal_nombre" readonly="readonly">
+					        <span class="fa fa-user form-control-feedback"></span>
+					      </div>
+							</div>
+		    		</div>
+		    		<!-- DATOS DE LA PERSONA QUE REALIZA EL REGISTRO -->
+		    		<div class="box box-danger">
+		    			<div class="box-header text-center">
+							  <h3 class="box-title" translate>LB_DATA_PERSON_WHO_MAKES_REGISTRATION</h3>
+							</div>
+							<div class="box-body md-padding" layout-padding>
+								<div class="form-group has-feedback required" flex>
+					      	<label translate>LB_IDENTIFICATION_NUMBER</label>
+					        <input type="text" class="form-control" ng-model="frmParent.registre.persona_doc_identidad">
+					        <span class="fa fa-id-card-o form-control-feedback"></span>
+					      </div>
+					      <div layout-xs=column layout=row layout-padding>
+									<div class="form-group has-feedback required" flex>
+						      	<label translate>LB_LASTNAME</label>
+						        <input type="text" class="form-control" ng-model="frmParent.registre.persona_apellidos">
+						        <span class="fa fa-user form-control-feedback"></span>
+						      </div>
+									<div class="form-group has-feedback required" flex>
+						      	<label translate>LB_NAME</label>
+						        <input type="text" class="form-control" ng-model="frmParent.registre.persona_nombres">
+						        <span class="fa fa-user-o form-control-feedback"></span>
+						      </div>
+					      </div>
+							</div>
+		    		</div>
+		    	</div>
+					
+					<!-- DATOS DE REGISTRO DE USUARIO -->
+		    	<div class="col-xs-12 col-md-6">
+		    		<div class="box box-warning">
+		    			<div class="box-header text-center">
+							  <h3 class="box-title" translate>LB_ENVELOPES</h3>
+							</div>
+							<div class="box-body md-padding" layout=column layout-padding>
+								<div class="form-group has-feedback required">
+					      	<label translate>LB_MAIL</label>
+					        <input type="text" class="form-control" ng-model="frmParent.entidad_correo" placeholder="Ej. info@tuempresa.com">
+					        <span class="fa fa-envelope form-control-feedback"></span>
+					      </div>
+								
+								<div class="form-group has-feedback required">
+					      	<label translate>LB_BILLING_ADDRESS</label>
+					        <input type="text" class="form-control" ng-model="frmParent.entidad_direccionfacturacion" placeholder="Ej. Av. Chone km 5">
+					        <span class="fa fa-map-signs form-control-feedback"></span>
+					      </div>
+					      
+					      <div class="form-group has-feedback required">
+					      	<label translate>LB_PHONE</label>
+					        <input type="text" class="form-control" ng-model="frmParent.entidad_telefono" placeholder="Ej. 027413698">
+					        <span class="fa fa-phone form-control-feedback"></span>
+					      </div>
+					      <div class="form-group has-feedback required">
+					      	<label translate>LB_CELL_PHONE</label>
+					        <input type="text" class="form-control" ng-model="frmParent.entidad_celular" placeholder="Ej. 0912345678">
+					        <span class="fa fa-mobile form-control-feedback"></span>
+					      </div>
+					      <div class="form-group has-feedback required">
+					      	<label translate>LB_NEW_PASSWORD</label>
+					        <input type="password" class="form-control" ng-model="frmParent.entidad_contrasenia" required placeholder="Ej. Abc123">
+					        <span class="fa fa-unlock-alt form-control-feedback"></span>
+					      </div>
+					      <div class="form-group has-feedback required">
+					      	<label translate>LB_CONFIRM_PASSWORD</label>
+					        <input type="password" class="form-control" ng-model="frmParent.entidad_contrasenia_confirmacion" required placeholder="Ej. Abc123">
+					        <span class="fa fa-unlock form-control-feedback"></span>
+					      </div>
+							</div>
+							<div class="box-footer">
+								<div class="checkbox icheck text-center">
+					        <label>
+					          <input type="checkbox" ng-model="frmParent.entidad_terminos" required>He leído los <a target="_blank" href="http://online.cbsd.gob.ec/terminos-y-condiciones/">terminos y condiciones</a>
+					        </label>
+					      </div>
+			          <button type="submit" ng-click="submitForm()" class="btn btn-primary btn-block btn-flat" ng-disabled="formData2.$invalid" translate>LB_REGISTRE</button>
+							</div>
+		    		</div>
+					</div>
+					      
+				</form>
+			
+			</div>
+	
+	  </div>
+	</div>
+	  
+</div>

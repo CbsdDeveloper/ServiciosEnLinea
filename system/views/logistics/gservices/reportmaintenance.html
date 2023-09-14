@@ -1,0 +1,73 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=receipt_long></md-ico>
+				<md-tooltip><span translate>LB_MAINTENANCE_REPORTS</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.filter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_INPUT' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.filter!=''" ng-click="filterParent.filter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openParentModal('Informemantenimiento',{edit:false,type:'informe'})" ng-if="allow.permiso7161">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+			
+		</div>
+	</md-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="">
+     	<col style="">
+     	<col style="width:20%;">
+     	<col style="width:3%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_REPORT_INFORMATION</span></th>
+					<th md-column><span translate>LB_RESPONSIBILITY</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<div class="text-uppercase">
+							<md-ico i=touch_app></md-ico><span ng-bind-html="highlight(row.informe_numero)"></span>
+							<md-tooltip><span translate>LB_ORDER_NUMBER_X</span></md-tooltip>
+						</div>
+						<div class="text-uppercase">
+							<md-ico i=event></md-ico><span>{{row.informe_fecha | date:'fullDate'}}</span>
+							<md-tooltip><span translate>LB_DATE_ISSUE</span></md-tooltip>
+						</div>
+						<div class="text-uppercase">
+							<md-ico i=departure_board></md-ico><span ng-bind-html="highlight(row.informe_taller)"></span>
+							<md-tooltip><span translate>LB_RESPONSIBLE_GARAGE</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+							<md-ico i=person></md-ico><span ng-bind-html="highlight(row.psg_nombre)"></span><br>
+							<md-ico i=wrap_text></md-ico><span ng-bind-html="highlight(row.psg_puesto)"></span><br>
+							<md-ico i=how_to_reg></md-ico><span ng-bind-html="highlight(row.tecnico_cargo)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.informe_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.informe_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span><br>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <menu-report-maintenance ng-if="allow.permiso7162 || allow.permiso7165"></menu-report-maintenance>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

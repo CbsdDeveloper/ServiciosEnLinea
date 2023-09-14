@@ -1,0 +1,12 @@
+<div class="card card-outline card-primary box-card-ico">
+  <div class="card-body box-profile text-center">
+		<h3 class="profile-username">{{dataEntity.seccion_nombre}}</h3>
+		<p class="text-muted text-center">{{dataEntity.seccion_registro}}</p>
+    <hr>
+		<strong><md-ico i=filter_none s=18></md-ico><br><span translate>LB_FORM_NAME</span></strong>
+    <p class="text-muted">{{dataEntity.form.formulario_nombre}}</p>
+    <hr>
+		<strong><md-ico i=flag s=18></md-ico><br><span translate>LB_STATUS</span></strong>
+    <p class="text-muted"><span ng-bind-html="statusLabel[dataEntity.seccion_estado]"></span></p>
+  </div>
+</div>

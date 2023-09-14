@@ -1,0 +1,66 @@
+﻿<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		<card-permit class="card-information" ng-if="detailConfig.show" flex></card-permit>
+		<div flex>
+			<md-card class="no-margin" ng-controller="myTableCtrl">
+				<md-toolbar ng-hide="filter.show">
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=content_copy></md-ico></md-button>
+						<h2 translate>TOOLBAR_DUPLICATES</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+							<md-ico i=refresh></md-ico>
+							<md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+						</md-button>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<toolbar-filter></toolbar-filter>
+				<md-table-container>
+			    <table md-table class="md-primary table-hover" md-progress="deferred">
+			      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+							<tr md-row>
+								<th md-column><span translate>LB_REQUEST_NUMBER</span></th>
+								<th md-column><span translate>LB_REQUESTED</span></th>
+								<th md-column><span translate>LB_APPROVED</span></th>
+								<th md-column><span translate>LB_DOWNLOADED</span></th>
+								<th md-column><span translate>LB_DETAIL</span></th>
+							</tr>
+			      </thead>
+			      <tbody>
+							<tr md-row data-ng-repeat="row in rowsParent.data">
+								<td md-cell>
+									<md-ico i=confirmation_number></md-ico> <span ng-bind-html="highlight(row.duplicado_solicitud)"></span><br>
+									<span ng-bind-html="statusLabel[row.duplicado_estado]"></span>
+								</td>
+								<td md-cell>
+									<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario_solicita)"></span><br>
+									<md-ico i=event></md-ico><span ng-bind-html="highlight(row.fecha_solicitado)"></span>
+								</td>
+								<td md-cell>
+									<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario_aprueba)"></span><br>
+									<md-ico i=event></md-ico><span ng-bind-html="highlight(row.fecha_aprobado)"></span>
+								</td>
+								<td md-cell>
+									<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario_imprime)"></span><br>
+									<md-ico i=event></md-ico><span ng-bind-html="highlight(row.fecha_impreso)"></span>
+								</td>
+								<td md-cell><span ng-bind-html="highlight(row.duplicado_detalle)"></span></td>
+							</tr>
+			      </tbody>
+			    </table>
+				</md-table-container>
+				<footer-table></footer-table>
+			</md-card>
+		</div>
+	</div>
+</div>
+
+<div class=no-padding layout-xs=column layout=row layout-padding>
+	<card-entity flex></card-entity>
+	<card-local flex></card-local>
+	<card-ciiu flex></card-ciiu>
+</div>

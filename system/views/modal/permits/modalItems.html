@@ -1,0 +1,47 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=assignment></md-ico></md-button>
+				<h2 translate="TOOLBAR_ITEM" translate-values="{value:frmParent.requerimiento_nombre}"></h2>
+				<span flex></span>
+				<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<md-content layout-padding layout=column layout-wrap>
+				<div class="input-group" flex ng-controller="requirementsListCtrl" ng-if="!toogleEditMode">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.fk_pregunta_id" required
+									ng-options="row.requerimiento_id as row.pregunta_nombre for row in list"></select>
+				</div>
+				
+				<!--<div class="input-group" flex>
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=add_alert></md-ico></div></div> 
+					<textarea rows=4 class="form-control" ng-model="frmParent.item_pregunta" placeholder="Ej. Con cuántas puertas de emergencia cuenta su local?" required></textarea>
+				</div>-->
+				<div class="input-group" flex>
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=done_all></md-ico></div></div> 
+					<input type=number step=1 min=1 max="9999" parse-float class="form-control text-center" ng-model="frmParent.item_cantidad" required/>
+					<span class="input-group-addon" style="width:256px;">Mínimo {{frmParent.item_cantidad}} <b>{{frmParent.requerimiento_nombre}}</b></span>
+				</div>
+				
+				<div class="input-group" ng-if="toogleEditMode" flex>
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.item_requerido"  
+								ng-options="key as val for (key,val) in itemRequerido"></select>
+				</div>
+				<div class="input-group" ng-if="toogleEditMode" flex>
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.item_estado"
+								ng-options="val as val for (key,val) in string2JSON('statusType')"></select>
+				</div>
+			</md-content>
+		</md-dialog-content>
+		<md-dialog-actions layout=row>
+			<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+			<span flex></span>
+			<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+		</md-dialog-actions>
+  </form>
+</md-dialog>

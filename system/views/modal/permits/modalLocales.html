@@ -1,0 +1,35 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg" ng-controller="localsExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+	  <md-toolbar>
+	    <div class="md-toolbar-tools">
+	      <md-button aria-label="btn" class="md-icon-button"><md-ico i=store_mall_directory></md-ico></md-button>
+				<h2 translate>TOOLBAR_LOCALS</h2>
+	      <span flex></span>
+	      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+	    </div>
+	  </md-toolbar>
+	  <md-dialog-content>
+			<md-content layout=column layout-padding>
+				
+				<!-- INFORMACION DE ENTIDAD COMERCIAL -->
+				<card-entity-information layout-padding></card-entity-information>
+				
+				<!-- INFORMACION DE ACTIVIDAD ECONOMICA -->
+				<div class="card card-outline card-primary no-padding no-margin margin-top">
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_ACTIVITY_INFORMATION</h3>
+					</div>
+					<div class="card-body" layout=column layout-padding>
+						<frm-locals layout-padding></frm-locals>
+					</div>
+				</div>
+				
+	    </md-content>
+	  </md-dialog-content>
+		<md-dialog-actions layout="row">
+			<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+			<span flex></span>
+			<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+		</md-dialog-actions>
+  </form>
+</md-dialog>

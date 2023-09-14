@@ -1,0 +1,295 @@
+<div layout-xs=column layout=row layout-padding>
+	<div layout=column flex>
+	
+		<ul class="timeline margin-top">
+			<li class="time-label text-uppercase">
+        <span class="bg-yellow padding-all" translate>LB_SELFPROTECTION_STEP8</span>
+      </li>
+			
+			<!-- INFORMACIÓN DE LAS BRIGADAS -->
+			<li>
+				<i class="fa fa-info bg-purple"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header text-uppercase"><a href="#"><span translate>LB_SELFPROTECTION_STEP8_1</span></a></h3>
+		      <div class="timeline-body" layout-padding>
+						<!-- 
+						<div class="form-group required" flex>
+						  <label translate>LB_SELFPROTECTION_STEP8_1_DESCRIPTION</label>
+						  <div class="input-group">
+					      <span class="input-group-addon"><md-ico i=history></md-ico></span>
+					      <textarea rows="7" ng-model="frmParent.intervencion_organigrama" class="form-control" required></textarea>
+					    </div>
+						</div>
+						 -->
+						 <div class="form-group required" ng-bind-html="highlight(paramsConf.SELFPROTECTION_81_ESTRUCTURA_BRIGADAS)"></div>
+		      </div>
+				</div>
+			</li>
+			
+			<!-- LISTADO DE PERSONAL/EMPLEADOS -->
+			<li>
+				<i class="fa fa-info bg-purple"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header text-uppercase"><a href="#"><span translate>LB_SELFPROTECTION_STEP8_1_1</span></a></h3>
+		      <div class="timeline-body font-12">
+						<label translate>LB_SELFPROTECTION_STEP8_1_1_DESCRIPCION</label>
+						<div class="box box-primary">
+	            <div class="box-header">
+	              <h3 class="box-title" translate>LB_EMPLOYEES_LIST</h3>
+	            </div>
+	            <div class="box-body no-padding">
+	              <table class="table table-condensed">
+	              	<col style="width:50px;">
+	              	<col style="width:15%;">
+	              	<col style="width:25%;">
+	              	<col style="width:25%;">
+	              	<col style="">
+	                <tr class="text-uppercase">
+	                  <th>#</th>
+	                  <th><span translate>LB_DOC_IDENTIFICATION</span></th>
+	                  <th><span translate>LB_LASTNAME</span></th>
+	                  <th><span translate>LB_NAME</span></th>
+	                  <th><span translate>LB_JOB</span></th>
+	                  <th></th>
+	                </tr>
+	                <tr ng-repeat="item in employesList">
+	                  <td>{{$index+1}}</td>
+	                  <td>{{item.person.persona_doc_identidad}}</td>
+	                  <td>{{item.person.persona_apellidos}}</td>
+	                  <td>{{item.person.persona_nombres}}</td>
+	                  <td>{{item.empleado_funcion}}</td>
+	                  <td style="vertical-align:middle;">
+	                  	<button type="button" class="btn btn-info btn-xs" ng-click="openParentModal('Empleados',mergeData(item,{entityURI:'permits/employees'}))">
+	                  		<md-ico i=edit></md-ico><md-tooltip><span translate>LB_EDIT</span></md-tooltip>
+	                  	</button>
+	                  	<button type="button" class="btn btn-danger btn-xs" ng-click="deleteEmployee(item.empleado_id)">
+	                  		<md-ico i=delete></md-ico><md-tooltip><span translate>LB_DELETE_DATA</span></md-tooltip>
+	                  	</button>
+	                  </td>
+	                </tr>
+	              </table>
+	            </div>
+	            <div class="box-footer no-padding"layout=row layout-padding layout-align="space-between center">
+					      <div flex>
+									<button type="button" class="btn btn-block btn-sm btn-warning" ng-click="openParentModal('EmpleadosLista',frmParent)">
+										<md-ico i=person_add c="font-15"></md-ico> <span translate>LB_LOAD_LIST_PARTICIPANTS</span>
+									</button>
+								</div>
+								<div flex>
+									<button type="button" class="btn btn-block btn-sm btn-success" ng-click="getEmployees()">
+										<md-ico i=refresh c="font-15"></md-ico> <span translate>LB_UPDATE_LIST</span>
+									</button>
+								</div>
+								<div flex>
+									<button type="button" class="btn btn-block btn-sm btn-danger" ng-click="deleteEmployees()">
+										<md-ico i=delete_sweep c="font-15"></md-ico> <span translate>LB_DELETE_LIST</span>
+									</button>
+								</div>
+	            </div>
+	        	</div>
+		      </div>
+				</div>
+			</li>
+			
+			<!-- CONFORMACION DE LAS BRIGADAS -->
+			<li ng-if="frmParent.local.local_aforo_planta>=paramsConf.SELFPROTECTION_AFORO_BRIGADAS">
+				<i class="fa fa-info bg-purple"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header text-uppercase"><a href="#"><span translate>LB_SELFPROTECTION_STEP8_1_2</span></a></h3>
+		      <div class="timeline-body font-12">
+						<label translate>LB_SELFPROTECTION_STEP8_1_2_DESCRIPCION</label>
+						<div class="box box-primary">
+	            <div class="box-header">
+	              <h3 class="box-title" translate>LB_BRIGADES_LIST</h3>
+	            </div>
+	            <div class="box-body no-padding">
+	              <table class="table table-condensed">
+	                <tr class="text-uppercase">
+	                  <th>#</th>
+	                  <th><span translate>LB_BRIGADES_NAME</span></th>
+	                  <th><span translate>LB_RESPONSIBLE_FOR_THE_BRIGADE</span></th>
+	                  <th><span translate>LB_JUNIOR</span></th>
+	                  <th><span translate>LB_BRIGADISTS</span></th>
+	                  <th></th>
+	                </tr>
+	                <tr ng-repeat="item in brigadesList">
+	                  <td>{{$index+1}}</td>
+	                  <td><small>{{item.brigada_nombre}}</small></td>
+	                  <td>
+	                  	<small ng-if="item.responsable!=null">{{item.responsable.persona_apellidos}} {{item.responsable.persona_nombres}}<br>C.C.: {{item.responsable.persona_doc_identidad}}</small>
+	                  </td>
+	                  <td>
+	                  	<small ng-if="item.junior!=null">{{item.junior.persona_apellidos}} {{item.junior.persona_nombres}}<br>C.C.: {{item.junior.persona_doc_identidad}}</small>
+	                  </td>
+	                  <td class="text-center">
+	                  	<small><span class="badge bg-purple">{{item.brigadist.length}}</span></small>
+	                  </td>
+	                  <td style="vertical-align:middle;">
+	                  	<button type="button" class="btn btn-info btn-xs" ng-click="openParentModal('Brigadas',mergeData(item,{entityURI:'prevention/brigades'}))">
+	                  		<md-ico i=edit></md-ico><md-tooltip><span translate>LB_EDIT</span></md-tooltip>
+	                  	</button>
+	                  	<button type="button" class="btn btn-warning btn-xs" ng-click="openParentModal('Brigadistas',{edit:false,brigadeId:item.brigada_id,localId:frmParent.fk_local_id,entityURI:'prevention/brigadists'})">
+	                  		<md-ico i=nature_people></md-ico><md-tooltip><span translate>LB_ASSIGN_BRIGADISTS</span></md-tooltip>
+	                  	</button>
+	                  	<button type="button" class="btn btn-danger btn-xs" ng-click="deleteBrigade(item.brigada_id)">
+	                  		<md-ico i=delete></md-ico><md-tooltip><span translate>LB_BRIGADES_REMOVE</span></md-tooltip>
+	                  	</button>
+	                  </td>
+	                </tr>
+	              </table>
+	            </div>
+	            <div class="box-footer no-padding"layout=row layout-padding layout-align="space-between center">
+					      <div flex>
+									<button type="button" class="btn btn-block btn-sm btn-warning" ng-click="openParentModal('Brigadas',{edit:false,fk_local_id:frmParent.fk_local_id,entityURI:'prevention/brigades'})">
+										<md-ico i=add c="font-15"></md-ico> <span translate>LB_BRIGADES_ADD</span>
+									</button>
+								</div>
+								<div flex>
+									<button type="button" class="btn btn-block btn-sm btn-success" ng-click="getBrigades()">
+										<md-ico i=refresh c="font-15"></md-ico> <span translate>LB_UPDATE_LIST</span>
+									</button>
+								</div>
+	            </div>
+	          </div>
+		      </div>
+				</div>
+			</li>
+			 
+			<!-- COORDINACION INTERINSTITUCIONAL -->
+			<li>
+				<i class="fa fa-info bg-yellow"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header text-uppercase"><a href="#"><span translate>LB_SELFPROTECTION_STEP8_2</span></a></h3>
+		      <div class="timeline-body" layout-padding>
+						<div class="form-group required" flex>
+						  <label translate>LB_SELFPROTECTION_STEP8_2_DESCRIPTION</label>
+						  <div class="input-group">
+					      <span class="input-group-addon"><md-ico i=history></md-ico></span>
+					      <textarea rows="7" ng-model="frmParent.intervencion_brigadas" class="form-control" required></textarea>
+					    </div>
+						</div>
+		      </div>
+				</div>
+			</li>
+			
+			<!-- PROCESOS DE ACTUACION -->
+			<li>
+				<i class="fa fa-info bg-olive"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header text-uppercase"><a href="#"><span translate>LB_SELFPROTECTION_STEP8_3</span></a></h3>
+		      <div class="timeline-body" layout-padding>
+					      <!-- 
+						<div class="form-group required" flex>
+						  <label translate>LB_SELFPROTECTION_STEP8_32_DESCRIPTION</label>
+						  <div class="input-group">
+					      <span class="input-group-addon"><md-ico i=history></md-ico></span>
+					      <textarea rows="7" ng-model="frmParent.intervencion_coordinacioninterinstitucional" class="form-control" required></textarea>
+					    </div>
+						</div>
+					       -->
+					  <div class="form-group required" ng-bind-html="highlight(paramsConf.SELFPROTECTION_83_BRIGADAS)"></div>
+					  <div class="form-group required" flex>
+						  <label translate>LB_SELFPROTECTION_STEP8_3_1</label>
+						  <div class="input-group">
+					      <span class="input-group-addon"><md-ico i=history></md-ico></span>
+					      <textarea rows="4" ng-model="frmParent.intervencion_zonaseguridad" class="form-control" required></textarea>
+					    </div>
+						</div>
+						
+						<div class="form-group required" flex>
+						  <label translate>LB_SELFPROTECTION_STEP8_3_2</label>
+						  <div class="input-group">
+					      <span class="input-group-addon"><md-ico i=history></md-ico></span>
+					      <textarea rows="4" ng-model="frmParent.intervencion_viasevacuacion" class="form-control" required></textarea>
+					    </div>
+						</div>
+						
+						<div class="form-group required" flex>
+						  <label translate>LB_SELFPROTECTION_STEP8_3_3</label>
+						  <div class="input-group">
+					      <span class="input-group-addon"><md-ico i=history></md-ico></span>
+					      <textarea rows="4" ng-model="frmParent.intervencion_puntoencuentro" class="form-control" required></textarea>
+					    </div>
+						</div>
+					  
+					  
+		      </div>
+				</div>
+			</li>
+			
+			<!-- ACTUACIÓN DEL RESPONSABLE EN LA EMERGENCIA -->
+			<li>
+				<i class="fa fa-info bg-red"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header text-uppercase"><a href="#"><span translate>LB_SELFPROTECTION_STEP8_4</span></a></h3>
+		      <div class="timeline-body" layout-padding>
+						<!-- 
+						<div class="form-group required" flex>
+						  <label translate>LB_SELFPROTECTION_STEP8_41_DESCRIPTION</label>
+						  <div class="input-group">
+					      <span class="input-group-addon"><md-ico i=history></md-ico></span>
+					      <textarea rows="7" ng-model="frmParent.intervencion_actuacion_durante_emergencia" class="form-control" required></textarea>
+					    </div>
+						</div>
+						 -->
+						<div class="form-group required" ng-bind-html="highlight(paramsConf.SELFPROTECTION_84_RESPONSABLE)"></div>
+		      </div>
+				</div>
+			</li>
+			
+			<!-- 
+			<li>
+				<i class="fa fa-info bg-blue"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header text-uppercase"><a href="#"><span translate>LB_SELFPROTECTION_STEP8_5</span></a></h3>
+		      <div class="timeline-body" layout-padding>
+						<div class="form-group required" flex>
+						  <label translate>LB_SELFPROTECTION_STEP8_5_DESCRIPTION</label>
+						  <div class="input-group">
+					      <span class="input-group-addon"><md-ico i=history></md-ico></span>
+					      <textarea rows="7" ng-model="frmParent.intervencion_actuacion_especial" class="form-control" required></textarea>
+					    </div>
+						</div>
+		      </div>
+				</div>
+			</li>
+			<li>
+				<i class="fa fa-info bg-green"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header text-uppercase"><a href="#"><span translate>LB_SELFPROTECTION_STEP8_6</span></a></h3>
+		      <div class="timeline-body" layout-padding>
+						<div class="form-group required" flex>
+						  <label translate>LB_SELFPROTECTION_STEP8_61_DESCRIPTION</label>
+						  <div class="input-group">
+					      <span class="input-group-addon"><md-ico i=history></md-ico></span>
+					      <textarea rows="7" ng-model="frmParent.intervencion_actuacion_rehabilitacion" class="form-control" required></textarea>
+					    </div>
+						</div>
+		      </div>
+				</div>
+			</li>
+			 -->
+			
+			<!-- BOTONERA -->
+			<li>
+				<i class="fa fa-paper-plane bg-red"></i>
+		    <div class="timeline-item">
+		      <div class="timeline-body" layout=row layout-padding layout-align="space-between center">
+			      <div flex>
+							<button type="button" ng-click="goUI('permits.editSelfProtection.step7',{planId:frmParent.plan_id})" class="btn btn-warning btn-block">
+								<i-fa i=angle-double-left></i-fa> <span translate>BTN_CANCEL</span>
+							</button>
+							</div>
+						<div flex>
+							<button type="button" ng-click="submitForm()" class="btn btn-success btn-block" ng-disabled="formData.$invalid">
+								<span translate>BTN_NEXT</span> <i-fa i=angle-double-right></i-fa>
+							</button>
+						</div>
+		      </div>
+		  	</div>
+		  </li>
+		  <li><i class="fa fa-clock-o bg-gray"></i></li>
+		</ul>
+	
+	</div>
+</div>

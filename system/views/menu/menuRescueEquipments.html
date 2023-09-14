@@ -1,0 +1,58 @@
+<md-menu md-position-mode="target-right target">
+  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+  </md-button>
+  <md-menu-content width="5">
+    
+    <md-menu-item ng-if="allow.permiso82632">
+      <md-button aria-label="editar" ng-click="openModal(row)">
+          <div layout="row" flex>
+            <p flex translate>LB_EDIT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=edit></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="allow.permiso82633"></md-divider>
+    
+    <md-menu-item ng-if="allow.permiso82633">
+      <md-button aria-label="editar" ng-click="goUI('tthh.sos.vrescue.equipmentUsage',{equipmentId:row.equipo_id,formId:row.fk_formulario_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_REGISTER_INSPECTION</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=spellcheck></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="allow.permiso82634"></md-divider>
+    
+    <md-menu-item ng-if="allow.permiso82634">
+      <md-button aria-label="editar" ng-click="exportWithDetail('equiposrescatevertical',row.equipo_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_PRINT_USE_HISTORY</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=print></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="allow.permiso82641"></md-divider>
+    
+    <md-menu-item ng-if="allow.permiso82641">
+      <md-button aria-label="editar" ng-click="goUI('tthh.sos.vrescue.detailEquipments',{equipmentId:row.equipo_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_DETAIL</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=zoom_out_map></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+  </md-menu-content>
+</md-menu>

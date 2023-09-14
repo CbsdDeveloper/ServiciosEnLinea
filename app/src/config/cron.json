@@ -1,0 +1,13 @@
+{
+	"cronList":[
+		"dailyStats"
+	],
+	"cronEntities":{
+		"autoinspecciones":"autoinspeccion_fecha",
+		"permisos":"permiso_fecha",
+		"duplicados":"fecha_solicitado",
+		"barridos":"barrido_registro",
+		"inspecciones":"inspeccion_registro",
+		"citaciones":"citacion_registro"
+	}
+}

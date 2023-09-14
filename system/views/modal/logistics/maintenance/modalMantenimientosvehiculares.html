@@ -1,0 +1,253 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg" style="width:90%" ng-controller="maintenancesExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=add_alert></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_MAINTENANCE</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-tabs md-dynamic-height md-border-bottom>
+			<!-- FORMULARIO DE REGISTRO -->
+			<md-tab label="{{'LB_REGISTRATION_FORM' | translate}}">
+				<md-content layout=column layout-padding>
+					<!-- INFORMACIÓN DE UNIDAD -->
+					<card-unit-information layout-padding></card-unit-information>
+					<!-- DATOS DE MOVIMIENTO -->
+					<div layout-padding>
+						<div class="card card-outline card-success no-margin margin-top" layout-padding>
+							<div class="card-header text-center">
+							  <h3 class="card-title" translate>LB_VEHICULAR_FLEETS</h3>
+							</div>
+							<div class="card-body padding-all" layout=column layout-padding>
+					    	<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex ng-controller="driversListCtrl">
+										<label translate>LB_OPERATOR</label>
+										<div class="input-group">
+									      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=person></md-ico></div></div> 
+									      <ui-select ng-model="frmParent.fk_conductor_id" reset-search-input="false" required>
+								         	<ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.conductor,'Seleccione el operador')  | translate}}">
+														{{$select.selected.personal_nombre}}
+								         	</ui-select-match>
+													<ui-select-choices class="list-personal" repeat="item.fk_personal_id as item in FKList | filter: { conductor: $select.search }">
+														<img src="/app/src/img/users/default.png" style="width:48px;height:48px;padding:3px" class="img-circle" alt="img" />
+														<div flex>
+															<div ng-bind-html="item.conductor | highlight: $select.search"></div>
+															<small ng-bind-html="'Cargo.: '+item.puesto_nombre"></small><br>
+															<small ng-bind-html="'Tipo de licencia.: '+item.licencias"></small>
+														</div>
+													</ui-select-choices>
+									      </ui-select>
+									    </div>
+									</div>
+									<div class="form-group required" flex>
+										<label translate>LB_CHOOSE_CODE</label>
+										<div class="input-group" ng-controller="codesTrackingListCtrl">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=code></md-ico></div></div> 
+											<ui-select ng-model="frmParent.fk_codigo_id" reset-search-input="false" required>
+							         	<ui-select-match class="required" placeholder="{{getPlaceholder(row.codigo,'Seleccione el codigo')  | translate}}">
+													{{$select.selected.codigo}}
+							         	</ui-select-match>
+												<ui-select-choices repeat="item.codigo_id as item in jsonList | filter: {codigo: $select.search }">
+													<div flex>
+														<div ng-bind-html="item.codigo | highlight: $select.search"></div>
+													</div>
+												</ui-select-choices>
+								      </ui-select>
+										</div>
+									</div>
+					    	</div>
+					    	<div layout-xs=column layout=row layout-padding ng-controller="stationsListCtrl">
+									<div class="form-group required" flex>
+						    		<label translate>LB_DEPARTURE_STATION</label>
+										<div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assistant_photo></md-ico></div></div> 
+											<select class="form-control" ng-model="frmParent.flota_salida_estacion" required
+															ng-options="row.estacion_id as (row.estacion_nombre+' - '+row.estacion_nombre_alterno) for row in list"></select>
+										</div>
+						    	</div>
+									<div class="form-group required" flex ng-if="toogleEditMode && frmParent.flota_estado=='ESTACION'">
+						    		<label translate>LB_ARRIVAL_STATION</label>
+										<div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assistant_photo></md-ico></div></div> 
+											<select class="form-control" ng-model="frmParent.flota_arribo_estacion" required
+															ng-options="row.estacion_id as (row.estacion_nombre+' - '+row.estacion_nombre_alterno) for row in list"></select>
+										</div>
+						    	</div>
+									<div class="form-group required" flex>
+						    		<label translate>LB_DESTINATION</label>
+									  <div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=location_on></md-ico></div></div> 
+											<input class="form-control" ng-model="frmParent.flota_destino" placeholder="Ej. Estación 2" required />
+										</div>
+						    	</div>
+					    	</div>
+					    	<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex>
+										<label translate>LB_DEPARTURE_TIME</label>
+										<div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=account_circle></md-ico></div></div> 
+											<select class="form-control" ng-model="frmParent.flota_salida_tipo" required ng-disabled="toogleEditMode"
+															ng-options="key as val for (key,val) in inputDataType"></select>
+										</div>
+									</div>
+						    	<div class="form-group required" flex ng-if="frmParent.flota_salida_tipo=='MANUAL' || toogleEditMode">
+						    		<label translate>LB_DEPARTURE_TIME</label>
+									  <div class="input-group" max-date="maxDate" start-view="day"
+									       moment-picker="frmParent.flota_salida_hora">
+												<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+												<input class="form-control" ng-model="frmParent.flota_salida_hora" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required ng-disabled="toogleEditMode">
+											</div>
+						    	</div>
+						    </div>
+					    	<div layout-xs=column layout=row layout-padding ng-if="toogleEditMode">
+									<div class="form-group required" flex>
+						    		<label translate>LB_OUTPUT_MILE</label>
+									  <div class="input-group">
+												<div class="input-group-prepend"><div class="input-group-text"><i-fa i=tachometer></md-ico></div></div> 
+												<input type="number" step=1 class="form-control" ng-model="frmParent.flota_salida_km" required ng-disabled="toogleEditMode" />
+											</div>
+						    	</div>
+									<div class="form-group required" flex>
+						    		<label translate>LB_INPUT_MILE</label>
+									  <div class="input-group">
+												<div class="input-group-prepend"><div class="input-group-text"><i-fa i=tachometer></md-ico></div></div> 
+												<input type="number" step=1 min={{frmParent.flota_salida_km}} class="form-control" ng-model="frmParent.flota_arribo_km" required />
+											</div>
+						    	</div>
+					    	</div>
+					    	<div layout-xs=column layout=row layout-padding ng-if="toogleEditMode">
+						    	<div class="form-group required" flex>
+						    		<label translate>LB_CHECK_IN_TIME</label>
+									  <div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+											<select class="form-control" ng-model="frmParent.flota_arribo_tipo" required 
+														ng-options="key as val for (key,val) in inputDataType"></select>
+										</div>
+						    	</div>
+						    	<div class="form-group required" flex ng-if="frmParent.flota_arribo_tipo=='MANUAL'">
+						    		<label translate>LB_CHECK_IN_TIME</label>
+									  <div class="input-group" start-view="day" min-date="frmParent.flota_salida_hora" max-date="maxDate"
+									  		 moment-picker="frmParent.flota_arribo_hora">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+											<input class="form-control" ng-model="frmParent.flota_arribo_hora" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required>
+										</div>
+						    	</div>
+					    	</div>
+								<div class="form-group">
+									<label translate>LB_DETAIL</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div>
+										<textarea rows=3 class="form-control" ng-model="frmParent.flota_detalle" placeholder="Ej. Detallar información" ></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</md-content>
+			</md-tab>
+			
+			<!-- TIPOS DE MANTENIMIENTO :: PREVENTIVO - CORRECTIVO -->
+			<md-tab label="{{resources.label | translate}}" ng-repeat="(key, resources) in frmExtends">
+				<md-content layout=column layout-padding>
+					<!-- FILTRO DE PASAJEROS -->
+					<div layout-padding>
+						<div class="card card-outline card-success no-margin">
+							<div class="card-body text-center">
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=search></md-ico></div></div> 
+									<input ng-model="frmParent.filter" class="form-control" placeholder="Ej. 1236587490" maxlength="20">
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default" ng-if="frmParent.filter!=''" ng-click="frmParent.filter=''"><md-ico i=clear></md-ico></button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- LISTADO DE RECURSOS -->
+					<div layout-padding ng-repeat="(type, resources) in resources.list" class="margin-top">
+						<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} no-margin no-padding">
+							<div class="card-header text-center">
+								<h3 class="card-title no-margin" translate>{{type}}</h3>
+							</div>
+							<div class="card-body">
+								<!-- LISTADO DE PARTICIPANTES -->
+								<div class="row" style="padding:8px;">
+									<div class="col-md-4 col-xs-12 md-2-line contact-item" ng-repeat="item in resources | filter : frmParent.filter">
+						        <label class="label">
+									    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.maintenance[key]" checklist-value="item" />
+									    <span class="label__text">
+									      <span class="label__check">
+									        <i class="fa fa-check icon"></i>
+									      </span>
+									    </span>
+									  </label>
+						        <div class="md-list-item-text compact">
+					          	<span class="text-bold" ng-bind-html="highlight(item.recurso_descripcion,frmParent.filter)"></span>
+						          <p style="font-size:11px;" ng-bind-html="highlight(item.recurso_codigo,frmParent.filter)"></p>
+						        </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</md-content>
+			</md-tab>
+			
+			<!-- ADMINISTRACIÓN DE RECURSOS -->
+			<md-tab label="{{'TOOLBAR_RESOURCES' | translate}}">
+				<!-- LISTADO INTERNO DE MANTENIMIENTOS -->
+				<md-tabs md-dynamic-height md-border-bottom>
+					<!-- TIPOS DE MANTENIMIENTO :: PREVENTIVO - CORRECTIVO -->
+					<md-tab label="{{frmExtends[key].label | translate}}" ng-if="resources.length>0" ng-repeat="(key, resources) in frmParent.maintenance">
+						<md-content class="row no-margin" style="padding-bottom:8px">
+							<!-- LISTADO DE RECURSOS -->
+							<div class="col-xs-12 col-md-4" style="padding: 8px 8px 0px!important" layout-padding ng-repeat="item in resources| orderBy:item.recurso_tipo">
+								<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} no-margin no-padding">
+									<div class="card-header md-list-item-text compact">
+										<span class="card-title no-margin">{{$index+1}}. {{item.recurso_descripcion+' ('+item.recurso_codigo+')'}}</span>
+									</div>
+									<div class="card-body" layout-padding>
+										<div layout-xs=column layout=row layout-padding>
+								    	<div class="form-group required" flex>
+								    		<label translate>{{item.recurso_tipo}}</label>
+											  <div class="input-group">
+													<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+													<select class="form-control" ng-model="item.detalle_estado" required
+																	ng-options="val as val for (key,val) in string2JSON('replacementStatus')"></select>
+												</div>
+								    	</div>
+								    	<div class="form-group required" flex ng-if="item.detalle_estado!='NO APLICA'">
+								    		<label translate>LB_QUANTITY</label>
+											  <div class="input-group">
+													<div class="input-group-prepend"><div class="input-group-text"><md-ico i=format_list_numbered></md-ico></div></div> 
+													<input parse-float type="number" step="1" min="1" class="form-control" ng-model="item.detalle_cantidad" placeholder="Ej. 102" required>
+												</div>
+								    	</div>
+							    	</div>
+										<div class="form-group" ng-class="[{'required':item.detalle_estado=='NO APLICA'}]">
+											<label translate>LB_OBSERVATION</label>
+											<div class="input-group">
+												<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div>
+												<textarea rows="2" class="form-control" ng-model="item.detalle_observacion" placeholder="Ej. Detallar información" ng-required="item.detalle_estado=='NO APLICA'"></textarea>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</md-content>
+					</md-tab>
+				</md-tabs>
+			</md-tab>
+		</md-tabs>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="refreshResources()"><span translate>LB_REFRESH</span></md-button>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

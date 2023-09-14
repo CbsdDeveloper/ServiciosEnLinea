@@ -1,0 +1,40 @@
+<md-menu md-position-mode="target-right target">
+  <md-button aria-label="Open demo menu" class="md-icon-button main-menu-icon" ng-click="$mdOpenMenu($event)">
+    <md-icon><i-fa i=cogs></i-fa></md-icon>
+  </md-button>
+  <md-menu-content width="5">
+    <md-menu-item ng-if="row.modificacion_estado=='PENDIENTE'">
+      <md-button aria-label="editar" ng-click="openParentModal('Proyecto_modificaciones',row)">
+         <div layout="row" flex>
+           <p flex translate>LB_EDIT</p>
+           <md-icon md-menu-align-target class="md-menu-btn-ico">
+             <i-fa i=pencil></i-fa>
+           </md-icon>
+         </div>
+      </md-button>
+    </md-menu-item>
+    
+		<md-divider></md-divider>
+    <md-menu-item>
+      <md-button aria-label="editar" ng-click="exportWithDetail(row.modificacion_id)">
+        <div layout="row" flex>
+          <p flex translate>LB_PRINT_REQUEST</p>
+          <md-icon md-menu-align-target class="md-menu-btn-ico">
+            <i-fa i=print></i-fa>
+          </md-icon>
+        </div>
+      </md-button>
+    </md-menu-item>
+		<md-divider></md-divider>
+    <md-menu-item>
+      <md-button aria-label="editar" ng-click="goEntity({id:row.modificacion_id})">
+         <div layout="row" flex>
+           <p flex translate>LB_DETAIL</p>
+           <md-icon md-menu-align-target class="md-menu-btn-ico">
+             <i-fa i=info></i-fa>
+           </md-icon>
+         </div>
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

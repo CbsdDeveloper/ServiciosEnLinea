@@ -1,0 +1,45 @@
+<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=markunread_mailbox></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_WEBMAIL</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<datatable-toolbar></datatable-toolbar>
+	<div layout=row layout-padding layout-wrap>
+		<div flex ng-repeat="row in rowsParent.rows">
+			<!-- Profile Image -->
+			<div class="card card-outline card-primary">
+			  <div class="card-body box-profile text-center">
+			    <div class="container-img-user">
+			    	<img class="profile-user-img img-responsive" src="/app/src/img/webmail/default.png" alt="profile">
+			    </div>
+					<h3 class="profile-username text-center">{{row.webmail_id}}</h3>
+					<h3 class="profile-username text-center">{{row.webmail_name}}</h3>
+					<p class="text-muted text-center">{{row.webmail_mail}}</p>
+			    <hr>
+			    <strong><md-ico i=person></md-ico><br> <span translate>LB_USER</span></strong>
+			    <p class="text-muted text-center">{{row.webmail_usuario}}</p>
+			    <hr>
+					<strong><md-ico i=public></md-ico><br> <span translate>LB_HOST</span></strong>
+			    <p class="text-muted text-center">{{row.webmail_host}}</p>
+			    <hr>
+			    <strong><md-ico i=portable_wifi_off></md-ico><br> <span translate>LB_PORT</span></strong>
+			    <p class="text-muted text-center">{{row.webmail_puerto}}</p>
+			    <hr>
+			    <strong><md-ico i=security></md-ico><br> <span translate>LB_ENCRYPTION_TYPE</span></strong>
+			    <p class="text-muted text-center">{{row.webmail_seguridad}}</p>
+			  </div>
+				<div class="card-footer">
+			    <a ng-click="openModal(row)" class="btn btn-primary btn-block">
+			    	<md-ico i=edit s=18></md-ico> 
+			    	<span translate>BTN_UPDATE</span>
+			    </a>
+				</div>
+			</div>
+		</div>
+	</div>
+</md-card>

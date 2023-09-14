@@ -1,0 +1,24 @@
+﻿<div class="card card-outline card-info no-margin">
+	<div class="card-body card-profile text-center">
+		<div class="container-img-user">
+    	<img class="profile-user-img img-responsive" src="/app/src/img/vehicles/default.png" ng-src="{{setting.uri.img}}vehicles/{{dataEntity.vehiculo_imagen}}" alt="profile">
+    </div>
+		<h3 class="profile-username md-padding">{{entity.unidad_nombre}}<br>[{{entity.vehiculo_placa}}]</h3>
+    
+    <hr>
+		<strong><md-ico i=person s=18></md-ico> <span translate>LB_CUSTODIAN</span></strong>
+		<p class="text-muted text-center">{{entity.propietario}}</p>
+		
+		<hr>
+		<strong><md-ico i=assistant_photo s=18></md-ico> <span translate>LB_STATION</span></strong>
+		<p class="text-muted text-center">{{entity.estacion_nombre}}</p>
+		
+		<hr>
+		<strong><md-ico i=directions_car s=18></md-ico> <span translate>LB_BRAND</span></strong>
+		<p class="text-muted text-center">{{entity.vehiculo_marca}} [{{entity.vehiculo_modelo}}]</p>
+		<hr>
+		<strong><md-ico i=fingerprint></md-ico> <span translate>LB_CHASSIS</span> / <span translate>LB_MOTOR</span></strong>
+		<p class="text-muted text-center">{{entity.vehiculo_chasis}} / {{entity.vehiculo_motor}}</p>
+		
+	</div>
+</div>

@@ -1,0 +1,53 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=thumb_up></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_PERMISSIONS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ui-sref="tthh.newPermission"><md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="exportData({sessionName:'fk_personal_id',sessionId:session.personal_id})">
+				<md-ico i=save_alt></md-ico><md-tooltip><span translate>LB_EXPORT</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover button-icon" md-progress="deferred">
+      <col style="">
+     	<col style="width:30%">
+     	<col style="width:5%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_SCHEDULED_DATE</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell class="text-uppercase">
+						<md-ico i=security></md-ico><span ng-bind-html="highlight(row.permiso_codigo)"></span> ({{row.permiso_serie}})<br>
+						<md-ico i=event_available></md-ico>{{row.permiso_desde | date:'fullDate'}}<br>
+						<md-ico i=event_busy></md-ico>{{row.permiso_hasta | date:'fullDate'}}<br>
+						<md-ico i=info></md-ico><span ng-bind-html="highlight(row.permiso_cantidad)"></span><br>
+						<md-ico i=info></md-ico><span ng-bind-html="highlight(row.permiso_motivo)"></span><br>
+						<div class="text-bold text-danger" ng-if="row.permiso_observacion!=null && row.permiso_observacion!=''">
+							<md-ico i=info_outline></md-ico><span ng-bind-html="highlight(row.permiso_observacion)"></span>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.permiso_estado]"></span><br>
+						<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.permiso_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <menu-permissions ng-if="row.permiso_estado=='SOLICITUD GENERADA'"></menu-permissions>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

@@ -1,0 +1,177 @@
+<div class="container">
+	<div class="center-block">
+    
+    <!-- SLIDESHOW -->
+    <div class="col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-sm-12 col-xs-12 no-padding" style="z-index:1">
+      <div class="mlt-carousel">
+        <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            <div class="item" ng-class="[{'active':$first}]" ng-repeat="row in slides">
+              <img class="img-responsive center-block" ng-src="/app/src/img/gallery/{{row.slide_imagen}}" alt="step1">
+              <div class="item-content">
+                 <h3>{{row.slide_titulo}}</h3>
+                 <p>{{row.slide_descripcion}}</p>
+              </div>
+            </div>
+          </div>
+          <ol class="carousel-indicators"><li data-target="#myCarousel" data-slide-to="{{$index}}" ng-class="[{'active':$first}]" ng-repeat="row in slides"></li></ol>
+        </div>
+      </div>
+    </div>
+    
+    <!-- FORMULARIO DE REGISTRO -->
+    <div class="col-lg-6 col-lg-offset-right-1 col-md-6 col-md-offset-right-1 col-sm-12 col-xs-12 no-padding">
+      <div class="mlt-content">
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade in active" id="login">
+	          
+	          <!-- FORMULARIO DE REGISTRO -->
+	          <form name="formSignUp" class="form-login" ng-submit="submitFormSignUp()">
+							
+							<!-- DATOS DE LA ENTIDAD -->
+							<div class="box box-success no-margin">
+								<div class="box-header text-center text-uppercase">
+									<h3 class="box-title" translate>LB_MAIN_INFORMATION</h3>
+								</div>
+								<div class="box-body text-left" layout=column>
+									<div class="form-group required" flex>
+										<label translate>LB_IDENTIFICATION_TYPE</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-id-card-o fa-fw"></i></span>
+											<select class="form-control input-sm" ng-model="frmParent.entidad_contribuyente" required ng-options="key as val for (key,val) in entityType"></select>
+										</div>
+									</div>
+									<div class="form-group required" flex ng-if=frmParent.entidad_contribuyente=='fiscal'>
+										<label translate>LB_AMIE</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-id-card fa-fw"></i></span>
+											<input class="form-control input-sm" ng-model="frmParent.entidad_ruc" placeholder="Ej. 23H001" required />
+										</div>
+									</div>
+									<div class="form-group required" ng-if=frmParent.entidad_contribuyente=='fiscal'>
+										<label translate>LB_INSTITUTION_NAME</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-building fa-fw"></i></span>
+											<input class="form-control input-sm" ng-model="frmParent.entidad_razonsocial" placeholder="Ej. U.E. Santo Domingo" required />
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<!-- DATOS DE REPRESENTANTE LEGAL -->
+							<div class="box box-danger no-margin margin-top">
+								<div class="box-header text-center text-uppercase">
+									<h3 class="box-title" ng-if=frmParent.entidad_contribuyente=='fiscal' translate>LB_INSTITUTION_DIRECTOR</h3>
+									<h3 class="box-title" ng-if=frmParent.entidad_contribuyente!='fiscal' translate>LB_PERSONAL_INFORMATION</h3>
+								</div>
+								<div class="box-body text-left" layout=column>
+									<div class="form-group required" flex ng-if=frmParent.entidad_contribuyente=='fiscal'>
+										<label translate>LB_IDENTIFICATION_TYPE</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-credit-card fa-fw"></i></span>
+											<select class="form-control input-sm" ng-model="frmParent.person.persona_tipo_doc" required ng-options="key as val for (key,val) in identificationType"></select>
+										</div>
+									</div>
+									<div class="form-group required" flex>
+										<label translate>LB_IDENTIFICATION_NUMBER</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-id-card-o fa-fw"></i></span>
+											<input ng-model="frmParent.person.persona_doc_identidad" class="form-control input-sm" placeholder="Ej. 1721953189" maxlength=13 required />
+										</div>
+									</div>
+									<div class="form-group required" flex>
+										<label translate>LB_LASTNAME</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+											<input ng-model="frmParent.person.persona_apellidos" class="form-control input-sm" placeholder="Ej. Palacios Morales" required onkeypress="return alphaOnly(event)"  />
+										</div>
+									</div>
+									<div class="form-group required" flex>
+										<label translate>LB_NAME</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-user-o fa-fw"></i></span>
+											<input ng-model="frmParent.person.persona_nombres" class="form-control input-sm" placeholder="Ej. Juan David" required onkeypress="return alphaOnly(event)"  />
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<!-- DATOS DE USUARIO -->
+							<div class="box box-warning no-margin margin-top">
+			    			<div class="box-header text-center text-uppercase">
+								  <h3 class="box-title" translate>LB_ENVELOPES</h3>
+								</div>
+								<div class="box-body text-left" layout=column>
+						      <div class="form-group required" flex>
+						      	<label translate>LB_PHONE</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-phone fa-fw"></i></span>
+						        	<input type="text" class="form-control input-sm" ng-model="frmParent.entidad_telefono" placeholder="Ej. 027413698">
+										</div>
+									</div>
+						      <div class="form-group required" flex>
+						      	<label translate>LB_CELL_PHONE</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-mobile fa-fw"></i></span>
+						        	<input type="text" class="form-control input-sm" ng-model="frmParent.entidad_celular" placeholder="Ej. 0912345678">
+										</div>
+									</div>
+									<div class="form-group required" flex>
+						      	<label translate>LB_MAIL</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></span>
+						        	<input type="text" class="form-control input-sm" ng-model="frmParent.entidad_correo" placeholder="Ej. info@tuempresa.com">
+										</div>
+									</div>
+									
+									<div class="form-group required" flex>
+						      	<label translate>LB_BILLING_ADDRESS</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-map-signs fa-fw"></i></span>
+						        	<input type="text" class="form-control input-sm" ng-model="frmParent.entidad_direccionfacturacion" placeholder="Ej. Av. Chone km 5">
+										</div>
+									</div>
+									
+						      <div class="form-group required" flex>
+						      	<label translate>LB_NEW_PASSWORD</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-unlock-alt fa-fw"></i></span>
+						        	<input type="password" class="form-control input-sm" ng-model="frmParent.entidad_contrasenia" required placeholder="Ej. Abc123">
+										</div>
+									</div>
+									<div class="form-group required" flex>
+						      	<label translate>LB_CONFIRM_PASSWORD</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-unlock fa-fw"></i></span>
+						        	<input type="password" class="form-control input-sm" ng-model="frmParent.entidad_contrasenia_confirmacion" required placeholder="Ej. Abc123">
+										</div>
+									</div>
+								</div>
+								<div class="box-footer">
+									<div class="checkbox icheck text-center">
+						        <label>
+						          <input type="checkbox" ng-model="frmParent.entidad_terminos" required>He leído los <a target="_blank" href="http://online.cbsd.gob.ec/terminos-y-condiciones/">terminos y condiciones</a>
+						        </label>
+						      </div>
+				          <button type="submit" ng-click="submitForm()" class="btn btn-primary btn-sm btn-block btn-flat" ng-disabled="formData2.$invalid" translate>LB_REGISTRE</button>
+								</div>
+			    		</div>
+							
+							<!-- BOTONERA -->
+							<div class="padding-all text-right">
+								<a ui-sref="main"><span translate>LB_ALREADY_REGISTERED</span> <i-fa i="sign-in"></i-fa></a>
+								<br>
+								<a href="http://servicios.cbsd.gob.ec/consultas" target="_blank"><span translate>LB_CHECK_RUC_STATE</span> <i-fa i="check-square-o"></i-fa></a>
+								<br>
+								<a href="http://online.cbsd.gob.ec/creacion-de-usuario/" target="_blank"><span translate>LB_USER_MANUAL</span> <i-fa i="book"></i-fa></a>
+							</div>
+							
+						</form>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>

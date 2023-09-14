@@ -1,0 +1,69 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog" ng-controller="personalDistributionExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=nature></md-ico></md-button>
+			<h2 translate>TOOLBAR_PLATOONS</h2>
+				<span flex></span>
+				<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<md-content layout=column layout-padding>
+				<!-- SELECCIONAR EL LISTADO DE MÓDULOS -->
+	    	<div class="card card-outline card-success no-margin" layout-padding>
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+					</div>
+					<div class="card-body" layout=column layout-padding>
+						<div layout-xs=column layout=row layout-padding>
+				    	<div class="form-group required" flex>
+								<label translate>LB_OPENING_DATE</label>
+								<div class="input-group" moment-picker="frmParent.distribution.distributivo_periodo_inicio" format="YYYY-MM-DD">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=search></md-ico></div></div> 
+									<input ng-model="frmParent.distribution.distributivo_periodo_inicio" ng-model-options="{ updateOn: 'blur' }" class="form-control" placeholder="Ej. 2018-01-01" required>
+								</div>
+							</div>
+				    	<div class="form-group" flex>
+								<label translate>LB_DEADLINE</label>
+								<div class="input-group" moment-picker="frmParent.distribution.distributivo_periodo_cierre" format="YYYY-MM-DD">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=search></md-ico></div></div> 
+									<input ng-model="frmParent.distribution.distributivo_periodo_cierre" ng-model-options="{ updateOn: 'blur' }" class="form-control" placeholder="Ej. 2018-10-02">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- SELECCIONAR PELOTONOES -->
+	    	<div class="card card-outline card-primary no-margin margin-top" layout-padding>
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_DEFINE_PLATOONS</h3>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-6 col-xs-12 md-2-line contact-item" ng-repeat="item in list">
+				        <label class="label">
+							    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.selected" checklist-value="item.peloton_id" />
+							    <span class="label__text">
+							      <span class="label__check">
+							        <i class="fa fa-check icon"></i>
+							      </span>
+							    </span>
+							  </label>
+				        <div class="md-list-item-text compact">
+			          	<span class="text-bold">{{item.estacion}}</span>
+				          <p style="font-size:11px;">{{item.peloton_nombre}}</p>
+				        </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</md-content>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+			<span flex></span>
+			<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+		</md-dialog-actions>
+  </form>
+</md-dialog>

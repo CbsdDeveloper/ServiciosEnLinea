@@ -1,0 +1,152 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg" ng-controller="platoonPersonalExtendsCtrl" style="width:90%;">
+  <form name="formData" ng-submit="submitForm()">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=nature></md-ico></md-button>
+			<h2 translate>TOOLBAR_PLATOONS</h2>
+				<span flex></span>
+				<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<md-content layout=column layout-padding>
+				<!-- SELECCIONAR EL LISTADO DE MÓDULOS -->
+	    	<div class="card card-outline card-success no-margin" layout-padding>
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_CHOOSE_MODULE</h3>
+					</div>
+					<div class="card-body" layout=column layout-padding>
+						<div layout-xs=column layout=row layout-padding>
+				    	<div class="form-group required" flex>
+								<label translate>LB_STATIONS</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=extension></md-ico></div></div> 
+									<select class="form-control" ng-model="stationModel" ng-options="item.estacion_id as item.estacion_nombre for item in stationsList" required></select>
+								</div>
+							</div>
+				    	<div class="form-group required" flex>
+								<label translate>LB_PLATOONS</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=extension></md-ico></div></div> 
+									<select class="form-control" ng-model="platoonModel" ng-options="item.dist_pelo_id as item.peloton_nombre for item in platoonsList[stationModel]" required></select>
+								</div>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+				    	<div class="form-group required" flex>
+								<label translate>LB_DEFINE_FUNCTIONS</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=extension></md-ico></div></div> 
+									<select class="form-control" ng-model="functionModel" ng-options="val as val for (key,val) in functionsList" required></select>
+								</div>
+							</div>
+							<div class="form-group" flex>
+								<label translate>LB_SEARCH</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=search></md-ico></div></div> 
+									<input ng-model="frmParent.filter" class="form-control" placeholder="Ej. 1236587490" maxlength="20">
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default" ng-if="frmParent.filter!=''" ng-click="frmParent.filter=''"><md-ico i=clear></md-ico></button>
+									</span>
+								</div>
+							</div>
+							<!-- 
+				    	<div class="form-group required" flex>
+								<label translate>LB_JOB</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=extension></md-ico></div></div> 
+									<select class="form-control" ng-model="jobModel" ng-options="key as key for (key,rows) in staffList"></select>
+								</div>
+							</div>
+							 -->
+						</div>
+					</div>
+				</div>
+				
+				<!-- FORMULARIO DE REGISTRO -->
+				<!-- 
+				<div layout-xs=column layout=row layout-padding layout-wrap class="no-padding">
+					<div style="min-width:360px;" ng-repeat="item in staffList[jobModel] | filter : frmParent.filter" flex>
+						<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} no-margin no-padding">
+							<div class="card-header with-border">
+			        	<h3 class="card-title">
+			        		<md-checkbox class="no-margin text-left" ng-checked="exists(item.personal_id)" ng-click="toggle(item.personal_id)">
+			        			{{item.personal_id}}. <span ng-bind-html="highlight(item.personal_nombre,frmParent.filter)"></span>
+									</md-checkbox>
+			        	</h3>
+							</div>
+			        <div class="card-body no-padding" layout=row layout-padding>
+								<img src="/app/src/img/users/default.png" ng-src="/app/src/img/users/{{item.persona_imagen}}" style="width:64px;height:64px;margin:auto" class="img-circle" alt="img" />
+				 				<div style="width:100%;margin:auto;font-size:11px;">
+				 					<md-ico i=credit_card s=18></md-ico> <b translate>LB_DOC_IDENTIFICATION</b>: <span ng-bind-html="highlight(item.persona_doc_identidad,frmParent.filter)"></span><br>
+					 				<md-ico i=account_balance s=18></md-ico> <b translate>LB_LEADERSHIP</b>: <span ng-bind-html="highlight(item.direccion_nombre,frmParent.filter)"></span><br>
+					 				<md-ico i=wrap_text s=18></md-ico> <b translate>LB_JOB</b>: <span ng-bind-html="highlight(item.puesto_nombre,frmParent.filter)"></span><br>
+					 				<md-ico i=flag s=18></md-ico> <b translate>LB_STATION</b>: <span ng-bind-html="highlight(item.estacion,frmParent.filter)"></span>
+				 				</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				 -->
+				
+				
+				{{platoonModel}}
+				{{functionModel}}
+				{{frmParent.model[platoonModel][functionModel]}}
+				
+				<!-- 
+				<div class="card card-outline card-primary no-margin no-padding margin-top">
+	        <div class="card-body row no-margin">
+		        <div class="col-md-4 col-xs-12 md-2-line contact-item" ng-repeat="item in staffList | filter : frmParent.filter">
+			        <label class="label">
+						    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.model[platoonModel][functionModel]" checklist-value="item.personal_id" />
+						    <span class="label__text">
+						      <span class="label__check">
+						        <i class="fa fa-check icon"></i>
+						      </span>
+						    </span>
+						  </label>
+			        <div class="md-list-item-text compact">
+		          	<span class="text-bold" ng-bind-html="highlight(item.personal_nombre,frmParent.filter)"></span>
+			          <p style="font-size:11px;">{{item.puesto_nombre}}<br>{{item.estacion}}</p>
+			        </div>
+						</div>
+	        </div>
+				</div>
+				 -->
+				
+				
+				<div layout=row layout-padding>
+					<div flex>
+						{{frmParent.model}}
+					</div>
+					<div flex>
+						<ul dnd-list="staffList">
+						    <!-- The dnd-draggable directive makes an element draggable and will
+						         transfer the object that was assigned to it. If an element was
+						         dragged away, you have to remove it from the original list
+						         yourself using the dnd-moved attribute -->
+						    <li ng-repeat="item in staffList"
+						        dnd-draggable="item"
+						        dnd-moved="list.splice($index, 1)"
+						        dnd-effect-allowed="move"
+						        dnd-selected="frmParent.model = item"
+						        ng-class="{'selected': models.selected === item}"
+						        >
+						        {{item.personal_nombre}}
+						    </li>
+						</ul>
+					</div>
+					
+				</div>
+				
+					
+			</md-content>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+			<span flex></span>
+			<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+		</md-dialog-actions>
+  </form>
+</md-dialog>

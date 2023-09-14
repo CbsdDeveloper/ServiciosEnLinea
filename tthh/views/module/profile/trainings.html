@@ -1,0 +1,47 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=receipt></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_COURSES_COMPLETED</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal({fk_persona_id:session.persona_id,edit:false})"><md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<div layout-xs=column layout=row layout-padding layout-wrap>
+		<div style="min-width:350px;max-width:480px" flex ng-repeat="row in rowsParent.data">
+			<div class="box box-{{string2JSON('colorCss')[$index]}}">
+			  <div class="box-body box-profile text-center">
+			    <md-ico i=receipt s=64></md-ico>
+					<h3 class="profile-username text-center">{{row.capacitacion_tema}}</h3>
+			    <hr>
+					<strong><md-ico i=business s=18></md-ico> <span translate>LB_INSTITUTION</span></strong>
+			    <p class="text-muted text-center">{{row.capacitacion_institucion}}</p>
+			    <hr>
+			    <strong><md-ico i=event s=18></md-ico> <span translate>LB_DATE</span></strong>
+			    <p class="text-muted text-center text-uppercase">{{row.capacitacion_fecha | date:'longDate'}}</p>
+			    <hr>
+			    <strong><md-ico i=timelapse s=18></md-ico> <span translate>LB_TRAINING_TIME</span></strong>
+			    <p class="text-muted text-center">{{row.capacitacion_horas}}</p>
+			  </div>
+				<div class="box-footer">
+			    <button ng-click="openModal(row)" class="btn btn-primary btn-block">
+			    	<md-ico i=edit s=18></md-ico>
+			    	<b translate>BTN_UPDATE</b>
+			    </button>
+					<button class="btn btn-warning btn-block" ng-click="openParentModal('PDFViewer',{embed:'tthh/'+row.capacitacion_pdf,label:row.capacitacion_tema})" ng-if="row.capacitacion_pdf!='' && row.capacitacion_pdf!=null">
+						<md-ico i=file_download s=18></md-ico>
+			    	<b translate>LB_DOWNLOAD</b>
+					</button>
+			    <button ng-click="deleteItem(row.capacitacion_id)" class="btn btn-danger btn-block">
+			    	<md-ico i=delete_forever s=18></md-ico>
+			    	<b translate>LB_DELETE</b>
+			    </button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer-table></footer-table>
+</md-card>

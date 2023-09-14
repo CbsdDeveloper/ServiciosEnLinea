@@ -1,0 +1,73 @@
+<div class="box box-warning">
+	<div class="box-body" layout=column layout-padding>
+		<div class="form-group required" flex>
+			<label translate><a target="_blank" href="http://www.cnelep.gob.ec/planillas/" translate>LB_LIGHTMETER</a></label>
+			<div class="input-group">
+				<span class="input-group-addon"><i-fa i=lightbulb-o></i-fa></span>
+				<input ng-model="frmLocal.local_medidor" class="font-digital form-control" placeholder="Ej. 23009485" required />
+			</div>
+		</div>
+		<div class="form-group">
+			<label translate>LB_CADASTRAL_KEY</label>
+			<div class="input-group">
+				<span class="input-group-addon"><i-fa i=podcast></i-fa></span>
+				<input ng-model="frmLocal.local_clavecatastral" class="font-digital form-control" placeholder="Ej. 18-52336" />
+			</div>
+		</div>
+		<div layout=column layout-gt-sm=row layout-padding>
+			<div class="form-group" flex>
+				<label translate>LB_BUILDING</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i-fa i=building-o></i-fa></span>
+					<input ng-model="frmLocal.local_edificio" class="form-control" placeholder="Ej. Edificio San José" />
+				</div>
+			</div>
+		</div>
+		<div layout=column layout-gt-sm=row layout-padding>
+			<div class="form-group" flex>
+				<label translate>LB_OFFICE</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i-fa i=road></i-fa></span>
+					<input ng-model="frmLocal.local_oficina" class="form-control" placeholder="Ej. Oficina 3" />
+				</div>
+			</div>
+			<div class="form-group" flex>
+				<label translate>LB_FLOOR</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i-fa i=tasks></i-fa></span>
+					<input ng-model="frmLocal.local_piso" class="form-control" placeholder="Ej. Piso 2" />
+				</div>
+			</div>
+		</div>
+		<div class="form-group required" flex>
+			<label translate>LB_ATENTION</label>
+			<div class="input-group">
+				<span class="input-group-addon"><i-fa i=clock-o></i-fa></span>
+				<input ng-model="frmLocal.local_atencion" class="form-control" placeholder="Ej. Lunes - Viernes; 8H00 - 15H00" required />
+			</div>
+		</div>
+		<div ng-class="['form-group','required',{'has-error':frmLocal.local_pisos<1}]">
+		  <label translate>LB_FLOORS_PLACE</label>
+		  <div class="input-group">
+		  	<div class="input-group-addon"><md-ico i=info_outline></md-ico></div>
+		    <input class="form-control" type="number" step="1" min=0 required parse-float ng-model="frmLocal.local_pisos" ng-change="getFloor()" />
+		  </div>
+		  <i-error ng-if="frmLocal.local_pisos<1" t="Mínimo 1 piso"></i-error>
+		</div>
+		<div class="form-group">
+		  <label translate>LB_SUBSOILS_PLACE</label>
+		  <div class="input-group">
+		  	<div class="input-group-addon"><md-ico i=info_outline></md-ico></div>
+		    <input class="form-control" type="number" step="1" min=0 parse-float ng-model="frmLocal.local_subsuelos" ng-change="getFloor()" />
+		  </div>
+		</div>
+		<div ng-class="['form-group','required',{'has-error':frmLocal.local_pisos<1}]">
+		  <label translate>LB_PLACE_FLOOR</label>
+		  <div class="input-group">
+		    <div class="input-group-addon"><md-ico i=business></md-ico></div>
+		    <input class="form-control" type="number" step="1" min=1 readonly parse-float ng-model="frmLocal.local_plantas" />
+		  </div>
+		  <i-error ng-if="frmLocal.local_pisos<1" t="Mínimo 1 planta"></i-error>
+		</div>
+	</div>
+</div>

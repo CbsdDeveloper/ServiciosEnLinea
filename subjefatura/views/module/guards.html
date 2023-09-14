@@ -1,0 +1,85 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=how_to_reg></md-ico></md-button>
+			<h2 translate>TOOLBAR_GUARDS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal({edit:false,type:'new'})">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<toolbar-filter></toolbar-filter>
+	
+	<div class="no-margin no-padding row font-11" layout-padding layout-wrap>
+		<div class="col-md-6 col-xs-12 wow fadeInUp" data-ng-repeat="row in rowsParent.data">
+			<div class="box box-widget widget-user-2 text-uppercase no-margin">
+			   <div class="widget-user-header bg-black" ng-class="[{'bg-green':row.guardia_estado=='ACTIVO'}]">
+			     <div class="widget-user-image">
+			       <img class="img-circle" src="/app/src/img/stations/default.png" alt="User Avatar">
+			     </div>
+			     <h3 class="widget-user-username">{{row.guardia_codigo}}</h3>
+			     <h5 class="widget-user-desc">{{row.guardia_fecha | date:'fullDate'}}</h5>
+			   </div>
+			   <div class="box-footer no-padding">
+					<ul class="nav nav-stacked">
+						<li><a href="#"><md-ico i=person></md-ico> <small translate>{{row.encargadoestacion_funcion}}</small> <span class="pull-right text-right" style="max-width:60%;font-size:10px;">{{row.encargadoestacion}}<br><small>{{row.encargadoestacion_cargo}}</small></span></a></li>
+						<li><a href="#"><md-ico i=nature_people></md-ico> <small translate>LB_PLATOON</small> <span class="pull-right text-right" style="max-width:60%;font-size:10px;">{{row.estacion}}<br>{{row.peloton_nombre}}</span></a></li>
+						
+						<li>
+							<a href="#">
+								<md-ico i=brightness_high></md-ico> <small translate>LB_DAY_GUIDE</small>
+								<span class="pull-right badge bg-green" ng-if="row.diurna>0" translate>LB_FULL</span>
+								<span class="pull-right badge bg-orange" ng-if="row.diurna<1" translate>LB_PENDING</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<md-ico i=brightness_medium></md-ico> <small translate>LB_NIGHT_GUARD</small>
+								<span class="pull-right badge bg-green" ng-if="row.nocturna>0" translate>LB_FULL</span>
+								<span class="pull-right badge bg-orange" ng-if="row.nocturna<1" translate>LB_PENDING</span>
+							</a>
+						</li>
+						
+						<li><a href="#"><md-ico i=flag></md-ico> <small translate>LB_STATUS</small> <small class="pull-right badge" ng-class="[{'bg-green':row.guardia_estado=='ACTIVO','bg-red':row.guardia_estado!='ACTIVO'}]">{{row.guardia_estado}}</small></a></li>
+						<li><a href="#"><md-ico i=people></md-ico> <small translate>LB_RESPONSIBLE_FOR_REGISTRATION</small> <span class="pull-right text-right" style="max-width:60%;font-size:10px;">{{row.usuario}}<br>{{row.guardia_registro}}</span></a></li>
+						
+						<li>
+							<a href="#"><md-ico i=how_to_reg></md-ico> <small translate>LB_NEWS_BOOK</small>
+								<span class="pull-right badge bg-blue" ng-if="row.libronovedades>0" translate="LB_REGISTERS_X" translate-values="{x:row.libronovedades}"></span>
+								<span class="pull-right badge bg-orange" ng-if="row.libronovedades<1" translate>LB_NO_RECORDS</span>
+							</a>
+						</li>
+						
+						<li class="padding-all" ng-if="(session.stationManager && row.fk_encargado_estacion==dataEntity.platoon.ppersonal_id) || (row.guardia_estado=='ACTIVO' && dataEntity.platoon.fk_dist_pelo_id==row.fk_peloton_id)">
+							<button class="btn btn-block btn-sm btn-warning" ng-click="openModal(mergeData(row,{type:'new'}))">
+								<md-ico i=list_alt></md-ico> <span translate>LB_NEWS</span>
+							</button>
+							<button class="btn btn-block btn-sm btn-info" ng-click="openParentModal('Guardia_turnos',mergeData(row,{turno_jornada:'GUARDIA DIURNA'}))">
+								<md-ico i=brightness_high></md-ico> <span translate>LB_DAY_GUIDE</span>
+							</button>
+							<button class="btn btn-block btn-sm btn-info" ng-click="openParentModal('Guardia_turnos',mergeData(row,{turno_jornada:'GUARDIA NOCTURNA'}))">
+								<md-ico i=brightness_medium></md-ico> <span translate>LB_NIGHT_GUARD</span>
+							</button>
+			      </li>
+			      <li class="padding-all" ng-if="(session.ppersonal_id==row.fk_j2 || session.puesto_direccion=='SI') || (row.estacion_id==session.fk_estacion_id)">
+			       	<button class="btn btn-block btn-sm btn-primary" ng-click="exportById(row.guardia_id)">
+			       		<md-ico i=print></md-ico> <span translate>LB_PRINT_REPORT</span>
+			       	</button>
+			    	</li>
+			    </ul>
+			   </div>
+			</div>
+		</div>
+	</div>
+	 
+	<footer-table></footer-table>
+	
+</md-card>

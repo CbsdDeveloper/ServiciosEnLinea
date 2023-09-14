@@ -1,0 +1,53 @@
+<div class="box box-{{string2JSON('colorCss')[$index]}} text-center">
+	<div class="box-header">
+		<i-fa i=calendar-check-o s=3x></i-fa>
+	</div>
+	<div class="box-body">
+		<h3 class="profile-username">{{entity.ocasional_codigo}}</h3>
+    <hr>
+		<strong><i-fa i=building></i-fa> <span translate>LB_RUC</span></strong>
+		<p class="text-muted">{{entity.entidad_ruc}}</p>
+		<hr>
+		<strong><i-fa i=book></i-fa> <span translate>LB_EVENT_NAME</span></strong>
+    <p class="text-muted">{{entity.ocasional_nombreevento}}</p>
+    <hr>
+		<strong><i-fa i=calendar-check-o></i-fa> <span translate>LB_OPENING_DATE</span></strong>
+    <p class="text-muted">{{entity.ocasional_fecha_inicio}}</p>
+    <hr>
+		<strong><i-fa i=calendar-times-o></i-fa> <span translate>LB_DEADLINE</span></strong>
+    <p class="text-muted">{{entity.ocasional_fecha_cierre}}</p>
+    <hr>
+		<strong><i-fa i=map-marker></i-fa> <span translate>LB_ADDRESS</span></strong>
+    <p class="text-muted">{{entity.ocasional_principal}} y {{entity.ocasional_secundaria}}</p>
+    <hr>
+		<strong><i-fa i=building></i-fa> <span translate>LB_EVENT_PLACE</span></strong>
+    <p class="text-muted">{{entity.lugar_evento}}</p>
+    <hr>
+		<strong><i-fa i=hashtag></i-fa> <span translate>LB_HAS_PLATFORMS</span></strong>
+    <p class="text-muted">{{entity.ocasional_instalacionesmontables}}</p>
+    <hr>
+		<strong><i-fa i=users></i-fa> <span translate>LB_EVENT_PEOPLE</span></strong>
+    <p class="text-muted">{{entity.ocasional_aforo}}</p>
+    <hr>
+		<strong><i-fa i=money></i-fa> <span translate>LB_PROFIT</span></strong>
+    <p class="text-muted">{{entity.ocasional_finesdelucro}}</p>
+    <hr>
+		<strong><i-fa i=flag></i-fa> <span translate>LB_STATUS</span></strong>
+    <p class="text-muted"><span ng-bind-html="statusLabel[entity.ocasional_estado]"></span></p>
+	</div>
+	<div class="box-footer">
+		<div ng-if="entity.ocasional_estado=='PENDIENTE'" style="margin-bottom:6px;">
+			<button class="btn btn-block" ng-class="{'btn-danger':(entity.amenazas<1 || entity.internos<1 || entity.externos<1),'btn-success':(entity.amenazas>0 && entity.internos>0 && entity.externos>0)}" ng-click="openParentModal('Recursos',entity)">
+				<i-fa i=bookmark></i-fa> <span translate>LB_RESOURCES</span>
+			</button>
+			<button class="btn btn-block btn-warning" ng-click="openParentModal('Responsables',entity)">
+				<i-fa i=group></i-fa> <span translate>LB_RESPONSIBLE</span>
+			</button>
+		</div>
+		<div ng-if="entity.amenazas>0 && entity.internos>0 && entity.externos>0">
+			<button class="btn btn-block btn-info" ng-click="exportWithDetail(entity.ocasional_id)">
+				<i-fa i=print></i-fa> <span translate>LB_PRINT_REQUEST</span>
+			</button>
+		</div>
+	</div>
+</div>

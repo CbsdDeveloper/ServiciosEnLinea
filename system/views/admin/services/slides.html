@@ -1,0 +1,42 @@
+<md-card ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=airplay></md-ico></md-button>
+			<h2 hide-xs><span translate>TOOLBAR_SLIDES</span></h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()"><md-ico i=add></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_PREVIEW</span></th>
+					<th md-column><span translate>LB_TITLE</span></th>
+					<th md-column><span translate>LB_DESCRIPTION</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+            <img src="/app/src/img/gallery/default.png" ng-src="/app/src/img/gallery/{{row.slide_imagen}}" style="width:64px;height:64px;padding:5px" class="img-circle" alt="img" />
+          </td>
+          <td md-cell>
+						<md-ico i=fingerprint></md-ico> <span ng-bind-html="highlight(row.slide_id)"></span><br>
+						<md-ico i=web_asset></md-ico> <span ng-bind-html="highlight(row.slide_modulo)"></span><br>
+						<md-ico i=airplay></md-ico> <span ng-bind-html="highlight(row.slide_titulo)"></span>
+					</td>
+					<td md-cell><i-fa i=comments></i-fa> <span ng-bind-html="highlight(row.slide_descripcion)"></span></td>
+					<td md-cell class="table-menu text-center">
+						<menu-mini></menu-mini>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

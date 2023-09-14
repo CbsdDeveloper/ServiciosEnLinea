@@ -1,0 +1,80 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=transfer_within_a_station></md-ico></md-button>
+			<h2 translate>TOOLBAR_VISITS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-divider ng-if="allow.permiso6101"></md-divider>
+	<md-toolbar  ng-if="allow.permiso6101">
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><i-fa i=barcode s=lg></i-fa></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="{{'LB_CODE_REQUEST' | translate}}" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+	  </form>
+	</md-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="width:40%;">
+     	<col style="width:40%;">
+     	<col style="width:15%;">
+     	<col style="width:5%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_VISITS</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_STATUS</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<a ui-sref="prevention.detailVisits({id:row.visita_id})" target="_balnk"><md-ico i=assignment_turned_in></md-ico></a><span ng-bind-html="highlight(row.visita_codigo)"></span> (<span ng-bind-html="highlight(row.visita_serie)"></span>)<br>
+						<div ng-if="row.visita_solicitud>0">
+							<md-ico i=confirmation_number></md-ico><span ng-bind-html="highlight(row.visita_solicitud)"></span>
+						</div>
+						<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.entidad_ruc)"></span><br>
+						<a ui-sref="src.detailEntities({entityId:row.fk_entidad_id})" target="_blank"><md-ico i={{string2JSON('mdIconList')[row.entidad_contribuyente]}} s=18></md-ico></a><span ng-bind-html="highlight(row.entidad_razonsocial)"></span>
+						<div ng-if="row.visita_estado=='EVALUADA'" class="text-green text-large text-bold">
+							<md-ico i=school></md-ico><span translate>LB_SCORE</span>: {{row.score | number:2}}
+						</div>
+						<div ng-if="row.visita_estado=='PENDIENTE' || row.visita_estado=='ANULADA'" class="text-red text-bold">
+							<md-ico i=event_busy></md-ico><span ng-bind-html="highlight(row.visita_confirmacion)"></span>
+						</div>
+						<div class="text-uppercase" ng-if="row.entidad_contribuyente!='natural' && row.entidad_contribuyente!='CEDULA'">
+							<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.persona_doc_identidad)"></span><br>
+							<md-ico i=person_outline></md-ico><span ng-bind-html="highlight(row.coordinador)"></span><br>
+						</div>
+						<div>
+							<md-ico i=mail></md-ico><span ng-bind-html="highlight(row.persona_correo)"></span><br>
+							<md-ico i=phone></md-ico><span ng-bind-html="highlight(row.persona_telefono)"></span>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=business></md-ico><span ng-bind-html="highlight(row.visita_entidad)"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.visita_fecha)"></span><br>
+						<md-ico i=people></md-ico><span ng-bind-html="highlight(row.visita_aforo)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.visita_estado]"></span><br>
+						<div ng-if="row.visita_estado=='PENDIENTE' || row.visita_estado=='ANULADA'">
+							<small><md-ico i=event_busy></md-ico><span ng-bind-html="highlight(row.visita_confirmacion)"></span></small>
+						</div>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.visita_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+						<menu-visits></menu-visits>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

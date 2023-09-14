@@ -1,0 +1,162 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg" ng-controller="delegationsExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=low_priority></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_DELEGATION</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+		<md-content layout=column layout-padding>
+			
+			<!-- FORMULARIO DE REGISTRO -->
+			<card-staff-information layout-padding></card-staff-information>
+		    	
+			<!-- FORMULARIO DE REGISTRO -->
+			<div class="card card-outline card-primary no-margin margin-top" layout-padding>
+				<div class="card-header with-border text-center">
+				  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+				<div class="card-body padding-all" layout=column layout-padding>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_NUMBRE_DELEGATION</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><i-fa i=hashtag></md-ico></div></div> 
+						    <input type="number" step="1" min="0" class="form-control" ng-model="frmParent.delegacion_serie" required>
+						  </div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_REGISTRE_DATE</label>
+							<div class="input-group" max-date="today" moment-picker="frmParent.delegacion_fecha_registro" format="YYYY-MM-DD">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+						    <input class="form-control" ng-model="frmParent.delegacion_fecha_registro" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required>
+						  </div>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_LEGAL_BASE</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=gavel></md-ico></div></div> 
+						    <input class="form-control" ng-model="frmParent.delegacion_baselegal" required>
+						  </div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_DELEGATION_TYPE</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+						    <select class="form-control" ng-model="frmParent.delegacion_tipo" ng-options="val as val for (key,val) in string2JSON('TTTT_DELEGATION_TYPE')" required></select>
+						  </div>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_RIGE_FROM</label>
+							<div class="input-group" moment-picker="frmParent.delegacion_fecha_inicio" format="YYYY-MM-DD">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_available></md-ico></div></div> 
+								<input class="form-control" ng-model="frmParent.delegacion_fecha_inicio" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required >
+							</div>
+						</div>
+						<div class="form-group required" ng-if="frmParent.delegacion_estado=='DELEGACIÓN FINALIZADA'" flex>
+							<label translate>LB_RIGE_UP</label>
+							<div class="input-group" moment-picker="frmParent.delegacion_fecha_finalizacion" format="YYYY-MM-DD">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_busy></md-ico></div></div> 
+								<input class="form-control" ng-model="frmParent.delegacion_fecha_finalizacion" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required >
+							</div>
+						</div>
+					</div>
+					<div class="form-group required">
+						<label translate>LB_DESCRIPTION</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+							<textarea class="form-control" ng-model="frmParent.delegacion_observaciones" required></textarea> 
+						</div>
+					</div>
+				</div>
+			</div>
+					
+			<!-- SITUACIÓN PROPUESTA -->
+			<div class="card card-outline card-warning no-margin margin-top no-padding">
+				<div class="card-header with-border text-center">
+					<h3 class="card-title no-margin" translate>LB_PROPOSED_SITUATION</h3>
+				</div>
+				<div class="card-body padding-all" layout=column layout-padding>
+					
+					<div layout=column layout-padding ng-if="frmParent.delegacion_tipo=='CAMBIO DE JEFE'">
+						<div class="form-group required" flex ng-controller="responsiblesByLeadershipsListCtrl">
+							<label translate>LB_RESPONSABLE</label>
+							<div class="input-group">
+					      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=perm_contact_calendar></md-ico></div></div> 
+					      <ui-select ng-model="frmParent.fk_jefe_id" reset-search-input="false" required>
+				         	<ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.jf,'Seleccione el responsable')  | translate}}" append-to-body="true">
+										{{$select.selected.responsable+', '+$select.selected.puesto}}
+				         	</ui-select-match>
+									<ui-select-choices class="list-personal" repeat="item.ppersonal_id as item in FKListLeaderships | filter: { responsable: $select.search }">
+										<img src="/app/src/img/users/default.png" style="width:48px;height:48px;padding:3px" class="img-circle" alt="img" />
+										<div flex>
+											<div ng-bind-html="item.responsable | highlight: $select.search"></div>
+											<small ng-bind-html="'Puesto: '+item.puesto"></small><br>
+											<small ng-bind-html="'Dirección: '+item.direccion"></small>
+										</div>
+									</ui-select-choices>
+					      </ui-select>
+					    </div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_FUNCTION_TO_COMPLY</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+								<textarea rows="2" class="form-control" ng-model="frmParent.delegacion_funciones" required></textarea> 
+							</div>
+						</div>
+					</div>
+					
+					<div layout=column layout-padding ng-controller="jobsListCtrl" ng-if="frmParent.delegacion_tipo=='CAMBIO DE PUESTO'">
+						<div class="form-group required" flex>
+							<label translate>LB_LEADERSHIPS</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=account_balance></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.fk_direccion_id" required ng-options="row.direccion_id as row.direccion_nombre for row in jobsList.leaderships"></select>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_JOBS</label>
+							<div class="input-group" flex>
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=wrap_text></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.fk_puesto_id" required ng-options="row.puesto_id as row.puesto_nombre for row in jobsList.jobs[frmParent.fk_direccion_id]"></select>
+							</div>
+						</div>
+					</div>
+					
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_STATIONS</label>
+							<div class="input-group" flex ng-controller="stationsListCtrl">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assistant_photo></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.fk_estacion_id" required ng-options="row.estacion_id as (row.estacion_nombre+' - '+row.estacion_nombre_alterno) for row in list"></select>
+							</div>
+						</div>
+			    	<div class="form-group required" flex ng-controller="workdaysListCtrl">
+							<label translate>LB_WORKDAY</label>
+						  <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=access_time></md-ico></div></div> 
+						    <select class="form-control" ng-model="frmParent.fk_jornada_id" required ng-options="row.jornada_id as row.jornada_nombre for row in jsonList"></select>
+						  </div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+					
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

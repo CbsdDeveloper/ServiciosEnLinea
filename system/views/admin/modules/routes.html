@@ -1,0 +1,44 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+		 <md-button aria-label="btn" class="md-icon-button"><md-ico i=stop_screen_share></md-ico></md-button>
+			 <h2 class="md-flex" translate>TOOLBAR_ROUTES</h2>
+			 <span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()"><md-ico i=add></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="createFile()"><md-ico i=note_add></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column md-numeric><span translate>LB_CODE</span></th>
+					<th md-column><span translate>LB_MODULE</span></th>
+					<th md-column><span translate>LB_ROUTES</span></th>
+					<th md-column><span translate>LB_PERMIT</span></th>
+					<th md-column><span translate>LB_STATUS</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell><span ng-bind-html="highlight(row.ruta_id)"></span></td>
+					<td md-cell>
+						<md-ico i=extension></md-ico><span ng-bind-html="highlight(row.modulo_nombre)"></span><br>
+						<md-ico i=stars></md-ico><span ng-bind-html="highlight(row.submodulo_nombre)"></span>
+					</td>
+					<td md-cell><span ng-bind-html="highlight(row.ruta_url)"></span></td>
+					<td md-cell><span ng-bind-html="highlight(row.ruta_permiso)"></span></td>
+					<td md-cell><span ng-bind-html="statusLabel[row.ruta_estado]"></span></td>
+					<td md-cell class="table-menu text-center">
+					  <menu-mini></menu-mini>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

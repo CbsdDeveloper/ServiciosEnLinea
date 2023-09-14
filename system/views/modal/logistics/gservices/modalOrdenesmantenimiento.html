@@ -1,0 +1,344 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog-50" ng-controller="maintenanceordersExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=add_alert></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_MAINTENANCE</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-tabs md-dynamic-height md-border-bottom>
+			<!-- FORMULARIO DE REGISTRO -->
+			<md-tab label="{{'LB_REGISTRATION_FORM' | translate}}">
+				<md-content layout=column layout-padding>
+				
+						<!-- INFORMACIÓN DE UNIDAD -->
+						<card-unit-information layout-padding></card-unit-information>
+						
+						<!-- FORMULARIO DE REGISTRO -->
+						<div class="card card-outline card-primary no-margin margin-top" layout-padding>
+							<div class="card-header text-center">
+							  <h3 class="card-title" translate>LB_LAST_MAINTENANCE_PERFORMED</h3>
+							</div>
+							<div class="card-body padding-all" layout=column layout-padding>
+					    	<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex>
+										<label translate>LB_DATE</label>
+										<div class="input-group" max-date="maxDate" start-view="day" format="YYYY-MM-DD" moment-picker="frmParent.ultimo_fecha_mantenimiento">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+											<input class="form-control" ng-model="frmParent.ultimo_fecha_mantenimiento" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required>
+										</div>
+									</div>
+									<div class="form-group required" flex>
+						    		<label translate>LB_MILEAGE</label>
+									  <div class="input-group">
+												<div class="input-group-prepend"><div class="input-group-text"><i-fa i=tachometer></md-ico></div></div> 
+												<input type="number" step=1 min=0 parse-float class="form-control" ng-model="frmParent.ultimo_km_mantenimiento" required />
+											</div>
+						    	</div>
+					    	</div>
+							</div>
+						</div>
+						
+						<!-- FORMULARIO DE REGISTRO -->
+						<div class="card card-outline card-primary no-margin margin-top" layout-padding>
+							<div class="card-header text-center">
+							  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+							</div>
+							<div class="card-body padding-all" layout=column layout-padding>
+								<div class="form-group required" flex>
+					    		<label translate>{{frmParent.administrative.puesto_definicion}}</label>
+								  <div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=person></md-ico></div></div> 
+										<input class="form-control" ng-model="frmParent.administrative.personal_nombre" readonly="readonly" />
+									</div>
+					    	</div>
+					    	
+								<div class="form-group required" flex ng-controller="staffListCtrl">
+									<label translate>LB_PERSON_REQUESTING</label>
+									<div class="input-group">
+							      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=perm_contact_calendar></md-ico></div></div> 
+							      <ui-select class="form-control" ng-model="frmParent.personal_solicita" reset-search-input="false" required>
+						         	<ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.personal_nombre,'Solicitante...')  | translate}}">
+												{{$select.selected.personal_nombre}}
+						         	</ui-select-match>
+											<ui-select-choices class="list-personal" repeat="item.ppersonal_id as item in FKList | filter: { personal_nombre: $select.search }">
+												<img src="/app/src/img/users/default.png" style="width:48px;height:48px;padding:3px" class="img-circle" alt="img" />
+												<div flex>
+													<div ng-bind-html="item.personal_nombre | highlight: $select.search"></div>
+													<small ng-bind-html="'Puesto: '+item.puesto_definicion"></small><br>
+													<small ng-bind-html="'Dirección: '+item.direccion_nombre"></small>
+												</div>
+											</ui-select-choices>
+							      </ui-select>
+							    </div>
+								</div>
+								
+								<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex>
+						    		<label translate>LB_RESPONSIBLE_FOR_REGISTRATION</label>
+									  <div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=how_to_reg></md-ico></div></div> 
+											<select class="form-control" ng-model="frmParent.tecnico_servicios" required ng-options="row.ppersonal_id as row.personal_nombre for row in frmParent.professionalList"></select>
+										</div>
+						    	</div>
+									<div class="form-group required" flex>
+						    		<label translate>LB_CHARGE_RESPONSIBLE</label>
+									  <div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=how_to_reg></md-ico></div></div> 
+											<select class="form-control" ng-model="frmParent.tecnico_puesto" required ng-options="val as val for (key,val) in frmParent.tecnico_serviciosList"></select>
+										</div>
+						    	</div>
+								</div>
+								
+					    	<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex>
+						    		<label translate>LB_ORDER_NUMBER</label>
+									  <div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><i-fa i=hashtag></i-fa></div></div> 
+											<input type="number" step=1 min=0 parse-float class="form-control" ng-model="frmParent.orden_serie" required />
+										</div>
+						    	</div>
+<!-- 									<div class="form-group required" flex> -->
+<!-- 						    		<label translate>LB_CONTRACT_TYPE</label> -->
+<!-- 									  <div class="input-group"> -->
+<!-- 											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=how_to_reg></md-ico></div></div>  -->
+<!-- 											<select class="form-control" ng-model="frmParent.tecnico_puesto" required ng-options="key as val for (key,val) in string2JSON('MAINTENANCE_ORDER_RESPONSABLE_CARGO')"></select> -->
+<!-- 										</div> -->
+<!-- 						    	</div> -->
+									<div class="form-group required" flex>
+						    		<label translate>LB_TYPE_OF_MAINTENANCE</label>
+									  <div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=touch_app></md-ico></div></div> 
+											<select class="form-control" ng-model="frmParent.orden_tipomantenimiento" required ng-options="key as key for (key,val) in string2JSON('MAINTENANCE_ORDER_TYPE')" ng-change="updateNextMaintenance()"></select>
+										</div>
+						    	</div>
+					    	</div>
+					    	<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex>
+						    		<label translate>LB_MILEAGE</label>
+									  <div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><i-fa i=tachometer></i-fa></div></div> 
+											<input type="number" step=1 min={{frmParent.ultimo_km_mantenimiento}} parse-float class="form-control" ng-model="frmParent.orden_km_mantenimiento" ng-change="updateNextMaintenance()" required />
+										</div>
+						    	</div>
+									<div class="form-group required" flex>
+						    		<label translate>LB_NEXT_MAINTENANCE</label>
+									  <div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><i-fa i=calendar-plus-o></i-fa></div></div> 
+											<input class="form-control" ng-value="frmParent.orden_proximomantenimiento" readonly="readonly" />
+											<div class="input-group-prepend"><div class="input-group-text">Kms</div></div>
+										</div>
+						    	</div>
+					    	</div>
+					    	
+					    	<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex>
+										<label translate>LB_DEPARTURE_TIME</label>
+										<div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+											<select class="form-control" ng-model="frmParent.orden_fecha_mantenimiento_tipo" required ng-options="key as val for (key,val) in string2JSON('inputDataType')"></select>
+										</div>
+									</div>
+						    	<div class="form-group required" flex ng-if="frmParent.orden_fecha_mantenimiento_tipo=='MANUAL'">
+						    		<label translate>LB_DEPARTURE_TIME</label>
+									  <div class="input-group" max-date="maxDate" start-view="day" moment-picker="frmParent.orden_fecha_mantenimiento">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+											<input class="form-control" ng-model="frmParent.orden_fecha_mantenimiento" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required>
+										</div>
+						    	</div>
+						    </div>
+								<div class="form-group required" flex>
+									<label translate>LB_RESPONSIBLE_GARAGE</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=departure_board></md-ico></div></div> 
+										<input class="form-control" ng-model="frmParent.orden_quien_recepcion" placeholder="Ej. Taller Juanito" required>
+									</div>
+								</div>
+								<div class="form-group">
+									<label translate>LB_OBSERVATION</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div>
+										<textarea rows="4" class="form-control" ng-model="frmParent.orden_observaciones" placeholder="Ej. Detallar información"></textarea>
+									</div>
+								</div>
+								
+					    	<div class="form-group required" flex>
+									<label translate>LB_STATUS</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+										<select class="form-control" ng-model="frmParent.orden_estado" required ng-options="val as val for (key,val) in string2JSON('MAINTENANCE_ORDER_STATUS')"></select>
+									</div>
+								</div>
+						</div>
+					</div>
+				</md-content>
+			</md-tab>
+			
+			<!-- DETALLES DE MANTENIMIENTO -->
+			<md-tab label="{{'LB_MAINTENANCE_DETAIL' | translate}}">
+				<md-content layout=column layout-padding>
+				
+						<!-- TRABAJOS A REALIZAR -->
+						<div class="card card-outline card-primary no-margin" layout-padding>
+							<div class="card-header text-center">
+							  <h3 class="card-title" translate>LB_WORKS_TO_REALIZE</h3>
+							</div>
+							<div class="card-body no-padding">
+					    	<table class="table table-condensed no-margin">
+					    		<thead>
+					    			<tr>
+					    				<th class="text-center" style="width:50px"><span>#</span></th>
+					    				<th><span translate>LB_DETAIL</span></th>
+					    				<th class="text-center" style="width:60px;"><span translate>LB_ACTION</span></th>
+					    			</tr>
+					    		</thead>
+					    		<tbody>
+					    			<tr ng-repeat="(key,item) in frmParent.actionsList">
+						    			<td class="text-center">{{key + 1}}</td>
+						    			<td><input type="text" class="form-control input-sm" ng-model="item.trabajo_descripcion" placeholder="Ej. Revisión de bomba de cebado" required /></td>
+						    			<td><button type="button" class="btn btn-danger btn-sm" ng-click="removeItem(item,'actionsList')"><i-fa i=trash></i-fa></button></td>
+						    		</tr>
+					    		</tbody>
+					    	</table>
+							</div>
+							<div class="card-footer text-right">
+								<button type="button" class="btn btn-primary btn-sm" ng-click="addJobToDo('actionsList')"><i-fa i=plus></i-fa> <span translate>LB_NEW</span></button>
+							</div>
+						</div>
+						
+						<!-- TRABAJOS SUGERIDOS POR EL CONTRATISTA -->
+						<div class="card card-outline card-primary no-margin margin-top" layout-padding>
+							<div class="card-header text-center">
+							  <h3 class="card-title" translate>LB_SUGGESTED_WORK_BY_CONTRACTOR</h3>
+							</div>
+							<div class="card-body no-padding">
+					    	<table class="table table-condensed no-margin">
+					    		<thead>
+					    			<tr>
+					    				<th class="text-center" style="width:50px"><span>#</span></th>
+					    				<th><span translate>LB_DETAIL</span></th>
+					    				<th class="text-center" style="width:60px;"><span translate>LB_ACTION</span></th>
+					    			</tr>
+					    		</thead>
+					    		<tbody>
+					    			<tr ng-repeat="(key,item) in frmParent.suggestedList">
+						    			<td class="text-center">{{key + 1}}</td>
+						    			<td><input type="text" class="form-control input-sm" ng-model="item.trabajo_descripcion" placeholder="Ej. Revisión de bomba de cebado" required /></td>
+						    			<td><button type="button" class="btn btn-danger btn-sm" ng-click="removeItem(item,'suggestedList')"><i-fa i=trash></i-fa></button></td>
+						    		</tr>
+					    		</tbody>
+					    	</table>
+							</div>
+							<div class="card-footer text-right">
+								<button type="button" class="btn btn-primary btn-sm" ng-click="addJobToDo('suggestedList')"><i-fa i=plus></i-fa> <span translate>LB_NEW</span></button>
+							</div>
+						</div>
+				
+				</md-content>
+			</md-tab>
+			
+			<!-- ANEXOS Y PAGO -->
+			<md-tab label="{{'LB_ANNEXES_AND_PAYMENT' | translate}}">
+				<md-content layout=column layout-padding>
+				
+						<!-- ANEXOS -->
+						<div class="card card-outline card-primary no-margin" layout-padding>
+							<div class="card-header text-center">
+							  <h3 class="card-title" translate>LB_ANNEXES</h3>
+							</div>
+							<div class="card-body no-padding">
+					    	<table class="table table-condensed no-margin">
+					    		<thead>
+					    			<tr>
+					    				<th class="text-center" style="width:50px"><span>#</span></th>
+					    				<th><span translate>LB_DETAIL</span></th>
+					    				<th class="text-center" style="width:60px;"><span translate>LB_ACTION</span></th>
+					    			</tr>
+					    		</thead>
+					    		<tbody>
+					    			<tr ng-repeat="(key,item) in frmParent.anexxesList">
+						    			<td class="text-center">{{key + 1}}</td>
+						    			<td><input type="text" class="form-control input-sm" ng-model="item.anexo_descripcion" placeholder="Ej. Revisión de bomba de cebado" required /></td>
+						    			<td><button type="button" class="btn btn-danger btn-sm" ng-click="removeItem(item,'anexxesList')"><i-fa i=trash></i-fa></button></td>
+						    		</tr>
+					    		</tbody>
+					    	</table>
+							</div>
+							<div class="card-footer text-right">
+								<button type="button" class="btn btn-primary btn-sm" ng-click="addJobToDo('anexxesList')"><i-fa i=plus></i-fa> <span translate>LB_NEW</span></button>
+							</div>
+						</div>
+						
+						<!-- FORMULARIO DE RECEPCIÓN -->
+						<div class="card card-outline card-primary no-margin margin-top" layout-padding ng-if="frmParent.orden_estado=='RECIBIDO' || frmParent.orden_estado=='ENTREGADO'">
+							<div class="card-header text-center">
+							  <h3 class="card-title" translate>LB_PAYMENT_REPORT</h3>
+							</div>
+							<div class="card-body padding-all" layout=column layout-padding>
+					    	<div class="form-group required" flex>
+					    		<label translate>LB_REPORT_NUMBER</label>
+								  <div class="input-group">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=exposure_plus_1></md-ico></div></div> 
+										<input class="form-control" ng-model="frmParent.orden_cargo_recepcion" placeholder="Ej. CBSD-17-RUPIF-001-M">
+									</div>
+					    	</div>
+					    	<div class="form-group required" flex>
+					    		<label translate>LB_DELIVERY_DATE</label>
+								  <div class="input-group" max-date="maxDate" start-view="day" format="YYYY-MM-DD" moment-picker="frmParent.orden_fecha_recepcion">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_available></md-ico></div></div> 
+										<input class="form-control" ng-model="frmParent.orden_fecha_recepcion" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06">
+									</div>
+					    	</div>
+					    	<table class="table table-condensed no-margin">
+		               <tr>
+					    				<th class="text-center" style="width:50px"><span>#</span></th>
+		                	<th><span translate>LB_TYPE</span></th>
+		                	<th><span translate>LB_DESCRIPTION</span></th>
+		                	<th><span translate>LB_VALUE</span></th>
+					    				<th class="text-center" style="width:60px;"><span translate>LB_ACTION</span></th>
+		               </tr>
+		               <tr ng-repeat="(key,invoice) in frmParent.invoicesList">
+		                 <td class="text-center">{{$index+1}}</td>
+		                 <td><select class="form-control input-sm" ng-model="invoice.factura_tipo" ng-options="val as val for (key,val) in string2JSON('replacementType')" required></select></td>
+		                 <td><input type="text" class="form-control input-sm" ng-model="invoice.factura_numero" placeholder="Ej. N° 001-456-7889" required /></td>
+		                 <td><input type="number" step="0.01" min="0" parse-float class="form-control input-sm" ng-model="invoice.factura_valor" placeholder="Ej. 10.25" required /></td>
+		                 <td><button type="button" class="btn btn-danger btn-sm" ng-click="removeItem(invoice,'invoicesList')"><i-fa i=trash></i-fa></button></td>
+		               </tr>
+		             </table>
+							</div>
+							<div class="card-footer text-right">
+								<button type="button" class="btn btn-primary btn-sm" ng-click="addJobToDo('invoicesList')"><i-fa i=plus></i-fa> <span translate>LB_NEW</span></button>
+							</div>
+						</div>
+						
+						<!-- FORMULARION DE ENTREGA -->
+						<div class="card card-outline card-primary no-margin margin-top" layout-padding ng-if="frmParent.orden_estado=='ENTREGADO'">
+							<div class="card-header text-center">
+							  <h3 class="card-title" translate>LB_DELIVERY_FORM</h3>
+							</div>
+							<div class="card-body padding-all" layout=column layout-padding>
+								<div class="form-group required" flex>
+						    	<label translate>LB_DELIVERY_DATE</label>
+									<div class="input-group" max-date="today" start-view="day" moment-picker="frmParent.orden_fecha_entrega" format="YYYY-MM-DD">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+										<input class="form-control" ng-model="frmParent.orden_fecha_entrega" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2006-06-06" required>
+									</div>
+					    	</div>
+							</div>
+						</div>
+				
+				</md-content>
+			</md-tab>
+			
+		</md-tabs>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,51 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar  ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=chrome_reader_mode></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_PROCESSES_AND_CONTRACTS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-divider></md-divider>
+	<md-toolbar >
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><i-fa i=barcode s=lg></i-fa></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="{{'LB_SEARCH' | translate}}" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+	  </form>
+	</md-toolbar>
+	<md-table-container>
+			<table md-table class="md-primary table-hover" md-progress="deferred">
+				<thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+					<tr md-row>
+						<th md-column><span translate>LB_REGISTRE_DATE</span></th>
+						<th md-column><span translate>LB_RESPONSIBILITY</span></th>
+						<th md-column><span translate>LB_MENU</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr md-row data-ng-repeat="row in rowsParent.data">
+						<td md-cell class="text-uppercase">
+							<md-ico i=reorder></md-ico> <span ng-bind-html="highlight(row.cierre_serie)"></span><br>
+							<md-ico i=event></md-ico> <span>{{row.cierre_fecha | date:'fullDate'}}</span><br>
+							<md-ico i=info></md-ico> <b>{{row.cierre_total | currency}}</b>
+						</td>
+						<td md-cell class="text-uppercase">
+							<md-ico i=person_outline></md-ico> <span ng-bind-html="highlight(row.recaudador)"></span><br>
+							<md-ico i=info_outline></md-ico> <span ng-bind-html="highlight(row.recaudador_puesto)"></span><br>
+							<md-ico i=person></md-ico> <span ng-bind-html="highlight(row.tesorero)"></span><br>
+							<md-ico i=info></md-ico> <span ng-bind-html="highlight(row.tesorero_puesto)"></span>
+						</td>
+						<td md-cell class="table-menu text-center">
+							<menu-arching></menu-arching>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</md-table-container>
+		<footer-table></footer-table>
+</md-card>

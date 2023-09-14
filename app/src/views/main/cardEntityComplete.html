@@ -1,0 +1,27 @@
+<div class="box box-warning no-margin box-material-18">
+	<div class="box-body box-profile text-center">
+		<div class="container-img-user">
+    	<img class="profile-user-img img-responsive" src="/app/src/img/entities/default.png" ng-src="/app/src/img/entities/{{entity.entidad_imagen}}" alt="profile">
+    </div>
+    <hr>
+    <strong><md-ico i={{string2JSON('mdIconList')[entity.entidad_contribuyente]}}></md-ico> <span translate>LB_TRADENAME</span></strong>
+    <p class="text-muted">{{entity.entidad_razonsocial}}</p>
+		<hr>
+		<strong><md-ico i=flag></md-ico> <span translate>LB_TAXPAYER_TYPE</span></strong>
+		<p class="text-muted">{{string2JSON('contribuyenteType')[entity.entidad_contribuyente]}}</p>
+		<hr>
+		<strong><md-ico i=credit_card></md-ico> <span translate>LB_RUC</span></strong>
+		<p class="text-muted">{{entity.entidad_ruc}}</p>
+		
+		<hr>
+		<strong><md-ico i=event_available></md-ico> <span translate>LB_REGISTRE_DATE</span></strong>
+		<p class="text-muted">{{entity.entidad_usuario_creacion}}</p>
+		<hr>
+		<strong><md-ico i=mail></md-ico> <span translate>LB_MAIL</span></strong>
+		<p class="text-muted">{{entity.entidad_correo}}</p>
+		
+		<hr>
+		<strong><i-fa i=user-secret></i-fa> <span translate>LB_IS_THERE_LOCAL_ADVOCATE</span></strong>
+		<p class="text-muted">{{entity.entidad_apoderado}}</p>
+	</div>
+</div>

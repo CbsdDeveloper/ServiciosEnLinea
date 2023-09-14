@@ -1,0 +1,28 @@
+﻿<div flex class="card card-outline card-danger no-margin text-center card-entity-information">
+  <div class="card-header with-border">
+    <h3 class="card-title">{{frmParent.transporte_codigo}}</h3>
+  </div>
+  <div class="card-body row">
+    <div class="col-md-3">
+    	<p><img src="/app/src/img/entities/default.png" style="width:128px;margin:auto" class="img-responsive"/></p>
+    </div>
+    <div class="col-md-9 text-left">
+    	<p><md-ico i=assignment_turned_in></md-ico> <span class="text-bold" translate>LB_PER</span>: {{frmParent.codigo_per}}</p>
+    	<p><md-ico i=event></md-ico> <span class="text-bold" translate>LB_DATE_ISSUE</span>: {{frmParent.permiso_fecha}}</p>
+    	<p><md-ico i=assignment_turned_in></md-ico> <span class="text-bold" translate>LB_PERMIT_NUMBER</span>: {{frmParent.permiso_numero}}</p>
+    	<p><md-ico i=confirmation_number></md-ico> <span class="text-bold" translate>LB_REQUEST_NUMBER</span>: {{frmParent.numero_solicitud}}</p>
+    	<hr>
+    	<p><md-ico i={{frmParent.entidad_contribuyente=='natural'?'person':'business'}}></md-ico> <b translate>LB_TRADENAME</b>: {{frmParent.entidad_razonsocial}}</p>
+    	<p><md-ico i=credit_card></md-ico> <b translate>LB_RUC</b>: {{frmParent.entidad_ruc}}</p>
+    	<p><md-ico i=account_balance></md-ico> <b translate>LB_TAXPAYER_TYPE</b>: {{string2JSON('contribuyenteType')[frmParent.entidad_contribuyente]}}</p>
+    	<p><md-ico i=person></md-ico> <b translate>LB_AGENT</b>: {{frmParent.representantelegal_nombre}}</p>
+    	<p><md-ico i=credit_card></md-ico> <b translate>LB_IDENTIFICATION_NUMBER</b>: {{frmParent.representantelegal_ruc}}</p>
+    	<hr>
+    	<p><md-ico i=directions_car></md-ico> <b translate>LB_PLATE</b>: {{frmParent.vehiculo_placa}}</p>
+    	<p><md-ico i=local_offer></md-ico> <b translate>LB_BRAND</b>: {{frmParent.vehiculo_marca}}</p>
+    	<p><md-ico i=palette></md-ico> <b translate>LB_COLOR</b>: {{frmParent.vehiculo_color1}}</p>
+			<p><md-ico i=people></md-ico> <b translate>LB_OWNER</b>: {{frmParent.propietario}}</p>
+			<p><md-ico i=credit_card></md-ico> <b translate>LB_IDENTIFICATION_NUMBER</b>: {{frmParent.persona_doc_identidad}}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg" ng-controller="natureKeysExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=domain_disabled></md-ico></md-button>
+			<h2 translate>{{frmParent.naturaleza_clasificacion}}</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content class="my-dialog-content">
+    <md-content layout-padding layout=column>
+    	
+    	<!-- LISTADO DE CODIGOS INSTITUCIONALES -->
+			<div class="card card-outline card-info no-margin margin-top no-padding" ng-repeat="(key,itemList) in jsonList">
+				<div class="card-header with-border text-center">
+					<h3 class="card-title no-margin" translate>{{key}}</h3>
+				</div>
+				<div class="card-body">
+					<div class="col-md-6 col-xs-12 md-2-line contact-item" ng-repeat="item in itemList">
+		        <label class="label">
+					    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.selectedList" checklist-value="item.codigo_id" />
+					    <span class="label__text">
+					      <span class="label__check">
+					        <i class="fa fa-check icon"></i>
+					      </span>
+					    </span>
+					  </label>
+		        <div class="md-list-item-text compact">
+	          	<span class="text-bold" ng-bind-html="highlight(item.codigo_clave+'. '+item.codigo_detalle)"></span>
+		          <p style="font-size:11px;" ng-bind-html="highlight(item.codigo_tipo)"></p>
+		        </div>
+					</div>
+				</div>
+			</div>
+    	
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

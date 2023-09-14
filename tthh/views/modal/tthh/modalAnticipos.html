@@ -1,0 +1,126 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog" ng-controller="advancesExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=money></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_ADVANCE_FORM</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+				
+				<!-- INFORMACION -->
+				<div class="callout callout-warning no-margin">
+	        <p ng-bind-html="trustAsHtml(frmParent.aux.indications)"></p>
+	      </div>
+	      
+				<!-- FORMULARIO DE REGISTRO -->
+				<div class="box box-primary no-margin margin-top" layout-padding>
+					<div class="box-header text-center">
+					  <h3 class="box-title" translate>LB_REGISTRATION_FORM</h3>
+					</div>
+					<div class="box-body padding-all" layout=column layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_GUARANTOR</label>
+								<div class="input-group">
+						      <span class="input-group-addon"><md-ico i=perm_contact_calendar></md-ico></span>
+						      <ui-select ng-model="frmParent.model.fk_garante_id" reset-search-input="false" required>
+					         	<ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.model.garante,'Seleccionar...')  | translate}}">
+											{{$select.selected.personal_nombre}}
+					         	</ui-select-match>
+										<ui-select-choices class="list-personal" repeat="item.ppersonal_id as item in frmParent.guarants | filter: { personal_nombre: $select.search }">
+											<img src="/app/src/img/users/default.png" style="width:48px;height:48px;padding:3px" class="img-circle" alt="img" />
+											<div flex>
+												<div ng-bind-html="item.personal_nombre | highlight: $select.search"></div>
+												<small ng-bind-html="'PUESTO: '+item.puesto_nombre"></small><br>
+												<small ng-bind-html="'CONTRATO: '+item.personal_contrato"></small>
+											</div>
+										</ui-select-choices>
+						      </ui-select>
+						    </div>
+							</div>
+							
+							<div class="form-group required" flex>
+								<label translate>LB_BANK_ACCOUNTS</label>
+								<div class="input-group">
+									<span class="input-group-addon"><md-ico i=account_balance></md-ico></span>
+									<select class="form-control" ng-model="frmParent.model.fk_banco_id" required ng-options="val.banco_id as (val.banco_nombre+' '+val.banco_cuenta_numero) for val in frmParent.banks"></select>
+								</div>
+							</div>
+							
+							<div class="form-group required" flex>
+								<label translate>LB_ADVANCED_VALUE</label>
+								<div class="input-group text-center">
+									<span class="input-group-addon"><b translate>LB_MIN</b> ({{frmParent.aux.minAmount | currency}})</span>
+									<input type="number" min="{{frmParent.aux.minAmount}}" max="{{frmParent.aux.maxAmount}}" parse-float ng-model="frmParent.model.anticipo_monto" ng-change="getFee()" class="form-control text-center" required />
+									<span class="input-group-addon"><b translate>LB_MAX</b> ({{frmParent.aux.maxAmount | currency}})</span>
+								</div>
+							</div>
+							
+							<div layout-xs=column layout=row layout-adding>
+								<div class="form-group required" flex>
+									<label translate>LB_SINCE</label>
+									<div class="input-group">
+										<span class="input-group-addon"><md-ico i=event_available></md-ico></span>
+										<input ng-model="frmParent.model.anticipo_inicio" class="form-control" required readonly="readonly" />
+									</div>
+								</div>
+								<div class="form-group required" flex>
+									<label translate>LB_UNTIL</label>
+									<div class="input-group">
+										<span class="input-group-addon"><md-ico i=event_busy></md-ico></span>
+										<select class="form-control" ng-model="frmParent.model.anticipo_meses" required ng-options="key as val for (key,val) in frmParent.aux.coutes"  ng-change="getFee()"></select>
+									</div>
+								</div>
+							</div>
+							
+							<div layout-xs=column layout=row layout-adding>
+								<div class="form-group required" flex>
+									<label translate>LB_TERM</label>
+									<div class="input-group">
+										<span class="input-group-addon"><md-ico i=format_list_numbered></md-ico></span>
+										<input ng-value="frmParent.model.anticipo_meses+' MESES'" class="form-control" required readonly="readonly" />
+									</div>
+								</div>
+								<div class="form-group required" flex>
+									<label translate>LB_MONTHLY_FEE</label>
+									<div class="input-group">
+										<span class="input-group-addon"><md-ico i=money_off></md-ico></span>
+										<input ng-model="frmParent.model.anticipo_cuotas" class="form-control" required readonly="readonly" />
+									</div>
+								</div>
+							</div>
+							
+							<div layout-xs=column layout=row layout-adding>
+								<div class="form-group required" flex>
+									<label translate>LB_INTEREST_IN_ADVANCE</label>
+									<div class="input-group">
+										<span class="input-group-addon"><md-ico i=money_off></md-ico></span>
+										<input ng-model="frmParent.model.anticipo_interes" class="form-control text-center" required readonly="readonly" />
+										<span class="input-group-addon">%</span>
+									</div>
+								</div>
+								<div class="form-group required" flex>
+									<label translate>LB_INTEREST_FOR_LATE_PAYMENT</label>
+									<div class="input-group">
+										<span class="input-group-addon"><md-ico i=event_busy></md-ico></span>
+										<input ng-model="frmParent.model.anticipo_interesmora" class="form-control text-center" required readonly="readonly" />
+										<span class="input-group-addon">%</span>
+									</div>
+								</div>
+							</div>
+							
+					</div>
+				</div>
+				
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,20 @@
+<md-toolbar ng-class="" ng-show="filter.show">
+  <div class="md-toolbar-tools">
+    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><md-ico i=search></md-ico></md-button>
+    <form flex name="filter.form">
+      <input class="form" type="text" ng-model="filterParent.textFilter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_INPUT' | translate}}">
+    </form>
+		<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.textFilter!=''" ng-click="filterParent.textFilter=''">
+			<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+		</md-button>
+		<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+			<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+		</md-button>
+		<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()" ng-if="toolbarItem.showNew">
+			<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+		</md-button>
+		<md-button aria-label="btn" class="md-icon-button" ng-click="removeFilter()">
+			<md-ico i=remove></md-ico><md-tooltip><span translate>LB_CLOSE</span></md-tooltip>
+		</md-button>
+  </div>
+</md-toolbar>

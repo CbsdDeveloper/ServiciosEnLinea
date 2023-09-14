@@ -1,0 +1,196 @@
+<div class="padding-all" layout-padding>
+
+	<md-card class="no-margin no-padding">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=engineering></md-ico></md-button>
+				<h2 class="md-flex" translate>LB_PARAMETERIZATION_FOR_REMUNERATION_ADVANCES</h2>
+			</div>
+		</md-toolbar>
+		<md-content class="no-padding" layout-xs=column layout=row layout-padding>
+			
+			<!-- INFORMACION DE PARAMETROS -->
+			<form name="formData" class="padding-all" layout=column layout-padding flex>
+				<div class="card card-outline card-danger no-margin">
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_PARAMETRIZATION</h3>
+					</div>
+					<div class="card-body" layout=column layout-padding>
+							
+							<div class="form-group required">
+							  <label translate>LB_ENABLE_ADVANCE</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div>
+					    		<select class="form-control" ng-model="configAdvances.general.enable" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+							  </div>
+							</div>
+							
+							<div class="form-group required">
+							  <label translate>LB_MESSAGE_FOR_WHEN_THE_MODULE_IS_DISABLED</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div>
+					    		<textarea rows="2" class="form-control" ng-model="configAdvances.general.infoUnable" required></textarea>
+							  </div>
+							</div>
+							
+							<div class="form-group required">
+							  <label translate>LB_INDICATIONS</label>
+							  <div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div>
+					    		<textarea rows="3" class="form-control" ng-model="configAdvances.general.indications" required></textarea>
+							  </div>
+							</div>
+							
+							
+							
+							<div layout-xs=column layout=row layout-padding>
+								<div class="form-group required" flex>
+								  <label translate>LB_APPLICATION_START_DATE</label>
+								  <div class="input-group">
+								    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div>
+						    		<input class="form-control" ng-model="configAdvances.general.minDate" required />
+								  </div>
+								</div>
+								
+								<div class="form-group required" flex>
+								  <label translate>LB_APPLICATION_CLOSING_DATE</label>
+								  <div class="input-group">
+								    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div>
+						    		<input class="form-control" ng-model="configAdvances.general.maxDate" required />
+								  </div>
+								</div>
+							</div>
+							
+							<div layout-xs=column layout=row layout-padding>
+								<div class="form-group required" flex>
+								  <label translate>LB_INTEREST_IN_ADVANCE</label>
+								  <div class="input-group">
+								    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div>
+						    		<input parse-float type="number" min="0" max="100" step="1" class="form-control" ng-model="configAdvances.general.interestAdvance" required />
+						    		<div class="input-group-prepend"><div class="input-group-text">%</div></div>
+								  </div>
+								</div>
+								
+								<div class="form-group required" flex>
+								  <label translate>LB_INTEREST_FOR_LATE_PAYMENT</label>
+								  <div class="input-group">
+								    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div>
+						    		<input parse-float type="number" min="0" max="100" step="1" class="form-control" ng-model="configAdvances.general.interestLatePayment" required />
+								    <div class="input-group-prepend"><div class="input-group-text">%</div></div>
+								  </div>
+								</div>
+							</div>
+							
+							
+							
+					</div>
+					<div class="box-footer no-padding" layout-xs=column layout=row layout-padding>
+						<div flex>
+							<button class="btn btn-success btn-block" type="button" ng-click="submitForm()" ng-disabled="formData.$invalid">
+								<span translate>LB_SAVE_CHANGES</span> <i-fa i=angle-double-right></i-fa>
+							</button>
+						</div>
+					</div>
+				</div>
+			</form>
+				
+			<!-- INFORMACION DE TIPOS DE ANTICIPOS -->
+			<div class="padding-all" layout=column layout-padding flex>
+				
+				<!-- TIPOS DE ANTICIPOS -->
+				<div class="no-padding" ng-controller="typeadvancesCtrl" ng-if="allow.permiso8106">
+					<div class="card card-outline card-info" ng-controller="dataTableNodeCtrl">
+						<div class="card-header">
+						  <h5 class="card-title" translate>MENU_TYPES_ADVANCES</h5>
+						  <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-tool" ng-click="getParent()"><i class="fa fa-refresh"></i></button>
+              </div>
+						</div>
+						<div class="card-body no-padding">
+							
+								<md-table-container>
+									<table md-table class="md-primary table-hover" md-progress="deferred">
+							      <col style="">
+							     	<col style="">
+							     	<col style="width:3%">
+										<thead md-head md-order="filterParent.sortData" md-on-reorder="onOrderParent">
+											<tr md-row>
+												<th md-column><span translate>LB_ADVANCES</span></th>
+												<th md-column><span translate>LB_DETAIL</span></th>
+												<th md-column><span translate>LB_MENU</span></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr md-row data-ng-repeat="row in rowsParent.rows">
+												<td md-cell class="text-uppercase">
+													<md-ico i=money></md-ico><span ng-bind-html="highlight(row.tanticipo_nombre)"></span><br>
+													<md-ico i=info></md-ico><span ng-bind-html="highlight(row.tanticipo_detalle)"></span>
+												</td>
+												<td md-cell class="text-uppercase">
+													<md-ico i=flag></md-ico> <span ng-bind-html="statusLabel[row.tanticipo_estado]"></span><br>
+													<md-ico i=event></md-ico> <span ng-bind-html="highlight(row.tanticipo_registro)"></span><br>
+												</td>
+												<td md-cell class="table-menu text-center">
+													<menu-mini></menu-mini>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</md-table-container>
+							
+						</div>
+					</div>
+				</div>
+				
+				<!-- TIPOS DE CONTRATOS -->
+				<div class="no-padding" ng-controller="typecontractsCtrl" ng-if="allow.permiso8107">
+					<div class="card card-outline card-info margin-top no-padding"ng-controller="dataTableNodeCtrl">
+						<div class="card-header text-center">
+						  <h5 class="card-title" translate>MENU_TYPES_CONTRACTS</h5>
+						  <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-tool" ng-click="getParent()"><i class="fa fa-refresh"></i></button>
+              </div>
+						</div>
+						<div class="card-body no-padding">
+							
+							<md-table-container>
+								<table md-table class="md-primary table-hover" md-progress="deferred">
+						      <col style="">
+						     	<col style="">
+						     	<col style="width:3%">
+									<thead md-head md-order="filterParent.sortData" md-on-reorder="onOrderParent">
+										<tr md-row>
+											<th md-column><span translate>LB_CONTRACT_TYPE</span></th>
+											<th md-column><span translate>LB_DETAIL</span></th>
+											<th md-column><span translate>LB_MENU</span></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr md-row data-ng-repeat="row in rowsParent.rows">
+											<td md-cell class="text-uppercase">
+												<md-ico i=photo_filter></md-ico><span ng-bind-html="highlight(row.tcontrato_nombre)"></span><br>
+												<md-ico i=info></md-ico><span ng-bind-html="highlight(row.tcontrato_detalle)"></span>
+											</td>
+											<td md-cell class="text-uppercase">
+												<md-ico i=flag></md-ico> <span ng-bind-html="statusLabel[row.tcontrato_estado]"></span><br>
+												<md-ico i=event></md-ico> <span ng-bind-html="highlight(row.tcontrato_registro)"></span><br>
+											</td>
+											<td md-cell class="table-menu text-center">
+												<menu-mini></menu-mini>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</md-table-container>
+							
+						</div>
+					</div>
+				</div>
+				
+			</div>
+				
+		</md-content>
+	</md-card>
+</div>

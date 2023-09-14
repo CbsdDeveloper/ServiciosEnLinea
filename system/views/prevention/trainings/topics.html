@@ -1,0 +1,37 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=book></md-ico></md-button>
+			<h2 hide-xs><span translate>TOOLBAR_TOPICS</span></h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()" ><md-ico i=add></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+	    <table md-table class="md-primary table-hover" md-progress="deferred">
+	     	<col style="width:100px;">
+	     	<col style="">
+	     	<col style="width:5%;">
+	      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+					<tr md-row>
+						<th md-column><span translate>LB_CODE</span></th>
+						<th md-column><span translate>LB_TOPIC</span></th>
+						<th md-column><span translate>LB_MENU</span></th>
+					</tr>
+				</thead>
+			  <tbody>
+					<tr md-row data-ng-repeat="row in rowsParent.data">
+						<td md-cell>{{$index+1}}</td>
+						<td md-cell>{{row.tema_nombre}}</td>
+						<td md-cell class="table-menu">
+						  <menu-single></menu-single>
+						</td>
+					</tr>
+	      </tbody>
+	    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

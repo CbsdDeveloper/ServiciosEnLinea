@@ -1,0 +1,108 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=directions_bike></md-ico>
+				<md-tooltip><span translate>TOOLBAR_OCCASIONALS</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.filter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_MAIN_TOOLBAR' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.filter!=''" ng-click="filterParent.filter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-divider ng-if="allow.permiso6091"></md-divider>
+	<md-toolbar  ng-if="allow.permiso6091">
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><i-fa i=barcode s=lg></i-fa></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="{{'LB_CODE_REQUEST' | translate}}" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+	  </form>
+	</md-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <col style="">
+      <col style="width:30%">
+     	<col style="width:15%">
+     	<col style="width:3%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_EVENT</span></th>
+					<th md-column><span translate>LB_RESPONSIBLE</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<div ng-if="row.ocasional_solicitud>0">
+							<md-ico i=confirmation_number></md-ico><span ng-bind-html="highlight(row.ocasional_solicitud)"></span>
+						</div>
+						<a ui-sref="prevention.occasionals.detailOccasionals({id:row.ocasional_id})" target="_blank"><md-ico i=security></md-ico></a><span ng-bind-html="highlight(row.ocasional_codigo)"></span> ({{row.ocasional_serie}})<br>
+						<md-ico i=directions_bike></md-ico><span ng-bind-html="highlight(row.ocasional_nombreevento)"></span><br>
+						<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.ocasional_fecha_inicio)"></span><br>
+						<md-ico i=event_busy></md-ico><span ng-bind-html="highlight(row.ocasional_fecha_cierre)"></span><br>
+						<div>
+							<md-ico i=directions></md-ico><span ng-bind-html="highlight(row.ocasional_principal+' y '+row.ocasional_secundaria)"></span>
+							<md-tooltip>{{row.ocasional_parroquia}}</md-tooltip>
+						</div>
+						<md-ico i=place></md-ico><span ng-bind-html="highlight(row.lugar_evento)"></span>
+						<div ng-if="row.entidad_razonsocial!=row.presidente">
+							<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.entidad_ruc)"></span><br>
+							<md-ico i={{string2JSON('mdIconList')[row.entidad_contribuyente]}}></md-ico><span ng-bind-html="highlight(row.entidad_razonsocial)"></span>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.persona_doc_identidad)"></span><br>
+						<md-ico i=person_outline></md-ico><span ng-bind-html="highlight(row.presidente)"></span><br>
+						<md-ico i=email></md-ico><span ng-bind-html="highlight(row.persona_correo)"></span><br>
+						<md-ico i=phone></md-ico><span ng-bind-html="highlight(row.persona_telefono)"></span>
+            <br>
+						<span class="badge" ng-class="{'bg-red':(row.fk_encargadobusqueda==null),'bg-green':(row.fk_encargadobusqueda!=null)}">
+							<span translate>LB_RESCUE_MANAGER_SHORT</span>
+						</span>
+						<span class="badge" ng-class="{'bg-red':(row.fk_coordinadorgeneral==null),'bg-green':(row.fk_coordinadorgeneral!=null)}">
+							<span translate>LB_MAIN_MANAGER</span>
+						</span>
+						<span class="badge" ng-class="{'bg-red':(row.fk_primerosauxilios==null),'bg-green':(row.fk_primerosauxilios!=null)}">
+							<span translate>LB_FIRST_AID_MANAGER_SHORT</span>
+						</span>
+						<span class="badge bg-info">
+							<span translate>LB_SECUTIRY_MANAGER_SHORT</span>
+						</span>
+						<span class="badge bg-info">
+							<span translate>LB_FIRE_CONTROL_MANAGER_SHORT</span>
+						</span>
+						<span class="badge" ng-class="{'bg-red':(row.ocasional_amenazas=='NO'),'bg-green':(row.ocasional_amenazas=='SI')}">
+							<span translate>LB_THREATS</span>
+						</span>
+						<span class="badge" ng-class="{'bg-red':(row.ocasional_rinternos=='NO'),'bg-green':(row.ocasional_rinternos=='SI')}">
+							<span translate>LB_INTERNAL_RESOURCES</span>
+						</span>
+						<span class="badge" ng-class="{'bg-red':(row.ocasional_rexternos=='NO'),'bg-green':(row.ocasional_rexternos=='SI')}">
+							<span translate>LB_EXTERNAL_RESOURCES</span>
+						</span>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.ocasional_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.ocasional_registro)"></span><br>
+            <md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+						<menu-occasionals></menu-occasionals>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

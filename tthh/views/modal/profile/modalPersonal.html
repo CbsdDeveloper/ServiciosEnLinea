@@ -1,0 +1,465 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg" style="width:90%">
+  <form name="formData" ng-submit="submitFormFile()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+    	<md-button class="md-icon-button"><md-ico i=account_circle></md-ico></md-button>
+			<h2 translate>TOOLBAR_ACCOUNT</h2>
+      <span flex></span>
+			<md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content class="no-padding" layout-xs=column layout=row layout-padding>
+    
+    	<div layout=column flex>
+				
+				<!-- INFORMACION PERSONAL -->
+				<div class="box box-primary no-padding no-margin">
+					<div class="box-header text-center">
+					  <h3 class="box-title" translate>LB_PERSONAL_INFORMATION</h3>
+					</div>
+					<div class="box-body" layout=column layout-padding>
+            <div id="myContainer"></div>
+						 
+			      <div class="form-group">
+			        <label translate>LB_UPLOAD_PHOTO_PROFILE</label>
+			        <div class="input-group">
+			          <span class="input-group-addon"><i-fa i=image></i-fa></span>
+              	<input type="file" accept="image/*" class="form-control" img-cropper-fileread image="frmParent.persona_file" />
+			        </div>
+			      </div>
+		        <div class="text-center" ng-if="frmParent.persona_file!='' && frmParent.persona_file!=null">
+             	<canvas width="500" height="300" id="canvas" image-cropper image="frmParent.persona_file" cropped-image="frmParent.persona_imagen" crop-width="400" crop-height="600" keep-aspect="true" touch-radius="30"></canvas>
+<!-- 			        <div ng-show="frmParent.persona_imagen!=null"><img ng-src="{{frmParent.persona_imagen}}" /></div> -->
+		        </div>
+			      
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_SEX</label>
+								<div class="input-group">
+							    <span class="input-group-addon"><i-fa i="{{string2JSON('iFaIconList')[frmParent.persona_sexo]}}"></i-fa></span>
+							    <select class="form-control" ng-model="frmParent.persona_sexo" required ng-options="val as val for (key,val) in string2JSON('sexPersonsList')"></select>
+							  </div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_MARITAL_STATUS</label>
+								<div class="input-group">
+							    <span class="input-group-addon"><md-ico i=favorite_border></md-ico></span>
+							    <select class="form-control" ng-model="frmParent.persona_estadocivil" required ng-options="val as val for (key,val) in string2JSON('maritalStatusList')[frmParent.persona_sexo]"></select>
+							  </div>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_BLOOD_TYPE</label>
+								<div class="input-group">
+							    <span class="input-group-addon"><i-fa i=medkit></i-fa></span>
+							    <select class="form-control" ng-model="frmParent.persona_tiposangre" required ng-options="val as val for (key,val) in string2JSON('bloodTypeList')"></select>
+							  </div>
+							</div>
+              <div class="form-group required" flex>
+                <label translate>LB_ETHNIC_GROUP</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><md-ico i=nature_people></md-ico></span>
+                  <select class="form-control" ng-model="frmParent.persona_etnia" required ng-options="val as val for (key,val) in string2JSON('ETNIAS_ECUADOR')"></select>
+                </div>
+              </div>
+						</div>
+            <div layout-xs=column layout=row layout-padding>
+              <div class="form-group required" flex ng-controller="countriesListCtrl">
+                <label translate>LB_NATIONALITY</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><md-ico i=person_pin_circle></md-ico></span>
+                  <select class="form-control" ng-model="frmParent.persona_nacionalidad" required ng-options="row.country_gentilicio as row.country_gentilicio for row in jsonList"></select>
+                </div>
+              </div>
+              <div class="form-group required" flex>
+                <label translate>LB_BIRTHDATE</label>
+                <div class="input-group" moment-picker="frmParent.persona_fnacimiento" format="YYYY-MM-DD" max-date="today">
+                  <span class="input-group-addon"><md-ico i=event></md-ico></span>
+                  <input class="form-control" ng-model="frmParent.persona_fnacimiento" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2017-07-07" required />
+                </div>
+              </div>
+            </div>
+						<div class="form-group required" flex>
+							<label translate>LB_BIRTHPLACE</label>
+							<div class="input-group">
+						    <span class="input-group-addon"><md-ico i=place></md-ico></span>
+						    <input class="form-control" ng-model="frmParent.persona_lugarnacimiento" placeholder="Ej. Santo Domingo - Ecuador" required />
+						  </div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class=form-group flex>
+								<label translate>LB_TEL</label>
+								<div class="input-group">
+							    <span class="input-group-addon"><md-ico i=phone></md-ico></span>
+							    <input type="tel" ng-model="frmParent.persona_telefono" class="form-control" placeholder="Ej. 023741213">
+							  </div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_MOBILE</label>
+								<div class="input-group">
+							    <span class="input-group-addon"><md-ico i=phone_iphone></md-ico></span>
+							    <input type="tel" ng-model="frmParent.persona_celular" class="form-control" placeholder="Ej. 0985214763" required>
+							  </div>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_PERSONAL_EMAIL</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=mail></md-ico></span>
+								<input type="email" ng-model="frmParent.persona_correo" class="form-control" placeholder="Ej. correo@live.com" required>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- DIRECCION -->
+				<div class="box box-success no-padding no-margin margin-top"ng-controller="parishesListCtrl">
+					<div class="box-header text-center">
+					  <h3 class="box-title" translate>LB_LOCATION</h3>
+					</div>
+					<div class="box-body" layout=column layout-padding ng-controller="townsListCtrl">
+						<div class="form-group required" ng-controller="statesListCtrl">
+				   		<label translate>LB_PROVINCE</label>
+						  <div class="input-group">
+									<span class="input-group-addon"><md-ico i=public></md-ico></span>
+									<select class="form-control" ng-model="frmParent.fk_state_id" ng-change="refreshTowns()" required
+													ng-options="row.state_id as row.state_name for row in statesList"></select>
+								</div>
+				   	</div>
+				   	<div class="form-group required" ng-if="frmParent.fk_state_id>0">
+				   		<label translate>LB_TOWN</label>
+						  <div class="input-group">
+									<span class="input-group-addon"><md-ico i=public></md-ico></span>
+									<select class="form-control" ng-model="frmParent.fk_town_id" ng-change="refreshParishes()" required
+													ng-options="row.town_id as row.town_name for row in townsList"></select>
+								</div>
+				   	</div>
+				   	<div class="form-group required" ng-if="frmParent.fk_town_id>0">
+				   		<label translate>LB_PARRISH</label>
+						  <div class="input-group">
+									<span class="input-group-addon"><md-ico i=public></md-ico></span>
+									<select class="form-control" ng-model="frmParent.fk_parroquia_id" required
+													ng-options="row.parish_id as row.parish_name for row in parishesList"></select>
+								</div>
+				   	</div>
+				   	<!-- 
+						<div class="form-group required">
+							<label translate>LB_ADDRESS</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=place></md-ico></span>
+								<input type="tel" ng-model="frmParent.persona_direccion" class="form-control" placeholder="Ej. Av. Quevedo km 6 y Calle Cuenca" required>
+							</div>
+						</div>
+				   	 -->
+						
+						<div class="form-group required">
+							<label translate>LB_NEIGHBORHOOD</label>/<label translate>LB_CITADEL</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=streetview></md-ico></span>
+								<input type="text" ng-model="frmParent.persona_barrio_ciudadela" class="form-control" placeholder="Ej. Ciudadela Juan Montalvo" required>
+							</div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_SECTOR</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=compass_calibration></md-ico></span>
+								<input type="text" ng-model="frmParent.persona_barrio_sector" class="form-control" placeholder="Ej. Sector la Carolina" required>
+							</div>
+						</div>
+						
+						<div class="form-group required">
+							<label translate>LB_FIRST_LINE</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=navigation></md-ico></span>
+								<input type="text" ng-model="frmParent.persona_principal" class="form-control" placeholder="Ej. AV. Siemrpre vivas 123" required>
+							</div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_SECOND_LINE</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=directions></md-ico></span>
+								<input type="text" ng-model="frmParent.persona_secundaria" class="form-control" placeholder="Ej. Calle Juan Leon Mera" required>
+							</div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_REFERENCE</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=place></md-ico></span>
+								<input type="text" ng-model="frmParent.persona_referencia" class="form-control" placeholder="Ej. Al frente de la casa comunal" required>
+							</div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_HOUSE_NUMBER</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=local_convenience_store></md-ico></span>
+								<input type="text" ng-model="frmParent.persona_no_casa" class="form-control" placeholder="Ej. 15" required>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<!-- CONTACTO DE EMERGENCIA -->
+				<div class="box box-warning no-margin margin-top">
+					<div class="box-header text-center">
+					  <h3 class="box-title" translate>LB_EMERGENCY_CONTACT</h3>
+					</div>
+					<div class="box-body md-padding" layout=column layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_FULLNAME</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=how_to_reg></md-ico></span>
+								<input ng-model="frmParent.persona_cemergencia_nombre" class="form-control" placeholder="Ej. Christian Hallo" required>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_RELATIONSHIP</label>
+								<div class="input-group">
+							    <span class="input-group-addon"><md-ico i=group></md-ico></span>
+							    <input type="tel" ng-model="frmParent.persona_cemergencia_parentesco" class="form-control" placeholder="Ej. Madre, padre, amigo, etc" required />
+							  </div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_TEL</label>
+								<div class="input-group">
+							    <span class="input-group-addon"><md-ico i=contact_phone></md-ico></span>
+							    <input type="tel" ng-model="frmParent.persona_cemergencia_telefono" class="form-control" placeholder="Ej. 023741213 - 0985412367" required />
+							  </div>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_ADDRESS</label>
+							<div class="input-group">
+						    <span class="input-group-addon"><md-ico i=person_pin_circle></md-ico></span>
+						    <input type="tel" ng-model="frmParent.persona_cemergencia_direccion" class="form-control" placeholder="Ej. Av. Chone y Challo"required />
+						  </div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			
+			<div classs="padding-all" layout=column layout-padding flex>
+				
+				<!-- ESTADO DE SALUD -->
+				<div class="box box-primary no-padding no-margin">
+					<div class="box-header text-center">
+					  <h3 class="box-title" translate>LB_HEALTH_CONDITION</h3>
+					</div>
+					<div class="box-body" layout=column layout-padding>
+          
+            <div class="form-group" flex>
+              <label translate>LB_HAVE_ANY_DISABILITY</label>
+              <div class="input-group">
+                <span class="input-group-addon"><md-ico i=notifications_paused></md-ico></span>
+                <select class="form-control" ng-model="frmParent.persona_discapacidad_tiene" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+              </div>
+            </div>
+            
+						<div layout-xs=column layout=row layout-padding ng-if="frmParent.persona_discapacidad_tiene=='SI'">
+				    	<div class="form-group required" flex>
+								<label translate>LB_DISABILITY_TYPE</label>
+							  <div class="input-group">
+							    <span class="input-group-addon"><i-fa i=blind></md-ico></span> 
+							    <select class="form-control" ng-model="frmParent.persona_discapacidad_tipo" required ng-options="val as val for (key,val) in string2JSON('MEDICAL_DISABILITY_TYPE')"></select>
+							  </div>
+							</div>
+		          <div class="form-group required" flex>
+		            <label translate>LB_PERCENTAGE_OF_DISABILITY</label>
+		            <div class="input-group">
+		              <span class="input-group-addon"><i-fa i=balance-scale></md-ico></span>  
+		              <input type="number" step="0.1" min=0 max="100" parse-float ng-model="frmParent.persona_discapacidad_porcentaje" class="form-control" placeholder="Ej . 75" required>
+		              <span class="input-group-addon"><span>%</span></span> 
+		            </div>
+		          </div>
+						</div>
+						
+						<div class="form-group required" flex ng-if="frmParent.persona_discapacidad_tiene=='SI'">
+	            <label translate>LB_DISABILITIES</label>
+	            <div class="input-group">
+	              <span class="input-group-addon"><md-ico i=accessible></md-ico></span>
+	              <textarea rows="2" ng-model="frmParent.persona_discapacidad" class="form-control" placeholder="Ej. Un solo riñón" required></textarea>
+	            </div>
+	          </div>
+	          
+						<div layout-xs=column layout=row layout-padding ng-if="frmParent.persona_discapacidad_tiene=='SI'">
+				    	<div class="form-group required" flex>
+								<label translate>LB_HAS_A_CONADIS_CARD</label>
+							  <div class="input-group">
+							    <span class="input-group-addon"><i-fa i=blind></md-ico></span> 
+							    <select class="form-control" ng-model="frmParent.persona_discapacidad_conadis" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+							  </div>
+							</div>
+		          <div class="form-group required" flex ng-if="frmParent.persona_discapacidad_conadis=='SI'">
+		            <label translate>LB_CARD_NUMBER</label>
+		            <div class="input-group">
+		              <span class="input-group-addon"><i-fa i=balance-scale></md-ico></span>  
+		              <input ng-model="frmParent.persona_discapacidad_conadis_numero" class="form-control" placeholder="Ej . 15-74575" required>
+		            </div>
+		          </div>
+						</div>
+	          
+	          
+            <div class="form-group" flex>
+              <label translate>LB_SUFFERS_FROM_SOME_CHRONIC_ILLNESS</label>
+              <div class="input-group">
+                <span class="input-group-addon"><md-ico i=notifications_paused></md-ico></span>
+                <select class="form-control" ng-model="frmParent.persona_enfermedad_cronica" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+              </div>
+            </div>
+            
+						<div class="form-group" flex ng-if="frmParent.persona_enfermedad_cronica=='SI'">
+	            <label translate>LB_DESCRIBE_THE_TYPE_OF_DISEASE</label>
+	            <div class="input-group">
+	              <span class="input-group-addon"><md-ico i=accessible></md-ico></span>
+	              <textarea rows="3" ng-model="frmParent.persona_enfermedad_cronica_describa" class="form-control" placeholder="Ej. Ninguna"></textarea>
+	            </div>
+	          </div>
+	          
+	          <div class="form-group" flex>
+              <label translate>LB_ALLERGIES</label>
+              <div class="input-group">
+                <span class="input-group-addon"><md-ico i=notifications_paused></md-ico></span>
+                <textarea rows="3" ng-model="frmParent.persona_alergias" class="form-control" placeholder="Ej. Alergia al sudor"></textarea>
+              </div>
+            </div>
+						
+					
+					</div>
+				</div>
+				
+				<!-- INFORMACION ADICIONAL -->
+				<div class="box box-primary no-padding no-margin margin-top">
+					<div class="box-header text-center">
+					  <h3 class="box-title" translate>LB_EXTRA_INFORMATION</h3>
+					</div>
+					<div class="box-body" layout=column layout-padding>
+            <div layout-xs=column layout=row layout-padding>
+              <div class="form-group required" flex>
+                <label translate>LB_STATURE</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i-fa i=arrows-v></i-fa></span>
+                    <input type="number" step="0.01" min=0 parse-float ng-model="frmParent.persona_estatura" class="form-control" placeholder="1.79 m" required>
+                    <span class="input-group-addon"><span>m</span></span>
+                  </div>
+              </div>
+              <div class="form-group required" flex>
+                <label translate>LB_WEIGHT</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i-fa i=balance-scale></i-fa></span> 
+                  <input type="number" step="0.01" min=0 parse-float ng-model="frmParent.persona_peso" class="form-control" placeholder="106" required>
+                  <span class="input-group-addon"><span>kg</span></span> 
+                </div>
+              </div>
+            </div>
+            <div class="form-group" flex>
+              <label translate>LB_ABOUT_ME</label>
+              <div class="input-group">
+                 <span class="input-group-addon"><md-ico i=assignment_ind></md-ico></span>
+                 <textarea rows="4" ng-model="frmParent.persona_acerca" class="form-control" placeholder="Ej. Persona proactiva, colaboradora..."></textarea>
+               </div>
+            </div>
+            <div class="form-group" flex>
+              <label translate>LB_SKILLS</label>
+              <div class="input-group">
+                  <span class="input-group-addon"><md-ico i=playlist_add_check></md-ico></span>
+                  <textarea rows="4" ng-model="frmParent.persona_destrezas" class="form-control" placeholder="Ej. Trabajo en equipo, ágil, responsable..."></textarea>
+                </div>
+            </div>
+            <div class="form-group" flex>
+              <label translate>LB_SPECIAL_SIGNS</label>
+              <div class="input-group">
+                  <span class="input-group-addon"><md-ico i=star_half></md-ico></span>
+                  <textarea rows="4" ng-model="frmParent.persona_senialesparticulares" class="form-control" placeholder="Ej. Tatuaje en el brazo izquierdo..."></textarea>
+                </div>
+            </div>
+					</div>
+				</div>
+			  
+			  <!-- NOTIFICACIONES -->   
+				<div class="box box-success no-margin margin-top">
+					<div class="box-header text-center">
+					  <h3 class="box-title" translate>LB_NOTIFICATIONS</h3>
+					</div>
+					<div class="box-body md-padding" layout=column layout-padding>
+						<md-checkbox 
+						    ng-model="frmParent.personal_notificar_acceso_exitoso"
+						    aria-label="Acceso correcto"
+						    ng-true-value="true"
+						    ng-false-value="false"
+						    class="md-align-top-left no-padding">
+						  	<span translate>LB_NOTIFY_CORRECT_ACCESS</span><br/><span class="ipsum" translate>LB_NOTIFY_CORRECT_ACCESS_DETAIL</span>
+						</md-checkbox>
+						<md-checkbox 
+						    ng-model="frmParent.personal_notificar_acceso_fallido"
+						    aria-label="Acceso falldo"
+						    ng-true-value="true"
+						    ng-false-value="false"
+						    class="md-align-top-left no-padding">
+						  	<span translate>LB_NOTIFY_FAILED_ACCESS</span><br/><span class="ipsum" translate>LB_NOTIFY_FAILED_ACCESS_DETAIL</span>
+						</md-checkbox>
+						<md-checkbox 
+						    ng-model="frmParent.personal_notificar_cambios_perfil"
+						    aria-label="Cambios en su cuenta"
+						    ng-true-value="true"
+						    ng-false-value="false"
+						    class="md-align-top-left no-padding">
+						  	<span translate>LB_NOTIFY_ACCOUNT_CHANGES</span><br/><span class="ipsum" translate>LB_NOTIFY_ACCOUNT_CHANGES_DETAIL</span>
+						</md-checkbox>
+						<md-checkbox 
+						    ng-model="frmParent.personal_notificar_eventos"
+						    aria-label="Cambios en su cuenta"
+						    ng-true-value="true"
+						    ng-false-value="false"
+						    class="md-align-top-left no-padding">
+						  	<span translate>LB_NOTIFY_EVENTS</span><br/><span class="ipsum" translate>LB_NOTIFY_ACCOUNT_PERMISSIONS_DETAIL</span>
+						</md-checkbox>
+						<md-checkbox 
+						    ng-model="frmParent.personal_notificar_permisos"
+						    aria-label="Cambios en su cuenta"
+						    ng-true-value="true"
+						    ng-false-value="false"
+						    class="md-align-top-left no-padding">
+						  	<span translate>LB_NOTIFY_ACCOUNT_PERMISSIONS</span><br/><span class="ipsum" translate>LB_NOTIFY_EVENTS_DETAIL</span>
+						</md-checkbox>
+					</div>
+				</div>
+				
+				<!-- INFORMACION DE USUARIO -->
+				<div class="box box-danger no-padding no-margin margin-top">
+					<div class="box-header text-center">
+					  <h3 class="box-title" translate>LB_USER_INFORMATION</h3>
+					</div>
+					<div class="box-body" layout=column layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_PASSWORD</label>
+				      <div class="input-group">
+				        <span class="input-group-addon"><md-ico i=lock></md-ico></span>
+				        <input type="password" ng-model="frmParent.personal_password" class="form-control" placeholder="Contraseña actual ** requerido" required>
+				      </div>
+			      </div>
+						<div class="form-group" flex>
+							<label translate>LB_INSERT_NEW_PASSWORD_AND_SAVE</label>
+				      <div class="input-group">
+				        <span class="input-group-addon"><md-ico i=lock></md-ico></span>
+				        <input type="password" ng-model="frmParent.personal_new_password" class="form-control" placeholder="NOTA: Ingrese este campo solo si desea cambiar su conyraseña">
+				      </div>
+			      </div>
+			     </div>
+					<div class="box-footer">
+						<div ng-bind-html="trustAsHtml(paramsConf.PROFILE_EDIT_INFORMATION)"></div>
+					</div>
+				</div>
+				
+			</div>
+		</md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout=row>
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

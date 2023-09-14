@@ -1,0 +1,74 @@
+[
+	{
+		"cargo":"JEFE DEL CUERPO DE BOMBEROS",
+		"perfil":"GERENCIAL",
+		"nombre":"CANO PLUAS VERÓNICA GISSELA",
+		"telefono":"023959340",
+		"correo":"RVERA@CBSD.GOB.EC",
+		"usuario":"VCANO",
+		"password":"Cbsd2017@"
+	},
+	{
+		"cargo":"DIRECTOR DE PLANIFICACIÓN Y CONTROL ESTRATÉGICO",
+		"perfil":"GERENCIAL",
+		"nombre":"DELGADO HUERTAS RINO GERARDO",
+		"telefono":"023959340",
+		"correo":"RDELGADO@CBSD.GOB.EC",
+		"usuario":"RDELGADO",
+		"password":"Cbsd2017@"
+	},
+	{
+		"cargo":"DIRECTOR JURIDICO",
+		"perfil":"DIRECTOR",
+		"nombre":"LEMA SEGURA CARLOS RAMIRO",
+		"telefono":"023959340",
+		"correo":"CLEMA@CBSD.GOB.EC",
+		"usuario":"CLEMA",
+		"password":"Cbsd2017@"
+	},
+	{
+		"cargo":"DIRECTOR DE LOGISTICA",
+		"perfil":"DIRECTOR",
+		"nombre":"LUCIO CAMACHO JENNY ROSALIA",
+		"telefono":"0989499500",
+		"correo":"JLUCIO@CBSD.GOB.EC",
+		"usuario":"JLUCIO",
+		"password":"Cbsd+2017"
+	},
+	{
+		"cargo":"DIRECTOR DE TALENTO HUMANO",
+		"perfil":"DIRECTOR",
+		"nombre":"LUZURIAGA VEINTIMILLA DIANA LUCIA",
+		"telefono":"0997362806",
+		"correo":"DLUZURIAGA@CBSD.GOB.EC",
+		"usuario":"DLUZURIAGA",
+		"password":"Cbsd2017@"
+	},
+	{
+		"cargo":"SEGUNDO JEFE",
+		"perfil":"DIRECTOR",
+		"nombre":"QUINGA MINANGO EDISON ROBERTO",
+		"telefono":"023959340",
+		"correo":"EQUINGA@CBSD.GOB.EC",
+		"usuario":"EQUINGA",
+		"password":"Cbsd2017@"
+	},
+	{
+		"cargo":"DIRECTOR FINANCIERO",
+		"perfil":"DIRECTOR",
+		"nombre":"RAMÍREZ SÁNCHEZ LADY SORAYA",
+		"telefono":"0996218417",
+		"correo":"LRAMIREZ@CBSD.GOB.EC",
+		"usuario":"LRAMIREZ",
+		"password":"Cbsd2017@"
+	},
+	{
+		"cargo":"COMUNICADORA SOCIAL",
+		"perfil":"DIRECTOR",
+		"nombre":"SABANDO BASTIDAS MARÍA JOSÈ",
+		"telefono":"0990058552",
+		"correo":"MSABANDO@CBSD.GOB.EC",
+		"usuario":"MSABANDO",
+		"password":"Cbsd2017@"
+	}
+]

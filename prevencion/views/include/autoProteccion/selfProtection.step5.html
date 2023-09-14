@@ -1,0 +1,115 @@
+<div layout-xs=column layout=row layout-padding>
+	<div flex>
+	
+		<ul class="timeline margin-top">
+			<li class="time-label text-uppercase">
+        <span class="bg-red padding-all" translate>LB_SELFPROTECTION_STEP5</span>
+      </li>
+      
+			<!-- INSTRUCCIONES -->
+			<li>
+				<i class="fa fa-info bg-orange"></i>
+		    <div class="timeline-item">
+						<div class="box box-danger no-margin">
+							<div class="box-header with-border text-center">
+								<h3 class="box-title text-danger text-bold" translate>LB_INSTRUCTIONS</h3>
+								<div class="box-tools pull-right">
+						       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+						     </div>
+							</div>
+							<div class="box-body">
+								<div ng-bind-html="$parent.trustAsHtml(paramsConf.SELFPROTECTION_STEP5)"></div>
+							</div>
+						</div>
+		  	</div>
+		  </li>
+      
+      <!-- RESUMEN DE RECURSOS -->
+			<li ng-repeat="(type,resources) in frmParent.resources">
+				<i class="fa fa-edit bg-{{string2JSON('colorName')[$index+1]}}"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header"><a href="#">{{$index+1}}. {{type}}</a></h3>
+		      <div class="timeline-body" layout-padding>
+		    		<table class="table table-bordered table-striped">
+							<tr style="font-size:11px;text-align:center;">
+							  <th style="text-align:center;vertical-align:middle;">ART. / DETALLE</th>
+							  <!-- <th style="width:10%;text-align:center;vertical-align:middle;">UNIDAD</th> -->
+							  <th style="width:10%;vertical-align:middle;">CANT.</th>
+							  <th style="width:10%;vertical-align:middle;">ESTADO</th>
+							  <th style="width:12%;vertical-align:middle;">CRONOGRAMA DE SUPERVICIÓN</th>
+							  <th style="width:12%;vertical-align:middle;">CRONOGRAMA DE MANTENIMIENTO</th>
+							  <th style="width:10%;vertical-align:middle;">FECHA DE PROXIMO MANTENIMIENTO</th>
+							</tr>
+							<tr ng-repeat="(key,item) in resources">
+							  <td style="vertical-align:middle;">
+							  	{{item.recurso_articulo}}<br>
+							  	<b>{{item.recurso_id}}.</b> {{item.recurso_nombre}}
+							  </td>
+							  <!--  -->
+							  <td style="vertical-align:middle;">
+							  	<input class="form-control input-sm" ng-model="frmParent.model[item.recurso_id].prevencion_cantidad" required/>
+							  </td>
+							  <td style="vertical-align:middle;">
+							  	<select class="form-control input-sm" ng-if="!(frmParent.model[item.recurso_id].prevencion_cantidad=='0' || frmParent.model[item.recurso_id].prevencion_cantidad=='NA')" 
+							  					ng-model="frmParent.model[item.recurso_id].prevencion_estado" required 
+							  					ng-options="val as val for (key,val) in string2JSON('statusListLabel')"></select>
+							  </td>
+							  <td style="vertical-align:middle;">
+							  	<select class="form-control input-sm" ng-if="!(frmParent.model[item.recurso_id].prevencion_cantidad=='0' || frmParent.model[item.recurso_id].prevencion_cantidad=='NA')" 
+							  					ng-model="frmParent.model[item.recurso_id].prevencion_revision" required 
+							  					ng-options="val as val for (key,val) in string2JSON('LIST_MAINTENANCE_RESOURCES_REVISION')"></select>
+							  </td>
+							  <td style="vertical-align:middle;">
+							  	<select class="form-control input-sm" ng-if="!(frmParent.model[item.recurso_id].prevencion_cantidad=='0' || frmParent.model[item.recurso_id].prevencion_cantidad=='NA')" 
+							  					ng-model="frmParent.model[item.recurso_id].prevencion_mantenimiento" required 
+							  					ng-options="val as val for (key,val) in string2JSON('LIST_MAINTENANCE_RESOURCES')"></select>
+							  </td>
+							  <td style="vertical-align:middle;">
+							  	<div moment-picker="frmParent.model[item.recurso_id].prevencion_proximo_mantenimiento" format="YYYY-MM-DD">
+								  	<input class="form-control input-sm" ng-model-options="{ updateOn: 'blur' }" 
+								  				ng-if="!(frmParent.model[item.recurso_id].prevencion_cantidad=='0' || frmParent.model[item.recurso_id].prevencion_cantidad=='NA') && frmParent.model[item.recurso_id].prevencion_mantenimiento!='NO APLICA'" 
+								  				ng-model="frmParent.model[item.recurso_id].prevencion_proximo_mantenimiento" />
+								  				
+							  	</div>
+							  </td>
+							</tr>
+						</table>
+		      </div>
+				</div>
+			</li>
+			
+			<!-- OBSERVACIONES -->
+			<li>
+				<i class="fa fa-commenting bg-olive"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header"><a href="#"><span translate>LB_OBSERVATIONS</span></a></h3>
+		      <div class="timeline-body" layout=row layout-padding>
+						<textarea rows="4" ng-model="frmParent.prevencion_proximo_mantenimiento" class="form-control"></textarea>
+		      </div>
+		  	</div>
+		  </li>
+		  
+		  <!-- PANEL DE BOTONES -->
+			<li>
+				<i class="fa fa-paper-plane bg-red"></i>
+		    <div class="timeline-item">
+		      <div class="timeline-body" layout=row layout-padding layout-align="space-between center">
+			      <div flex>
+							<button type="button" ng-click="goUI('permits.editSelfProtection.step4',{planId:frmParent.plan_id})" class="btn btn-warning btn-block">
+								<i-fa i=angle-double-left></i-fa> <span translate>BTN_CANCEL</span>
+							</button>
+							</div>
+						<div flex>
+							<button type="button" ng-click="submitForm()" class="btn btn-success btn-block" ng-disabled="formData.$invalid">
+								<span translate>BTN_NEXT</span> <i-fa i=angle-double-right></i-fa>
+							</button>
+						</div>
+		      </div>
+		  	</div>
+		  </li>
+		  <li><i class="fa fa-clock-o bg-gray"></i></li>
+		</ul>
+		
+	</div>
+	
+</div>

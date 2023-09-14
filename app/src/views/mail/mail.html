@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="myApp">
+	<head>
+		<title></title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style type="text/css">
+			* { font-family: 'EB Garamond', serif; }
+			html, body { width:100%; margin:5px auto; background-color: rgb(3,169,244); }
+			header, footer { text-align:center; }
+			h1{ color:red; text-decoration:none; margin:0px; }
+			a, h1{ color:red; text-decoration:none; }
+			.mensaje { padding:15px; margin:15px; background:rgba(241, 241, 241, 1); }
+			footer{margin:15px;}
+			td{vertical-align:top;}
+		</style>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.0-rc7/angular-material.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.0/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.0/angular-animate.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.0/angular-aria.min.js"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.0-rc7/angular-material.js"></script>
+	</head>
+	<body ng-controller="mail">
+			<md-card>
+			<header><h1 style="padding: 10px;">{{sistema_nombre}}</h1></header>
+				<div class="mensaje">
+					<table style="width:100%">
+						<colgroup>
+							<col style="width:15%"></col>
+							<col style="width:85%"></col>
+						</colgroup>
+						<tr>
+							<td>De:</td><td><b>{{webmail_usuario}}</b> ({{webmail_mail}})</td>
+						</tr>
+						<tr>
+							<td>Fecha:</td><td>{{fecha}}</td>
+						</tr>
+						<tr>
+							<td>Para/CC:</td><td>{{para}}; {{cc}}</td>
+						</tr>
+						<tr>
+							<td>Asunto:</td><td>{{asunto}}</td>
+						</tr>
+						<tr>
+							<td>Mensaje:</td><td>{{mensaje}}</td>
+						</tr>
+						<tr>
+							<td>Equipo:</td>
+							<td><b>IP: </b>{{ip}} <br> 
+								<b>Sistema operativo: </b>{{so}} <br> 
+								<b>Navegador: </b>{{browser}}</td>
+						</tr>
+					</table>
+				</div>
+			</md-card>
+	<script>
+		angular.module('myApp', ['ngAnimate','ngAria','ngMaterial']).controller('mail', function($scope){});
+	</script>
+	</body>
+</html>

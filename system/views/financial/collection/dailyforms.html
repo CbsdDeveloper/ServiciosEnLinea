@@ -1,0 +1,49 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=format_list_numbered></md-ico>
+				<md-tooltip><span translate>TOOLBAR_SPECIES</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.filter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_INPUT' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.filter!=''" ng-click="filterParent.filter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<md-table-container>
+			<table md-table class="md-primary table-hover" md-progress="deferred">
+				<thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+					<tr md-row>
+						<th md-column><span translate>LB_REQUEST_NUMBER</span></th>
+						<th md-column><span translate>LB_PROJECT</span></th>
+						<th md-column><span translate>LB_REGISTRE_DATE</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr md-row data-ng-repeat="row in rowsParent.data">
+						<td md-cell><span ng-bind-html="highlight(row.solicitud_serie)"></span></td>
+						<td md-cell>
+							<md-ico i=info_outline></md-ico><span translate>{{row.entity}}</span><br>
+							<a ng-click="goDetail(row.solicitud_entidad,row.solicitud_entidad_id)">
+								<md-ico i=fingerprint></md-ico><span ng-bind-html="highlight(row.codigo)"></span>
+							</a>
+						</td>
+						<td md-cell>
+							<md-ico i=event></md-ico><span ng-bind-html="highlight(row.solicitud_fecha)"></span><br>
+							<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</md-table-container>
+		<footer-table></footer-table>
+</md-card>

@@ -1,0 +1,60 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=voice_over_off></md-ico>
+				<md-tooltip><span translate>LB_GARANTS</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.filter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_MAIN_TOOLBAR' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.filter!=''" ng-click="filterParent.filter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_GUARANTOR</span></th>
+					<th md-column><span translate>LB_LIST_APPLICATIONS</span></th>
+					<th md-column><span translate>LB_PERSON_REQUESTING</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.g_cedula)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.garante)"></span><br>
+						<md-ico i=wrap_text></md-ico><span ng-bind-html="highlight(row.g_puesto)"></span> / {{row.g_remuneracion | currency}}
+					</td>
+					<td md-cell class="text-uppercase">
+						<md-ico i=security></md-ico><span ng-bind-html="highlight(row.anticipo_codigo)"></span> ({{row.anticipo_serie}})<br>
+						<md-ico i=monetization_on></md-ico> {{row.anticipo_monto | currency}}<br> 
+						<md-ico i=event_available></md-ico>{{row.anticipo_inicio | date:'y-MMMM'}}<br>
+						<md-ico i=event_busy></md-ico>{{row.anticipo_fin | date:'y-MMMM'}}<br>
+						<md-ico i=format_list_numbered></md-ico><span translate="LB_MONTHS_X" translate-values="{x:row.anticipo_meses}"></span> / {{row.anticipo_cuotas | currency}}
+					</td>
+					<td md-cell>
+						<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.s_cedula)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.solicitante)"></span><br>
+						<md-ico i=wrap_text></md-ico><span ng-bind-html="highlight(row.s_puesto)"></span> / {{row.s_remuneracion | currency}}<br>
+					</td>
+					<td md-cell>
+						<md-ico i=timer_off></md-ico><span class="badge bg-blue" style="font-size:7px;">{{row.anticipo_status}}</span><br>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.anticipo_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.anticipo_registro)"></span><br>
+            <md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

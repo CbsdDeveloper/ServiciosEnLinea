@@ -1,0 +1,10 @@
+<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+	<div class="md-toolbar-tools">
+		<md-button class="md-icon-button"><md-ico i={{filterInTab.mdIcon}}></md-ico></md-button>
+		<h2 translate>{{filterInTab.label}}</h2>
+		<span flex></span>
+		<md-button class="md-icon-button" ng-click="openSearch()" ng-if="filterInTab.search"><md-ico i=search></md-ico></md-button>
+		<md-button class="md-icon-button" ng-click="getParent()" ><md-ico i=refresh></md-ico></md-button>
+		<md-button class="md-icon-button" ng-click="openModal()" ng-if="filterInTab.showNew"><md-ico i=add></md-ico></md-button>
+	</div>
+</md-toolbar>

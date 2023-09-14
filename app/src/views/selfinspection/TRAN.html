@@ -1,0 +1,51 @@
+<div layout=column layout-gt-xs=row layout-padding>
+	<div flex>
+		<div class="box box-warning">
+			<div class="box-header text-center">
+				<h3><md-ico i=business></md-ico></h3>
+			  <h3 class="box-title" translate>LB_VEHICLE_CAPACITY_TONS</h3>
+			</div>
+			<div class="box-body" layout=column layout-padding>
+				<div ng-class="['form-group',{'has-error':frmLocal.local_pisos<1}]">
+				  <label translate>LB_TOTAL_CAPACITY_TONS</label>
+				  <div class="input-group">
+				    <div class="input-group-addon"><md-ico i=business></md-ico></div>
+				    <input class="form-control" type="number" step="1" min=1 parse-float ng-model="frmLocal.local_plantas" />
+				  </div>
+				  <i-error ng-if="frmLocal.local_pisos<1" t="Mínimo 1"></i-error>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div flex>
+		<div class="box box-danger">
+			<div class="box-header text-center">
+				<h3><md-ico i=group></md-ico></h3>
+			  <h3 class="box-title" translate>LB_VEHICLE_PASSENGERS</h3>
+			</div>
+			<div class="box-body" layout=column layout-padding>
+				<div ng-class="['form-group',{'has-error':frmLocal.local_ocupantes<1}]">
+				  <label translate>LB_TOTAL_PASSENGERS</label>
+				  <div class="input-group">
+				    <div class="input-group-addon"><md-ico i=group></md-ico></div>
+				    <input class="form-control" type="number" step="1" min=1 parse-float ng-model="frmLocal.local_aforo" />
+				  </div>
+				  <i-error ng-if="frmLocal.local_ocupantes<1" t="Aforo mínimo requerido: 1"></i-error>
+				</div>
+			</div>
+			<div class="box-footer" layout-xs=column layout=row layout-padding>
+				<div flex>
+					<button ui-sref="permits.selfInspection.step1({id:local.local_id})" class="btn btn-warning btn-block">
+				  	<i-fa i=angle-double-left></i-fa> <span translate>BTN_PREV</span>
+					</button>
+				</div>
+				<div flex>
+				  <button ng-click="getForm()" ng-disabled="formData.$invalid" class="btn btn-success btn-block">
+						<span translate>BTN_NEXT</span> <i-fa i=angle-double-right></i-fa>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

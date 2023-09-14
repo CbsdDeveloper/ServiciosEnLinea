@@ -1,0 +1,79 @@
+﻿<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=verified></md-ico>
+				<md-tooltip><span translate>LB_ELECTRONIC_DOCUMENTATION</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.textFilter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_MAIN_TOOLBAR' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.textFilter!=''" ng-click="filterParent.textFilter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()" ng-if="allow.permiso41011">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="">
+     	<col style="width:25%">
+     	<col style="width:25%">
+     	<col style="width:3%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_DOCUMENTS_AND_PERSONS</span></th>
+					<th md-column md-numeric><span translate></span></th>
+					<th md-column><span translate>LB_REGISTRATION_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td class="text-uppercase" md-cell>
+						<div>
+							<md-ico i=flag></md-ico> <span ng-bind-html="highlight(row.delectronica_asunto)"></span>
+							<md-tooltip><span translate>LB_SUBJECT</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=person></md-ico> <span ng-bind-html="highlight(row.subscribe.staff.person.persona_apellidos+' '+row.subscribe.staff.person.persona_nombres)"></span>
+							<md-tooltip><span translate>LB_PERSON_WHO_SIGNS_THE_DOCUMENT</span></md-tooltip>
+						</div>
+					</td>
+					<td class="text-uppercase mailbox-attachment" md-cell>
+						<a href="/app/src/edocumentation/{{row.delectronica_path}}/{{row.delectronica_documento_anexo}}" download>
+							{{row.delectronica_documento_anexo}} <i class="fa fa-paperclip"></i> 
+						</a>
+						<div>
+							{{row.delectronica_fecha | date:'fullDate'}} <md-ico i=event></md-ico>
+							<md-tooltip><span translate>LB_DOCUMENT_DATE</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.delectronica_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.delectronica_entregado)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.user.person.persona_apellidos+' '+row.user.person.persona_nombres)"></span>
+					</td>
+					
+					<td md-cell class="table-menu text-center">
+					  <menu-edoc ng-if="allow.permiso7242"></menu-edoc>
+					</td>
+					
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	
+	<datatable-footer></datatable-footer>
+	
+</md-card>

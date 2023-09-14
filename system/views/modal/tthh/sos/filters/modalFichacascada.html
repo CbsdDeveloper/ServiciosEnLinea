@@ -1,0 +1,101 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog" ng-controller="waterfallExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=wifi_tethering></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_WATERFALL</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+				<!-- INFORMACIÓN DE FORMULARIO -->
+				<div class="card card-outline card-primary no-padding no-margin">
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+					</div>
+					<div class="card-body" layout=column layout-padding>
+						<div class="form-group required" flex ng-controller="filtersWaterfallListCtrl">
+							<label translate>LB_FILTERS</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=delete></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.fk_filtro_id" ng-options="row.filtro_id as row.filtro_fecha_ingreso for row in jsonList"></select>
+							</div>
+						</div>
+			    	<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_STATION</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+									<select class="form-control text-uppercase" ng-model="frmParent.fk_estacion_id" ng-options="row.estacion_id as (row.estacion_nombre+' - '+row.estacion_nombre_alterno) for row in platoonsList.stations"></select>
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_PLATOONS</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=nature></md-ico></div></div> 
+									<select class="form-control text-uppercase" ng-model="frmParent.fk_peloton_id" ng-options="row.peloton_id as row.peloton_nombre for row in platoonsList.platoons[frmParent.fk_estacion_id]"></select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_ROOM_TEMPERATURE</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=waves></md-ico></div></div> 
+								<input parse-float type="number" min="1" step="0.01" ng-model="frmParent.cascada_temperatura" class="form-control" placeholder="Ej. 45" required />
+							</div>
+						</div>
+			    	<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_START_TIME</label>
+							  <div class="input-group" moment-picker="frmParent.cascada_hora_inicio" max-date="today">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=access_time></md-ico></div></div> 
+									<input ng-model="frmParent.cascada_hora_inicio" ng-model-options="{ updateOn: 'blur' }" class="form-control" placeholder="Ej. 2017-07-07" required />
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_ENDING_TIME</label>
+								<div class="input-group" moment-picker="frmParent.cascada_hora_fin" min-date="frmParent.cascada_hora_inicio" max-date="today">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=access_alarms></md-ico></div></div> 
+									<input ng-model="frmParent.cascada_hora_fin" ng-model-options="{ updateOn: 'blur' }" class="form-control" placeholder="Ej. 2017-07-07" required />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- TANQUES LLENADOS -->
+				<div class="card card-outline card-primary no-padding no-margin margin-top">
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_CAPACITY_CYLINDERS</h3>
+					</div>
+					<div class="card-body" layout=column layout-padding>
+			    	<div layout-xs=column layout=row layout-padding ng-repeat="item in frmParent.tanks">
+							<div class="form-group required" flex>
+								<label translate>LB_CAPACITY_CYLINDERS</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=battery_alert></md-ico></div></div> 
+									<input parse-float class="form-control" ng-model="item.cilindro_capacidad" readonly="readonly" />
+								</div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_NUMBER_CYLINDERS</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=format_list_numbered_rtl></md-ico></div></div> 
+									<input parse-float type="number" min="0" step="1" ng-model="item.cilindro_cantidad" class="form-control" placeholder="Ej. 15" required />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,55 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitForm()" class="form-uppercase">
+	  <md-toolbar>
+	    <div class="md-toolbar-tools">
+	      <md-button aria-label="btn" class="md-icon-button"><md-ico i=directions_run></md-ico></md-button>
+				<h2 translate>TOOLBAR_SIMULATIONS</h2>
+	      <span flex></span>
+	      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+	    </div>
+	  </md-toolbar>
+	  <md-dialog-content>
+			<md-content layout=column layout-padding>
+				<card-simulation-information layout-padding></card-simulation-information>
+				
+				<div class="card card-outline card-primary no-margin" style="margin-top:8px!important">
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_EXTRA_INFORMATION</h3>
+					</div>
+					<div class="card-body no-padding" layout=column layout-padding>
+						<div class="form-group required" ng-if="frmParent.simulacro_estado=='REAGENDADA'">
+							<label translate>LB_DATE</label>
+							<div class="input-group" min-date="today"
+									 moment-picker="frmParent.simulacro_fecha">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+						    <input class="form-control" ng-model="frmParent.simulacro_fecha" placeholder="Ej. 2006-06-06" required>
+							</div>
+						</div>
+						<div layout=column layout-padding>
+							<div class="form-group required">
+								<label translate>LB_STATUS</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.simulacro_estado" required
+													ng-options="key as val for (key,val) in string2JSON('simulationStatus')"></select>
+								</div>
+							</div>
+							<div class="form-group required">
+								<label translate>LB_OBSERVATION</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+									<textarea rows=3 ng-model="frmParent.simulacro_observacion" class="form-control" placeholder="Ej. El simulacro fue despachado exitosamente" required></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+	    </md-content>
+	  </md-dialog-content>
+		<md-dialog-actions layout="row">
+			<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+			<span flex></span>
+			<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+		</md-dialog-actions>
+  </form>
+</md-dialog>

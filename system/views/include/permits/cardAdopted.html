@@ -1,0 +1,22 @@
+<div class="card card-outline card-info no-margin card-profile text-center">
+	<div class="card-header">
+	  <h3 class="card-title" translate>LB_LEGAL_REPRESENTATIVE</h3>
+	</div>
+	<div class="card-body md-padding">
+		<div class="container-img-user">
+			<img class="profile-user-img img-responsive" src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{dataEntity.adopted.persona_imagen}}" alt="profile">
+		</div>
+		<hr>
+    <strong><i-fa i=user></i-fa> <span translate>LB_FULLNAME</span></strong>
+ 		<p class="text-muted">{{dataEntity.adopted.persona_apellidos}} {{dataEntity.adopted.persona_nombres}}</p>
+		<hr>
+    <strong><i-fa i=id-card-o></i-fa> <span translate>LB_IDENTIFICATION_DOCUMENT</span></strong>
+    <p class="text-muted">{{string2JSON('identificationType')[dataEntity.adopted.persona_tipo_doc]}}<br>{{dataEntity.adopted.persona_doc_identidad}}</p>
+		<hr>
+		<strong><i-fa i=envelope></i-fa> <span translate>LB_MAIL</span></strong>
+		<p class="text-muted">{{dataEntity.adopted.persona_correo}}</p>
+		<hr>
+    <strong><i-fa i=mobile></i-fa> <span translate>LB_TEL</span></strong>
+    <p class="text-muted">{{dataEntity.adopted.persona_telefono}} - {{dataEntity.adopted.persona_celular}}</p>
+	</div>
+</div>

@@ -1,0 +1,86 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=group></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_CATERED</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding layout-wrap>
+    	
+    	<div class="form-group required" flex>
+				<label translate>LB_NAME</label>
+				<div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=person></md-ico></div></div> 
+					<input ng-model="frmParent.persona_apellidos" class="form-control" placeholder="Apellidos" required>
+			    <input ng-model="frmParent.persona_nombres" class="form-control" placeholder="Nombres" required>
+				</div>
+			</div>
+			
+			<div layout-xs=column layout=row layout-padding layout-wrap>
+				<div class=form-group flex>
+					<label translate>LB_SEX</label>
+					<div class="input-group">
+				    <div class="input-group-prepend"><div class="input-group-text"><i-fa i="{{frmParent.persona_sexo=='Hombre'?'male':'female'}}"></md-ico></div></div> 
+				    <select class="form-control select2" title="Género" ng-model="frmParent.persona_sexo">
+				      <option value="Hombre" translate>LB_MALE</option>
+				      <option value="Mujer" translate>LB_FEMALE</option>
+				    </select>
+				  </div>
+				</div>
+				<div class="form-group required" flex>
+	    		<label translate>LB_DATE</label>
+				  <div class="input-group" flex>
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+						<input type="date" class="form-control" ng-model="frmParent.persona_fnacimiento" required /> 
+					</div>
+	    	</div>
+			</div>
+			
+			<div class="form-group required" flex>
+    		<label translate>LB_SYMPTOMS</label>
+			  <div class="input-group" flex>
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+					<textarea rows="4" class="form-control" ng-model="frmParent.atendido_sintomas" /> 
+				</div>
+    	</div>
+    	
+			<div layout-xs=column layout=row layout-padding layout-wrap>
+				<div class=form-group flex>
+					<label translate>LB_TYPE</label>
+					<div class="input-group">
+				    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+				    <select class="form-control" ng-model="frmParent.atendido_tipo"
+										ng-options="val as val for (key,val) in caretedTypeList"></select>
+				  </div>
+				</div>
+				<div class=form-group flex>
+					<label translate>LB_TRANSFER_BY_UNIT</label>
+					<div class="input-group">
+				    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+				    <select class="form-control" ng-model="frmParent.atendido_traslado_unidad"
+										ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+				  </div>
+				</div>
+			</div>
+			
+			<div class="form-group" ng-if="frmParent.atendido_traslado_unidad=='SI'" flex>
+    		<label translate>LB_SYMPTOMS</label>
+			  <div class="input-group" flex>
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+					<textarea rows="5" class="form-control" ng-model="frmParent.atendido_sintomas" /> 
+				</div>
+    	</div>
+    	
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

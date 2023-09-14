@@ -1,0 +1,136 @@
+﻿<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+	
+		<!-- INFORMACION DE REGISTRO -->
+		<card-plan class="card-information" ng-if="detailConfig.show" flex></card-plan>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=security></md-ico></md-button>
+						<h2>{{dataEntity.plan_codigo}} - {{dataEntity.local.local_nombrecomercial}}</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<md-tabs md-dynamic-height md-border-bottom>
+					
+					<!-- INFORMACION -->
+					<md-tab label="{{'LB_INFORMATION' | translate}}">
+						<md-content layout-xs=column layout=row layout-padding>
+							<card-entity flex></card-entity>
+							<card-local flex></card-local>
+						</md-content>
+					</md-tab>
+					
+					<!-- INSPECTORES ASIGNADOS -->
+					<md-tab label="{{'LB_TECHNICAL_INSPECTORS' | translate}}">
+						<div style="background:#ecf0f5;padding-top:0px" layout-padding ng-repeat="(keyEntity,information) in dataEntity.locals">
+							<div class="md-padding gallery-columns" layout-padding layout-wrap>
+								<div class="figure-gallery" style="background:#ecf0f5;" ng-repeat="row in dataEntity.inspectors">
+									<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+										<div class="card-header with-border text-center">
+											<img src="/app/src/img/users/default.png" ng-src="/app/src/img/users/{{row.persona_imagen}}"
+						 						 style="width:128px;height:128px;padding:5px;margin:auto" class="img-circle" alt="img" />
+										</div>
+										<div class="card-body card-entity-information">
+											<h3 class="profile-username">{{row.personal_nombre}}</h3>
+											<p class="text-muted text-center"><md-ico i=event s=18></md-ico> {{row.personal_fecha_ingreso | date:'fullDate'}}</p>
+									    <hr>
+											<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+									    <p class="text-muted">{{row.persona_doc_identidad}}</p>
+									    <hr>
+											<strong><md-ico i=account_balance s=18></md-ico> <span translate>LB_LEADERSHIP</span></strong>
+									    <p class="text-muted">{{row.direccion_nombre}}</p>
+									    <hr>
+											<strong><md-ico i=wrap_text s=18></md-ico> <span translate>LB_JOB</span></strong>
+									    <p class="text-muted">{{row.puesto_nombre}}</p>
+									    <hr>
+											<strong><md-ico i=mail s=18></md-ico> <span translate>LB_CONTACT</span></strong>
+									    <p class="text-muted">{{row.persona_telefono}} - {{row.persona_correo}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</md-tab>
+					
+					<!-- ANEXOS -->
+					<md-tab label="{{'LB_ANNEXES' | translate}}">
+						<div style="background:#ecf0f5;padding-top:0px" layout-padding ng-repeat="(keyEntity,information) in dataEntity.locals">
+							<div class="md-padding gallery-columns" layout-padding layout-wrap>
+								<div class="figure-gallery" style="background:#ecf0f5;" ng-repeat="row in dataEntity.inspectors">
+									<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+										<div class="card-header with-border text-center">
+											<img src="/app/src/img/users/default.png" ng-src="/app/src/img/users/{{row.persona_imagen}}"
+						 						 style="width:128px;height:128px;padding:5px;margin:auto" class="img-circle" alt="img" />
+										</div>
+										<div class="card-body card-entity-information">
+											<h3 class="profile-username">{{row.personal_nombre}}</h3>
+											<p class="text-muted text-center"><md-ico i=event s=18></md-ico> {{row.personal_fecha_ingreso | date:'fullDate'}}</p>
+									    <hr>
+											<strong><md-ico i=credit_card s=18></md-ico> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+									    <p class="text-muted">{{row.persona_doc_identidad}}</p>
+									    <hr>
+											<strong><md-ico i=account_balance s=18></md-ico> <span translate>LB_LEADERSHIP</span></strong>
+									    <p class="text-muted">{{row.direccion_nombre}}</p>
+									    <hr>
+											<strong><md-ico i=wrap_text s=18></md-ico> <span translate>LB_JOB</span></strong>
+									    <p class="text-muted">{{row.puesto_nombre}}</p>
+									    <hr>
+											<strong><md-ico i=mail s=18></md-ico> <span translate>LB_CONTACT</span></strong>
+									    <p class="text-muted">{{row.persona_telefono}} - {{row.persona_correo}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</md-tab>
+					
+					<!-- DETALLE DE ACTIVIDAD -->
+					<md-tab label="{{'LB_ACTIVITY_LOG' | translate}}">
+						<md-content ng-controller="historyEntityCtrl">
+							<div ng-controller="myTableCtrl">
+								<toolbar-filter-in-tab></toolbar-filter-in-tab>
+								<toolbar-filter></toolbar-filter>
+								<md-table-container>
+							    <table md-table class="md-primary table-hover" md-progress="deferred">
+							      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+											<tr md-row>
+												<th md-column><span translate>LB_REQUEST_NUMBER</span></th>
+												<th md-column><span translate>LB_REGISTRE_DATE</span></th>
+												<th md-column><span translate>LB_STATUS</span></th>
+											</tr>
+							      </thead>
+							      <tbody>
+											<tr md-row data-ng-repeat="row in rowsParent.data">
+												<td md-cell>
+													<md-ico i=security></md-ico> <span ng-bind-html="highlight(row.plan_codigo)"></span><br>
+													<md-ico i=confirmation_number></md-ico> <span ng-bind-html="highlight(row.plan_solicitud)"></span>
+												</td>
+												<td md-cell>
+													<md-ico i=event></md-ico> <span ng-bind-html="highlight(row.plan_registro)"></span><br>
+													<md-ico i=people></md-ico> <span ng-bind-html="highlight(row.usuario)"></span>
+												</td>
+												<td md-cell>
+													<md-ico i=flag></md-ico> <span ng-bind-html="highlight(statusLabel[row.plan_estado])"></span><br>
+													<md-ico i=comment></md-ico> <span ng-bind-html="highlight(row.plan_observacion)"></span>
+												</td>
+											</tr>
+							      </tbody>
+							    </table>
+								</md-table-container>
+								<footer-table></footer-table>
+							</div>
+						</md-content>
+					</md-tab>
+					
+				</md-tabs>
+			</md-card>
+		</div>
+	</div>
+</div>

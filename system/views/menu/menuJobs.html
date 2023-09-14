@@ -1,0 +1,50 @@
+<md-menu md-position-mode="target-right target" >
+  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+  </md-button>
+  <md-menu-content width="5">
+    <md-menu-item ng-if="allow.permiso80132">
+      <md-button aria-label="editar" ng-click="openModal(row)">
+          <div layout="row" flex>
+            <p flex translate>LB_EDIT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=edit s=18></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="row.puesto_estado=='ACTIVO' && allow.permiso80135"></md-divider>
+    <md-menu-item ng-if="row.puesto_estado=='ACTIVO' && allow.permiso80135">
+      <md-button aria-label="editar" ng-click="openParentModal('Subordinados',mergeData(row,{jobId:row.puesto_id}))">
+          <div layout="row" flex>
+            <p flex translate>LB_SUBORDINATES</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=wrap_text></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="row.puesto_estado=='ACTIVO' && (allow.permiso80136 || allow.permiso80137)"></md-divider>
+    <md-menu-item ng-if="row.puesto_estado=='ACTIVO' && allow.permiso80136">
+      <md-button aria-label="editar" ng-click="openParentModal('Puestos_actividades',mergeData(row,{activityId:row.puesto_id,edit:false}))">
+          <div layout="row" flex>
+            <p flex translate>LB_DEFINE_ACTIVITIES_JOBS</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=accessible></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="row.puesto_estado=='ACTIVO' && allow.permiso80137">
+      <md-button aria-label="editar" ng-click="openParentModal('Puestos_competencias',mergeData(row,{competenceId:row.puesto_id,edit:false}))">
+          <div layout="row" flex>
+            <p flex translate>LB_DEFINE_COMPETENCES_JOBS</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=accessibility></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+</md-menu>

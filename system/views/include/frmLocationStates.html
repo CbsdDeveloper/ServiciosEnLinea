@@ -1,0 +1,18 @@
+<div layout=column layout-padding ng-controller="statesListCtrl">
+	<div class="form-group required" ng-controller="countriesListCtrl">
+		<label translate>LB_COUNTRY</label>
+		<div class="input-group">
+			<div class="input-group-prepend"><div class="input-group-text"><md-ico i=public></md-ico></div></div>
+			<select class="form-control text-center" ng-model="frmParent.fk_country_id" ng-change="refreshStates()" required 
+							ng-options="row.country_id as row.country_name for row in jsonList"></select>
+		</div>
+	</div>
+	<div class="form-group required">
+		<label translate>LB_STATES</label>
+		<div class="input-group">
+			<div class="input-group-prepend"><div class="input-group-text"><md-ico i=donut_large></md-ico></div></div>
+			<select class="form-control text-center" ng-model="frmParent.fk_state_id" ng-change="refreshTowns()" required 
+							ng-options="row.state_id as row.state_name for row in statesList"></select>
+		</div>
+	</div>
+</div>

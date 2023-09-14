@@ -1,0 +1,108 @@
+<div layout-xs=column layout=row layout-padding>
+	
+	<div layout=column flex>
+		<ul class="timeline margin-top">
+			<li class="time-label text-uppercase">
+        <span class="bg-red padding-all" translate>LB_SELFPROTECTION_STEP3_1</span>
+      </li>
+			<li ng-repeat="item in frmParent.resources['FACTORES INTERNOS']">
+				<i class="fa fa-{{item.recurso_icon}} bg-{{string2JSON('colorName')[$index]}}"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header"><a href="#">{{item.recurso_id}}.</a> {{item.recurso_nombre}}</h3>
+		      <div class="timeline-body" layout-padding>
+		      	
+					  <label class="no-padding no-margin" ng-if="item.recurso_descripcion!='NA'"><small>{{item.recurso_descripcion}}</small></label>
+		    		<textarea rows="4" class="form-control" ng-if="item.recurso_tipo_formulario=='DESCRIPCION'" ng-model="frmParent.model[item.recurso_id].factor_descripcion" required></textarea>
+		    		
+		    		<div class="no-padding" ng-if="item.recurso_tipo_formulario=='SELECCIONPROPIA'">
+					    <select class="form-control" ng-model="frmParent.model[item.recurso_id].factor_descripcion" ng-options="val as key for (key,val) in string2JSONExternal(item.recurso_lista_valores)" required></select>
+					  	<span class="margin-top" ng-bind-html="$parent.trustAsHtml(frmParent.model[item.recurso_id].factor_descripcion)"></span>
+		    		</div>
+				    
+		      </div>
+				</div>
+			</li>
+			<li class="time-label text-uppercase">
+        <span class="bg-blue padding-all" translate>LB_SELFPROTECTION_STEP3_11</span>
+      </li>
+			<li ng-repeat="item in frmParent.resources['POSIBLE SOLUCION A RIESGOS Y PELIGROS INTERNOS']">
+				<i class="fa fa-{{item.recurso_icon}} bg-{{string2JSON('colorName')[$index]}}"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header"><a href="#">{{item.recurso_id}}.</a> {{item.recurso_nombre}}</h3>
+		      <div class="timeline-body" layout-padding>
+		      	
+		      	<textarea rows="3" class="form-control" ng-if="item.recurso_tipo_formulario=='DESCRIPCION'" ng-model="frmParent.model[item.recurso_id].factor_descripcion" required></textarea>
+		    		<md-radio-group ng-if="item.recurso_tipo_formulario=='EXISTE'" ng-model="frmParent.model[item.recurso_id].factor_aplica" layout=row layout-wrap>
+				      <md-radio-button value="SI" class="md-primary">SI</md-radio-button>
+				      <md-radio-button value="NO" class="md-warn">NO</md-radio-button>
+				    </md-radio-group>
+				    
+		      </div>
+				</div>
+			</li>
+		  <li><i class="fa fa-clock-o bg-gray"></i></li>
+		</ul>
+	</div>
+	
+	<div layout=column flex>
+		<ul class="timeline margin-top">
+			<li class="time-label text-uppercase">
+        <span class="bg-yellow padding-all" translate>LB_SELFPROTECTION_STEP3_2</span>
+      </li>
+			<li ng-repeat="item in frmParent.resources['FACTORES EXTERNOS']">
+				<i class="fa fa-{{item.recurso_icon}} bg-{{string2JSON('colorName')[$index]}}"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header"><a href="#">{{item.recurso_id}}.</a> {{item.recurso_nombre}}</h3>
+		      <div class="timeline-body" layout-padding>
+		    		
+		    		<textarea rows="3" class="form-control" ng-if="item.recurso_tipo_formulario=='DESCRIPCION'" ng-model="frmParent.model[item.recurso_id].factor_descripcion" required></textarea>
+		    		<md-radio-group ng-if="item.recurso_tipo_formulario=='RIESGO'" ng-model="frmParent.model[item.recurso_id].factor_aplica" layout=row layout-wrap>
+				      <md-radio-button value="RIESGO ALTO" class="md-primary">RIESGO ALTO</md-radio-button>
+				      <md-radio-button value="RIESGO MEDIO" class="md-warn">RIESGO MEDIO</md-radio-button>
+				      <md-radio-button value="RIESGO BAJO" class="md-warn">RIESGO BAJO</md-radio-button>
+				      <md-radio-button value="NO EXISTE RIESGO" class="md-warn">NO EXISTE RIESGO</md-radio-button>
+				    </md-radio-group>
+		    		
+		      </div>
+				</div>
+			</li>
+			<li class="time-label text-uppercase">
+        <span class="bg-green padding-all" translate>LB_SELFPROTECTION_STEP3_21</span>
+      </li>
+			<li ng-repeat="item in frmParent.resources['POSIBLE SOLUCION A RIESGOS Y PELIGROS EXTERNOS']">
+				<i class="fa fa-{{item.recurso_icon}} bg-{{string2JSON('colorName')[$index]}}"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header"><a href="#">{{item.recurso_id}}.</a> {{item.recurso_nombre}}</h3>
+		      <div class="timeline-body" layout-padding>
+		      	
+		      	<textarea rows="3" class="form-control" ng-if="item.recurso_tipo_formulario=='DESCRIPCION'" ng-model="frmParent.model[item.recurso_id].factor_descripcion" required></textarea>
+		    		<md-radio-group ng-if="item.recurso_tipo_formulario=='EXISTE'" ng-model="frmParent.model[item.recurso_id].factor_aplica" layout=row layout-wrap>
+				      <md-radio-button value="SI" class="md-primary">SI</md-radio-button>
+				      <md-radio-button value="NO" class="md-warn">NO</md-radio-button>
+				    </md-radio-group>
+				    
+		      </div>
+				</div>
+			</li>
+			<li>
+				<i class="fa fa-paper-plane bg-red"></i>
+		    <div class="timeline-item">
+		      <div class="timeline-body" layout=row layout-padding layout-align="space-between center"> 
+			      <div flex>
+							<button type="button" ng-click="goUI('permits.selfProtection.step2',{localId:frmParent.fk_local_id})" class="btn btn-warning btn-block">
+								<i-fa i=angle-double-left></i-fa> <span translate>BTN_CANCEL</span>
+							</button>
+							</div>
+						<div flex>
+							<button type="button" ng-click="submitForm()" class="btn btn-success btn-block" ng-disabled="formData.$invalid">
+								<span translate>BTN_NEXT</span> <i-fa i=angle-double-right></i-fa>
+							</button>
+						</div>
+		      </div>
+		  	</div>
+		  </li>
+		  <li><i class="fa fa-clock-o bg-gray"></i></li>
+		</ul>
+	</div>
+	
+</div>

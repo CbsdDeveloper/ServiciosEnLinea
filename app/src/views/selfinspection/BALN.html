@@ -1,0 +1,63 @@
+<div layout=column layout-gt-xs=row layout-padding>
+	<div flex>
+		<frm-s-i-floor></frm-s-i-floor>
+	</div>
+	
+	<div flex>
+		<div class="box box-info">
+			<div class="box-header text-center">
+				<h3>m²</h3>
+			  <h3 class="box-title" translate>LB_PLACE_AREA</h3>
+			</div>
+			<div class="box-body" layout=column layout-padding ng-controller="balnExtendsCtrl">
+				<div ng-class="['form-group','required',{'has-error':frmLocal.local_area_planta_baja<1}]">
+					<label translate>LB_ADMINISTRATIVE_AREA</label>
+					<div class="input-group">
+						<div class="input-group-addon"><md-ico i=aspect_ratio></md-ico></div>
+						<input class="form-control" type="number" step="0.01" min=0 required parse-float ng-model="frmLocal.local_area_planta_baja" ng-change="getArea()" />
+		        <div class="input-group-addon">(m²)</div>
+					</div>
+					<i-error ng-if="frmLocal.local_area_planta_baja<1" t="Debe ser mayor 0"></i-error>
+				</div>
+				<div class="form-group required">
+					<label translate>LB_RECREATION_AREA</label>
+					<div class="input-group">
+						<div class="input-group-addon"><md-ico i=open_in_browser></md-ico></div>
+						<input class="form-control" type="number" step="0.01" min=0 required parse-float ng-model="frmLocal.local_area_subsuelos" ng-change="getArea()" />
+		        <div class="input-group-addon">(m²)</div>
+					</div>
+				</div>
+				<div class="form-group required">
+					<label translate>LB_AREA_RECREATION</label>
+					<div class="input-group">
+						<div class="input-group-addon"><md-ico i=open_in_browser></md-ico></div>
+						<input class="form-control" type="number" step="0.01" min=0 required parse-float ng-model="frmLocal.local_area_otros" ng-change="getArea()" />
+		        <div class="input-group-addon">(m²)</div>
+					</div>
+				</div>
+				<div class="form-group required">
+					<label translate>LB_TOTAL_AREA</label>
+					<div class="input-group">
+						<div class="input-group-addon"><md-ico i=dashboard></md-ico></div>
+						<input class="form-control" type="number" step="0.01" min=0 readonly parse-float ng-model="frmLocal.local_area_construccion" />
+		        <div class="input-group-addon">(m²)</div>
+					</div>
+				</div>
+				<div ng-class="['form-group','required',{'has-error':(frmLocal.local_area<1 || frmLocal.local_area_construccion<frmLocal.local_area)}]">
+					<label translate>LB_USEFUL_AREA</label>
+					<div class="input-group">
+						<div class="input-group-addon"><md-ico i=aspect_ratio></md-ico></div>
+						<input class="form-control" type="number" step="0.01" min=1 max="{{frmLocal.local_area_construccion}}" required parse-float ng-model="frmLocal.local_area" />
+		        <div class="input-group-addon">(m²)</div>
+					</div>
+					<i-error ng-if="frmLocal.local_area<1" t="Debe ser mayor 0"></i-error>
+					<i-error t="El área útil no debe ser mayor al área total"></i-error>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+	<div flex>
+		<frm-s-i-aforo></frm-s-i-aforo>
+	</div>
+</div>

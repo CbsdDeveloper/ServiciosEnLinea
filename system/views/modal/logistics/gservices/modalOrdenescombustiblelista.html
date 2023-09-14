@@ -1,0 +1,99 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog">
+  <form name="formData">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=local_gas_station></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_FUEL_ORDER</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-content layout=column layout-padding>
+			
+			<div class="card card-outline card-primary no-padding no-margin">
+				<div class="card-header text-center">
+				  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+				<div class="card-body" layout=column layout-padding>
+					
+						<div class="form-group required" flex ng-controller="staffListCtrl">
+							<label translate>LB_PERSON_REQUESTING</label>
+							<div class="input-group">
+					      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=perm_contact_calendar></md-ico></div></div> 
+					      <ui-select class="form-control" ng-model="frmParent.personal_solicita" reset-search-input="false" required>
+				         	<ui-select-match class="required" placeholder="{{getPlaceholder(frmParent.personal_nombre,'Solicitante...')  | translate}}">
+										{{$select.selected.personal_nombre}}
+				         	</ui-select-match>
+									<ui-select-choices class="list-personal" repeat="item.ppersonal_id as item in FKList | filter: { personal_nombre: $select.search }">
+										<img src="/app/src/img/users/default.png" style="width:48px;height:48px;padding:3px" class="img-circle" alt="img" />
+										<div flex>
+											<div ng-bind-html="item.personal_nombre | highlight: $select.search"></div>
+											<small ng-bind-html="'Puesto: '+item.puesto_definicion"></small><br>
+											<small ng-bind-html="'Dirección: '+item.direccion_nombre"></small>
+										</div>
+									</ui-select-choices>
+					      </ui-select>
+					    </div>
+						</div>
+						
+						<div layout-xs=column layout=row layout-padding>
+				    	<div class="form-group required" flex>
+								<label translate>LB_INSTITUTION_CODE</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=dns></md-ico></div></div> 
+									<input ng-model="frmParent.orden_estacionservicio_codigo" class="form-control" required>
+								</div>
+							</div>
+				    	<div class="form-group required" flex>
+								<label translate>LB_NUMBER_VOUCHERS</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=list_alt></md-ico></div></div> 
+									<input type="number" min="1" step="1" max="100" ng-model="frmParent.cantidad_vouchers" class="form-control" required>
+								</div>
+							</div>
+						</div>
+
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>Caneca</label>
+								<div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_gas_station></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.tipo_caneca">
+										<option value="S">Super</option>
+										<option value="E">Extra</option>
+										<option value="D">Diesel</option>
+									</select>
+								</div>
+							</div>
+							
+						</div>
+						
+						<div layout-xs=column layout=row layout-padding>
+
+							<div class="card-body" layout=column layout-padding ng-controller="unitsListCtrl">
+								<div layout-xs=column layout=row layout-padding>
+									<div class="form-group required" flex>
+										<label translate>LB_UNITS</label>
+										<div class="input-group">
+											<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_shipping></md-ico></div></div> 
+											<select class="form-control" ng-model="frmParent.fk_unidad" ng-options="item.unidad_id as item.unidad_nombre for item in jsonList"></select>
+										</div>
+									</div>
+									
+								</div>
+								
+							</div>
+					
+						</div>
+			</div>
+			
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="button" ng-click="submitForm()" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

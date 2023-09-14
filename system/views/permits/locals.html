@@ -1,0 +1,77 @@
+﻿<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+	
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button">
+				<md-ico i=store_mall_directory></md-ico>
+				<md-tooltip><span translate>TOOLBAR_LOCALS</span></md-tooltip>
+			</md-button>
+			
+			<form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.textFilter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_MAIN_TOOLBAR' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.textFilter!=''" ng-click="filterParent.textFilter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+			
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <col style="">
+      <col style="">
+     	<col style="width:15%">
+     	<col style="width:3%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_TRADENAME</span></th>
+					<th md-column><span translate>LB_COMERTIAL</span></th>
+					<th md-column><span translate>LB_STATUS</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td md-cell>
+						<div>
+							<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.entity.entidad_ruc)"></span><br>
+							<md-tooltip><span translate>LB_RUC</span></md-tooltip>
+						</div>
+						<div>
+							<a ui-sref="src.detailEntities({entityId:row.fk_entidad_id})" target="_blank"><md-ico i={{string2JSON('mdIconList')[row.entity.entidad_contribuyente]}}></md-ico></a><span ng-bind-html="highlight(row.entity.entidad_razonsocial)"></span><br>
+							<md-tooltip><span translate>LB_TRADENAME</span></md-tooltip>
+						</div>
+						<div>
+							<a ui-sref="src.detailLocals({localId:row.local_id})" target="_blank"><md-ico i=store_mall_directory></md-ico></a><b>{{row.local_id}}.</b> <span ng-bind-html="highlight(row.local_nombrecomercial)"></span> <span>/ {{row.local_numeroestablecimiento}}</span>
+							<md-tooltip><span translate>LB_COMERTIAL</span> / <span translate>LB_ESTABLISHMENT_NUMBER_SRI</span></md-tooltip>
+						</div>
+					</td>
+					<td class="text-uppercase" md-cell>
+						<md-ico i={{row.local_establecimiento=='NO'?'domain_disabled':'business'}}></md-ico><span class="badge bg-{{row.local_establecimiento=='SI'?'yellow':'gray'}}" translate="LB_HAVE_ESTABLISHMENT_X" translate-values="{x:row.local_establecimiento}"></span><br>
+						<md-ico i=directions></md-ico><span ng-bind-html="highlight(row.local_principal+', '+row.local_secundaria)"></span><br>
+						<md-ico i=place></md-ico><span ng-bind-html="highlight(row.local_referencia)"></span><br>
+						<md-ico i=phone></md-ico><span ng-bind-html="highlight(row.local_telefono)"></span>
+					</td>
+					<td md-cell>
+						<div ng-if="row.local_fecha_registro!='' && row.local_fecha_registro!=null">
+							<i-fa i=calendar-plus-o></i-fa><span ng-bind-html="highlight(row.local_fecha_registro)"></span><br>
+							<md-tooltip>{{'LB_REGISTRE_DATE' | translate}}</md-tooltip>
+						</div>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.local_estado]"></span><br>
+						<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.local_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.user.usuario)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <menu-locals></menu-locals>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	
+	<datatable-footer></datatable-footer>
+	
+</md-card>

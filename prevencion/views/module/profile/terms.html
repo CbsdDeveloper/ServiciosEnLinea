@@ -1,0 +1,38 @@
+<div layout-padding>
+		
+		<!-- DETALLE DE TABS -->
+			<md-card class="no-margin no-padding">
+			
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=gavel></md-ico></md-button>
+						<h2 translate>LB_TERMS_AND_CONDITIONS</h2>
+					</div>
+				</md-toolbar>
+				
+				<!-- TÉRMISNOS Y CONDICIONES -->
+				<md-content style="padding:150px;">
+						
+						<!-- PRESENTACION DE TERMINOS -->
+						<p style="padding-bottom:150px;" ng-bind-html="trustAsHtml(paramsConf.TERMINOS_Y_CONDICIONES)"></p>
+						
+						<!-- PREGUNTAR SI ACEPTA TERMINOS -->
+						<div class="text-center" ng-if="entity.entidad_terminos=='NO'">
+							<div class="checkbox icheck text-center">
+				        <label>
+				          <input type="checkbox" ng-model="frmParent.entidad_terminos" required> <b translate>LB_DO_YOU_ACCEPTANCE_TERMS</b>
+				        </label>
+				      </div>
+		          <button type="submit" ng-click="submitFormEntity()" class="btn btn-primary btn-sm btn-flat" ng-disabled="formData2.$invalid" translate>LB_ACCEPT_AND_CONTINUE</button>
+						</div>
+						
+						<!-- TERMINOS ACEPTADOS -->
+						<div ng-if="entity.entidad_terminos=='SI'">
+							<h4><b class="text-success" translate>LB_TERMS_AND_CONDITIONS_ACCEPTED</b><br><b translate>LB_REGISTRE_DATE</b>: {{entity.entidad_terminos_fecha}}</h4>
+						</div>
+						
+				</md-content>
+			
+			</md-card>
+		
+</div>

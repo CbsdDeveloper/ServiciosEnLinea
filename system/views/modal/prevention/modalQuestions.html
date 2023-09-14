@@ -1,0 +1,36 @@
+<md-dialog aria-label="Form Data" class="modal-dialog">
+  <form name="formData" ng-submit="submitFormFile()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+    	<md-button aria-label="btn" class="md-icon-button"><md-ico i=assignment></md-ico></md-button>
+			<h2 translate>TOOLBAR_POLL</h2>
+      <span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	<div class="form-group required">
+				<label translate>LB_TYPE</label>
+			  <div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.pregunta_tipo" required
+									ng-options="val as val for (key,val) in questionsPollTypes"></select>
+				</div>
+	    </div>
+	    <div class="form-group required">
+				<label translate>LB_CARACTER</label>
+			  <div class="input-group">
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+					<textarea rows=4 class="form-control" ng-model="frmParent.pregunta_descripcion" placeholder="Cumple con el tiempo establecido" required></textarea>
+				</div>
+	    </div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

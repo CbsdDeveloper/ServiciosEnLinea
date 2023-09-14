@@ -1,0 +1,94 @@
+{
+	"main":{
+		"current_year":2020,
+		"dev_version":"v1.0.0",
+		"dev_sysname":"CUERPO DE BOMBEROS SANTO DOMINGO",
+		"dev_lang":"es",
+		
+		"dev_footer":"Diseñado por <a href='https://lalytto.com' target='blank_'>Lalytto</a>",
+		"dev_copyright":"© 2020 Cuerpo de Bomberos GADM Santo Domingo",
+		"dev_j1":"Ing. Hugo Parra Chávez - Director General",
+		"dev_alcaldia":"Ing. Wilson Erazo Argoti - Alcalde 2019 - 2023",
+		
+		"dev_author":"Lalytto",
+		"dev_page":"Lalytto",
+		"dev_slogan":"Diseñando tus ideas",
+		"dev_website":"https://lalytto.com",
+		"dev_city":"Santo Domingo - Ecuador",
+		"dev_email":"info@lalytto.com",
+		"dev_mastermail":"apinango@lalytto.com",
+		"dev_infomail":"info@lalytto.com",
+		"dev_phone":"023742213",
+		"dev_mobile":"0986865422",
+		"dev_address":"Av. Quevedo km 5",
+		"dev_since":"4 años",
+		"dev_request_time":"3H 15m",
+		
+		"dev_url_main":"http://cbsd.lalytto.com/",
+		"dev_url_sys":"http://servicios.cbsd.gob.ec/",
+		"dev_url_reports":"app/report/",
+		"dev_url_login":"http://servicios.cbsd.gob.ec/system/",
+		"dev_path_img":"http://lalytto.com/images/cbsd/",
+		"dev_img_landscape":"landscape.png",
+		"dev_img_logo":"logo.png",
+		"dev_img_ico":"favicon.png",
+	
+		"dev_hreflang":"http://servicios.cbsd.gob.ec/",
+		"dev_meta_author":"Lalytto"
+	},
+	"services":{
+		"dev_title":"Denuncias en línea | CBSD",
+		"dev_cdn":"http://servicios.cbsd.gob.ec/",
+		"dev_cdn_old":"/cdn/",
+		"dev_path":"/prevencion/",
+		"dev_app":"prevencion",
+		"dev_tel_ext":"ext 115",
+		
+		"dev_meta_keywords":"CBSD,Santo Domingo,Cuerpo de Bomberos,Lalytto,NeoSystems",
+		"dev_meta_description":"Desarrollado por Lalytto - Denuncias en línea. Plataforma Online para el personal del Cuerpo de Bomberos del GADM Santo Domingo."
+	},
+	"prevencion":{
+		"dev_title":"Servicios en línea | Unidad de prevención e Ingeniería del Fuego",
+		"dev_cdn":"http://servicios.cbsd.gob.ec/",
+		"dev_cdn_old":"/cdn/",
+		"dev_path":"/prevencion/",
+		"dev_app":"prevencion",
+		"dev_tel_ext":"ext 115",
+		
+		"dev_meta_keywords":"CBSD,Santo Domingo,Cuerpo de Bomberos,Lalytto,NeoSystems",
+		"dev_meta_description":"Desarrollado por Lalytto - Intranet. Plataforma Online para el personal del Cuerpo de Bomberos del GADM Santo Domingo."
+	},
+	"system":{
+		"dev_title":"Administración | Cuerpo de Bomberos del GAD Municipal de Santo Domingo",
+		"dev_cdn":"http://servicios.cbsd.gob.ec/",
+		"dev_cdn_old":"/cdn/",
+		"dev_path":"/system/",
+		"dev_app":"system",
+		"dev_tel_ext":"ext 115",
+		
+		"dev_meta_keywords":"CBSD,Santo Domingo,Cuerpo de Bomberos,Lalytto,NeoSystems",
+		"dev_meta_description":"Desarrollado por Lalytto - AutoInspección en línea. Plataforma Online para el control de los servbicios ofrecidos por el Cuerpo de Bomberos del GADM Santo Domingo a la ciudadanía."
+	},
+	"tthh":{
+		"dev_title":"Talento Humano | Cuerpo de Bomberos del GAD Municipal de Santo Domingo",
+		"dev_cdn":"http://servicios.cbsd.gob.ec/",
+		"dev_cdn_old":"/cdn/",
+		"dev_path":"/tthh/",
+		"dev_app":"tthh",
+		"dev_tel_ext":"ext 115",
+		
+		"dev_meta_keywords":"CBSD,Santo Domingo,Cuerpo de Bomberos,Lalytto,NeoSystems",
+		"dev_meta_description":"Desarrollado por Lalytto - Intranet. Plataforma Online para el personal del Cuerpo de Bomberos del GADM Santo Domingo."
+	},
+	"subjefatura":{
+		"dev_title":"Subjefatura | Cuerpo de Bomberos del GAD Municipal de Santo Domingo",
+		"dev_cdn":"http://servicios.cbsd.gob.ec/cdn/",
+		"dev_cdn_old":"/cdn/",
+		"dev_path":"/subjefatura/",
+		"dev_app":"subjefatura",
+		"dev_tel_ext":"ext 115",
+		
+		"dev_meta_keywords":"CBSD,Santo Domingo,Cuerpo de Bomberos,Lalytto,NeoSystems",
+		"dev_meta_description":"Desarrollado por Lalytto - Intranet. Plataforma Online para el personal del Cuerpo de Bomberos del GADM Santo Domingo."
+	}
+}

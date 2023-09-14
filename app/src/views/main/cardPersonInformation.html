@@ -1,0 +1,17 @@
+<md-card flex class="box box-danger text-center">
+  <div class="box-header with-border">
+    <h3 class="box-title" translate>LB_PERSONAL_INFORMATION</h3>
+  </div>
+  <div class="box-body row">
+    <div class="col-md-5">
+    	<p><img src="/app/src/img/users/default.png" ng-src="/app/src/img/users/{{frmParent.persona_imagen}}" style="width:128px;margin:auto" class="img-responsive"/></p>
+    </div>
+    <div class="col-md-7 text-left">
+    	<br><span><md-ico i=person s=18></md-ico> {{frmParent.persona_apellidos}} {{frmParent.persona_nombres}}</span>
+    	<br><span><md-ico i=place s=18></md-ico> {{frmParent.persona_direccion}}</span>
+    	<br><span><md-ico i=mail s=18></md-ico> {{frmParent.persona_correo}}</span>
+     <br><span><md-ico i=phone s=18></md-ico> {{frmParent.persona_telefono}}</span>
+     <br><span><md-ico i=event s=18></md-ico> {{frmParent.persona_fingreso}}</span>
+    </div>
+  </div>
+</md-card>

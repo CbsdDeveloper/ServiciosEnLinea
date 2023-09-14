@@ -1,0 +1,149 @@
+<md-dialog aria-label="modal" class="form-content-alt modal-dialog" ng-controller="poaprojectsExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=post_add></md-ico></md-button>
+			<h2 translate>LB_POA_PROJECTS</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" ng-click="closeDialog()"><md-ico i=remove></md-ico><md-tooltip><span translate>LB_CANCEL_AND_CLOSE</span></md-tooltip></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+			
+			<div class="card card-outline card-primary no-margin" layout-padding>
+				<div class="card-header with-border text-center">
+				  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+				<div class="card-body padding-all" layout=column layout-padding>
+					
+						<div class="form-group required" ng-controller="progrmsPoaListExtendsCtrl">
+							<label translate>LB_PROGRAM</label>
+							<div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=class></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.fk_programa_id" ng-options="item.programa_id as item.programa_nombre for item in jsonList" required></select>
+						  </div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_PROJECTS_NAME</label>
+							<div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=post_add></md-ico></div></div> 
+						    <input type="text" ng-model="frmParent.proyecto_nombre" class="form-control" placeholder="Ej. Construcción de la estación tipo en parroquia rural Santa María del Toachi" required>
+						  </div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_STRATEGIC_OBJECTIVES</label>
+							<div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=done_all></md-ico></div></div> 
+						    <textarea ng-model="frmParent.proyecto_objetivos" class="form-control" placeholder="Ej.  Fortalecer y modernizar la Institución" required></textarea>
+						  </div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_GOAL</label>
+							<div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=verified_user></md-ico></div></div> 
+						    <textarea ng-model="frmParent.proyecto_meta" class="form-control" placeholder="Ej. 100% de bien recibido" required></textarea>
+						  </div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_JUSTIFICATION</label>
+							<div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=gavel></md-ico></div></div> 
+						    <textarea ng-model="frmParent.proyecto_justificacion" class="form-control" placeholder="Ej. Cumplimiento con el..." required></textarea>
+						  </div>
+						</div>
+						<div class="form-group required">
+							<label translate>LB_INDICATOR</label>
+							<div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=touch_app></md-ico></div></div> 
+						    <textarea ng-model="frmParent.proyecto_indicador" class="form-control" placeholder="Ej. % de servicio recibido" required></textarea>
+						  </div>
+						</div>
+				
+				</div>
+			</div>
+						
+			<div class="card card-outline card-primary no-margin margin-top" layout-padding>
+				<div class="card-header with-border text-center">
+				  <h3 class="card-title" translate>LB_QUARTERLY_PROGRAMMING</h3>
+				</div>
+				<div class="card-body padding-all" layout=column layout-padding>
+				
+						<div layout-xs=colymn layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_FIRST_TRIMESTER_PERCENTAGE</label>
+								<div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+							    <input type="number" step="1" min="0" max="100" ng-model="frmParent.proyecto_trimestre_i_porcentaje" ng-change="getPercentages()" class="form-control font-digital" placeholder="Ej. 10" required />
+							  </div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_SECOND_TRIMESTER_PERCENTAGE</label>
+								<div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+							    <input type="number" step="1" min="0" max="100" parse-float ng-model="frmParent.proyecto_trimestre_ii_porcentaje" ng-change="getPercentages()" class="form-control font-digital" placeholder="Ej. 10" required />
+							  </div>
+							</div>
+						</div>
+						<div layout-xs=colymn layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_THIRD_TRIMESTER_PERCENTAGE</label>
+								<div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+							    <input type="number" step="1" min="0" max="100" ng-model="frmParent.proyecto_trimestre_iii_porcentaje" ng-change="getPercentages()" class="form-control font-digital" placeholder="Ej. 10" required />
+							  </div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_FOURTH_TRIMESTER_PERCENTAGE</label>
+								<div class="input-group">
+							    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+							    <input type="number" step="1" min="0" max="100" ng-model="frmParent.proyecto_trimestre_iv_porcentaje" ng-change="getPercentages()" class="form-control font-digital" placeholder="Ej. 10" required />
+							  </div>
+							</div>
+						</div>
+						
+						<div class="form-group required" flex>
+							<label translate>LB_QUARTERLY_PROGRAMMING</label>
+							<div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+						    <input type="number" step="1" min="100" max="100" ng-model="frmParent.proyecto_porcentaje" class="form-control font-digital" placeholder="Ej. 10" readonly="readonly" />
+						  </div>
+						</div>
+				
+				</div>
+			</div>
+						
+			<div class="card card-outline card-primary no-margin margin-top" layout-padding>
+				<div class="card-header with-border text-center">
+				  <h3 class="card-title" translate>LB_PROJECT_BUDGET</h3>
+				</div>
+				<div class="card-body padding-all" layout=column layout-padding>
+
+						<div class="form-group required">
+							<label translate>LB_INITIAL_REFERENTIAL_BUDGET</label>
+							<div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=attach_money></md-ico></div></div> 
+						    <input type="number" step="0.01" min="0.01" parse-float ng-model="frmParent.proyecto_presupuesto" class="form-control font-digital" placeholder="Ej. 1236.45" ng-disabled="frmParent.proyecto_estado=='REFORMADO'" required />
+						  </div>
+						</div>
+
+						<div class="form-group required" ng-if="frmParent.proyecto_estado!='INICIAL'">
+							<label translate>LB_REFORMED_BUDGET</label>
+							<div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=monetization_on></md-ico></div></div> 
+						    <input type="number" step="0.01" min="0.01" parse-float ng-model="frmParent.proyecto_presupuesto_total" class="form-control font-digital" placeholder="Ej. 1236.45" required />
+						  </div>
+						</div>
+				
+				</div>
+			</div>
+			
+    </md-content>
+  </md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,60 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=thumb_down></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_SANCTIONS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="width:20%;">
+     	<col style="">
+     	<col style="width:20%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_SANCTIONS</span></th>
+					<th md-column><span translate>LB_DESCRIPTION</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell class="text-uppercase">
+						<a ui-sref="tthh.detailStaffactions({id:row.accion_id})" target="_balnk"><md-ico i=assignment_turned_in></md-ico></a><span ng-bind-html="highlight(row.accion_codigo)"></span><br>
+						<md-ico i=gavel></md-ico><b ng-bind-html="highlight(row.tipoaccion_codigo)"></b> - <b ng-bind-html="highlight(row.tipoaccion_nombre)"></b><br>
+						<md-ico i=event></md-ico>{{row.accion_fecha | date:'fullDate'}}<br>
+						<div>
+							<md-ico i=person></md-ico><span ng-bind-html="highlight(row.responsable_titulo+'. '+row.responsable)"></span>
+							<md-tooltip><span translate>LB_RESPONSIBLE_FOR_REGISTRATION</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<div>
+							<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.persona_doc_identidad)"></span>
+							<md-tooltip><span translate>LB_SSN</span></md-tooltip>
+						</div>
+						<div>
+							<a ui-sref="tthh.staff.detailStaff({id:row.personal_id})" target="_balnk"><md-ico i=person></md-ico></a><span ng-bind-html="highlight(row.persona_titulo+ '. ')" ng-if="row.persona_titulo!=null && row.persona_titulo!='null'"></span><span ng-bind-html="highlight(row.personal_nombre)"></span><br>
+							<md-tooltip><span translate>LB_NAME</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=comment></md-ico><span ng-bind-html="highlight(row.accion_explicacion)"></span>
+							<md-tooltip><span translate>LB_EXPLANATION</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.accion_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	
+	<footer-table></footer-table>
+</md-card>

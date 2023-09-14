@@ -1,0 +1,96 @@
+<md-menu md-position-mode="target-right target">
+  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+  </md-button>
+  <md-menu-content width="5">
+    <md-menu-item ng-if="allow.permiso6187">
+      <md-button aria-label="editar" ng-click="openModal(row)">
+          <div layout="row" flex>
+            <p flex translate>LB_EDIT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=edit></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="(row.definitivo_estado=='REVISADO' || row.definitivo_estado=='APROBADO') && allow.permiso6187"></md-divider>
+    <md-menu-item ng-if="(row.definitivo_estado=='REVISADO' || row.definitivo_estado=='APROBADO') && allow.permiso6187">
+      <md-button aria-label="editar" ng-click="openParentModal('Files',{edit:false,fk_table:'definitivoglp',fk_id:row.definitivo_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_UPLOAD_FILES</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=file_upload></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="row.definitivo_estado=='ASIGNADO' && allow.permiso6183"></md-divider>
+    <md-menu-item ng-if="row.definitivo_estado=='ASIGNADO'">
+      <md-button aria-label="editar" ng-click="openParentModal('Asignacion',mergeData(row,{tb:'definitivoglp'}))">
+          <div layout="row" flex>
+            <p flex translate>LB_ASSIGN_INSPECTOR</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=group_add></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="(row.definitivo_estado=='ASIGNADO' || row.definitivo_estado=='REVISION' || row.definitivo_estado=='CORRECCION' || row.definitivo_estado=='PAGADO' || row.definitivo_estado=='APROBADO') && (allow.permiso6184 || allow.permiso6186)"></md-divider>
+    <md-menu-item ng-if="(row.definitivo_estado=='ASIGNADO' || row.definitivo_estado=='REVISION' || row.definitivo_estado=='CORRECCION') && allow.permiso6184">
+      <md-button aria-label="editar" ng-click="openModal(row)">
+          <div layout="row" flex>
+            <p flex translate>LB_REVIEW</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=done></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="(row.definitivo_estado=='PAGADO' || row.definitivo_estado=='APROBADO') && allow.permiso6186">
+      <md-button aria-label="editar" ng-click="exportById(row.definitivo_id)">
+          <div layout="row" flex>
+            <p flex translate>{{row.definitivo_estado=='APROBADO'?'LB_PRINT_PERMISSION':'LB_APPROVE_PRINT'}}</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=beenhere></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-if="(row.definitivo_estado=='CORRECCION')">
+      <md-button aria-label="editar" ng-click="exportById(row.definitivo_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_PRINT_REPORT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=bug_report></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider></md-divider>
+    <md-menu-item>
+      <md-button aria-label="editar" ng-click="exportWithDetail(row.definitivo_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_PRINT_REQUEST</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=print></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-divider></md-divider>
+    <md-menu-item>
+      <md-button aria-label="editar" ng-click="goEntity({id:row.definitivo_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_DETAIL</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=zoom_out_map></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

@@ -1,0 +1,104 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg form-fa" ng-controller="professionalGlpExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><i-fa i=users></i-fa></md-button>
+			<h2 translate>TOOLBAR_RESPONSIBLE</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="closeDialog()"><md-ico i=close></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+		<md-content layout=column layout-padding>
+			<!-- INFORMACIÓN DE VBP -->
+			<card-vbp-information layout-padding></card-vbp-information>
+			
+			<!-- INFORMACIÓN DE PROFESIONALES -->
+			<div class=no-padding ng-repeat="(key,row) in frmParent.professionalList">
+				<div class="card card-outline card-{{string2JSON('colorCss')[$index+1]}} no-margin margin-top">
+					<div class="card-header text-center">
+						<h3 class="card-title no-margin" translate>LB_REGISTRATION_FORM</h3>
+					</div>
+					<div class="card-body" layout=column layout-padding>
+						
+						<div class="form-group required" flex>
+							<i-fa i=flag></i-fa>
+							<label translate>LB_RESPONSABILITY</label>
+							<select class="form-control select2" ng-model="row.profesional_tipo" required
+											ng-options="val as val for (key,val) in string2JSON('GLP_PROFESSIONALS_TYPE')"></select>
+						</div>
+						
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group" flex>
+								<i-fa i=credit-card></i-fa>
+								<label translate>LB_IDENTIFICATION_TYPE</label>
+								<select class="form-control select2" ng-model="row.persona_tipo_doc" ng-required="!(key=='cincendios' || key=='cseguridad')"
+												ng-options="key as val for (key,val) in string2JSON('identificationType')"></select>
+							</div>
+							<div class="form-group" flex>
+								<i-fa i=id-card></i-fa>
+								<label translate>LB_IDENTIFICATION_NUMBER</label>
+								<div class="input-group">
+									<input ng-model="row.persona_doc_identidad" class="form-control" placeholder="Ej. 230005478961" required maxlength=20>
+									<span class="input-group-btn"><button type="button" ng-click="searchPersonInformation(row.persona_doc_identidad,'frmParent','model',key)" class="btn btn-info btn-flat"><i-fa i=search></i-fa></button></span>
+								</div>
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group" flex>
+								<i-fa i=user></i-fa>
+								<label translate>LB_LASTNAME</label>
+								<input ng-model="row.persona_apellidos" class="form-control" placeholder="Ej. Pinargote Bayas" ng-required="!(key=='cincendios' || key=='cseguridad')">
+							</div>
+							<div class="form-group" flex>
+								<i-fa i=user-o></i-fa>
+								<label translate>LB_NAME</label>
+						    <input ng-model="row.persona_nombres" class="form-control" placeholder="Ej. Julian Emiliano" ng-required="!(key=='cincendios' || key=='cseguridad')">
+							</div>
+						</div>
+						
+						<div class="form-group required">
+							<i-fa i=signal></i-fa>
+							<label translate>LB_TITLE_LEVEL</label>
+							<select class="form-control" ng-model="row.formacion_nivel" required
+											ng-options="key as val for (key,val) in string2JSON('academicLevelList')"></select>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" ng-if="(row.formacion_nivel!='BACHILLER' && row.formacion_nivel!=null)" flex>
+								<i-fa i=copyright></i-fa>
+								<label ng-if="row.formacion_nivel=='BACHILLER'">
+									<a href="http://servicios.educacion.gob.ec/titulacion25-web/faces/paginas/consulta-titulos-refrendados.xhtml" target="blank_" translate>LB_REFLECTION_BACHILLER</a>
+								</label>
+								<label ng-if="row.formacion_nivel!='' && row.formacion_nivel!='BACHILLER'">
+									<a href="http://www.senescyt.gob.ec/web/guest/consultas" target="blank_" translate>LB_TITLE_SENESCYT</a>
+								</label>
+								<input class="form-control" ng-model="row.formacion_senescyt" placeholder="Ej. 1027-15-1420605" required />
+							</div>
+							<div class="form-group required" moment-picker="row.formacion_fregistro" format="YYYY-MM-DD" flex>
+								<i-fa i=calendar-plus-o></i-fa>
+								<label translate>LB_REGISTRE_DATE</label>
+								<input class="form-control" ng-model="row.formacion_fregistro" class="form-control" placeholder="Ej. 2017-07-07" required />
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<i-fa i=university></i-fa>
+							<label translate>LB_INSTITUTION</label>
+							<input class="form-control" ng-model="row.formacion_institucion" placeholder="Ej. Universidad Central del Ecuador" required />
+						</div>
+						<div class="form-group required" ng-if="(row.formacion_nivel!='BACHILLER' && row.formacion_nivel!=null)" flex>
+							<i-fa i=mortar-board></i-fa>
+							<label translate>LB_TITLE_NAME</label>
+							<input class="form-control" ng-model="row.formacion_titulo" placeholder="Ej. Ingeniero Civil" required />
+						</div>
+					</div>
+				</div>
+			</div>
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

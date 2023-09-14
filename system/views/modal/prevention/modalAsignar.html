@@ -1,0 +1,41 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="btn" class="md-icon-button"><md-ico i=transfer_within_a_station></md-ico></md-button>
+			<h2 translate>TOOLBAR_ASSGIN</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-content layout=column layout-padding>
+			<!-- DETALLE DE REGISTROS -->
+			<card-local-information layout-padding ng-if="tb=='inspecciones'"></card-local-information>
+			<card-glp-transport-information layout-padding ng-if="tb=='transporteglp'"></card-glp-transport-information>
+			<card-plan-information layout-padding ng-if="tb=='planesemergencia'"></card-plan-information>
+			<card-vbp-information layout-padding ng-if="tb=='vbp'"></card-vbp-information>
+			<!-- ASIGNAR INSPECTOR -->
+			<div class="card card-outline card-success no-margin margin-top" layout-padding>
+				<div class="card-header text-center">
+				  <h3 class="card-title" translate>LB_ASSIGN_INSPECTOR</h3>
+				</div>
+				<div class="card-body padding-all" layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_INSPECTOR</label>
+						<div class="input-group" flex ng-controller="inspectorsListCtrl">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=account_circle></md-ico></div></div> 
+							<select class="form-control" ng-model="frmParent.fk_inspector_id" ng-required="true" ng-options="row.usuario_id as (row.usuario_nombre+' - ['+row.usuario_login+']') for row in list"></select>
+						</div>
+					</div>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

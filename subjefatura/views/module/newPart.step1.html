@@ -1,0 +1,256 @@
+<!-- GENERAL - FORMAS DE AVISO - ASISITIDO POR - LOCALIZACION -->
+<div layout-xs=column layout=row>
+
+	<!-- GENERAL - FORMAS DE AVISO -->
+	<div class="no-padding-top" layout=column layout-padding flex>
+		
+		<!-- GENERAL -->
+		<div class="box box-primary no-margin no-padding">
+			<div class="box-header with-border text-center">
+				<h3 class="box-title no-margin" translate>LB_MAIN_DATA</h3>
+			</div>
+			<div class="box-body" layout-padding>
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+					  <label translate>LB_DATE</label>
+					  <div class="input-group" moment-picker="frmParent.parte_fecha">
+					    <span class="input-group-addon"><md-ico i=event_available></md-ico></span>
+					    <input class="form-control" ng-model="frmParent.parte_fecha" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2017-07-07" required />
+					  </div>
+					</div>
+					<div class="form-group required" flex>
+					  <label translate>LB_DAY_CLASS</label>
+					  <div class="input-group">
+					    <span class="input-group-addon"><md-ico i=event></md-ico></span>
+					    <select class="form-control" ng-model="frmParent.parte_clasedia" required ng-options="v for (k,v) in string2JSON('typeDaysPart')"></select>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- FORMA DE AVISO -->
+		<div class="box box-primary no-margin margin-top no-padding">
+			<div class="box-header with-border text-center">
+				<h3 class="box-title no-margin" translate>LB_WAY_OF_NOTICE</h3>
+			</div>
+			<div class="box-body" layout-padding>
+					<div class="form-group required" flex>
+					  <label translate>LB_WAY_OF_NOTICE</label>
+					  <div class="input-group">
+					    <span class="input-group-addon"><md-ico i=notifications_active></md-ico></span>
+					    <select class="form-control" ng-model="frmParent.parte_aviso_forma" required ng-options="v for (k,v) in string2JSON('PARTS_WAY_OF_NOTICE')"></select>
+					  </div>
+					</div>
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+					  <label translate>LB_SPECIFICATION</label>
+					  <div class="input-group">
+					    <span class="input-group-addon"><md-ico i=info></md-ico></span>
+					    <input class="form-control" ng-model="frmParent.parte_aviso_especificacion" required />
+					  </div>
+					</div>
+					<div class="form-group required" flex>
+					  <label translate>LB_NOTICE</label>
+					  <div class="input-group">
+					    <span class="input-group-addon"><md-ico i=local_phone></md-ico></span>
+					    <input type="datetime-local" max="today" class="form-control" ng-model="frmParent.parte_aviso_hora" required />
+					  </div>
+					</div>
+				</div>
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+					  <label translate>LB_STAFF_EXIT</label>
+					  <div class="input-group">
+					    <span class="input-group-addon"><md-ico i=directions_run></md-ico></span>
+					    <input type="datetime-local" min="frmParent.parte_aviso_hora" class="form-control" ng-model="frmParent.parte_aviso_salida_personal" required />
+					  </div>
+					</div>
+					<div class="form-group required" flex>
+					  <label translate>LB_STAFF_EXIT_PLACE</label>
+					  <div class="input-group">
+					    <span class="input-group-addon"><md-ico i=departure_board></md-ico></span>
+					    <input type="datetime-local" min="frmParent.parte_aviso_salida_personal" class="form-control" ng-model="frmParent.parte_aviso_llegada_personal" required />
+					  </div>
+					</div>
+				</div>
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+					  <label translate>LB_END_OPERATIONS_RETURN</label>
+					  <div class="input-group">
+					    <span class="input-group-addon"><md-ico i=transfer_within_a_station></md-ico></span>
+					    <input type="datetime-local" min="frmParent.parte_aviso_llegada_personal" class="form-control" ng-model="frmParent.parte_aviso_retorno" required />
+					  </div>
+					</div>
+					<div class="form-group required" flex>
+					  <label translate>LB_ENTRANCE_HEADQUARTERS</label>
+					  <div class="input-group">
+					    <span class="input-group-addon"><md-ico i=place></md-ico></span>
+					    <input type="datetime-local" min="frmParent.parte_aviso_retorno" class="form-control" ng-model="frmParent.parte_aviso_ingreso_cuartel" required />
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<!-- ASISITIDO POR - LOCALIZACION -->
+	<div class="no-padding-top" layout=column layout-padding flex>
+		
+		<!-- LB_ASSISTED_ASSISTANCE -->
+		<div class="box box-primary no-margin no-padding">
+			<div class="box-header with-border text-center">
+				<h3 class="box-title no-margin" translate>LB_AUXILIARY_SERVED_BY</h3>
+			</div>
+			<div class="box-body" layout-padding>
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" ng-controller="stationsListCtrl" flex>
+		    		<label translate>LB_STATION</label>
+						<div class="input-group">
+							<span class="input-group-addon"><md-ico i=assistant_photo></md-ico></span>
+							<select class="form-control text-uppercase" ng-model="frmParent.fk_estacion_id" required ng-disabled="toogleEditMode" ng-options="row.estacion_id as (row.estacion_nombre+' - '+row.estacion_nombre_alterno) for row in jsonList"></select>
+						</div>
+		    	</div>
+					<div class="form-group required" ng-controller="platoonsListCtrl" flex>
+						<label translate>LB_PLATOON</label>
+						<div class="input-group">
+							<span class="input-group-addon"><md-ico i=nature></md-ico></span>
+							<select class="form-control" ng-model="frmParent.fk_peloton_id" required ng-disabled="toogleEditMode" ng-options="row.peloton_id as row.peloton_nombre for row in jsonList[frmParent.fk_estacion_id]"></select>
+						</div>
+					</div>
+				</div>
+				<div class="form-group required" flex>
+					<label translate>LB_SUPPORT_FOR</label>
+					<div class="input-group">
+						<span class="input-group-addon"><md-ico i=record_voice_over></md-ico></span>
+						<select class="form-control" ng-model="frmParent.parte_apoyo_requerido" required ng-options="v for (k,v) in string2JSON('yesnoLabel')"></select>
+					</div>
+				</div>
+				<div class="form-group required" flex ng-if="frmParent.parte_apoyo_requerido=='SI'">
+					<label translate>LB_SUPPORT_FOR</label>
+					<div class="input-group">
+						<div class="col-md-6 col-xs-12 md-2-line contact-item no-padding" ng-repeat="item in string2JSON('PARTS_SUPPORT_STAFF')">
+			        <label class="label">
+						    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.parte_apoyo_adicional" checklist-value="item" />
+						    <span class="label__text">
+						      <span class="label__check">
+						        <i class="fa fa-check icon"></i>
+						      </span>
+						    </span>
+						  </label>
+			        <div class="md-list-item-text compact">
+		          	<span class="text-bold" ng-bind-html="highlight(item)"></span>
+			        </div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group required" flex ng-if="frmParent.parte_apoyo_requerido=='SI'">
+					<label translate>LB_OTHER_DATA</label>
+					<div class="input-group">
+						<span class="input-group-addon"><md-ico i=info></md-ico></span>
+						<input class="form-control" ng-model="frmParent.parte_apoyo_detalle" required />
+					</div>
+				</div>
+		  </div>
+		</div>
+		
+		<!-- LB_LOCATION -->
+		<div class="box box-primary no-margin margin-top no-padding">
+			<div class="box-header with-border text-center">
+				<h3 class="box-title no-margin" translate>LB_LOCATION</h3>
+			</div>
+			<div class="box-body" layout-padding ng-controller="parishesListCtrl">
+				<div layout-xs=column layout=row layout-padding ng-controller="townsListCtrl">
+					<div class="form-group required" ng-controller="statesListCtrl" flex>
+			   		<label translate>LB_PROVINCE</label>
+					  <div class="input-group">
+							<span class="input-group-addon"><md-ico i=public></md-ico></span>
+							<select class="form-control" ng-model="frmParent.fk_state_id" ng-change="refreshTowns()" required ng-options="row.state_id as row.state_name for row in statesList"></select>
+						</div>
+			   	</div>
+			   	<div class="form-group required" ng-if="frmParent.fk_state_id>0" flex>
+			   		<label translate>LB_TOWN</label>
+					  <div class="input-group">
+							<span class="input-group-addon"><md-ico i=public></md-ico></span>
+							<select class="form-control" ng-model="frmParent.fk_town_id" ng-change="refreshParishes()" required ng-options="row.town_id as row.town_name for row in townsList"></select>
+						</div>
+			   	</div>
+				</div>
+				<div layout-xs=column layout=row layout-padding>
+			   	<div class="form-group required" ng-if="frmParent.fk_town_id>0" flex>
+			   		<label translate>LB_PARRISH</label>
+					  <div class="input-group">
+							<span class="input-group-addon"><md-ico i=public></md-ico></span>
+							<select class="form-control" ng-model="frmParent.fk_parroquia_id" required ng-options="row.parish_id as row.parish_name for row in parishesList"></select>
+						</div>
+			   	</div>
+					<div class="form-group required" flex>
+						<label translate>LB_ADDRESS</label>
+						<div class="input-group">
+							<span class="input-group-addon"><md-ico i=place></md-ico></span>
+							<input type="tel" ng-model="frmParent.parte_localizacion_direccion" class="form-control" required>
+						</div>
+					</div>
+				</div>
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_SECTOR</label>
+						<div class="input-group">
+							<span class="input-group-addon"><md-ico i=compass_calibration></md-ico></span>
+							<input type="text" ng-model="frmParent.parte_localizacion_sector" class="form-control" required>
+						</div>
+					</div>
+					<div class=form-group flex>
+						<label translate>LB_TEL</label>
+						<div class="input-group">
+					    <span class="input-group-addon"><md-ico i=phone></md-ico></span>
+					    <input type="tel" ng-model="frmParent.parte_localizacion_telefono" class="form-control" >
+					  </div>
+					</div>
+				</div>
+				<div class="form-group required" flex>
+				  <label translate>LB_OTHER_DATA</label>
+				  <div class="input-group">
+				    <span class="input-group-addon"><md-ico i=info></md-ico></span>
+				    <textarea class="form-control" ng-model="frmParent.parte_localizacion_detalle" required></textarea>
+				  </div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+</div>
+
+<!-- GENERAL - FORMAS DE AVISO - ASISITIDO POR - LOCALIZACION -->
+<div layout-xs=column>
+
+	<!-- GENERAL - FORMAS DE AVISO -->
+	<div class="no-padding-top" layout=column layout-padding flex>
+	
+		<div class="box box-primary no-margin no-padding" flex>
+			<div class="box-header with-border text-center">
+				<h3 class="box-title no-margin" translate>LB_AUXILIARY_PROCESS</h3>
+			</div>
+			<div class="box-body" layout-padding>
+				<leaflet id="myOSM" lf-center="myOSM" layers="layers" controls="controls" markers="markers" defaults="defaults" height="480px" width="100%"></leaflet>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+<!-- BOTONES -->
+<div class="no-padding-left no-padding-right" layout-xs=column layout=row layout-padding>
+	<div flex>
+		<button type="button" class="btn btn-block btn-danger" ui-sref="main.parts">
+			<i-fa i=angle-double-left></i-fa> <span translate>LB_CANCEL</span>
+		</button>
+	</div>
+	<div flex>
+		<button type="submit" class="btn btn-block btn-success" ng-click="submitForm()" ng-disabled="formData.$invalid" >
+			<span translate>BTN_NEXT</span> <i-fa i=angle-double-right></i-fa>
+		</button>
+	</div>
+</div>

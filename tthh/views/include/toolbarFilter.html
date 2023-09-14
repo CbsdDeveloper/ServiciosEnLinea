@@ -1,0 +1,14 @@
+<md-toolbar class="md-table-toolbar" ng-class="{{toolbarItem.cssClass}}" ng-show="filter.show">
+  <div class="md-toolbar-tools">
+    <md-button class="md-icon-button" aria-label="search"><md-ico i=search></md-ico></md-button>
+    <form flex name="filter.form">
+      <input type="text" ng-model="filterParent.filter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_INPUT' | translate}}">
+    </form>
+    <md-button class="md-icon-button" aria-label="clear" ng-if="filterParent.filter!=''" ng-click="filterParent.filter=''"><md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip></md-button>
+    <md-button class="md-icon-button" aria-label="erfresh" ng-click="getParent()"><md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip></md-button>
+    <md-button class="md-icon-button" aria-label="add" ng-click="openModal()" ng-if="toolbarItem.showNew"><md-ico i=add></md-ico></md-button>
+    <md-button class="md-icon-button" aria-label="print" ng-click="exportToPDF()" ng-if="toolbarItem.showPrint"><md-ico i=print></md-ico></md-button>
+		<md-button class="md-icon-button" aria-label="print" ng-click="exportToXLS()"  ng-if="toolbarItem.showXLS"><i-fa i=file-excel-o s=lg></i-fa></md-button>
+    <md-button class="md-icon-button" aria-label="close" ng-click="removeFilter()"><md-ico i=remove></md-ico><md-tooltip><span translate>LB_CLOSE</span></md-tooltip></md-button>
+  </div>
+</md-toolbar>

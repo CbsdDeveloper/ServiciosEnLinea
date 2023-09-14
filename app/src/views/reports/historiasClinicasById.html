@@ -1,0 +1,22 @@
+<style>{{css}}table.table{font-size:11px;text-transform:uppercase;}.table-bordered td{padding:8px;text-align:left;}</style>
+<page backtop="{{margin_top}}mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	<div class="section_header"><img src="src/img/reports/escudo.jpg"></div>
+	<div class="header" style="margin-bottom:15px">
+		<table><tbody>
+			<tr>
+				<td style="width:50%;vertical-align:middle;border-left:2px #0d4378 solid;padding-left:15px;" class="text-left title-single">
+					<small>{{reporte_jefatura}}</small><br>
+					<small><span>{{reporte_departamento}}</span></small>
+				</td>
+				<td style="width:50%;vertical-align:bottom;text-align:right;" class="headerLogo">
+					<img src="{{REPORT_HEADER_IMG_PATH}}" style="{{REPORT_HEADER_IMG_SIZE}}">
+				</td>
+			</tr>
+		</tbody></table>
+	</div>
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE_MAIN}}
+	
+	<div class="title-single text-center" style="margin:30px 0px;">{{informe}}</div>
+	
+</page>

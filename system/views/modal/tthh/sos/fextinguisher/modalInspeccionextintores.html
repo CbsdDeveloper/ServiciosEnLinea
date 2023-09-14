@@ -1,0 +1,100 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg">
+  <form name="formData" ng-submit="submitForm()">
+	  <md-toolbar>
+	    <div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=receipt_long></md-ico></md-button>
+				<h2 class="md-flex" translate>LB_INSPECTIONS</h2>
+	      <span flex></span>
+	      <md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+	    </div>
+	  </md-toolbar>
+	  <md-dialog-content>
+	    <md-content layout=column layout-padding>
+		    	
+					<!-- FORMULARIO DE REGISTRO -->
+					<div class="card card-outline card-primary no-margin" layout-padding>
+						<div class="card-header with-border text-center">
+						  <h3 class="card-title" translate>LB_RESPONSIBLE_FOR_THE_REGISTRY</h3>
+						</div>
+						<div class="card-body padding-all" layout=column layout-padding>
+							
+							<div class="form-group required" flex ng-controller="staffToGServicesCtrl">
+				    		<label translate>LB_SOS_ANALYST</label>
+							  <div class="input-group text-uppercase">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=how_to_reg></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.fk_sos_id" required ng-options="row.ppersonal_id as (row.personal_nombre+', '+row.puesto_definicion) for row in jsonList"></select>
+								</div>
+				    	</div>
+							
+							<div class="form-group required" flex ng-controller="staffToGServicesCtrl">
+				    		<label translate>LB_RESPONSIBLE_FOR_REGISTRATION</label>
+							  <div class="input-group text-uppercase">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=how_to_reg></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.fk_responsable_registro_id" required ng-options="row.ppersonal_id as (row.personal_nombre+', '+row.puesto_definicion) for row in jsonList"></select>
+								</div>
+				    	</div>
+				    	
+							<div class="form-group required" flex>
+								<label translate>LB_STATION</label>
+								<div class="input-group" flex ng-controller="stationsListCtrl">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assistant_photo></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.fk_estacion_id" required ng-options="row.estacion_id as (row.estacion_nombre+' - '+row.estacion_nombre_alterno) for row in list"></select>
+								</div>
+							</div>
+							
+							<div class="form-group required" flex ng-controller="staffToGServicesCtrl">
+				    		<label translate>LB_STATION_MANAGER</label>
+							  <div class="input-group text-uppercase">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=how_to_reg></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.fk_responsable_estacion_id" required ng-options="row.ppersonal_id as (row.personal_nombre+', '+row.puesto_definicion) for row in jsonList"></select>
+								</div>
+				    	</div>
+							
+						</div>
+					</div>
+		    	
+					<!-- FORMULARIO DE REGISTRO -->
+					<div class="card card-outline card-primary no-margin margin-top" layout-padding>
+						<div class="card-header with-border text-center">
+						  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+						</div>
+						<div class="card-body padding-all" layout=column layout-padding>
+							
+							<div layout-xs=column layout=row layout-padding>
+								<div class="form-group required" flex>
+									<label translate>LB_REGISTRE_DATE</label>
+									<div class="input-group" max-date="today" moment-picker="frmParent.inspeccion_fecha" format="YYYY-MM-DD">
+										<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+								    <input class="form-control" ng-model="frmParent.inspeccion_fecha" ng-model-options="{ updateOn: 'blur' }" required>
+								  </div>
+								</div>
+								
+								<div class="form-group required" flex>
+									<label translate>LB_PERIOD</label>
+									<div class="input-group">
+								    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=class></md-ico></div></div> 
+								    <input type="text" ng-model="frmParent.inspeccion_periodo" class="form-control" required>
+								  </div>
+								</div>
+							</div>
+							
+							<div class="form-group" flex>
+								<label translate>LB_OBSERVATIONS</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+									<textarea rows="3" ng-model="frmParent.inspeccion_observaciones" class="form-control"></textarea>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+			
+	    </md-content>
+	  </md-dialog-content>
+	  <md-dialog-actions layout="row">
+			<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+			<span flex></span>
+			<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+		</md-dialog-actions>
+  </form>
+</md-dialog>

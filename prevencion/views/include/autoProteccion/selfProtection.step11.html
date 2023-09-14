@@ -1,0 +1,309 @@
+<div layout-xs=column layout=row layout-padding>
+	
+	<div layout=column flex>
+		<ul class="timeline margin-top">
+			<li class="time-label text-uppercase">
+        <span class="bg-purple padding-all" translate>LB_SELFPROTECTION_STEP11</span>
+      </li>
+      
+			<!-- INSTRUCCIONES -->
+			<li>
+				<i class="fa fa-info bg-orange"></i>
+		    <div class="timeline-item">
+						<div class="box box-danger no-margin">
+							<div class="box-header with-border text-center">
+								<h3 class="box-title text-danger text-bold" translate>LB_INSTRUCTIONS</h3>
+								<div class="box-tools pull-right">
+						       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+						     </div>
+							</div>
+							<div class="box-body">
+								<div ng-bind-html="$parent.trustAsHtml(paramsConf.SELFPROTECTION_STEP11)"></div>
+							</div>
+						</div>
+		  	</div>
+		  </li>
+      
+      <!-- ANEXOS DEL PLAN -->
+			<li>
+				<i class="fa fa-paperclip bg-blue"></i>
+		    <div class="timeline-item no-padding">
+		      	
+		      	<div class="box box-success no-margin">
+	            <div class="box-body no-padding">
+	              <table class="table table-condensed font-12">
+	              	<col style="">
+	              	<col style="width:150px;text-align:center;">
+	                <tr>
+	                  <th><span translate>LB_ANNEXES_FOR_THE_APPROVAL_OF_THE_SELFPROTECTIONPLAN</span></th>
+	                  <th><span translate></span></th>
+	                </tr>
+	                <tr>
+	                  <td>
+	                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(frmParent.local.entity.entidad_sitioweb))"></i>
+	                  	<small translate>LB_RUC_CERTIFICATE</small> / <b>{{frmParent.local.entity.entidad_razonsocial}}</b>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openParentModal('Anexos',mergeData(frmParent,{typeFile:'ruc_file',fileNameUpload:'ruc',tbEntity:'planesautoproteccion_anexos'}))">
+	                  		<i-fa i=upload></i-fa>
+	                  		<md-tooltip><span translate>LB_CLICK_UPLOADED_CERTIFICATE</span></md-tooltip>
+	                  	</button>
+	                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/ruc/{{frmParent.local.entity.entidad_sitioweb}}" download target="_blank" ng-if="isSetFile(frmParent.local.entity.entidad_sitioweb)">
+	                  		<i-fa i=download></i-fa>
+	                  		<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+	                  	</a>
+	                  </td>
+	                </tr>
+	                <tr>
+	                  <td>
+	                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(frmParent.local.entity.person.persona_anexo_cedula))"></i>
+	                  	<small translate>LB_LEGAL_REPRESENTATIVE_ID</small> / <b>{{frmParent.local.entity.person.persona_apellidos}} {{frmParent.local.entity.person.persona_nombres}}</b>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openParentModal('Anexos',mergeData(frmParent,{typeFile:'representantelegal_file',fileNameUpload:'representantelegal',tbEntity:'planesautoproteccion_anexos'}))">
+	                  		<i-fa i=upload></i-fa>
+	                  		<md-tooltip><span translate>LB_CLICK_UPLOADED_CERTIFICATE</span></md-tooltip>
+	                  	</button>
+	                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/cedulas/{{frmParent.local.entity.person.persona_anexo_cedula}}" download target="_blank" ng-if="isSetFile(frmParent.local.entity.person.persona_anexo_cedula)">
+	                  		<i-fa i=download></i-fa>
+	                  		<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+	                  	</a>
+	                  </td>
+	                </tr>
+	                <tr ng-if="frmParent.local.entity.entidad_apoderado=='SI'">
+	                  <td>
+	                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(frmParent.local.entity.adopted.persona_anexo_cedula))"></i>
+	                  	<small translate>LB_APPOINTMENT_AND_LOCAL_AUTHORITY_CERTIFICATE</small> / <b>{{frmParent.local.entity.adopted.persona_apellidos}} {{frmParent.local.entity.adopted.persona_nombres}}</b>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openParentModal('Anexos',mergeData(frmParent.local.entity,{typeFile:'apoderado_file',fileNameUpload:'apoderado',tbEntity:'entidades_anexos'}))">
+	                  		<i-fa i=upload></i-fa>
+	                  		<md-tooltip><span translate>LB_CLICK_UPLOADED_CERTIFICATE</span></md-tooltip>
+	                  	</button>
+	                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/cedulas/{{frmParent.local.entity.adopted.persona_anexo_cedula}}" download target="_blank" ng-if="isSetFile(frmParent.local.entity.adopted.persona_anexo_cedula)">
+	                  		<i-fa i=download></i-fa>
+	                  		<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+	                  	</a>
+	                  </td>
+	                </tr>
+	                
+	                <tr>
+	                  <td>
+	                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(frmParent.local.local_certificadostablecimiento))"></i>
+	                  	<small translate>LB_CERTIFICATE_ESTABLISHMENT</small> / <b>{{frmParent.local.local_nombrecomercial}}</b>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openParentModal('Anexos',mergeData(frmParent.local,{typeFile:'local_file',fileNameUpload:'establecimiento',tbEntity:'locales_anexos'}))">
+	                  		<i-fa i=upload></i-fa>
+	                  		<md-tooltip><span translate>LB_CLICK_UPLOADED_CERTIFICATE</span></md-tooltip>
+	                  	</button>
+	                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/locals/{{frmParent.local.local_id}}/{{frmParent.local.local_certificadostablecimiento}}" download target="_blank" ng-if="isSetFile(frmParent.local.local_certificadostablecimiento)">
+	                  		<i-fa i=download></i-fa>
+	                  		<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+	                  	</a>
+	                  </td>
+	                </tr>
+	                
+	                <tr>
+	                  <td>
+	                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(frmParent.local.local_impuestopredial))"></i>
+	                  	<small translate>LB_PAYMENT_PREDIAL_TAX_COPY</small>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openParentModal('Anexos',mergeData(frmParent,{typeFile:'impuestopredial_file',fileNameUpload:'impuestopredial',tbEntity:'planesautoproteccion_anexos'}))">
+	                  		<i-fa i=upload></i-fa>
+	                  		<md-tooltip><span translate>LB_CLICK_UPLOADED_CERTIFICATE</span></md-tooltip>
+	                  	</button>
+	                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/prevencion/locales/{{frmParent.local.local_impuestopredial}}" download target="_blank" ng-if="isSetFile(frmParent.local.local_impuestopredial)">
+	                  		<i-fa i=download></i-fa>
+	                  		<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+	                  	</a>
+	                  </td>
+	                </tr>
+	                <tr>
+	                  <td>
+	                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(frmParent.local.local_usodesuelo))"></i>
+	                  	<small translate>LB_CERTIFICATE_USE_SOIL_COPY</small>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openParentModal('Anexos',mergeData(frmParent,{typeFile:'usodesuelo_file',fileNameUpload:'usodesuelo',tbEntity:'planesautoproteccion_anexos'}))">
+	                  		<i-fa i=upload></i-fa>
+	                  		<md-tooltip><span translate>LB_CLICK_UPLOADED_CERTIFICATE</span></md-tooltip>
+	                  	</button>
+	                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/prevencion/locales/{{frmParent.local.local_usodesuelo}}" download target="_blank" ng-if="isSetFile(frmParent.local.local_usodesuelo)">
+	                  		<i-fa i=download></i-fa>
+	                  		<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+	                  	</a>
+	                  </td>
+	                </tr>
+	                <tr ng-if="frmParent.plan_sos=='PROFESIONAL DE SEGURIDAD DE LA EMPRESA' || frmParent.plan_sos=='PROFESIONAL CONTRATADO EXTERNAMENTE POR LA EMPRESA'">
+	                  <td>
+	                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(frmParent.training.formacion_pdf))"></i>
+	                  	<small translate>LB_COPY_SENESCYT_SOS</small>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openParentModal('Anexos',mergeData(frmParent,{typeFile:'profesionaldeseguridad_file',fileNameUpload:'profesionaldeseguridad',tbEntity:'planesautoproteccion_anexos'}))">
+	                  		<i-fa i=upload></i-fa>
+	                  		<md-tooltip><span translate>LB_CLICK_UPLOADED_CERTIFICATE</span></md-tooltip>
+	                  	</button>
+	                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/tthh/{{frmParent.training.formacion_pdf}}" download target="_blank" ng-if="isSetFile(frmParent.training.formacion_pdf)">
+	                  		<i-fa i=download></i-fa>
+	                  		<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+	                  	</a>
+	                  </td>
+	                </tr>
+	                <tr ng-if="frmParent.plan_responsable_tramite!=null && frmParent.plan_responsable_tramite!='REPRESENTANTE LEGAL'">
+	                  <td>
+	                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(frmParent.responsable.persona_anexo_cedula))"></i>
+	                  	<small translate>LB_RUC_COPY_RESPONSIBLE_FOR_THE_PROCESS_DATA</small>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openParentModal('Anexos',mergeData(frmParent,{typeFile:'responsabledeltramite_file',fileNameUpload:'responsabledeltramite',tbEntity:'planesautoproteccion_anexos'}))">
+	                  		<i-fa i=upload></i-fa>
+	                  		<md-tooltip><span translate>LB_CLICK_UPLOADED_CERTIFICATE</span></md-tooltip>
+	                  	</button>
+	                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/img/users/{{frmParent.responsable.persona_anexo_cedula}}" download target="_blank" ng-if="isSetFile(frmParent.responsable.persona_anexo_cedula)">
+	                  		<i-fa i=download></i-fa>
+	                  		<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+	                  	</a>
+	                  </td>
+	                </tr>
+	              </table>
+	            </div>
+	          </div>
+		       
+				</div>
+			</li>
+      
+			<!-- ANEXOS DE MANTENIMIENTO -->
+			<li>
+				<i class="fa fa-cog bg-maroon"></i>
+		    <div class="timeline-item no-padding">
+		      	
+		      	<div class="box box-primary no-margin">
+	            <div class="box-body no-padding">
+	              <table class="table table-condensed">
+	              	<col style="">
+	              	<col style="width:15%">
+	                <tr>
+	                  <th><span translate>LB_ANNEXES_OF_MAINTENANCE_CARRIED_OUT</span></th>
+	                  <th><span translate>LB_MENU</span></th>
+	                </tr>
+	                <tr ng-repeat="item in annexesMaintenanceList">
+	                  <td>
+	                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(item.mantenimiento_adjunto))"></i><small>{{item.resource.recurso_nombre}}</small>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openParentModal('Anexos',mergeData(item,{planId:frmParent.plan_id,tbEntity:'autoproteccion_mantenimiento_files',typeFile:'media_file'}))">
+	                  		<i-fa i=upload></i-fa>
+	                  		<md-tooltip><span translate>LB_CLICK_UPLOADED_CERTIFICATE</span></md-tooltip>
+	                  	</button>
+	                  	<a type="button" ng-if="item.mantenimiento_adjunto!='NA'" class="btn btn-warning btn-sm" href="/app/src/prevencion/planes/{{frmParent.plan_codigo}}/anexos/{{item.mantenimiento_adjunto}}" target="_blank">
+	                  		<i-fa i=download></i-fa>
+	                  		<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+	                  	</a>
+	                  </td>
+	                </tr>
+	              </table>
+	            </div>
+	          </div>
+		      
+				</div>
+			</li>
+      
+			<!-- TITULO -->
+			<li class="time-label text-uppercase">
+        <span class="bg-blue padding-all" translate>LB_SCI_RESOURCES</span>
+      </li>
+			
+			<!-- SISTEMA CONTRA INCENDIOS -->
+			<li>
+				<i class="fa fa-free-code-camp bg-olive"></i>
+		    <div class="timeline-item no-padding">
+		      	
+		      	<div class="box box-warning no-margin">
+	            <div class="box-body">
+	              <table class="table table-condensed">
+	              	<col style="width:50px">
+	              	<col style="">
+	              	<col style="width:15%">
+	                <tr>
+	                  <th>#</th>
+	                  <th><span translate>LB_ANNEXES_OF_THE_FIRE_FIGHTING_SYSTEM</span></th>
+	                  <th><span translate>LB_MENU</span></th>
+	                </tr>
+	                <tr ng-repeat="item in annexesList">
+	                  <td>{{$index+1}}</td>
+	                  <td>
+	                  	<small>
+	                  		<i-fa i=flag></i-fa> {{item.anexo_clasificacion}}<BR>
+	                  		<b><i-fa i=comments></i-fa>{{item.anexo_nombre}}</b><br>
+	                  		<i><a href="/app/src/prevencion/planes/{{frmParent.plan_codigo}}/anexos/{{item.anexo_adjunto}}" target="_blank"><b><i-fa i=link></i-fa> {{item.anexo_adjunto}}</a></b></i>
+	                  	</small>
+	                  </td>
+	                  <td>
+	                  	<button type="button" class="btn btn-info btn-sm" ng-click="openParentModal('Autoproteccion_anexos',mergeData(item,{fk_plan_id:frmParent.plan_id}))">
+	                  		<i-fa i=pencil></i-fa>
+	                  	</button>
+	                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/prevencion/planes/{{frmParent.plan_codigo}}/anexos/{{item.anexo_adjunto}}" target="_blank">
+	                  		<i-fa i=download></i-fa>
+	                  		<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+	                  	</a>
+	                  	<button type="button" class="btn btn-danger btn-sm" ng-click="deleteAnnexes(item.anexo_id)">
+	                  		<i-fa i=trash></i-fa>
+	                  	</button>
+	                  </td>
+	                </tr>
+	              </table>
+	            </div>
+	            <div class="box-footer no-padding"layout=row layout-padding layout-align="space-between center">
+					      <div flex>
+									<button type="button" class="btn btn-sm btn-block btn-warning" ng-click="openParentModal('Autoproteccion_anexos',{fk_plan_id:frmParent.plan_id,edit:false})">
+										<i-fa i=paperclip s=fw></i-fa><span translate>LB_ANNEXE_NEW</span>
+									</button>
+								</div>
+								<div flex>
+									<button type="button" class="btn btn-sm btn-block btn-success" ng-click="getAnnexes()">
+										<i-fa i=refresh s=fw></i-fa><span translate>LB_UPDATE_LIST</span>
+									</button>
+								</div>
+	            </div>
+	          </div>
+		      
+				</div>
+			</li>
+			
+			<!-- BOTONERA -->
+			<li>
+				<i class="fa fa-paper-plane-o bg-red"></i>
+		    <div class="timeline-item">
+		      <div class="timeline-body" layout-xs=column layout=row layout-padding>
+						<div flex>
+							<a ui-sref="permits.selfProtection.step2({localId:frmParent.local.local_id})" class="btn btn-default btn-block">
+								<i-fa i=home></i-fa> <span translate>LB_HOME</span>
+							</a>
+						</div>
+						<div flex>
+							<button type="button" ng-click="exportWithDetail('planesemergencia',frmParent.plan_id)" class="btn btn-info btn-block">
+								<i-fa i=print></i-fa> <span translate>LB_PRINT_REQUEST</span>
+							</button>
+						</div>
+						<div flex>
+							<button type="button" ng-click="exportById('planautoproteccion',frmParent.plan_id)" class="btn btn-primary btn-block">
+								<i-fa i=print></i-fa> <span translate>LB_PRINT_AUTOPROTECTION_PLAN</span>
+							</button>
+						</div>
+						<div flex>
+							<a ui-sref="permits.selfProtection.step2({localId:frmParent.local.local_id})" class="btn btn-danger btn-block" ng-disabled="formData.$invalid">
+								<span translate>LB_FINISH_PROCESS</span> <i-fa i=angle-double-right></i-fa>
+							</a>
+						</div>
+		      </div>
+				</div>
+			</li>
+		  
+		  <li><i class="fa fa-clock-o bg-gray"></i></li>
+		</ul>
+	</div>
+	
+</div>

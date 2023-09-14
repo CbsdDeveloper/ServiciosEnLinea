@@ -1,0 +1,96 @@
+﻿<div class="no-padding" layout-xs=column layout=row layout-padding>
+	
+	<div flex>
+		<md-card class="no-margin">
+			
+			<!-- ENCABEZADO DE UI -->
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<md-button aria-label="btn" class="md-icon-button"><md-ico i=event></md-ico></md-button>
+					<h2>{{dataInfo.periodo_nombre}}</h2>
+				</div>
+			</md-toolbar>
+			
+			<!-- DETALLE DE ACTIVIDAD -->
+			<md-tabs md-dynamic-height md-border-bottom class="no-margin-bottom-input">
+				
+				<!-- LISTADO DE SERIES -->
+				<md-tab label="{{'LB_DOCUMENTARY_SERIES' | translate}}">
+	        
+	        <md-content class="padding-all">
+	        	
+	        	
+	        	<div class="timeline timeline-inverse font-12" layout=column ng-repeat="(key,rows) in dataInfo.serieList">
+	        			
+		        		
+		        		<div class="time-label">
+	                <span class="bg-red">{{key}}</span>
+	              </div>
+		        	
+			        	<div ng-repeat="row in rows">
+									<i class="fa fa-info bg-blue"></i>
+									
+									<div class="timeline-item pad-btm-10">
+										
+										<h3 class="timeline-header" layout=row layout-wrap>
+											<b>{{row.codigo_archivo}}. {{row.serie_nombre}}</b>
+							    		<span flex></span>
+							    		<md-radio-group class="font-11" ng-model="frmParent.momdel[row.serie_id].pserie_estado" layout=row layout-wrap>
+									      <md-radio-button value="HABILITAR" class="md-primary">HABILITAR</md-radio-button>
+									      <md-radio-button value="DESHABILITAR" class="md-warn">DESHABILITAR</md-radio-button>
+									    </md-radio-group>
+										</h3>
+						    		
+										<div class="timeline-body" ng-if="frmParent.momdel[row.serie_id].pserie_estado=='HABILITAR'" layout=column layout-padding>
+											
+											<div layout-xs=column layout=row layout-padding>
+												<div class="form-group required" flex>
+													<label translate>LB_START_PERIOD</label>
+													<div class="input-group input-group-sm" moment-picker="frmParent.momdel[row.serie_id].pserie_inicio" format="YYYY-MM-DD">
+														<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+														<input ng-model="frmParent.momdel[row.serie_id].pserie_inicio" class="form-control " required>
+													</div>
+												</div>
+												<div class="form-group required" flex>
+													<label translate>LB_END_PERIOD</label>
+													<div class="input-group input-group-sm" min-date="frmParent.momdel[row.serie_id].pserie_inicio" moment-picker="frmParent.momdel[row.serie_id].pserie_cierre" format="YYYY-MM-DD">
+														<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_busy></md-ico></div></div> 
+														<input ng-model="frmParent.momdel[row.serie_id].pserie_cierre" class="form-control" required>
+													</div>
+												</div>
+											</div>
+											
+											<div class="form-group required">
+												<label translate>LB_DETAIL</label>
+												<div class="input-group input-group-sm">
+													<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+													<textarea rows="2" ng-model="frmParent.momdel[row.serie_id].pserie_detalle" class="form-control" required></textarea>
+												</div>
+											</div>
+										
+										</div>
+						    		
+									</div>
+									
+								</div>
+								
+								<div>
+	                <i class="fa fa-info bg-gray"></i>
+	              </div>
+								
+								
+						</div>
+	        	
+						    
+						    
+						    
+						    
+						    
+	        </md-content>
+	        
+	      </md-tab>
+				
+			</md-tabs>
+		</md-card>
+	</div>
+</div>

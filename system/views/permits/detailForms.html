@@ -1,0 +1,146 @@
+<div layout=row layout-padding layout-wrap>
+	<div flex=25>
+		<card-form></card-form>
+		<br>
+		<card-activity ng-if="(custom.fk_tabla=='tb_actividades')"></card-activity>
+		<card-ciiu ng-if="(custom.fk_tabla=='tb_ciiu')"></card-ciiu>
+	</div>
+	
+	<div flex=75>
+		<md-card class="no-margin">
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<md-button aria-label="btn" class="md-icon-button"><md-ico i=assignment></md-ico></md-button>
+					<h2 class="md-flex" translate>TOOLBAR_FORMS</h2>
+				</div>
+			</md-toolbar>
+			<md-tabs md-dynamic-height md-border-bottom class="no-margin-bottom-input">
+				<md-tab label="{{'LB_MINIMUN_REQUIREMENTS' | translate}}">
+		     	<div flex ng-controller="requirementsFormCtrl">
+		        <md-content ng-controller="myTableCtrl">
+							<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+								<div class="md-toolbar-tools">
+									 <md-button aria-label="btn" class="md-icon-button"><md-ico i=settings></md-ico></md-button>
+									 <h2 translate>TOOLBAR_UTILS</h2>
+									 <span flex></span>
+									 <md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+									 <md-button aria-label="btn" class="md-icon-button" ng-click="openModal(form)"><md-ico i=add></md-ico></md-button>
+								</div>
+							</md-toolbar>
+							<toolbar-filter></toolbar-filter>
+							<md-table-container>
+								<table md-table class="md-primary table-hover" md-progress="deferred">
+									<thead md-head md-order="paramsParent.order" md-on-reorder="onOrderParent">
+										<tr md-row>
+											<th md-column md-order-by="requerimiento_icono"><span translate>LB_PREVIEW</span></th>
+											<th md-column md-order-by="requerimiento_nombre"><span translate>LB_REQUIREMENT</span></th>
+											<th md-column md-order-by="frmreq_estado"><span translate>LB_REQUIREMENT</span></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr md-row data-ng-repeat="row in rowsParent.data">
+											<td md-cell>{{$index+1}}. <i-fa i={{row.requerimiento_icono}} s=lg></i-fa></td>
+											<td md-cell><span ng-bind-html="highlight(row.requerimiento_nombre)"></span></td>
+											<td md-cell><span ng-bind-html="statusLabel[row.frmreq_estado]"></span></td>
+										</tr>
+									</tbody>
+								</table>
+							</md-table-container>
+							<footer-table></footer-table>
+		        </md-content>
+					</div>
+		     </md-tab>
+		     <!-- Close tab requerimientos -->
+		     <md-tab label="{{'LB_ITEMS' | translate}}">
+		      	<div flex ng-controller="itemsFormCtrl">
+			        <md-content ng-controller="myTableCtrl">
+								<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+									<div class="md-toolbar-tools">
+										<md-button aria-label="btn" class="md-icon-button"><md-ico i=settings></md-ico></md-button>
+										<h2 translate>TOOLBAR_UTILS</h2>
+										 <span flex></span>
+										 <md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+									 	 <md-button aria-label="btn" class="md-icon-button" ng-click="openModal(mergeData(custom,{edit:false}))"><md-ico i=add></md-ico></md-button>
+									</div>
+								</md-toolbar>
+								<toolbar-filter></toolbar-filter>
+								<md-table-container>
+										<table md-table class="md-primary table-hover" md-progress="deferred">
+											<thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+												<tr md-row>
+													<th md-column md-numeric md-order-by="item_cantidad"><span translate>LB_MIN</span></th>
+													<th md-column md-order-by="requerimiento_nombre"><span translate>LB_REQUIREMENT</span></th>
+													<th md-column md-order-by="pregunta_nombre"><span translate>LB_QUESTIONS</span></th>
+													<th md-column md-order-by="item_requerido"><span translate>LB_REQUIRED</span></th>
+													<th md-column md-order-by="item_estado"><span translate>LB_STATUS</span></th>
+													<th md-column><span translate>LB_MENU</span></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr md-row data-ng-repeat="row in rowsParent.data">
+													<td md-cell><span ng-bind-html="highlight(row.item_cantidad)"></span></td>
+													<td md-cell><span ng-bind-html="highlight(row.requerimiento_nombre)"></span></td>
+													<td md-cell><span ng-bind-html="highlight(row.pregunta_nombre)"></span></td>
+													<td md-cell><span ng-bind-html="requiredLabel[row.item_requerido]"></span></td>
+													<td md-cell><span ng-bind-html="statusLabel[row.item_estado]"></span></td>
+													<td md-cell class="table-menu text-center" layout="row">
+														<menu-single></menu-single>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</md-table-container>
+									<footer-table></footer-table>
+			        </md-content>
+						</div>
+		      </md-tab>
+		      <!-- Close tab items --> 
+		      <md-tab label="{{'LB_QUESTIONS' | translate}}">
+		      	<div flex ng-controller="threadsFormCtrl">
+			        <md-content ng-controller="myTableCtrl">
+								<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+									<div class="md-toolbar-tools">
+										<md-button aria-label="btn" class="md-icon-button"><md-ico i=settings></md-ico></md-button>
+										<h2 translate>TOOLBAR_UTILS</h2>
+										 <span flex></span>
+										 <md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+										 <md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+									 	 <md-button aria-label="btn" class="md-icon-button" ng-click="openModal(form)"><md-ico i=add></md-ico></md-button>
+									</div>
+								</md-toolbar>
+								<toolbar-filter></toolbar-filter>
+								<md-table-container>
+										<table md-table class="md-primary table-hover" md-progress="deferred">
+											<thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+												<tr md-row>
+													<th md-column md-order-by="requerimiento_nombre"><span translate>LB_REQUIREMENT</span></th>
+													<th md-column md-order-by="pregunta_nombre"><span translate>LB_QUESTIONS</span></th>
+													<th md-column md-order-by="thread_requerido"><span translate>LB_REQUIRED</span></th>
+													<th md-column md-order-by="thread_estado"><span translate>LB_STATUS</span></th>
+													<th md-column><span translate>LB_MENU</span></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr md-row data-ng-repeat="row in rowsParent.data">
+													<td md-cell><span ng-bind-html="highlight(row.requerimiento_nombre)"></span></td>
+													<td md-cell><span ng-bind-html="highlight(row.pregunta_nombre)"></span></td>
+													<td md-cell><span ng-bind-html="requiredLabel[row.thread_requerido]"></span></td>
+													<td md-cell><span ng-bind-html="statusLabel[row.thread_estado]"></span></td>
+													<td md-cell class="table-menu text-center" layout="row">
+													  <md-button aria-label="open_menu" class="md-icon-button" ng-click="disableThread(row,row.thread_id)">
+													    <md-icon><md-ico i=delete_forever s=18></md-ico></md-icon>
+													  </md-button>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</md-table-container>
+									<footer-table></footer-table>
+			        </md-content>
+						</div>
+		      </md-tab>
+		      <!-- Close tab hilos -->
+			</md-tabs>
+		</md-card>
+	</div>
+</div>

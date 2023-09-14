@@ -1,0 +1,54 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+		<md-toolbar ng-hide="filter.show">
+			<div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=transfer_within_a_station></md-ico></md-button>
+				<h2 translate>TOOLBAR_INSPECTIONS</h2>
+				<span flex></span>
+				<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+				<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+			</div>
+		</md-toolbar>
+		<toolbar-filter></toolbar-filter>
+		<md-table-container>
+			<div class="md-padding" layout-xs=column layout=row layout-padding layout-wrap>
+				<div class="wow fadeInUp" style="min-width:350px;max-width:480px" ng-repeat="row in rowsParent.data" flex>
+					<div class="box box-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+						<div class="box-body no-padding-bottom">
+							<h3 class="profile-username">{{row.inspeccion_codigo}}</h3>
+					    <hr>
+							<strong><i-fa i=building></i-fa> <span translate>LB_COMERTIAL</span></strong>
+					    <p class="text-muted">{{row.local_nombrecomercial}}</p>
+					    <hr>
+							<strong><i-fa i=map-signs></i-fa> <span translate>LB_ADDRESS</span></strong>
+					    <p class="text-muted">{{row.local_parroquia}} <br> {{row.local_principal}} y {{row.local_secundaria}}</p>
+					    <hr>
+							<strong><i-fa i=calendar-o></i-fa> <span translate>LB_INSPECTION_DATE</span></strong>
+					    <p class="text-muted text-uppercase">{{row.inspeccion_fecha_inspeccion | date:'fullDate'}}</p>
+					    <hr>
+							<div ng-if="(row.inspeccion_estado!='PENDIENTE' && row.inspeccion_estado!='APROBADO')">
+								<strong><i-fa i=calendar-times-o></i-fa> <span translate>LB_NEXT_INSPECTION</span></strong>
+						    <p class="text-muted text-uppercase">{{row.reinspeccion | date:'fullDate'}}</p>
+						    <hr>
+							</div>
+							<div ng-if="row.inspeccion_estado=='APROBADO'">
+								<strong><i-fa i=event></i-fa> <span translate>LB_APPROVAL_DATE</span></strong>
+						    <p class="text-muted text-uppercase">{{row.inspeccion_fecha_aprobado}}</p>
+						    <hr>
+							</div>
+							<strong><i-fa i=user></i-fa> <span translate>LB_INSPECTOR</span></strong>
+					    <p class="text-muted">{{row.inspector}}</p>
+					    <hr>
+							<strong><i-fa i=flag></i-fa> <span translate>LB_STATUS</span></strong>
+					    <p class="text-muted"><span ng-bind-html="statusLabel[row.inspeccion_estado]"></span></p>
+						</div>
+						<div class="box-footer">
+							<button class="btn btn-block btn-info" ng-click="exportWithDetail(row.inspeccion_id)">
+								<i-fa i=print s=fw></i-fa><span translate>LB_PRINT_INSPECTION_REPORT</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</md-table-container>
+		<footer-table></footer-table>
+</md-card>

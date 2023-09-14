@@ -1,0 +1,57 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitFormFile()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button class="md-icon-button"><md-ico i=star_border></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_AWARDS</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout-padding layout=column>
+    	<div class="form-group required">
+				<label translate>LB_GIVEN_BY</label>
+			  <div class="input-group">
+			    <span class="input-group-addon"><md-ico i=business></md-ico></span>
+			    <input class="form-control" ng-model="frmParent.reconocimiento_otorgado_por" placeholder="Ej. Cuerpo de Bomberos del GADM-SD" required >
+			  </div>
+			</div>
+    	<div class="form-group required">
+				<label translate>LB_HONOR_TO</label>
+			  <div class="input-group">
+			    <span class="input-group-addon"><md-ico i=extension></md-ico></span>
+			    <input class="form-control" ng-model="frmParent.reconocimiento_por" placeholder="Ej. Personal mejor puntuado" required >
+			  </div>
+			</div>
+    	<div class="form-group required" flex>
+				<label translate>LB_DELIVERY_DATE</label>
+			  <div class="input-group" moment-picker="frmParent.reconocimiento_fecha_recepcion" format="YYYY-MM-DD" max-date="today">
+			    <span class="input-group-addon"><md-ico i=event></md-ico></span>
+			    <input class="form-control" ng-model="frmParent.reconocimiento_fecha_recepcion" ng-model-options="{ updateOn: 'blur' }" placeholder="Ej. 2017-07-07" required >
+			  </div>
+			</div>
+    	<div class="form-group required" flex>
+				<label translate>LB_DESCRIPTION</label>
+			  <div class="input-group">
+			    <span class="input-group-addon"><md-ico i=info></md-ico></span>
+			    <textarea rows="5" class="form-control" ng-model="frmParent.reconocimiento_descripcion" placeholder="Ej. Por haber obtenido el màs alto puntaje en el curso realizado..." required ></textarea>
+			  </div>
+			</div>
+			
+	    <div class="form-group" ng-class="{'required':!toogleEditMode}">
+				<label translate>LB_VERIFICATION_SOURCE</label>
+		    <div class="input-group">
+		      <span class="input-group-addon"><md-ico i=attachment></md-ico></span>
+		      <input uploader-model="frmParent.reconocimiento_file" type="file" accept="{{string2JSON('fileTypeMime')['PDF']}}" class="form-control" ng-required="!toogleEditMode" />
+		    </div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

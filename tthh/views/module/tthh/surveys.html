@@ -1,0 +1,71 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=spellcheck></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_QUICK_SURVEYS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <col style="">
+			<col style="width:25%">
+     	<col style="width:20%">
+     	<col style="width:3%">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_FORM_TYPE</span></th>
+					<th md-column><span translate>LB_DATE</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<div>
+							<md-ico i=verified_user></md-ico><span ng-bind-html="highlight(row.evaluacion_codigo)"></span>
+							<md-tooltip><span translate>LB_EVALUATION_CODE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=info></md-ico><span ng-bind-html="highlight(row.formulario_nombre)"></span>
+							<md-tooltip><span translate>LB_FORM_NAME</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell class="text-uppercase">
+						<div><md-ico i=event_note></md-ico>{{row.evaluacion_inicio | date:'fullDate'}}<md-tooltip><span translate>LB_OPENING_DATE</span></md-tooltip></div>
+						<div><md-ico i=event_note></md-ico>{{row.evaluacion_cierre | date:'fullDate'}}<md-tooltip><span translate>LB_DEADLINE</span></md-tooltip></div>
+					</td>
+					<td md-cell>
+						<div>
+							<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.test_estado]"></span>
+							<md-tooltip ng-if="row.test_estado=='TEST REALIZADA'"><span>{{row.evaluado_fechaevaluacion}}</span></md-tooltip>
+						</div>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.test_registro)"></span>
+					</td>
+					<td md-cell>
+						
+						<button class="btn btn-warning btn-sm" ng-if="row.test_estado=='INSCRITO'" ng-click="goUI('tthh.surveyTest',{testId:row.test_id,evaluationId:row.fk_evaluacion_id,staffId:session.personal_id})">
+							<md-ico i=spellcheck></md-ico>
+							<md-tooltip><span translate>LB_PERFORM_EVALUATION</span></md-tooltip>
+						</button>
+						
+						<button class="btn btn-primary btn-sm" ng-if="row.test_estado=='TEST REALIZADA'" ng-click="exportWithDetail(row.test_id)">
+							<md-ico i=print></md-ico>
+							<md-tooltip><span translate>LB_PRINT_REPORT_ALT</span></md-tooltip>
+						</button>
+						
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

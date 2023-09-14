@@ -1,0 +1,211 @@
+<style>
+	.md-list-item-text.compact{line-height:36px;}
+</style>
+<!-- GENERAL - FORMAS DE AVISO - ASISITIDO POR - LOCALIZACION -->
+<div layout-xs=column layout=row>
+
+	<!-- GENERAL - FORMAS DE AVISO -->
+	<div class="no-padding-top" layout=column layout-padding flex>
+		
+		<!-- TIPO DE INCIDENTE - NATURALEZA -->
+		<div class="no-padding-top" layout=column layout-padding>
+			
+			<!-- TIPO DE INCIDENTE -->
+			<div class="box box-primary no-margin no-padding">
+				<div class="box-header with-border text-center">
+					<h3 class="box-title no-margin" translate ng-if="dataEntity.codigo_tipo=='AUXILIOS'">LB_TYPE_OF_ASSISTANCE</h3>
+					<h3 class="box-title no-margin" translate ng-if="dataEntity.codigo_tipo=='INCENDIOS'">LB_TYPE_OF_FIRE</h3>
+				</div>
+				<div class="box-body" layout-xs=column layout=row layout-padding>
+		    	<div class="form-group required" flex>
+						<label translate>LB_KEY</label>
+					  <div class="input-group">
+							<span class="input-group-addon"><md-ico i=star_half></md-ico></span>
+							<input type="text" ng-model="frmParent.codigo_clave" class="form-control" placeholder="Ej. 7.90" readonly="readonly">
+						</div>
+					</div>
+		    	<div class="form-group required" flex>
+						<label translate>LB_INSTITUTIONAL_CODES</label>
+						<div class="input-group">
+							<span class="input-group-addon"><md-ico i=flag></md-ico></span>
+					    <input type="text" ng-model="frmParent.codigo_detalle" class="form-control" placeholder="Ej. 7.90" readonly="readonly">
+						</div>
+					</div>
+		    	<div class="form-group required" flex>
+						<label translate>LB_SPECIFY</label>
+						<div class="input-group">
+							<span class="input-group-addon"><md-ico i=info></md-ico></span>
+					    <input type="text" ng-model="frmParent.parte_incidente_especificacion" class="form-control" required="required">
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- NATURALEZA DEL INCIDENTE -->
+			<div class="box box-danger no-margin margin-top no-padding">
+				<div class="box-header with-border text-center">
+					<h3 class="box-title no-margin" translate>LB_NATURE</h3>
+				</div>
+				<div class="box-body" layout=column layout-padding>
+					<div layout-padding>
+						<md-radio-group ng-model="frmParent.fk_naturaleza_id" class="row" required>
+				      <md-radio-button value="{{item.naturaleza_id}}" class="col-md-3 col-xs-12 md-primary no-padding no-margin" ng-repeat="(k,item) in frmParent.natureList">{{item.naturaleza_clasificacion}}</md-radio-button>
+				    </md-radio-group>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+			    	<div class="form-group required" flex>
+							<label translate>LB_SPECIFY</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=info></md-ico></span>
+						    <select class="form-control" ng-model="frmParent.parte_naturaleza_detalle" ng-options="v for (k,v) in frmParent.natureList[frmParent.fk_naturaleza_id].naturaleza_recursos"></select>
+							</div>
+						</div>
+			    	<div class="form-group required" flex>
+							<label translate>LB_DESCRIPTION</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=info></md-ico></span>
+						    <input type="text" ng-model="frmParent.parte_naturaleza_especificacion" class="form-control" required="required">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<!-- TIPO DE INCIDENTE -->
+		<div class="no-padding-top" layout-xs=column layout=row layout-padding>
+			
+			<!-- CAUSAS DEL INCIDENTE -->
+			<div class="box box-primary no-margin margin-top no-padding margin-right" flex>
+				<div class="box-header with-border text-center">
+					<h3 class="box-title no-margin" translate>LB_CAUSES</h3>
+				</div>
+				<div class="box-body" layout=column layout-padding>
+					<div layout-padding>
+						<div class="col-md-4 col-xs-6 md-2-line contact-item no-padding" ng-repeat="item in frmParent.causesList[frmParent.fk_naturaleza_id]">
+			        <label class="label">
+						    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.causesSelected" checklist-value="item.fk_recurso_id" />
+						    <span class="label__text">
+						      <span class="label__check">
+						        <i class="fa fa-check icon"></i>
+						      </span>
+						    </span>
+						  </label>
+			        <div class="md-list-item-text compact">
+			         	<span class="text-bold" ng-bind-html="highlight(item.recurso_nombre)"></span>
+			        </div>
+						</div>
+					</div>
+		    	<div class="form-group required">
+						<label translate>LB_SPECIFY</label>
+						<div class="input-group">
+							<span class="input-group-addon"><md-ico i=info></md-ico></span>
+					    <input type="text" ng-model="frmParent.parte_causa_especificacion" class="form-control" required="required">
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- LUGAR DEL POSIBLE INICIO -->
+			<div class="box box-danger no-margin margin-top no-padding margin-left" flex ng-if="dataEntity.codigo_tipo=='INCENDIOS'">
+				<div class="box-header with-border text-center">
+					<h3 class="box-title no-margin" translate>LB_PLACE_OF_POSSIBLE_HOME</h3>
+				</div>
+				<div class="box-body" layout=column layout-padding>
+					<div layout-padding>
+						<div class="col-md-4 col-xs-6 md-2-line contact-item no-padding" ng-repeat="item in frmParent.homeIncidentList[frmParent.fk_naturaleza_id]">
+			        <label class="label">
+						    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.homeIncidentSelected" checklist-value="item.fk_recurso_id" />
+						    <span class="label__text">
+						      <span class="label__check">
+						        <i class="fa fa-check icon"></i>
+						      </span>
+						    </span>
+						  </label>
+			        <div class="md-list-item-text compact">
+			         	<span class="text-bold" ng-bind-html="highlight(item.recurso_nombre)"></span>
+			        </div>
+						</div>
+					</div>
+		    	<div class="form-group required">
+						<label translate>LB_SPECIFY</label>
+						<div class="input-group">
+							<span class="input-group-addon"><md-ico i=info></md-ico></span>
+					    <input type="text" ng-model="frmParent.parte_lugarinicio_especificacion" class="form-control" required="required">
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<!-- AREA DESTRUIDA -->
+		<div class="no-padding-top" layout=column layout-padding>
+			
+			<!-- AREA DESTRUIDA -->
+			<div class="box box-danger no-margin margin-top no-padding" ng-if="dataEntity.codigo_tipo=='INCENDIOS' && frmParent.fk_naturaleza_id==14">
+				<div class="box-header with-border text-center">
+					<h3 class="box-title no-margin" translate>LB_DESTROYED_AREA</h3>
+				</div>
+				<div class="box-body" layout-xs=column layout=row layout-padding>
+		    	<div class="form-group required" flex>
+						<label translate>LB_PREDOMINANT_SPECIES</label>
+						<div class="input-group">
+							<span class="input-group-addon"><md-ico i=info></md-ico></span>
+					    <textarea ng-model="frmParent.parte_especie_predominante" class="form-control" required></textarea>
+						</div>
+					</div>
+		    	<div class="form-group required" flex>
+						<label translate>LB_BURNED_SURFACE</label>
+						<div class="input-group">
+							<span class="input-group-addon"><md-ico i=info></md-ico></span>
+					    <input type="number" step="0.1" min="0" ng-model="frmParent.parte_area_destruida" class="form-control" required>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<!-- DESCRIPCION DE OPERACIONES - DAÑOS MATERIALES -->
+		<div class="no-padding-top" layout-xs=column layout=row layout-padding>
+			<!--  -->
+			<div class="box box-primary no-margin margin-top no-padding margin-right" flex>
+				<div class="box-header with-border text-center">
+					<h3 class="box-title no-margin" translate>LB_MATERIAL_DAMAGE</h3>
+				</div>
+				<div class="box-body" layout-padding>
+					<textarea rows="4" ng-model="frmParent.parte_danios_materiales" class="form-control" required="required"></textarea>
+				</div>
+			</div>
+			<!--  -->
+			<div class="box box-primary no-margin margin-top no-padding margin-left" flex>
+				<div class="box-header with-border text-center">
+					<h3 class="box-title no-margin" translate>LB_DESCRIPTION_OF_OPERATIONS</h3>
+				</div>
+				<div class="box-body" layout-padding>
+					<textarea rows="4" ng-model="frmParent.parte_operaciones" class="form-control" required="required"></textarea>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+</div>
+		
+		
+
+<!-- BOTONES -->
+<div class="no-padding-left no-padding-right" layout-xs=column layout=row layout-padding>
+	<div flex>
+		<button type="button" class="btn btn-block btn-warning" ng-click="goUI('main.newPart.step1',{key:dataEntity.codigo_clave,entityId:dataEntity.parte_id})">
+			<i-fa i=angle-double-left></i-fa> <span translate>BTN_PREV</span>
+		</button>
+	</div>
+	<div flex>
+		<button type="submit" class="btn btn-block btn-success" ng-click="submitForm()" ng-disabled="formData.$invalid" >
+			<span translate>BTN_NEXT</span> <i-fa i=angle-double-right></i-fa>
+		</button>
+	</div>
+</div>

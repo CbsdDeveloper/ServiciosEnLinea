@@ -1,0 +1,50 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=domain_disabled></md-ico></md-button>
+			<h2 translate>TOOLBAR_NATURE_INCIDENT</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()" ng-if="allow.permiso10001"><md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_BINNACLE</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<div>
+							<md-ico i=fingerprint></md-ico><span ng-bind-html="highlight(row.naturaleza_id)"></span>
+							<md-tooltip><span translate>LB_CODE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=domain_disabled></md-ico><span ng-bind-html="highlight(row.naturaleza_clasificacion)"></span>
+							<md-tooltip><span translate>LB_CLASSIFICATION</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=info></md-ico><span ng-bind-html="highlight(row.naturaleza_recursos)"></span>
+							<md-tooltip><span translate>LB_DETAIL</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.naturaleza_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.naturaleza_registro)"></span>
+					</td>
+					<td md-cell class="table-menu text-center">
+						<menu-nature></menu-nature>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

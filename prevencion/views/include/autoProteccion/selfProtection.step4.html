@@ -1,0 +1,102 @@
+<div layout-xs=column layout=row layout-padding>
+	<div layout=column flex>
+	
+		<ul class="timeline margin-top" ng-repeat="(type,list) in frmParent.resources">
+			<li class="time-label text-uppercase">
+        <span class="bg-{{string2JSON('colorName')[$index+3]}} padding-all">{{type}} = {{frmParent.total[type]}}</span>
+      </li>
+			<li ng-repeat="(key,resources) in list">
+				<i class="fa fa-info bg-{{string2JSON('colorName')[$index]}}"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header"><a href="#">{{key}}</a></h3>
+		      <div class="timeline-body row no-margin" layout-padding>
+		    		<div class="col-md-6 col-xs-12" ng-repeat="item in resources">
+			    		<div class="form-group required" flex>
+								<label>{{item.recurso_id}}.	{{item.recurso_nombre}}</label>
+								<div class="input-group">
+							    <span class="input-group-addon"><i-fa i={{item.recurso_icon}}></i-fa></span>
+							   	<select class="form-control" ng-model="frmParent.model[type][item.recurso_id].meseri_coeficiente" ng-change="getTotal(type)" ng-options="meseri.text for meseri in item.recurso_lista_valores track by meseri.text" required></select>
+							  </div>
+							</div>
+		    		</div>
+		      </div>
+				</div>
+			</li>
+		  <li><i class="fa fa-clock-o bg-gray"></i></li>
+		</ul>
+	
+		<ul class="timeline margin-top">
+			<li class="time-label text-uppercase">
+        <span class="padding-all bg-red" ng-class="[{'bg-green':frmParent.meseri_valor_p>5}]"><span translate>LB_SELFPROTECTION_STEP4_PVALUE</span> = {{frmParent.meseri_valor_p | number:2}}</span>
+      </li>
+			<li>
+				<i class="fa fa-info bg-blue"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header"><a href="#" translate>LB_SELFPROTECTION_STEP4_PVALUE</a></h3>
+		      <div class="timeline-body row no-margin" layout-padding>
+		    		<div class="col-md-6 col-xs-12">
+			    		<div class="box box-info text-center">
+		            <div class="box-header">
+		              <h3 class="box-title">EVALUACION CUALITATIVA</h3>
+		            </div>
+		            <div class="box-body no-padding">
+		              <table class="table table-striped table-bordered">
+		                <tr><th>VALOR DE RIESGO</th><th>PRIORIZACION</th><th>CALIFICACION DE RIESGO</th></tr>
+		                <tr class="bg-red"><td>HASTA 2</td><td>GRAVE</td><td>ALTO</td></tr>
+		                <tr class="bg-orange-active"><td>2.1 A 4</td><td>NO ACEPTABLE</td><td>MEDIO ALTO</td></tr>
+		                <tr class="bg-yellow"><td>4.6 A 6</td><td>MODERADO</td><td>MEDIO</td></tr>
+		                <tr class="bg-green"><td>6.1 A 8</td><td>ACEPTABLE</td><td>MEDIO BAJO</td></tr>
+		                <tr class="bg-green-active"><td>SUPERIOR A 8</td><td>LEVE</td><td>BAJO</td></tr>
+		              </table>
+		            </div>
+		          </div>
+		    		</div>
+		    		<div class="col-md-6 col-xs-12">
+			    		<div class="box box-primary text-center">
+		            <div class="box-header">
+		              <h3 class="box-title">EVALUACION TAXATIVA</h3>
+		            </div>
+		            <div class="box-body no-padding">
+		              <table class="table table-striped table-bordered">
+		                <tr class="bg-red"><td>RIESGO NO ACEPTABLE</td><td>P <= 5</td></tr>
+		                <tr class="bg-green"><td>RIESGO ACEPTABLE</td><td>P > 5</td></tr>
+		              </table>
+		            </div>
+		          </div>
+		    		</div>
+		      </div>
+				</div>
+			</li>
+			<!-- OPSERVACIONES -->
+			<li ng-if="!(frmParent.meseri_valor_p>5)">
+				<i class="fa fa-commenting bg-olive"></i>
+		    <div class="timeline-item">
+		    	<h3 class="timeline-header"><a href="#"><span translate>LB_JUSTIFICATION_NON_ACCEPTABLE_RISK</span></a></h3>
+		      <div class="timeline-body" layout=row layout-padding>
+						<textarea rows="4" ng-model="frmParent.meseri_observaciones" class="form-control" required="required"></textarea>
+		      </div>
+		  	</div>
+		  </li>
+		  <!-- PANEL DE BOTONES -->
+			<li>
+				<i class="fa fa-paper-plane bg-red"></i>
+		    <div class="timeline-item">
+		      <div class="timeline-body" layout=row layout-padding layout-align="space-between center">
+			      <div flex>
+							<button type="button" ng-click="goUI('permits.editSelfProtection.step3',{planId:frmParent.plan_id})" class="btn btn-warning btn-block">
+								<i-fa i=angle-double-left></i-fa> <span translate>BTN_CANCEL</span>
+							</button>
+							</div>
+						<div flex>
+							<button type="button" ng-click="submitForm()" class="btn btn-success btn-block" ng-disabled="formData.$invalid">
+								<span translate>BTN_NEXT</span> <i-fa i=angle-double-right></i-fa>
+							</button>
+						</div>
+		      </div>
+		  	</div>
+		  </li>
+		  <li><i class="fa fa-clock-o bg-gray"></i></li>
+		</ul>
+		
+	</div>
+</div>

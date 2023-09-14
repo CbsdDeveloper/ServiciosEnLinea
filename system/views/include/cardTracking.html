@@ -1,0 +1,35 @@
+﻿<div class="card card-outline card-primary no-margin">
+	<div class="card-body box-profile text-center">
+		<md-ico i=gps_fixed s=64></md-ico>
+		<h3 class="profile-username md-padding">{{entity.unidad_nombre}}<br>[{{entity.vehiculo_placa}}]</h3>
+    <hr>
+		<strong><md-ico i=person s=18></md-ico> <span translate>LB_DRIVER</span></strong>
+		<p class="text-muted text-center">{{entity.conductor}}</p>
+    <hr>
+		<strong><md-ico i=code s=18></md-ico> <span translate>LB_CODE</span></strong>
+		<p class="text-muted text-center">[{{entity.codigo_clave}}] {{entity.codigo_detalle}}</p>
+		<hr>
+		<strong><md-ico i=location_on s=18></md-ico> <span translate>LB_DESTINATION</span></strong>
+		<p class="text-muted text-center">{{entity.flota_destino}}</p>
+		<hr>
+		<strong><md-ico i=timer s=18></md-ico> <span translate>LB_DEPARTURE_TIME</span></strong>
+		<p class="text-muted text-center">{{entity.flota_salida_hora}}</p>
+		<hr>
+		<strong><md-ico i=flight_takeoff s=18></md-ico> <span translate>LB_OUTPUT_MILE</span></strong>
+		<p class="text-muted text-center">{{entity.flota_salida_km}} kms</p>
+		<hr>
+		<strong><md-ico i=flag s=18></md-ico> <span translate>LB_STATUS</span></strong>
+    <p class="text-muted"><span ng-bind-html="statusLabel[entity.flota_estado]"></span></p>
+		<hr>
+		<strong><md-ico i=comment s=18></md-ico> <span translate>LB_DETAIL</span></strong>
+		<p class="text-muted text-center">{{entity.flota_detalle}}</p>
+    <div ng-if="entity.flota_estado=='ESTACION'">
+			<hr>
+			<strong><md-ico i=timer_off s=18></md-ico> <span translate>LB_CHECK_IN_TIME</span></strong>
+			<p class="text-muted text-center">{{entity.flota_arribo_hora}}</p>
+			<hr>
+			<strong><md-ico i=flight_land s=18></md-ico> <span translate>LB_INPUT_MILE</span></strong>
+			<p class="text-muted text-center">{{entity.flota_arribo_km}} kms</p>
+    </div>
+	</div>
+</div>

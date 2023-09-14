@@ -1,0 +1,75 @@
+/**
+ * material-design-lite - Material Design Components in CSS, JS and HTML
+ * @version v1.3.0
+ * @license Apache-2.0
+ * @copyright 2015 Google, Inc.
+ * @link https://github.com/google/material-design-lite
+ */
+html{color:rgba(0,0,0,.87)}
+body{background-color:#e6e9ea;color:#212121;font-family:Roboto,sans-serif;padding:100px 0 30px}
+.wrapper{background-color:#e6e9ea!important;overflow:visible;}
+.no-padding{padding:0}
+.loader{position:fixed;left:0px;top:0px;width:100%;height:100%;z-index:99999999;background:url('http://127.0.0.1/app/src/img/system/page-loader.gif') 50% 50% no-repeat white;}
+/* Slider */
+.item,.mlt-carousel{height:600px;border-radius:12px}
+.mlt-carousel{background:#272262;z-index:1;box-shadow:0 0 30px grey}
+.item-content{text-align:center;color:#fff;padding:0 20px}
+.item-content h3{font-size:19px;font-weight:700;text-shadow:0 0 1px #000;margin:10px 0}
+.item-content p{display:block;font-size:15px;color:#fff;text-shadow:0 0 1px #000}
+.item{overflow:hidden}
+.item>img{margin-top:30px;margin-bottom:30px}
+/* PADDING */
+.no-padding{padding:0px}
+.padding-all{padding:8px!important;}
+.no-padding-bottom{padding-bottom:0px!important;}.no-padding-top{padding-top:0px!important;}.no-padding-left{padding-left:0px!important;}.no-padding-right{padding-right:0px!important;}
+.padding-bottom{padding-bottom:8px!important;}.padding-top{padding-top:8px!important;}.padding-left{padding-left:8px!important;}.padding-right{padding-right:8px!important;}
+/* MARGIN */
+.no-margin{margin:0px}
+.margin-all{margin:8px!important;}
+.margin-bottom{margin-bottom:8px!important;}.margin-top{margin-top:8px!important;}.margin-left{margin-left:8px!important;}.margin-right{margin-right:8px!important;}
+.no-margin-bottom{margin-bottom:0px!important;}.no-margin-top{margin-top:0px!important;}.no-margin-left{margin-lef:0px!important;}.no-margin-right{margin-right:0px!important;}
+/* login */
+.mlt-content{z-index:0;background:#fff;width:100%;height:566px;box-shadow:0 15px 40px #b3b3b3;-webkit-border-top-right-radius:12px;-webkit-border-bottom-right-radius:12px;-moz-border-radius-topright:12px;-moz-border-radius-bottomright:12px;border-top-right-radius:12px;border-bottom-right-radius:12px;text-align:center;padding-top:30px;margin-top:17px}
+#myTabContent{margin-top:35px;max-height:450px;overflow-y:auto;}
+.form-login{max-width:450px;margin:0px auto;}
+.mlt-content span a{text-decoration:underline}
+.mlt-content .nav-tabs{border:none}
+.nav-tabs>li{display:inline;text-align:center;float:none;margin-right:-4px}
+.mlt-content .nav-tabs>li>a{line-height:1.42857143;border:none;margin:0;padding:10px 20px;border-bottom:1.5px solid #d9ddde;border-radius:0;display:inline;font-size:15px;text-transform:uppercase;font-weight:700;color:#d9ddde;cursor:pointer}
+.mlt-content .nav-tabs>li>a:focus,.mlt-content .nav-tabs>li>a:hover{border-right:none;border-top:none;border-left:none;background:0 0}
+.mlt-content .nav-tabs>li.active>a,.mlt-content .nav-tabs>li.active>a:focus,.mlt-content .nav-tabs>li.active>a:hover{border-bottom:2px solid #2196f3;color:#2196f3;background:0 0}
+/* Media Queries*/
+@media(max-width:768px){
+	body{padding-top:15px}
+	.mlt-content{-webkit-border-radius:12px;-moz-border-radius:12px;border-radius:12px}
+}
+.carousel-fade .carousel-inner .item{opacity:0;transition-property:opacity}
+.carousel-fade .carousel-inner .active{opacity:1}
+.carousel-fade .carousel-inner .active.left,.carousel-fade .carousel-inner .active.right{left:0;opacity:0;z-index:1}
+.carousel-fade .carousel-inner .next.left,.carousel-fade .carousel-inner .prev.right{opacity:1}
+.carousel-fade .carousel-control{z-index:2}
+@media all and (transform-3d),(-webkit-transform-3d){
+	.carousel-fade .carousel-inner>.item.active.left,.carousel-fade .carousel-inner>.item.active.right,.carousel-fade .carousel-inner>.item.next,.carousel-fade .carousel-inner>.item.prev{opacity:0;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}
+	.carousel-fade .carousel-inner>.item.active,.carousel-fade .carousel-inner>.item.next.left,.carousel-fade .carousel-inner>.item.prev.right{opacity:1;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}
+}
+/*
+ * CUSTOM
+ */
+.carousel-inner>.item>img{height:256px;}
+.tab-pane{max-width:480px;margin:0px auto;}
+.margin-top{margin:0px;margin-top:10px;}
+.img-profile{ position:relative; width:128px; height:128px; overflow:hidden; border-radius:50%;margin:0px auto;}
+.img-profile img {width:128px;height:128px;border-radius:50%;}
+.profile-name{font-size:14px;margin:2px 0px 2px;font-weight:bold;color:#272262;}
+.box-body{border-top: 1px solid #f4f4f4;}
+/** FORMULARIOS **/
+.layout-padding>.layout-padding{padding:0px}
+.layout-padding div.form-group{margin:0px}
+form.form-fa .form-control{padding-left:45px;height:auto;}
+form.form-fa .form-group .fa{position:absolute;display:block;margin-top:10px;margin-left:15px;width:22px;color:#919398;}
+.layout-padding .fa{padding: 8px 16px 0px 0px;}
+.required>label:before{content:"* ";color:red;font-weight:bold}
+*:required:focus {border:1px solid rgba(255, 0, 0, 0.75);}
+*:required:hover {opacity:1;}
+.btn-success{background-color:#0a913c;}
+.btn-info{background-color:#0088b1;border-color:#0088b1;}

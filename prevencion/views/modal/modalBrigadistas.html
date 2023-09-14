@@ -1,0 +1,60 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg" ng-controller="brigadistsExtendsCtrl">
+  <form name="formData">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button class="md-icon-button"><md-ico i=nature_people></md-ico></md-button>
+			<h2 translate>LB_BRIGADE_STAFF</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-content layout-padding>
+			
+			<!-- FILTRO DE PASAJEROS -->
+			<div layout-padding>
+				<div class="box box-success no-margin">
+					<div class="box-body text-center">
+						<div class="input-group">
+							<span class="input-group-addon"><md-ico i=search></md-ico></span>
+							<input ng-model="filterData" class="form-control" placeholder="Ej. 1236587490" maxlength="20">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-if="filterData!=''" ng-click="filterData=''"><md-ico i=clear></md-ico></button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- LISTADO DE PARTICIPANTES -->
+			<div class="box box-warning no-margin no-padding margin-top">
+				<div class="box-header with-border text-center">
+        	<h3 class="box-title" translate>LB_BRIGADISTS</h3>
+				</div>
+        <div class="row box-body no-margin">
+					<div class="col-md-6 col-xs-12 md-2-line contact-item" ng-repeat="item in employeesList | filter : filterData">
+		        <label class="label">
+					    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.selected" checklist-value="item.empleado_id" />
+					    <span class="label__text">
+					      <span class="label__check">
+					        <i class="fa fa-check icon"></i>
+					      </span>
+					    </span>
+					  </label>
+		        <div class="md-list-item-text compact">
+	          	<span class="text-bold" ng-bind-html="highlight(item.person.persona_apellidos+' '+item.person.persona_nombres,filterData)"></span>
+		          <p style="font-size:11px;" ng-bind-html="highlight(item.empleado_funcion,filterData)"></p>
+		        </div>
+					</div>
+				</div>
+			</div>
+			
+    </md-content>
+  </md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type=button ng-click="submitRequestForm()" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,81 @@
+<div class="text-center">
+	<h1 class="text-info" translate>LB_REGISTRATION_FORM</h1>
+</div>
+<form name="formClient" class="form-fa box-signup box-group" ng-submit="submitForm()">
+	<div class="box box-success no-margin">
+		<div class="box-header text-center">
+			<h3 class="box-title" translate>LB_MAIN_INFORMATION</h3>
+		</div>
+		<div class="box-body" layout=column layout-padding>
+			<div class="form-group required" flex>
+				<label translate>LB_IDENTIFICATION_TYPE</label>
+		    <i-fa i=credit-card-alt></i-fa>
+		    <select class="form-control" ng-model="frmParent.entidad_contribuyente" required
+							ng-options="key as val for (key,val) in entityType"></select>
+			</div>
+			<div layout=column layout-padding ng-if=frmParent.entidad_contribuyente=='fiscal'>
+				<div class="form-group required" flex>
+					<label translate>LB_AMIE</label>
+					<i-fa i=id-card></i-fa>
+					<input ng-model="frmParent.entidad_ruc" class="form-control" placeholder="Ej. 23H00052" required maxlength=10 />
+				</div>
+				<div class="form-group required">
+					<label translate>LB_INSTITUTION_NAME</label>
+					<i-fa i=building></i-fa>
+					<input ng-model="frmParent.entidad_razonsocial" class="form-control" placeholder="Ej. U.E. Santo Domingo" required />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="box box-danger">
+		<div class="box-header text-center">
+			<h3 class="box-title" ng-if=frmParent.entidad_contribuyente=='fiscal' translate>LB_INSTITUTION_DIRECTOR</h3>
+			<h3 class="box-title" ng-if=frmParent.entidad_contribuyente!='fiscal' translate>LB_PERSONAL_INFORMATION</h3>
+		</div>
+		<div class="box-body" layout=column layout-padding>
+			<div layout-xs=column layout=row layout-padding>
+				<div class="form-group required" flex ng-if=frmParent.entidad_contribuyente=='fiscal'>
+					<label translate>LB_IDENTIFICATION_TYPE</label>
+					<i-fa i=credit-card></i-fa>
+					<select class="form-control" ng-model="frmParent.person.persona_tipo_doc" required
+								ng-options="key as val for (key,val) in identificationType"></select>
+				</div>
+				<div class="form-group required" flex>
+					<label translate>LB_IDENTIFICATION_NUMBER</label>
+					<i-fa i=id-card-o></i-fa>
+					<input ng-model="frmParent.person.persona_doc_identidad" class="form-control" placeholder="Ej. 1721953189" maxlength=13 required />
+				</div>
+			</div>
+			<div layout-xs=column layout=row layout-padding>
+				<div class="form-group required" flex>
+					<label translate>LB_LASTNAME</label>
+					<i-fa i=user></i-fa>
+					<input ng-model="frmParent.person.persona_apellidos" class="form-control" placeholder="Ej. Palacios Morales" required onkeypress="return alphaOnly(event)"  />
+				</div>
+				<div class="form-group required" flex>
+					<label translate>LB_NAME</label>
+					<i-fa i=user-o></i-fa>
+					<input ng-model="frmParent.person.persona_nombres" class="form-control" placeholder="Ej. Juan David" required onkeypress="return alphaOnly(event)"  />
+				</div>
+			</div>
+			<div class="form-group required">
+				<label translate>LB_MAIL</label>
+				<i-fa i=envelope-o></i-fa>
+				<input type=email ng-model="frmParent.person.persona_correo" class="form-control" placeholder="Ej. correo@live.com" required />
+			</div>
+		</div>
+		<div class="box-footer" style="padding:17px 17px 8px" layout=column layout-padding>
+			<button type="submit" class="btn btn-success btn-block">
+				<i class="fa fa-plus"></i>
+				<span translate>LB_SIGN_UP</span>
+			</button>
+			<button type=button class="btn btn-warning btn-block" ui-sref="main">
+				<i class="fa fa-undo"></i>
+				<span translate>BTN_CANCEL</span>
+			</button>
+		</div>
+		<div class="text-right option-link" style="padding-bottom:8px;padding-right:17px;">
+			<a href="https://youtu.be/9miQSISkJ5E" target="_blank">Aprende a usar la plataforma <i class="fa fa-info"></i></a>
+		</div>
+	</div>
+</form>

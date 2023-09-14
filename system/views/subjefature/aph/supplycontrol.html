@@ -1,0 +1,78 @@
+<md-card ng-cloak ng-controller="dataTableNodeCtrl">
+
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=import_export></md-ico></md-button>
+			<h2 translate>TOOLBAR_APH_SUPPLIES_CONTROL</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()" ng-if="allow.permiso8411">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_GENERATE_NEW_TRANSACTION</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<datatable-toolbar></datatable-toolbar>
+	
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="width:25%;">
+     	<col style="">
+     	<col style="width:20%;">
+     	<col style="width:5%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_REGISTRY</span></th>
+					<th md-column><span translate>LB_DESCRIPTION</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.rows">
+					<td md-cell class="text-uppercase">
+						<div>
+							<md-ico i=fingerprint></md-ico><span ng-bind-html="highlight(row.inventario_codigo)"></span>
+							<md-tooltip><span translate>LB_CODE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=event></md-ico>{{row.inventario_fecha_registro | date:'fullDate'}}
+							<md-tooltip><span translate>LB_REGISTRE_DATE</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell>
+					
+						<div>
+							<md-ico i=home_work></md-ico><span ng-bind-html="highlight(row.cellar.bodega_nombre)"></span>
+							<md-tooltip><span translate>LB_DESTINATION_CELLAR</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=flag></md-ico><span ng-bind-html="highlight(row.inventario_tipo)"></span>
+							<md-tooltip><span translate>LB_TRANSACTION_TYPE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=comment></md-ico><span ng-bind-html="highlight(row.inventario_descripcion)"></span>
+							<md-tooltip><span translate>LB_DESCRIPTION</span></md-tooltip>
+						</div>
+						
+					</td>
+					<td md-cell>
+					  <md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.inventario_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.inventario_registro)"></span><br>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <menu-supplycontrol ng-if="(allow.permiso8412 || allow.permiso8413 || allow.permiso8414 || allow.permiso8415 || allow.permiso8416)"></menu-supplycontrol>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	
+	<datatable-footer></datatable-footer>
+	
+</md-card>

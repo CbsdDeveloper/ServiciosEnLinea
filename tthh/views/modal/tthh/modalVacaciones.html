@@ -1,0 +1,67 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=flight_takeoff></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_VACATIONS</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+			
+			<div class="callout callout-info no-margin margin-bottom" ng-if="frmParent.vacacion_estado!='SOLICITUD GENERADA'">
+			  <p ng-bind-html="trustAsHtml(string2JSON('VACATIONS_PERMISSION_STATUS')[frmParent.vacacion_estado])"></p>
+			</div>
+			
+			<div class="box box-success no-margin" layout-padding>
+				<div class="box-header text-center">
+				  <h3 class="box-title" translate>LB_MAIN_INFORMATION</h3>
+				</div>
+				<div class="box-body" layout=column layout-padding>
+					<div layout-padding layout=column >
+						<div class="form-group required" flex>
+							<label translate>LB_CODE</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=fingerprint></md-ico></span>
+						    <input class="form-control" ng-model="frmParent.vacacion_codigo" readonly="readonly">
+							</div>
+						</div>
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_VACATIONS_DAY_HOLIDAYS</label>
+								<div class="input-group" moment-picker="frmParent.vacacion_fecha_desde" format="YYYY-MM-DD">
+								<span class="input-group-addon"><md-ico i=event_available></md-ico></span>
+						    	<input class="form-control" ng-model="frmParent.vacacion_fecha_desde" ng-model-options="{ updateOn: 'blur' }" placeholder="EJ. 2017-03-13" required>
+						    </div>
+							</div>
+							<div class="form-group required" flex>
+								<label translate>LB_UNTIL_DAY</label>
+								<div class="input-group" moment-picker="frmParent.vacacion_fecha_hasta" format="YYYY-MM-DD" min-date="frmParent.vacacion_fecha_desde">
+								<span class="input-group-addon"><md-ico i=event_busy></md-ico></span>
+						    	<input class="form-control" ng-model="frmParent.vacacion_fecha_hasta" ng-model-options="{ updateOn: 'blur' }" placeholder="EJ. 2017-07-27" required>
+						    </div>
+							</div>
+						</div>
+					</div>
+					<div>
+			    	<div class="form-group" ng-class="[{'required':(frmParent.vacacion_estado=='SOLICITUD NEGADA' || frmParent.vacacion_estado=='SOLICITUD ANULADA')}]">
+							<label translate>LB_OBSERVATION</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=info_outline></md-ico></span>
+						    <textarea ng-model="frmParent.vacacion_observacion" class="form-control" ng-required="frmParent.vacacion_estado=='SOLICITUD NEGADA' || frmParent.vacacion_estado=='SOLICITUD ANULADA'"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

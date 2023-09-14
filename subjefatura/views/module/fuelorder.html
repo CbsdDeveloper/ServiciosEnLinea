@@ -1,0 +1,86 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=local_gas_station></md-ico></md-button>
+			<h2 translate>TOOLBAR_FUEL_ORDER</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-divider ng-if="session.stationManager"></md-divider>
+	<md-toolbar class="md-table-toolbar" ng-if="session.stationManager">
+	  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+	    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><md-ico i=local_shipping></md-ico></md-button>
+	    <input class="form" ng-model="filterBarCode.code" placeholder="ORDEN DE COMBUSTIBLE" flex>
+	    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+	    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico></md-button>
+	  </form>
+	</md-toolbar>
+	
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_FUEL_ORDER</span></th>
+					<th md-column><span translate>LB_RESPONSIBLE</span></th>
+					<th md-column><span translate>LB_DETAIL</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td class="text-uppercase" md-cell>
+						<div>
+							<md-ico i=local_gas_station></md-ico><span ng-bind-html="highlight(row.orden_codigo)"></span><br>
+							<md-tooltip><span translate>LB_ORDER_OF_SUPPLY</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=event></md-ico><span ng-bind-html="highlight(row.orden_emitida)"></span>
+							<md-tooltip><span translate>LB_DATE_ISSUE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=dns></md-ico><span ng-bind-html="highlight(row.orden_estacionservicio_codigo)"></span>
+							<md-tooltip><span translate>LB_INSTITUTION_CODE</span></md-tooltip>
+						</div>
+						<div ng-if="row.orden_estado=='VALIDADA'">
+							<div>
+								<md-ico i=local_gas_station></md-ico><span ng-bind-html="highlight(row.orden_estacionservicio)"></span>
+								<md-tooltip><span translate>LB_SERVICE_STATION</span></md-tooltip>
+							</div>
+							<md-ico i=battery_unknown></md-ico><label class="badge bg-red">{{row.validacion_total | currency}}</label>
+						</div>
+					</td>
+					<td class="text-uppercase" md-cell>
+						<div>
+							<md-ico i=person></md-ico><span class="text-primary" ng-bind-html="highlight(row.responsable)"></span><br>
+							<md-ico i=wrap_text></md-ico><span ng-bind-html="highlight(row.responsable_puesto)"></span>
+							<md-tooltip><span translate>LB_PERSON_REQUESTING</span></md-tooltip>
+						</div>
+						<div ng-if="row.fk_encargadoestacion_id>0">
+							<md-ico i=person_outline></md-ico><span class="text-danger" ng-bind-html="highlight(row.es)"></span><br>
+							<md-ico i=wrap_text></md-ico><span ng-bind-html="highlight(row.es_puesto)"></span>
+							<md-tooltip><span translate>{{row.es_funcion}}</span></md-tooltip>
+						</div>
+						<div ng-if="row.orden_estado=='VALIDADA'">
+							<div>
+								<md-ico i=person></md-ico><span class="text-warning" ng-bind-html="highlight(row.operador)"></span>
+								<md-tooltip><span translate>LB_OPERATOR</span></md-tooltip>
+							</div>
+							<div>
+								<md-ico i=event></md-ico>{{row.orden_valdacion | date:'fullDate'}}
+								<md-tooltip><span translate>LB_DATE_VALIDATION</span></md-tooltip>
+							</div>
+						</div>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.orden_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="highlight(row.orden_registro)"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

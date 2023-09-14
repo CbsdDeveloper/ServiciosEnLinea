@@ -1,0 +1,21 @@
+<style>{{css}}p{font-size:20px}ul li{font-size:15px;text-transform:uppercase;}</style>
+<page backtop="60mm" backbottom="25mm" backleft="25mm" backright="25mm">
+	<!-- HEADER DE SOLICITUD -->
+	<page_header>
+		<br><br>
+		<div class="section_header"><img src="src/img/reports/escudo.jpg"></div>
+		<table><tbody>
+			<tr>
+				<td style="width:100%;" class="headerLogo text-center">
+					<img src="{{REPORT_HEADER_IMG_PATH}}" style="width:480px;margin:auto"><br>
+					<span class="text-uppercase" style="font-size:18px;margin-top:10px;color:#367b48;">{{sistema_ciudad}}, {{report_date}}</span>
+				</td>
+			</tr>
+		</tbody></table>
+	</page_header>
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE_MAIN}}
+	<!-- CUERPO DE REPORTE -->
+	<br/><br/><br/>
+	{{CUSTOM_TEMPLATE_REPORT}}
+</page>

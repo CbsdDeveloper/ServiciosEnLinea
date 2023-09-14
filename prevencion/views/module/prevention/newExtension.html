@@ -1,0 +1,152 @@
+﻿<form name="formData" layout-padding>
+
+	<md-toolbar layout-padding>
+		<div class="md-toolbar-tools">
+		  	<md-button aria-label="btn" class="md-icon-button"><md-ico i=store_mall_directory></md-ico></md-button>
+		  	<h2>{{dataEntity.i.local_nombrecomercial}}</h2>
+		    <span flex></span>
+		    <span>{{toolbar}}</span>
+		</div>
+	</md-toolbar>
+	
+	<div layout-xs=column layout=row layout-padding>
+		<div class="box box-danger no-margin margin-top" layout-padding flex>
+			<div class="box-header with-border text-center">
+			  <h3 class="box-title" translate>LB_PERSON_REQUESTING</h3>
+			</div>
+			<div class="box-body padding-all" layout=column layout-padding>
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_IDENTIFICATION_TYPE</label>
+						<div class="input-group">
+							<span class="input-group-addon"><i-fa i=credit-card></i-fa></span>
+							<select class="form-control input-sm select2" ng-model="dataEntity.frmParent.persona_tipo_doc" required ng-options="key as val for (key,val) in string2JSON('identificationType')"></select>
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_IDENTIFICATION_NUMBER</label>
+						<div class="input-group">
+							<span class="input-group-addon"><i-fa i=id-card-o></i-fa></span>
+							<input ng-model="dataEntity.frmParent.persona_doc_identidad" class="form-control input-sm" required maxlength=20>
+						</div>
+					</div>
+				</div>
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_LASTNAME</label>
+						<div class="input-group">
+							<span class="input-group-addon"><i-fa i=user></i-fa></span>
+							<input ng-model="dataEntity.frmParent.persona_apellidos" class="form-control input-sm" required>
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_NAME</label>
+						<div class="input-group">
+							<span class="input-group-addon"><i-fa i=user-o></i-fa></span>
+					    <input ng-model="dataEntity.frmParent.persona_nombres" class="form-control input-sm" required>
+						</div>
+					</div>
+				</div>
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_TEL</label>
+						<div class="input-group">
+							<span class="input-group-addon"><md-ico i=phone_iphone></md-ico></span>
+					    <input type="tel" ng-model="dataEntity.frmParent.persona_celular" class="form-control input-sm" required>
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_MAIL</label>
+						<div class="input-group">
+							<span class="input-group-addon"><i-fa i=envelope-o></i-fa></span>
+							<input type="email" ng-model="dataEntity.frmParent.persona_correo" class="form-control input-sm" required>
+						</div>
+					</div>
+				</div>
+				<div class="form-group required" flex>
+					<label translate>LB_CHARGE_RESPONSIBLE</label>
+					<div class="input-group">
+						<span class="input-group-addon"><i-fa i=address-book></i-fa></span>
+						<input ng-model="dataEntity.frmParent.prorroga_solicitante_cargo" class="form-control input-sm" required>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="margin-top" style="font-size:12px;" ng-repeat="(key, resources) in dataEntity.fails" layout-padding>
+		<div class="box box-{{string2JSON('colorCss')[$index]}} no-margin" flex>
+			<div class="box-header with-border text-center">
+				<h3 class="box-title">{{key}}</h3>
+        <div class="box-tools pull-right">
+	        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+				</div>
+			</div>
+			<div class="box-body" style="background:#e5e9ee;padding-top:16px;" md-theme="infoTheme" layout=row>
+				<ul class="timeline" style="width:100%">
+					<li ng-repeat="(key, list) in resources">
+						<i class="fa fa-{{dataEntity.src.icon[key]}} bg-{{string2JSON('colorName')[$index+$parent.$index]}}"></i>
+				    <div class="timeline-item">
+				    	<h3 class="timeline-header" layout=row layout-wrap>
+				    		<b>{{key}}</b>
+				    	</h3>
+				      <div class="timeline-body" layout-xs=column layout=row layout-padding layout-wrap>
+								<div style="min-width:50%" ng-repeat="item in list" layout=column flex>
+									<div layout=column flex>
+										<b>{{item.regla_id}}. {{item.regla_nombre}}</b>
+										<md-radio-group ng-model="dataEntity.model[item.regla_id].implementacion_aplica" layout=row>
+								      <md-radio-button value="SI APLICA" ng-disabled="true" class="md-warn">SI APLICA</md-radio-button>
+								      <md-radio-button value="NO APLICA" ng-disabled="true" class="md-primary">NO APLICA</md-radio-button>
+								    </md-radio-group>
+									</div>
+									<div class="no-padding row" ng-if="dataEntity.model[item.regla_id].implementacion_aplica=='SI APLICA'">
+										<div class="no-padding-top no-padding-bottom" layout-xs=column layout=row layout-padding>
+											<div class="form-group required" flex>
+												<label translate>LB_START_OF_IMPLEMENTATION</label>
+												<div class="input-group" min-date="dataEntity.frmParent.prorroga_desde" max-date="dataEntity.frmParent.prorroga_hasta" moment-picker="dataEntity.model[item.regla_id].implementacion_desde" format="YYYY-MM-DD">
+													<span class="input-group-addon"><i-fa i=calendar-check-o></i-fa></span>
+											    <input class="form-control input-sm" ng-model="dataEntity.model[item.regla_id].implementacion_desde" required>
+												</div>
+											</div>
+											<div class="form-group required" flex>
+												<label translate>LB_DATE_OF_IMPLEMENTATION</label> 
+												<div class="input-group" min-date="dataEntity.model[item.regla_id].implementacion_desde" max-date="dataEntity.frmParent.prorroga_hasta" moment-picker="dataEntity.model[item.regla_id].implementacion_hasta" format="YYYY-MM-DD">
+													<span class="input-group-addon"><i-fa i=calendar-times-o></i-fa></span>
+											    <input class="form-control input-sm" ng-model="dataEntity.model[item.regla_id].implementacion_hasta" required>
+												</div>
+											</div>
+										</div>
+										<div class="no-padding-top" layout-xs=column layout=row layout-padding>
+											<div class="no-padding-top form-group required" flex>
+												<label translate>LB_REASON</label>
+												<div class="input-group">
+													<span class="input-group-addon"><i-fa i=comments></i-fa></span>
+											    <textarea class="form-control input-sm" ng-model="dataEntity.model[item.regla_id].implementacion_motivo" required></textarea>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</li>
+					
+				  <li><i class="fa fa-clock-o bg-gray"></i></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<div class="box-footer margin-top" layout=row layout-align="space-between center">
+		<md-button class="md-raised md-warn" ui-sref="prevention.extensions" flex>
+	  	<i-fa i="arrow-left"></i-fa>
+	  	<span translate>BTN_CANCEL</span>
+		</md-button>
+		<md-button class="md-raised md-primary" type="button" ng-click="submitForm()" ng-disabled="formData.$invalid" flex>
+			<span translate>BTN_SUBMIT</span>
+			<md-ico i=send s=18></md-ico>
+		</md-button>
+	</div>
+
+</form>

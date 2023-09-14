@@ -1,0 +1,31 @@
+<style>{{css}}p{font-size:20px}ul li{font-size:15px;text-transform:uppercase;}</style>
+<page backtop="75mm" backbottom="25mm" backleft="20mm" backright="20mm">
+	<!-- HEADER DE SOLICITUD -->
+	<page_header>
+		<div class="section_header"><img src="src/img/reports/escudo.jpg"></div>
+		<table class="page_header">
+			<tr>
+				<td style="width:100%;" class="headerLogo text-center">
+					<img src="{{REPORT_HEADER_IMG_PATH}}" style="width:500px;">
+				</td>
+			</tr>
+			<tr>
+				<td style="width:100%;" class="text-center report-title-container"><br><br>
+					<span class="text-uppercase" style="font-size:18px;margin-top:10px;color:#367b48;">{{sistema_ciudad}}<br><br>{{report_date}}</span>
+				</td>
+			</tr>
+		</table>
+	</page_header>
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE_MAIN}}
+	<br/><br><br>
+	<p class="text-center">
+		El {{INSTITUTION_FULL_NAME}} lamenta informarle que no cuenta con los privilegios necesarios 
+		para acceder al documento: <br><br> {{informe}}
+	</p>
+	<p class="text-center">
+		Si considera que esto es una equivocación de nuestra parte por favor no dude en ponerse en 
+		contacto con nosotros, nos encontraremos gustosos de atenderlo.
+	</p>
+	<ul>{{listEmptyReport}}</ul>
+</page>

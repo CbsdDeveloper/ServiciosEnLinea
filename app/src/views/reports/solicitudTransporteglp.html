@@ -1,0 +1,70 @@
+<style>{{css}}</style>
+<page backtop="{{margin_top}}mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	<!-- HEADER DE SOLICITUD -->
+	{{HEADER_REQUEST}}
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE}}
+	<!-- CUERPO DE REPORTE -->
+	{{TGLP_SOLICITUD}}
+</page>
+
+<page backtop="30mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	<!-- HEADER DE SOLICITUD -->
+	{{HEADER_ENTITY}}
+	<!-- FOOTER DE REPORTE -->
+	{{FOOTER_PAGE}}
+	<!-- CUERPO DE REPORTE -->
+	<h1 class="title-single text-center text-uppercase">{{informe}}</h1>
+	<!-- LISTA DE REQUISITOS -->
+	{{REQUIREMETS_LIST}}
+	<!-- CUERPO DE REPORTE -->
+	<table class="table table-bordered text-uppercase">
+		<col style="width:5%;text-align:center">
+		<col style="width:74%">
+		<col style="width:7%">
+		<col style="width:7%">
+		<col style="width:7%">
+		<thead>
+			<tr><th colspan=5>REQUISITOS PARA REVISIÓN DEL VEHÍCULO</th></tr>
+			<tr><th>#</th><th>RECURSOS</th><th>SI</th><th>NO</th><th>NA</th></tr>
+		</thead>
+		<tbody>{{tbResources}}</tbody>
+	</table>
+	<br>
+	<table class="table table-bordered text-uppercase">
+		<col style="width:30%">
+		<col style="width:70%">
+		<thead>
+			<tr><th colspan=2>INSPECCIÓN DEL VEHÍCULO</th></tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>SOLICITUD GENERADA</td><td>{{report_date}}</td>
+			</tr>
+			<tr>
+				<td>VEHICULO</td><td>{{vehiculo_marca}} / {{vehiculo_placa}}</td>
+			</tr>
+			<tr>
+				<td>PROPIETARIO</td><td>{{propietario}}</td>
+			</tr>
+			<tr>
+				<td>PERMISO ANUAL DE FUNCIONAMIENTO</td><td>{{codigo_per}}</td>
+			</tr>
+			<tr>
+				<td>INSPECTOR ASIGNADO</td><td>{{inspector}}</td>
+			</tr>
+			<tr>
+				<td>FECHA DE INSPECCION</td><td></td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="table table-bordered text-uppercase">
+		<col style="width:100%;text-align:center">
+		<thead>
+			<tr><th>OBSERVACIONES</th></tr>
+		</thead>
+		<tbody>
+			<tr><td style="height:50px"></td></tr>
+		</tbody>
+	</table>
+</page>

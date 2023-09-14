@@ -1,0 +1,49 @@
+<md-dialog aria-label="modal" class="modal-dialog modal-lg form-content-alt">
+	<form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+    	<md-button aria-label="btn" class="md-icon-button"><md-ico i=restore></md-ico></md-button>
+      <h2 translate="ACCOUNT_USER" translate-values="{user:frmParent.personal_nombre}"></h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	
+    	<!-- INFORMACIÓN DE USUARIO -->
+     	<card-entity-information layout-padding></card-entity-information>
+			
+    	<!-- SELECCIONAR EL LISTADO DE MÓDULOS -->
+			<div class="card card-outline card-warning no-padding no-margin margin-top" layout-padding>
+				<div class="card-header with-border text-center">
+				  <h3 class="card-title" translate>LB_RESTORE_CREDENTIALS</h3>
+				</div>
+				<div class="card-body padding-all" layout=column>
+					<md-checkbox ng-required="true"
+					    ng-model="frmParent.cambiar_pass"
+					    aria-label="Acceso correcto"
+					    ng-true-value="'SI'"
+					    ng-false-value="'NO'"
+					    class="md-align-top-left no-padding">
+					  	<span translate>LB_RESTORE_PASS</span>
+					</md-checkbox>
+					<md-checkbox 
+					    ng-model="frmParent.entidad_contrasenia_cambio"
+					    aria-label="Acceso falldo"
+					    ng-true-value="'SI'"
+					    ng-false-value="'NO'"
+					    class="md-align-top-left no-padding">
+					  	<span translate>LB_REQUEST_CHANGE_PASSWORD</span>
+					</md-checkbox>
+				</div>
+			</div>
+			
+    </md-content>
+  </md-dialog-content>  <md-dialog-actions layout=row>
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

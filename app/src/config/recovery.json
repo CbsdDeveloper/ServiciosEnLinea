@@ -1,0 +1,49 @@
+{
+	
+	"attr":{
+    "usuarios":{
+      "serial":"usuario_id",
+      "name":"usuario_nombre",
+      "pwd":"usuario_pass",
+      "flag":"usuario_cambiar_pass",
+      "reset":"true",
+      "encrypt":"md5",
+      "user":"usuario_login",
+      "mail":"persona_correo"
+    },
+    "personal":{
+      "serial":"personal_id",
+      "name":"personal_nombre",
+      "pwd":"personal_contrasenia",
+      "flag":"personal_cambiar_pass",
+      "reset":"SI",
+      "encrypt":"md5",
+      "user":"persona_doc_identidad",
+      "mail":"personal_correo_institucional"
+    },
+    "entidades":{
+      "serial":"entidad_id",
+      "name":"entidad_razonsocial",
+      "pwd":"entidad_contrasenia",
+      "flag":"entidad_contrasenia_cambio",
+      "reset":"SI",
+      "encrypt":"sha256",
+      "user":"entidad_ruc",
+      "mail":"entidad_correo"
+    }
+	},
+	
+	"modules":{
+	 "system":"usuarios",
+	 "tthh":"personal",
+	 "prevencion":"entidades",
+	 "other":"entidades"
+	},
+	
+	"mailServer":{
+	 "usuarios":"102",
+	 "personal":"102",
+	 "entidades":"102"
+	}
+	
+}

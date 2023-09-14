@@ -1,0 +1,38 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog" ng-controller="glpTransportExtendsCtrl">
+  <form name="formData" ng-submit="submitFormTGLP()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=whatshot></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_GLP_TRANSPORT</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=close></md-ico></md-button>
+    </div>
+  </md-toolbar>
+	<md-dialog-content>
+		<md-content layout=column layout-padding>
+			<!-- FORMULARIO DE DATOS DE VEHICULO -->
+			<card-vehicleglp-information layout-padding></card-vehicleglp-information>
+			<!-- FORMULARIO DE PERMISO ANUAL DE FUNCIONAMIENTO -->
+			<div class="box box-success no-margin margin-top" layout-padding>
+				<div class="box-header text-center">
+				  <h3 class="box-title" translate>LB_PERMIT_INFORMATION</h3>
+				</div>
+				<div class="box-body" layout=column>
+		    	<div class="form-group required">
+						<label translate>LB_OPERATING_PERMIT_NUMBER</label>
+						<div class="input-group">
+							<div class="input-group-addon"><md-ico i=confirmation_number></md-ico></div>
+							<input class="form-control" ng-model="frmParent.codigo_per" placeholder="Ej. 2017PER53624" required />
+						</div>
+					</div>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

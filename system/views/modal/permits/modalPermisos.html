@@ -1,0 +1,70 @@
+<md-dialog aria-label="Form Data" class="form-content-alt modal-dialog modal-lg" ng-controller="permitsExtendsCtrl">
+  <form name="formData" ng-submit="customForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="btn" class="md-icon-button"><md-ico i=assignment_turned_in></md-ico></md-button>
+			<h2 translate>TOOLBAR_PERMITS</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-content layout=column layout-padding>
+			<!-- INFORMACIÓN DE PERMISO -->
+			<card-permit-information layout-padding></card-permit-information>
+			<!-- FORMULARIO DE REIMPRESIÓN -->
+			<div class="card card-outline card-info no-margin margin-top" layout-padding>
+				<div class="card-header text-center">
+					<h3 class="card-title" translate>REPRINT_PERMIT</h3>
+				</div>
+				<div class="card-body md-padding padding-all" layout=column layout-padding>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_REASON_REPRINT</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><i-fa i=flag></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.reimpresion_motivo" required ng-options="val as val for (key,val) in string2JSON('REPRINT_REASON')"></select>
+							</div>
+						</div>
+						<div class="form-group" flex>
+							<label translate>LB_PER</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=assignment_turned_in></md-ico></div></div>
+								<input class="form-control" ng-model="frmParent.codigo_per" required disabled />
+							</div>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group" flex>
+							<label translate>LB_PERMIT_NUMBER</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=block></md-ico></div></div>
+								<input class="form-control" ng-model="frmParent.permiso_numero" disabled />
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_NEW_PERMIT_NUMBER</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=adjust></md-ico></div></div>
+								<input class="form-control" ng-model="frmParent.reimpresion_formulario" maxlength="7" placeholder="Ej. 23155" required />
+							</div>
+						</div>
+					</div>
+					<div class="form-group" flex>
+						<label translate>LB_OBSERVATIONS</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div>
+							<input class="form-control" ng-model="frmParent.reimpresion_detalle" />
+						</div>
+					</div>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

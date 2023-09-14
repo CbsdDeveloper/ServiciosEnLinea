@@ -1,0 +1,18 @@
+<div class="card card-outline card-primary box-card-ico">
+  <div class="card-body box-profile text-center">
+    <div class="container-img-user">
+    	<img class="profile-user-img img-responsive" src="/app/src/img/users/default.png" ng-src="/app/src/img/users/{{dataEntity.persona_imagen}}" alt="profile">
+    </div>
+		<h3 class="profile-username">{{dataEntity.persona_apellidos}} {{dataEntity.persona_nombres}}</h3>
+		<p class="text-muted text-center">{{dataEntity.persona_fingreso}}</p>
+    <hr>
+		<strong><md-ico i=credit_card></md-ico><br><span translate>LB_DOC_IDENTIFICATION</span></strong>
+    <p class="text-muted">{{string2JSON('identificationType')[dataEntity.persona_tipo_doc]}}<br>{{dataEntity.persona_doc_identidad}}</p>
+    <hr>
+    <strong><md-ico i=mail></md-ico><br><span translate>LB_MAIL</span></strong>
+    <p class="text-muted">{{dataEntity.persona_correo}}</p>
+    <hr>
+    <strong><md-ico i=phone></md-ico><br><span translate>LB_TEL</span></strong>
+    <p class="text-muted">{{dataEntity.persona_telefono}} - {{dataEntity.persona_celular}}</p>
+  </div>
+</div>

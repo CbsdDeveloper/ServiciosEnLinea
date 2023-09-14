@@ -1,0 +1,63 @@
+<style>{{css}}</style>
+<page backtop="{{margin_top}}mm" backbottom="{{margin_bottom}}mm" backleft="{{margin_left}}mm" backright="{{margin_right}}mm">
+	<table class="table table-bordered text-uppercase">
+		<col style="width:17%;">
+		<col style="width:35%;">
+		<col style="width:8%;">
+		<col style="width:40%;">
+		<thead>
+			<tr>
+				<td colspan="2">
+					<img src="{{REPORT_HEADER_IMG_PATH}}" style="width:237px;height:64px">
+				</td>
+				<td colspan=2 style="width:265px;" class="text-center">
+					{{BARCODE}}
+				</td>
+			</tr>
+			<tr>
+				<th colspan="2" style="font-size:13px;">ORDEN DE COBRO No. {{orden_serie}}</th>
+				<th colspan="2" style="font-size:13px">{{orden_codigo}}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>DE</td><td>{{LEADERSHIP_JTP_NAME}}<br><b>{{usuario_genera}}</b></td>
+				<td>PARA</td><td>RECAUDACIÓN <br> {{fecha_generado}}</td>
+			</tr>
+			<tr>
+				<td>C.I./RUC.</td><td>{{orden_doc_identidad}}</td>
+				<td>USUARIO</td><td>{{orden_cliente_nombre}}</td>
+			</tr>
+			<tr>
+				<td>TELÉFONO(S)</td><td>{{orden_telefono}}</td>
+				<td>E-MAIL</td><td>{{orden_email}}</td>
+			</tr>
+			<tr>
+				<td>DIRECCIÓN</td><td colspan="3">{{orden_direccion}}</td>
+			</tr>
+			<tr>
+				<td>FINES DE LUCRO</td><td>{{orden_lucro}}</td>
+				<td>AFORO</td><td> {{orden_aforo}}</td>
+			</tr>
+			<tr>
+				<td>LA CANTIDAD DE</td><td colspan="3"><b>${{orden_total}} ({{orden_total_text}})</b>; {{orden_justificacion}}</td>
+			</tr>
+			<tr>
+				<td>POR CONCEPTO DE</td><td colspan="3">{{orden_concepto}}</td>
+			</tr>
+			<tr>
+				<td>DE ACUERDO A</td><td colspan="3">{{orden_acuerdo}}</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="height:75px;text-align:center;">
+					<!-- <img src="src/img/reports/JP.png" style="height:40px"/> -->
+				</td>
+				<td colspan="2"></td>
+			</tr>
+			<tr>
+				<td colspan="2" class="text-center"><b>{{rupif}}</b><br>{{rupif_puesto}}<br>{{INSTITUTION_FULL_NAME}}</td>
+				<td colspan="2">RECIBE: </td>
+			</tr>
+		</tbody>
+	</table>
+</page>

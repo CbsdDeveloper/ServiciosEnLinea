@@ -1,0 +1,220 @@
+﻿<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		
+		<!-- CARD -->
+		<card-medical-history class="card-information" ng-if="detailConfig.show" flex></card-medical-history>
+		
+		<div flex>
+			<md-card class="no-margin">
+				
+				<!-- TOOLBAR -->
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=person></md-ico></md-button>
+						<h2>{{dataEntity.personal_nombre}} - #{{dataEntity.historia_id}} - #Historia Clínica: {{dataEntity.historia_serie}}</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-if="allow.permiso8162" ng-click="goUI('tthh.medical.newMedicalConsultation',{historyId:dataEntity.historia_id})">
+							<md-ico i=add_alert></md-ico><md-tooltip><span translate>LB_NEW_MEDICAL_CONSULTATION</span></md-tooltip>
+						</md-button>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				
+				<!-- DETALLE -->
+				<md-tabs md-dynamic-height md-border-bottom>
+					
+					<!-- INFORMACIÓN DEL PACIENTE -->
+					<md-tab label="{{'LB_USER_INFORMATION' | translate}}">
+						<md-content>
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i=history></md-ico></md-button>
+								<h2 translate>TOOLBAR_UTILS</h2>
+							</div>
+							<md-divider></md-divider>
+							<div layout-xs=column layout=row layout-padding layout-wrap>
+								<div style="min-width:350px;max-width:480px" flex ng-repeat="dataEntity in dataEntity.info">
+									<div class="card card-outline card-primary">
+									  <div class="card-body box-profile text-center">
+									    <strong><md-ico i=account_balance s=18></md-ico> <span translate>LB_LEADERSHIP</span></strong>
+									    <p class="text-muted">{{dataEntity.personal_direccion}}</p>
+									    <hr>
+									    <strong><md-ico i=star_half s=18></md-ico> <span translate>LB_EMPLOYMENT</span></strong>
+									    <p class="text-muted">{{dataEntity.puesto_definicion}}</p>
+									    <hr>
+									    <strong><md-ico i=info s=18></md-ico> <span translate>LB_CONTRACT_TYPE</span></strong>
+									    <p class="text-muted">{{dataEntity.personal_contrato}}</p>
+									    <hr>
+									    <strong><md-ico i=assistant_photo s=18></md-ico> <span translate>LB_STATION</span></strong>
+									    <p class="text-muted">{{dataEntity.personal_estacion}}</p>
+									    <hr>
+									    <strong><md-ico i=flag s=18></md-ico> <span translate>LB_STATUS</span></strong>
+									    <p class="text-muted"><span ng-bind-html="statusLabel[dataEntity.ppersonal_estado]"></span></p>
+									  </div>
+									</div>
+								</div>
+							</div>
+							
+							
+						</md-content>
+					</md-tab>
+					
+					<!-- ANTECEDENTES PATOLOGICOS -->
+					<md-tab label="{{'LB_PATHOLOGICAL_BACKGROUND' | translate}}">
+						<md-content ng-controller="backgroundMedicalhistoryCtrl">
+								<div ng-controller="myTableCtrl">
+									<div class="md-toolbar-tools">
+										<md-button aria-label="btn" class="md-icon-button"><md-ico i=history></md-ico></md-button>
+										<h2 translate>TOOLBAR_UTILS</h2>
+										<span flex></span>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+											<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+										</md-button>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+											<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+										</md-button>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="openModal({staffId:dataEntity.fk_paciente_id,edit:false})"><md-ico i=add></md-ico></md-button>
+									</div>
+									<toolbar-filter></toolbar-filter>
+									<md-divider></md-divider>
+									<div layout-xs=column layout=row layout-padding layout-wrap>
+										
+										<div style="min-width:350px;max-width:480px">
+											<div class="box no-margin" ng-class="[{'box-primary':dataEntity.persona_sexo=='HOMBRE','box-danger':dataEntity.persona_sexo=='MUJER'}]">
+											  <div class="card-body box-profile text-center">
+											    <strong><md-ico i=person s=18></md-ico> <span translate>LB_MEDICALHISTORY_APP</span></strong>
+											    <p class="text-muted">{{dataEntity.historia_app}}</p>
+											    <hr>
+											    <strong><md-ico i=people s=18></md-ico> <span translate>LB_MEDICALHISTORY_APF</span></strong>
+											    <p class="text-muted">{{dataEntity.historia_apf}}</p>
+											    <hr>
+											    <strong><md-ico i=local_hospital s=18></md-ico> <span translate>LB_MEDICALHISTORY_AQX</span></strong>
+											    <p class="text-muted">{{dataEntity.historia_aqx}}</p>
+											    <hr>
+											    <strong><md-ico i=voice_over_off s=18></md-ico> <span translate>LB_ALLERGIES</span></strong>
+											    <p class="text-muted">{{dataEntity.historia_alergias}}</p>
+											    <hr>
+											    <strong><md-ico i=info s=18></md-ico> <span translate>LB_OTHERS</span></strong>
+											    <p class="text-muted">{{dataEntity.historia_otros}}</p>
+											  </div>
+											</div>
+										</div>
+										
+										<div style="min-width:350px;max-width:480px" flex ng-repeat="row in rowsParent.data">
+								      <div class="card card-outline card-{{string2JSON('colorCss')[$index]}}">
+								        <div class="card-header with-border text-center">
+											    <h3 class="card-title">{{row.antecedente_enfermedad}}<br>({{row.clasificacion}})</h3>
+											    <div class="card-tools">
+											      <button type="button" class="btn btn-tool" ng-click="openModal(row)">
+											      	<i-fa i=pencil></i-fa><md-tooltip><span translate>BTN_UPDATE</span></md-tooltip>
+											      </button>
+											      <button type="button" class="btn btn-tool" ng-click="deleteItem(row.antecedente_id)">
+											      	<i-fa i=trash></i-fa><md-tooltip><span translate>LB_DELETE</span></md-tooltip>
+											      </button>
+											    </div>
+											  </div>
+								        <div class="card-body box-profile">
+								          <div>
+									          <small class="text-muted text-uppercase">
+									          	<b ng-if="row.antecedente_relacion=='FAMILIAR'">{{row.antecedente_parentesco}}: </b>
+									          	({{row.antecedente_estado}})<br>{{row.antecedente_descripcion}}</small>
+								          </div>
+								          <div ng-if="row.antecedente_clasificacion=='DISCAPACIDAD'">
+									          <hr>
+									          <strong><i-fa i=blind></i-fa> <span translate>LB_DISABILITY_TYPE</span></strong>
+									          <p class="text-muted text-center text-uppercase">({{row.discapacidad_tipo}})</p>
+									          <hr>
+									          <strong><i-fa i=balance-scale></i-fa> <span translate>LB_PERCENTAGE_OF_DISABILITY</span></strong>
+									          <p class="text-muted text-center text-uppercase">{{row.discapacidad_porcentaje | number:1}}%</p>
+								          </div>
+								          <!-- 
+								          <strong><md-ico i=flag s=18></md-ico> <span translate>LB_STATUS</span></strong>
+								          <p class="text-muted text-center text-uppercase" ng-bind-html="highlight(row.antecedente_estado)"></p>
+								          <hr>
+								          <div ng-if="row.antecedente_estado=='EN TRATAMIENTO'">
+									          <strong><i-fa i=hospital-o></i-fa> <span translate>LB_CHECK_FREQUENCY</span></strong>
+									          <p class="text-muted text-center text-uppercase">({{row.frecuencia_chequeo}})<br>({{row.lugar_chequeo}})</p>
+									          <hr>
+								          </div>
+								           -->
+								        </div>
+								      </div>
+								    </div>
+									</div>
+									<footer-table></footer-table>
+								</div>
+						</md-content>
+					</md-tab>
+					
+					<!-- CONSULTAS MEDICAS -->
+					<md-tab label="{{'LB_MEDICAL_CONSULTATIONS' | translate}}">
+						<md-content ng-controller="consultationsMedicalhistoryCtrl">
+								<div ng-controller="myTableCtrl">
+									<div class="md-toolbar-tools">
+										<md-button aria-label="btn" class="md-icon-button"><md-ico i=history></md-ico></md-button>
+										<h2 translate>TOOLBAR_UTILS</h2>
+										<span flex></span>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="goUI('tthh.newMedicalConsultation',{historyId:dataEntity.historia_id})">
+											<md-ico i=add_alert></md-ico><md-tooltip><span translate>LB_NEW_MEDICAL_CONSULTATION</span></md-tooltip>
+										</md-button>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()">
+											<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+										</md-button>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+											<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+										</md-button>
+									</div>
+									<toolbar-filter></toolbar-filter>
+									<md-divider></md-divider>
+									<div layout-xs=column layout=row layout-padding layout-wrap>
+										<div style="min-width:350px;max-width:480px" flex ng-repeat="row in rowsParent.data">
+											<div class="card card-outline card-{{string2JSON('colorCss')[$index]}}">
+											  <div class="card-body box-profile text-center">
+											    <md-ico i=add_alert s=48></md-ico>
+													<h3 class="profile-username text-center">{{row.consulta_serie}}</h3>
+											    <hr>
+													<strong><md-ico i=event_available s=18></md-ico> <span translate>LB_DATE_ATTENTION</span></strong>
+											    <p class="text-muted text-center">{{row.consulta_fecha_consulta}}</p>
+											    <hr>
+													<strong><md-ico i=comment s=18></md-ico> <span translate>LB_REASON_FOR_CONSULTATION</span></strong>
+											    <p class="text-muted text-center">{{row.consulta_motivo}}</p>
+											    <hr>
+											    
+													<strong><md-ico i=not_interested s=18></md-ico> <span translate>LB_CURRENT_ILLNESS</span></strong>
+											    <p class="text-muted text-center">{{row.consulta_enfermedad_actual}}</p>
+											    <hr>
+													<strong><i-fa i=stethoscope ></i-fa> <span translate>LB_PHYSICAL_EXAM</span></strong>
+											    <p class="text-muted text-center">{{row.consulta_examen_fisico}}</p>
+											    <hr>
+													<strong><i-fa i=heartbeat></i-fa> <span translate>LB_REVIEW_ORGANS</span></strong>
+											    <p class="text-muted text-center">{{row.consulta_revision_organos}}</p>
+											    <hr>
+											    
+													<strong><md-ico i=list_alt s=18></md-ico> <span translate>LB_INDICATIONS</span></strong>
+											    <p class="text-muted text-center">{{row.consulta_planes}}</p>
+											    <hr>
+													<strong><i-fa i=user-md ></i-fa> <span translate>LB_ATTENDED_BY</span></strong>
+											    <p class="text-muted text-center">{{row.doctor_titulo}} {{row.doctor}}<br>{{row.doctor_puesto}}</p>
+											  </div>
+									      <div class="card-footer">
+											    <button ng-click="exportById(row.consulta_id)" class="btn btn-info btn-block">
+											    	<md-ico i=print s=18></md-ico>
+											    	<b translate>LB_PRINT_CONSULTATION</b>
+											    </button>
+									      </div>
+											</div>
+										</div>
+									</div>
+									<footer-table></footer-table>
+								</div>
+						</md-content>
+					</md-tab>
+				
+				</md-tabs>
+			</md-card>
+		</div>
+		
+	</div>
+</div>

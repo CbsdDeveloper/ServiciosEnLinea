@@ -1,0 +1,155 @@
+<div class=no-padding layout-padding>
+	<div>
+		<div class="box box-success md-padding text-center">
+			<div class="img-logo">
+				<img alt="Inicio" src="/app/src/img/system/logo.png" class="img-responsive">
+			</div>
+			<h1 translate>LB_HOME_MSG</h1>
+		</div>
+	</div>
+</div>
+
+<form class=no-padding name="formData" class="form-uppercase" ng-submit="submitFormFile()" layout-xs=column layout=row layout-padding>
+	<div flex layout=column layout-padding>
+		<card-entity></card-entity>
+		<div>
+			<div class="box box-primary">
+				<div class="box-header text-center">
+				  <h3 class="box-title" translate>LB_AGENT_INFORMATION</h3>
+				</div>
+				<div class="box-body text-center">
+					<ng-youtube-embed 
+					    video="paramsConf.SELFINSPECTION_AGENT_DATA" 
+					    width="100%"
+					    autoplay="true"
+					    color="white"
+					    disablekb="true">
+					</ng-youtube-embed>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div flex>
+		<div class="box box-primary">
+			<div class="box-header text-center">
+			  <h3 class="box-title" translate>LB_AGENT</h3>
+			</div>
+			<div class="box-body md-padding" layout=column layout-wrap>
+				<div class="container-img-user">
+					<img class="profile-user-img img-responsive" src="/app/src/img/users/default.png" alt="profile">
+				</div>
+				<div layout=column layout-padding flex>
+					<div layout-xs=column layout=row layout-padding flex>
+						<div class="form-group required" flex>
+							<label translate>LB_IDENTIFICATION_TYPE</label>
+							<div class="input-group" flex>
+								<span class="input-group-addon"><i-fa i=id-card-o></i-fa></span>
+								<select class="form-control" ng-model="data.persona_tipo_doc" required
+											ng-options="key as val for (key,val) in string2JSON('identificationType')"></select>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+						  <label translate>LB_IDENTIFICATION_NUMBER</label>
+						  <div class="input-group">
+						    <div class="input-group-addon"><i-fa i=id-card></i-fa></div>
+						    <input ng-model="data.persona_doc_identidad" class="form-control" placeholder="Ej. 23006587491" required />
+						  </div>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding flex>
+						<div class="form-group required" flex>
+						  <label translate>LB_LASTNAME</label>
+						  <div class="input-group">
+						    <div class="input-group-addon"><i-fa i=user></i-fa></div>
+						    <input ng-model="data.persona_apellidos" class="form-control" placeholder="Ej. Lalytto" required />
+						  </div>
+						</div>
+						<div class="form-group required" flex>
+						  <label translate>LB_NAME</label>
+						  <div class="input-group">
+						    <div class="input-group-addon"><i-fa i=user-o></i-fa></div>
+						    <input ng-model="data.persona_nombres" class="form-control" placeholder="Fortuny" required />
+						  </div>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding flex>
+						<div class=form-group flex>
+							<label translate>LB_TEL</label>
+							<div class="input-group">
+						    <span class="input-group-addon"><i-fa i=phone></i-fa></span>
+						    <input type="tel" ng-model="data.persona_telefono" class="form-control" placeholder="Ej. 023741213" />
+						  </div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_MOBILE</label>
+							<div class="input-group">
+						    <span class="input-group-addon"><i-fa i=mobile></i-fa></span>
+						    <input type="tel" ng-model="data.persona_celular" class="form-control" placeholder="Ej. 0985214763" required />
+						  </div>
+						</div>
+					</div>
+					<div class="form-group required">
+					  <label translate>LB_MAIL</label>
+					  <div class="input-group">
+					    <div class="input-group-addon"><i-fa i=envelope></i-fa></div>
+					    <input type="email" ng-model="data.persona_correo" name="email" class="form-control" placeholder="Ej. correo@dominio.com" required />
+					  </div>
+					</div>
+					
+					<div layout=column ng-if="formData.email.$valid">
+		       	<md-checkbox 
+		           ng-model="data.notificar_ingreso"
+		           aria-label="Acceso correcto"
+		           ng-true-value="true"
+		           ng-false-value="false"
+		           class="md-align-top-left">
+		         <b translate>LB_NOTIFY_CORRECT_ACCESS_DETAIL</b> <br/>
+		         <span class="ipsum">
+		           Enviar una notificación electrónica a su dirreción email <b>{{data.persona_correo}}</b> cuando se detecte el ingreso al sistema.
+		         </span>
+		       	</md-checkbox>
+		       	<md-checkbox 
+		           ng-model="data.notificar_cambioinformacion"
+		           aria-label="Cambios en su cuenta"
+		           ng-true-value="true"
+		           ng-false-value="false"
+		           class="md-align-top-left">
+		         <b translate>LB_NOTIFY_ACCOUNT_CHANGES_DETAIL</b><br/>
+		         <span class="ipsum">
+		           Enviar una notificación electrónica a su dirreción de email <b>{{data.persona_correo}}</b> cuando se realice cambios en los datos entidad comercial.
+		         </span>
+		       	</md-checkbox>
+		       	<md-checkbox 
+		           ng-model="data.notificar_autoinspeccion"
+		           aria-label="Acceso falldo"
+		           ng-true-value="true"
+		           ng-false-value="false"
+		           class="md-align-top-left">
+		         <b translate>LB_NOTIFY_NEW_SELFINSPECTION</b><br/>
+		         <span class="ipsum">
+		           Enviar una notificación electrónica a su dirreción email <b>{{data.persona_correo}}</b> cuando se realice la autoinspecciónn.
+		         </span>
+		      	</md-checkbox>
+		       	<md-checkbox 
+		           ng-model="data.notificar_permiso"
+		           aria-label="Emisión de permiso"
+		           ng-true-value="true"
+		           ng-false-value="false"
+		           class="md-align-top-left">
+		         <b translate>LB_NOTIFY_NEW_PERMIT</b><br/>
+		         <span class="ipsum">
+		           Enviar una notificación electrónica a su dirreción de email <b>{{data.persona_correo}}</b> cuando se realice la emisión del permiso anual de funcionamiento.
+		         </span>
+		       	</md-checkbox>
+		     </div>
+				</div>
+			</div>
+			<div class=box-footer>
+				<button type="submit" class="btn btn-success btn-block" ng-disabled="formData.$invalid">
+					<span translate>BTN_SAVE</span>
+					<i-fa i=play></i-fa>
+				</button>
+			</div>
+		</div>
+	</div>
+</form>

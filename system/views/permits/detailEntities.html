@@ -1,0 +1,416 @@
+﻿<div class="no-padding" layout-xs=column layout=row layout-padding>
+	
+	<card-entity class="card-information" ng-if="detailConfig.show" flex></card-entity>
+	
+	<div flex>
+		<md-card class="no-margin">
+			
+			<!-- ENCABEZADO DE UI -->
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<md-button aria-label="btn" class="md-icon-button"><md-ico i=business></md-ico></md-button>
+					<h2>{{entity.entidad_razonsocial}}</h2>
+					<span flex></span>
+					<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+						<md-ico i={{detailConfig.icon}}></md-ico>
+						<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+					</md-button>
+				</div>
+			</md-toolbar>
+			
+			<!-- DETALLE DE ACTIVIDAD -->
+			<md-tabs md-dynamic-height md-border-bottom class="no-margin-bottom-input">
+				
+				<!-- INFORACION DE LA ENTIDAD -->
+				<md-tab label="{{'LB_INFORMATION_OF_THE_ENTITY' | translate}}">
+					<md-content class="padding-all">
+					
+            <div class="timeline">
+              
+              <!-- INFORMACION DE ENTIDAD -->
+              <div class="time-label">
+                <span class="bg-red text-uppercase" translate>LB_TAXPAYER_DATA</span>
+              </div>
+              <div>
+                <i class="fa fa-user bg-red"></i>
+                <div class="timeline-item">
+                  <div class="timeline-body no-padding" layout-xs=column layout=row layout-padding>
+                  	
+                  	<!-- INFORMACION DE RUC -->
+										<card-entity flex></card-entity>
+										
+										<!-- INFORMACION DE REPRESENTANTE LEGAL -->
+										<card-agent flex></card-agent>
+										
+										<!-- INFORMACION DE APODERADO -->
+										<card-adopted flex ng-if="entity.entidad_apoderado=='SI'"></card-adopted>
+                  	
+                  </div>
+                  <div class="timeline-footer no-padding font-11">
+                  	
+                  	<!-- DOCUMENTOS HABILITANTES -->
+            				<table class="table">
+			              	<col style="">
+			              	<col style="">
+			              	<col style="width:150px;text-align:center;">
+			                <tr>
+			                  <th><span translate>LB_VERIFICATION_DOCUMENTS</span></th>
+			                  <th><span translate>LB_INFORMATION</span></th>
+			                  <th><span translate>LB_TO_VIEW</span></th>
+			                </tr>
+			                <tr>
+			                  <td>
+			                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(entity.entidad_sitioweb))"></i>
+			                  	<small translate>LB_RUC_CERTIFICATE</small> (.pdf)
+			                  </td>
+			                  <td>
+			                  	<small>{{entity.entidad_razonsocial}}</small>
+			                  </td>
+			                  <td>
+			                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/ruc/{{entity.entidad_sitioweb}}" download target="_blank" ng-if="isSetFile(entity.entidad_sitioweb)">
+			                  		<i-fa i=download></i-fa>
+				                  	<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+			                  	</a>
+			                  </td>
+			                </tr>
+			                <tr>
+			                  <td>
+			                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(entity.person.persona_anexo_cedula))"></i>
+			                  	<small translate>LB_LEGAL_REPRESENTATIVE_ID</small> (.pdf)
+			                  </td>
+			                  <td>
+			                  	<small>{{entity.person.persona_apellidos}} {{entity.person.persona_nombres}}</small>
+			                  </td>
+			                  <td>
+			                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/cedulas/{{entity.person.persona_anexo_cedula}}" download target="_blank" ng-if="isSetFile(entity.person.persona_anexo_cedula)">
+			                  		<i-fa i=download></i-fa>
+				                  	<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+			                  	</a>
+			                  </td>
+			                </tr>
+			                <tr ng-if="entity.entidad_apoderado=='SI'">
+			                  <td>
+			                  	<i class="fa text-bold" ng-class="getIFaCss(isSetFile(entity.adopted.persona_anexo_cedula))"></i>
+			                  	<small translate>LB_APPOINTMENT_AND_LOCAL_AUTHORITY_CERTIFICATE</small> (.pdf)
+			                  </td>
+			                  <td>
+			                  	<small>{{entity.adopted.persona_apellidos}} {{entity.adopted.persona_nombres}}</small>
+			                  </td>
+			                  <td>
+			                  	<a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/cedulas/{{entity.adopted.persona_anexo_cedula}}" download target="_blank" ng-if="isSetFile(entity.adopted.persona_anexo_cedula)">
+			                  		<i-fa i=download></i-fa>
+				                  	<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+			                  	</a>
+			                  </td>
+			                </tr>
+			              </table>
+                  	
+                  </div>
+                </div>
+              </div>
+              
+              <!-- FIN DE TIMELINE -->
+              <div>
+                <i class="fa fa-clock-o bg-gray"></i>
+              </div>
+            
+            </div>
+					
+					</md-content>
+				</md-tab>
+				
+				<!-- Open tab locals -->
+				<md-tab label="{{'LB_LOCALS' | translate}}" ng-if="dataInfo.locals.length>0">
+	        <md-content>
+							<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+								<div class="md-toolbar-tools">
+									<md-button aria-label="btn" class="md-icon-button"><md-ico i=store_mall_directory></md-ico></md-button>
+									<h2 translate>LB_ADMINISTRATION</h2>
+								</div>
+							</md-toolbar>
+							<md-table-container>
+						    <table md-table class="md-primary table-hover" md-progress="deferred">
+						      <col style="">
+						      <col style="">
+<!-- 						     	<col style="width:30%"> -->
+						      <col style="">
+						     	<col style="width:15%">
+						      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+										<tr md-row>
+											<th md-column><span translate>LB_COMERTIAL</span></th>
+											<th md-column><span translate></span></th>
+<!-- 											<th md-column><span translate>LB_COMERCIAL_ACTIVITY</span></th> -->
+											<th md-column><span translate></span></th>
+											<th md-column><span translate>LB_DETAIL</span></th>
+										</tr>
+						      </thead>
+						      <tbody>
+										<tr md-row data-ng-repeat="row in dataInfo.locals">
+											<td md-cell class="text-uppercase">
+												<a ui-sref="src.detailLocals({localId:row.local_id})" target="_blank"><md-ico i=store_mall_directory></md-ico></a><span>{{row.local_numeroestablecimiento}}. {{row.local_nombrecomercial}}</span><br>
+												<md-ico i=directions></md-ico><span ng-bind-html="highlight(row.local_principal+', '+row.local_secundaria)"></span><br>
+												<md-ico i=place></md-ico><span ng-bind-html="highlight(row.local_referencia)"></span><br>
+												<md-ico i=phone></md-ico><span ng-bind-html="highlight(row.local_telefono)"></span><br>
+											</td>
+											<td md-cell>
+												<div ng-if="row.local_establecimiento=='SI'">
+			                  	<md-ico i=group s=15></md-ico> <span translate>LB_AFORO</span>: <span ng-bind-html="highlight(row.local_aforo)"></span><br>
+													<md-ico i=business s=15></md-ico> <span translate>LB_FLOORS</span>: <span ng-bind-html="highlight(row.local_plantas)"></span><br>
+													<md-ico i=flip_to_back s=15></md-ico> <span translate>LB_AREA</span>: <span ng-bind-html="highlight(row.local_area)"></span><br>
+		                  	</div>
+											</td>
+<!-- 											<td md-cell> -->
+<!-- 												<div> -->
+<!-- 													<md-ico i=import_contacts></md-ico><span ng-bind-html="row.ciiu.taxe.activity.actividad_nombre"></span> -->
+<!-- 													<md-tooltip><span translate>LB_ACTIVITIES</span></md-tooltip> -->
+<!-- 												</div> -->
+<!-- 												<div> -->
+<!-- 													<md-ico i=content_paste></md-ico><span ng-bind-html="row.ciiu.ciiu_codigo"></span>. <span ng-bind-html="row.ciiu.ciiu_nombre"></span> -->
+<!-- 													<md-tooltip><span translate>LB_CIIU</span></md-tooltip> -->
+<!-- 												</div> -->
+<!-- 											</td> -->
+											<td md-cell>
+												<a type="button" class="btn btn-warning btn-sm" href="/app/src/attachments/locals/{{row.local_id}}/{{row.local_certificadostablecimiento}}" download target="_blank" ng-if="isSetFile(row.local_certificadostablecimiento)">
+		                  		<i-fa i=download></i-fa>
+		                  		<md-tooltip><span translate>LB_SEE_UPLOADED_DOCUMENT</span></md-tooltip>
+		                  	</a>
+											</td>
+											<td md-cell class="text-uppercase">
+												<md-ico i={{row.local_establecimiento=='NO'?'domain_disabled':'business'}}></md-ico><span class="badge bg-{{row.local_establecimiento=='SI'?'warning':'primary'}}" translate="LB_HAVE_ESTABLISHMENT_X" translate-values="{x:row.local_establecimiento}"></span><br>
+												<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.local_estado]"></span><br>
+												<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.local_registro)"></span><br>
+												<md-ico i=person></md-ico><span ng-bind-html="highlight(row.user.usuario)"></span>
+											</td>
+										</tr>
+						      </tbody>
+						    </table>
+							</md-table-container>
+	        </md-content>
+	      </md-tab>
+	      
+	      <!-- CAPACITACIONES CIUDADANAS -->
+				<md-tab label="{{'LB_TRAININGS' | translate}}" ng-if="dataInfo.trainings.length>0">
+					<md-toolbar class="md-table-toolbar md-default">
+						<div class="md-toolbar-tools">
+							<md-button aria-label="btn" class="md-icon-button"><md-ico i=settings></md-ico></md-button>
+							<h2 translate>TOOLBAR_UTILS</h2>
+						</div>
+					</md-toolbar>
+					<md-divider></md-divider>
+					<md-content>
+						<div class="no-padding" layout-xs=column layout=row layout-padding layout-wrap>
+							<div style="min-width:350px;max-width:480px" ng-repeat="row in dataInfo.trainings" flex>
+								<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+									<div class="card-header with-border">
+										<h3 class="profile-username"><span ng-bind-html="highlight(row.capacitacion_codigo)"></span></h3>
+									</div>
+									<div class="card-body box-card-ico no-padding-bottom">
+										<strong><md-ico i=event></md-ico> <span translate>LB_DATE</span></strong>
+										<p class="text-muted text-center"><span ng-bind-html="highlight(row.capacitacion_fecha)"></span></p>
+								    <hr>
+										<strong><md-ico i=person></md-ico> <span translate>LB_PERSON_REQUESTING</span></strong>
+										<p class="text-muted text-center"><span ng-bind-html="highlight(row.requested.persona_apellidos)"></span> <span ng-bind-html="highlight(row.requested.persona_nombres)"></span><br>({{row.requested.persona_doc_identidad}})</p>
+								    <hr>
+										<strong><md-ico i=flag></md-ico> <span translate>LB_STATUS_OF_APPLICATION</span></strong>
+						    		<p class="text-muted"><span ng-bind-html="statusLabel[row.capacitacion_estado]"></span></p>
+										<div ng-if="row.capacitacion_estado=='PENDIENTE' || row.capacitacion_estado=='ANULADA'">
+											<hr>
+											<strong><md-ico i=event_busy></md-ico> <span translate>LB_CONFIRMATION_DATE</span></strong>
+							    		<p class="text-muted"><span ng-bind-html="highlight(row.capacitacion_confirmacion)"></span></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</md-content>
+				</md-tab>
+				
+	      <!-- STANDS -->
+				<md-tab label="{{'LB_STANDS' | translate}}" ng-if="dataInfo.stands.length>0">
+					<md-toolbar class="md-table-toolbar md-default">
+						<div class="md-toolbar-tools">
+							<md-button aria-label="btn" class="md-icon-button"><md-ico i=settings></md-ico></md-button>
+							<h2 translate>TOOLBAR_UTILS</h2>
+						</div>
+					</md-toolbar>
+					<md-divider></md-divider>
+					<md-content>
+						<div class="no-padding" layout-xs=column layout=row layout-padding layout-wrap>
+							<div style="min-width:350px;max-width:480px" ng-repeat="row in dataInfo.stands" flex>
+								<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+									<div class="card-header with-border">
+										<h3 class="profile-username"><span ng-bind-html="highlight(row.stand_codigo)"></span></h3>
+									</div>
+									<div class="card-body box-card-ico no-padding-bottom">
+										<strong><md-ico i=event></md-ico> <span translate>LB_DATE</span></strong>
+										<p class="text-muted text-center"><span ng-bind-html="highlight(row.stand_fecha)"></span></p>
+								    <hr>
+										<strong><md-ico i=person></md-ico> <span translate>LB_PERSON_REQUESTING</span></strong>
+										<p class="text-muted text-center"><span ng-bind-html="highlight(row.requested.persona_apellidos)"></span> <span ng-bind-html="highlight(row.requested.persona_nombres)"></span><br>({{row.requested.persona_doc_identidad}})</p>
+								    <hr>
+										<strong><md-ico i=flag></md-ico> <span translate>LB_STATUS_OF_APPLICATION</span></strong>
+						    		<p class="text-muted"><span ng-bind-html="statusLabel[row.stand_estado]"></span></p>
+										<div ng-if="row.stand_estado=='PENDIENTE' || row.stand_estado=='ANULADA'">
+											<hr>
+											<strong><md-ico i=event_busy></md-ico> <span translate>LB_CONFIRMATION_DATE</span></strong>
+							    		<p class="text-muted"><span ng-bind-html="highlight(row.stand_confirmacion)"></span></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</md-content>
+				</md-tab>
+				
+	      <!-- VISITA A LAS ISTALACIONES -->
+				<md-tab label="{{'LB_VISITS' | translate}}" ng-if="dataInfo.visits.length>0">
+					<md-toolbar class="md-table-toolbar md-default">
+						<div class="md-toolbar-tools">
+							<md-button aria-label="btn" class="md-icon-button"><md-ico i=settings></md-ico></md-button>
+							<h2 translate>TOOLBAR_UTILS</h2>
+						</div>
+					</md-toolbar>
+					<md-divider></md-divider>
+					<md-content>
+						<div class="no-padding" layout-xs=column layout=row layout-padding layout-wrap>
+							<div style="min-width:350px;max-width:480px" ng-repeat="row in dataInfo.visits" flex>
+								<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+									<div class="card-header with-border">
+										<h3 class="profile-username"><span ng-bind-html="highlight(row.visita_codigo)"></span></h3>
+									</div>
+									<div class="card-body box-card-ico no-padding-bottom">
+										<strong><md-ico i=event></md-ico> <span translate>LB_DATE</span></strong>
+										<p class="text-muted text-center"><span ng-bind-html="highlight(row.visita_fecha)"></span></p>
+								    <hr>
+										<strong><md-ico i=person></md-ico> <span translate>LB_PERSON_REQUESTING</span></strong>
+										<p class="text-muted text-center"><span ng-bind-html="highlight(row.requested.persona_apellidos)"></span> <span ng-bind-html="highlight(row.requested.persona_nombres)"></span><br>({{row.requested.persona_doc_identidad}})</p>
+								    <hr>
+										<strong><md-ico i=flag></md-ico> <span translate>LB_STATUS_OF_APPLICATION</span></strong>
+						    		<p class="text-muted"><span ng-bind-html="statusLabel[row.visita_estado]"></span></p>
+										<div ng-if="row.visita_estado=='PENDIENTE' || row.visita_estado=='ANULADA'">
+											<hr>
+											<strong><md-ico i=event_busy></md-ico> <span translate>LB_CONFIRMATION_DATE</span></strong>
+							    		<p class="text-muted"><span ng-bind-html="highlight(row.visita_confirmacion)"></span></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</md-content>
+				</md-tab>
+				
+	      <!-- SIMULACROS -->
+				<md-tab label="{{'LB_SIMULATIONS' | translate}}" ng-if="dataInfo.simulations.length>0">
+					<md-toolbar class="md-table-toolbar md-default">
+						<div class="md-toolbar-tools">
+							<md-button aria-label="btn" class="md-icon-button"><md-ico i=settings></md-ico></md-button>
+							<h2 translate>TOOLBAR_UTILS</h2>
+						</div>
+					</md-toolbar>
+					<md-divider></md-divider>
+					<md-content>
+						<div class="no-padding" layout-xs=column layout=row layout-padding layout-wrap>
+							<div style="min-width:350px;max-width:480px" ng-repeat="row in dataInfo.simulations" flex>
+								<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} text-center no-margin">
+									<div class="card-header with-border">
+										<h3 class="profile-username"><span ng-bind-html="highlight(row.simulacro_codigo)"></span></h3>
+									</div>
+									<div class="card-body box-card-ico no-padding-bottom">
+										<strong><md-ico i=event></md-ico> <span translate>LB_DATE</span></strong>
+										<p class="text-muted text-center"><span ng-bind-html="highlight(row.simulacro_fecha)"></span></p>
+								    <hr>
+										<strong><md-ico i=person></md-ico> <span translate>LB_PERSON_REQUESTING</span></strong>
+										<p class="text-muted text-center"><span ng-bind-html="highlight(row.requested.persona_apellidos)"></span> <span ng-bind-html="highlight(row.requested.persona_nombres)"></span><br>({{row.requested.persona_doc_identidad}})</p>
+								    <hr>
+										<strong><md-ico i=flag></md-ico> <span translate>LB_STATUS_OF_APPLICATION</span></strong>
+						    		<p class="text-muted"><span ng-bind-html="statusLabel[row.simulacro_estado]"></span></p>
+										<div ng-if="row.simulacro_estado=='PENDIENTE' || row.simulacro_estado=='ANULADA'">
+											<hr>
+											<strong><md-ico i=event_busy></md-ico> <span translate>LB_CONFIRMATION_DATE</span></strong>
+							    		<p class="text-muted"><span ng-bind-html="highlight(row.simulacro_confirmacion)"></span></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</md-content>
+				</md-tab>
+	      
+	      <!-- Open tab history -->
+	      <md-tab label="{{'LB_HISTORY' | translate}}">
+					<md-content ng-controller="historyEntityCtrl">
+						<div ng-controller="myTableCtrl">
+							<toolbar-filter-in-tab></toolbar-filter-in-tab>
+							<toolbar-filter></toolbar-filter>
+							<md-table-container>
+						    <table md-table class="md-primary table-hover" md-progress="deferred">
+						      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+										<tr md-row>
+											<th md-column><span translate>LB_TRADENAME</span></th>
+											<th md-column><span translate>LB_AGENT</span></th>
+											<th md-column><span translate>LB_EVENT</span></th>
+										</tr>
+						      </thead>
+						      <tbody>
+										<tr md-row data-ng-repeat="row in rowsParent.data">
+											<td md-cell>
+												<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.entidad_ruc)"></span><md-tooltip>{{string2JSON('contribuyenteType')[row.entidad_contribuyente]}}</md-tooltip><br>
+												<md-ico i={{string2JSON('mdIconList')[row.entidad_contribuyente]}}></md-ico><span ng-bind-html="highlight(row.entidad_razonsocial)"></span>
+											</td>
+											<td md-cell>
+												<md-ico i=person></md-ico><span ng-bind-html="highlight(row.representantelegal_nombre)"></span><br>
+												<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.representantelegal_ruc)"></span>
+											</td>
+											<td md-cell>
+												<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.entidad_estado]"></span><br>
+												<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.entidad_registro)"></span><br>
+												<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+											</td>
+										</tr>
+						      </tbody>
+						    </table>
+							</md-table-container>
+							<footer-table></footer-table>
+						</div>
+	        </md-content>
+				</md-tab>
+	      
+	      <!-- Open tab binnacle -->
+	      <md-tab label="{{'LB_BINNACLE' | translate}}">
+					<md-content ng-controller="binnacleEntityCtrl">
+						<div ng-controller="myTableCtrl">
+							<toolbar-filter-in-tab></toolbar-filter-in-tab>
+							<toolbar-filter></toolbar-filter>
+							<md-divider></md-divider>
+							<div class="padding-all">
+								<div class="timeline timeline-inverse">
+									<!-- timeline time label -->
+									<div class="time-label" flex>
+										<span class="bg-red">{{currentDate | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+									</div>
+									<!-- /.timeline-label -->
+									<!-- timeline item -->
+									<div ng-repeat="row in rowsParent.data">
+										<i class="fa {{recordTypeColor[row.tipo]}}"><md-ico i={{string2JSON('mdIconList')[row.tipo]}} s=18></i>
+										<div class="timeline-item">
+											<span class="time"><md-ico i=access_time s=18></md-ico> {{row.fecha}}</span>
+											<h3 class="timeline-header"><a href="#">{{row.descripcion}}</a></h3>
+			                  <div class="timeline-body">
+			                    <md-ico i=computer s=18></md-ico> {{row.equipo}}<br>
+			                    <md-ico i=info_outline s=18></md-ico> {{row.ipaddress}}
+			                  </div>
+										</div>
+									</div>
+									<!-- END timeline item -->
+									<div><i class="fa bg-gray"><md-ico i=access_time s=18></md-ico></i></li>
+								</div>
+							</div>
+							<footer-table></footer-table>
+						</div>
+	        </md-content>
+				</md-tab>
+				
+			</md-tabs>
+		</md-card>
+	</div>
+</div>

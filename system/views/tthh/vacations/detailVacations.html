@@ -1,0 +1,218 @@
+﻿<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		<card-staff class="card-information" ng-if="detailConfig.show" flex></card-staff>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=person></md-ico></md-button>
+						<h2>{{dataEntity.personal_nombre}}</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<md-tabs md-dynamic-height md-border-bottom>
+						
+					<!-- VACACIONES GENERADAS -->
+					<md-tab label="{{'LB_GENERATED_HOLIDAYS' | translate}}">
+						<md-content>
+							<md-table-container>
+						    <table md-table class="md-primary table-hover">
+						      <col style="">
+						     	<col style="width:20%">
+						     	<col style="width:20%">
+						      <thead md-head>
+										<tr md-row>
+											<th md-column><span translate>LB_PERIOD</span></th>
+											<th md-column><span translate>LB_TOTAL</span></th>
+											<th md-column><span translate>LB_DETAIL</span></th>
+										</tr>
+						      </thead>
+						      <tbody>
+										<tr md-row data-ng-repeat="row in vacationsEntity">
+											<td md-cell class="text-uppercase">
+												<div>
+													<md-ico i=event></md-ico><span translate>LB_SINCE</span>: {{row.vacacion_periodo_inicio | date:'fullDate'}}
+												</div>
+												<div>
+													<md-ico i=event_available></md-ico><span translate>LB_UNTIL</span>: {{row.vacacion_periodo_cierre | date:'fullDate'}}
+												</div>
+												<md-ico i=info></md-ico><span ng-bind-html="row.vacacion_detalle"></span>
+											</td>
+											<td md-cell>
+												<div>
+													<md-ico i=info></md-ico><span translate>LB_DAYS</span>: {{row.vacacion_dias |number:0}}
+												</div>
+												<div>
+													<md-ico i=info></md-ico><span translate>LB_MONTHS</span>: {{row.vacacion_meses |number:0}}
+												</div>
+												<div>
+													<md-ico i=info_outline></md-ico><span translate>LB_TOTAL</span>: {{row.total_generados |number:3}}
+												</div>
+												<div>
+													<md-ico i=info_outline></md-ico>{{row.vacacion_remuneracion |currency}}
+												</div>
+											</td>
+											<td md-cell>
+												<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.vacacion_estado]"></span><br>
+												<md-ico i=event></md-ico><span ng-bind-html="row.vacacion_registro"></span><br>
+												<md-ico i=people></md-ico><span ng-bind-html="row.usuario"></span>
+											</td>
+										</tr>
+						      </tbody>
+						    </table>
+							</md-table-container>
+						</md-content>
+					</md-tab>
+					
+					<!-- VACACIONES SOLICITADAS -->
+					<md-tab label="{{'LB_REQUESTED_HOLIDAYS' | translate}}">
+						<md-content ng-controller="vacationsStaffCtrl">
+							<div ng-controller="myTableCtrl">
+								<div class="md-toolbar-tools">
+									<md-button aria-label="btn" class="md-icon-button"><md-ico i=flight_takeoff></md-ico></md-button>
+									<h2 translate>TOOLBAR_UTILS</h2>
+									<span flex></span>
+									<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+									<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+								</div>
+								<toolbar-filter></toolbar-filter>
+								<md-table-container>
+							    <table md-table class="md-primary table-hover" md-progress="deferred">
+							      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+											<tr md-row>
+												<th md-column><span translate>LB_REQUEST_INFORMATION</span></th>
+												<th md-column><span translate>LB_APPROVAL</span></th>
+												<th md-column><span translate>LB_STATUS</span></th>
+												<th md-column><span translate>LB_MENU</span></th>
+											</tr>
+							      </thead>
+							      <tbody>
+											<tr md-row data-ng-repeat="row in rowsParent.data">
+												<td md-cell class="text-uppercase">
+													<md-ico i=security></md-ico><span ng-bind-html="highlight(row.vacacion_codigo)"></span> ({{row.vacacion_serie}})<br>
+													<md-ico i=event_available></md-ico>{{row.vacacion_fecha_desde | date:'fullDate'}}<br>
+													<md-ico i=event_busy></md-ico>{{row.vacacion_fecha_hasta | date:'fullDate'}}<br>
+													<md-ico i=info></md-ico><span ng-bind-html="highlight(row.vacacion_dias)"></span> <span translate>LB_DAYS</span>
+													<div ng-if="row.vacacion_estado=='SOLICITUD NEGADA'">
+														<md-ico i=cancel></md-ico><span class="text-danger text-bold" ng-bind-html="highlight(row.vacacion_observacion)"></span>
+													</div>
+												</td>
+												<td md-cell class="text-uppercase">
+													<div>
+														<md-ico i=done></md-ico><span ng-bind-html="highlight(row.s_titulo)"></span><br>
+														<md-ico i=event></md-ico>{{row.vacacion_solicitud | date:'fullDate'}}<br>
+														<md-tooltip><span class="text-uppercase" translate>LB_REGISTRE_DATE</span> - {{row.s_puesto}}</md-tooltip>
+													</div>
+													<div ng-if="row.vacacion_estado=='SOLICITUD AUTORIZADA' || row.vacacion_estado=='SOLICITUD REGISTRADA'">
+														<md-ico i=check_circle_outline></md-ico><span ng-bind-html="highlight(row.jf_titulo)"></span><br>
+														<md-ico i=event></md-ico>{{row.vacacion_sumillado | date:'fullDate'}}<br>
+														<md-tooltip><span class="text-uppercase" translate>LB_APPROVAL</span> - {{row.jf_puesto}}</md-tooltip>
+													</div>
+													<div class="text-success text-bold" ng-if="row.vacacion_estado=='SOLICITUD REGISTRADA'">
+														<md-ico i=check_circle></md-ico><span ng-bind-html="highlight(row.th)"></span><br>
+														<md-ico i=event></md-ico>{{row.vacacion_aprobado | date:'fullDate'}}
+														<md-tooltip><span class="text-uppercase" translate>LB_APPROVED</span> - {{row.th_puesto}}</md-tooltip>
+													</div>
+												</td>
+												<td md-cell>
+													<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.vacacion_estado]"></span><br>
+													<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.vacacion_registro)"></span><br>
+													<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+												</td>
+												<td md-cell>
+													<menu-requested-vacations></menu-requested-vacations>
+												</td>
+											</tr>
+							      </tbody>
+							    </table>
+								</md-table-container>
+								<footer-table></footer-table>
+							</div>
+						</md-content>
+					</md-tab>
+						
+					<!-- PERMISOS SOLICITADOS -->
+					<md-tab label="{{'LB_REQUESTED_PERMITS' | translate}}">
+						<md-content ng-controller="permissionsStaffCtrl">
+							<div ng-controller="myTableCtrl">
+								<div class="md-toolbar-tools">
+									<md-button aria-label="btn" class="md-icon-button"><md-ico i=thumb_up></md-ico></md-button>
+									<h2 translate>TOOLBAR_UTILS</h2>
+									<span flex></span>
+									<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+									<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+								</div>
+								<toolbar-filter></toolbar-filter>
+								<md-table-container>
+							    <table md-table class="md-primary table-hover" md-progress="deferred">
+							      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+											<tr md-row>
+												<th md-column><span translate>LB_REQUEST_INFORMATION</span></th>
+												<th md-column><span translate>LB_APPROVAL</span></th>
+												<th md-column><span translate>LB_STATUS</span></th>
+												<th md-column><span translate>LB_MENU</span></th>
+											</tr>
+							      </thead>
+							      <tbody>
+											<tr md-row data-ng-repeat="row in rowsParent.data">
+												<td md-cell class="text-uppercase">
+													<md-ico i=security></md-ico><span ng-bind-html="highlight(row.permiso_codigo)"></span> ({{row.permiso_serie}})<br>
+													<md-ico i=event_available></md-ico>{{row.permiso_desde | date:'fullDate'}}<br>
+													<md-ico i=event_busy></md-ico>{{row.permiso_hasta | date:'fullDate'}}<br>
+													<md-ico i=info></md-ico><span ng-bind-html="highlight(row.permiso_cantidad)"></span>
+													<div>
+														<md-ico i=info_outline></md-ico>{{row.permiso_factorcorreccion | number:3}} = {{row.permiso_cantidad_correccion}}
+														<md-tooltip><span translate>LB_CORRECTION_FACTOR</span></md-tooltip>
+													</div>
+													<div>
+														<md-ico i=merge_type></md-ico><span ng-bind-html="highlight(row.permiso_motivo)"></span>
+														<md-tooltip>{{row.permiso_detalle}}</md-tooltip>
+													</div>
+													<div ng-if="row.permiso_estado=='SOLICITUD NEGADA'">
+														<md-ico i=cancel></md-ico><span class="text-danger text-bold" ng-bind-html="highlight(row.permiso_observacion)"></span>
+													</div>
+												</td>
+												<td md-cell class="text-uppercase">
+													<div>
+														<md-ico i=done></md-ico><span ng-bind-html="highlight(row.s_titulo)"></span><br>
+														<md-ico i=event></md-ico>{{row.permiso_solicitud | date:'fullDate'}}<br>
+														<md-tooltip><span class="text-uppercase" translate>LB_REGISTRE_DATE</span> - {{row.s_puesto}}</md-tooltip>
+													</div>
+													<div ng-if="row.permiso_estado=='SOLICITUD AUTORIZADA' || row.permiso_estado=='SOLICITUD REGISTRADA'">
+														<md-ico i=check_circle_outline></md-ico><span ng-bind-html="highlight(row.jf_titulo)"></span><br>
+														<md-ico i=event></md-ico>{{row.permiso_sumillado | date:'fullDate'}}<br>
+														<md-tooltip><span class="text-uppercase" translate>LB_APPROVAL</span> - {{row.jf_puesto}}</md-tooltip>
+													</div>
+													<div class="text-success text-bold" ng-if="row.permiso_estado=='SOLICITUD REGISTRADA'">
+														<md-ico i=check_circle></md-ico><span ng-bind-html="highlight(row.th)"></span><br>
+														<md-ico i=event></md-ico>{{row.permiso_aprobado | date:'fullDate'}}
+														<md-tooltip><span class="text-uppercase" translate>LB_APPROVED</span> - {{row.th_puesto}}</md-tooltip>
+													</div>
+												</td>
+												<td md-cell>
+													<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.permiso_estado]"></span><br>
+													<md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.permiso_registro)"></span><br>
+													<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+												</td>
+												<td md-cell>
+													<menu-requested-permissions></menu-requested-permissions>
+												</td>
+											</tr>
+							      </tbody>
+							    </table>
+								</md-table-container>
+								<footer-table></footer-table>
+							</div>
+						</md-content>
+					</md-tab>	
+				
+				</md-tabs>
+			</md-card>
+		</div>
+	</div>
+</div>

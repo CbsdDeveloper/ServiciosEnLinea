@@ -1,0 +1,81 @@
+<md-menu md-position-mode="target-right target" >
+  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+  </md-button>
+  <md-menu-content width="6">
+    
+    <md-menu-item ng-if="allow.permiso7222">
+      <md-button aria-label="editar" ng-click="openModal(mergeData(row,{mensaje_estado:'ASIGNADO'}))">
+          <div layout="row" flex>
+            <p flex translate>LB_ASSIGN_RESPONSIBLE</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=record_voice_over></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="allow.permiso72222 || allow.permiso72221"></md-divider>
+    
+    <md-menu-item ng-if="allow.permiso72222">
+      <md-button aria-label="editar" ng-click="openModal(mergeData(row,{mensaje_estado:'DENUNCIA SOLUCIONADA'}))">
+          <div layout="row" flex>
+            <p flex translate>LB_MARK_AS_SOLVED</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=done_all></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-menu-item ng-if="allow.permiso72221">
+      <md-button aria-label="editar" ng-click="openModal(mergeData(row,{mensaje_estado:'DENUNCIA DESCARTADA'}))">
+          <div layout="row" flex>
+            <p flex translate>LB_DISCARD_AS_COMPLAINT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=delete></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="allow.permiso7225 || allow.permiso7224"></md-divider>
+    
+    <md-menu-item ng-if="allow.permiso7225">
+      <md-button aria-label="editar" ng-click="openParentModal('Files',{edit:false,fk_table:'denuncias',fk_id:row.mensaje_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_UPLOAD_EVIDENCE</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=file_upload></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    <md-divider></md-divider>
+    
+    <md-menu-item ng-if="allow.permiso7224">
+      <md-button aria-label="editar" ng-click="exportWithDetail(row.mensaje_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_DOWNLOAD_COMPLAINT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=print></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="allow.permiso72210"></md-divider>
+    
+    <md-menu-item ng-if="allow.permiso72210">
+      <md-button aria-label="editar" ng-click="goUI('management.iaffairs.detailComplaints',{complaintId:row.mensaje_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_DETAIL</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=zoom_out_map></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+  </md-menu-content>
+</md-menu>

@@ -1,0 +1,59 @@
+<md-dialog aria-label="modal" class="form-content-alt modal-dialog" ng-controller="submodulesListCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+    	<md-button aria-label="btn" class="md-icon-button"><md-ico i=stars></md-ico></md-button>
+    	<h2 translate>TOOLBAR_ROLES</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content class="padding-all">
+    	<!-- FORMULARIO DE REGISTRO -->
+			<div class="card card-outline card-primary no-padding no-margin">
+				<div class="card-header text-center">
+				  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+				<div class="card-body" layout=column layout-padding>
+    	
+					<div class="form-group required">
+						<label translate>LB_MODULE</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=extension></md-ico></div></div> 
+							<select class="form-control" ng-model="frmParent.fk_modulo_id" ng-options="row.modulo_id as row.modulo_nombre for row in jsonList.modules"></select>
+						</div>
+					</div>
+					<div class="form-group required">
+						<label translate>LB_SUBMODULE</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=stars></md-ico></div></div> 
+							<select class="form-control" ng-model="frmParent.fk_submodulo_id" ng-options="row.submodulo_id as row.submodulo_nombre for row in jsonList.submodules[frmParent.fk_modulo_id]"></select>
+						</div>
+					</div>
+					<div class="form-group required">
+						<label translate>LB_ROLES</label>
+						<div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=stars></md-ico></div></div> 
+					    <input type="text" ng-model="frmParent.rol_nombre" class="form-control" placeholder="Ej. Ingresar entidades" required>
+					  </div>
+					</div>
+					<div class="form-group required">
+						<label translate>LB_DESCRIPTION</label>
+						<div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+					    <textarea rows=3 type="text" ng-model="frmParent.rol_descripcion" class="form-control" placeholder="Ej. Administrar usuarios"></textarea>
+					  </div>
+					</div>
+					
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

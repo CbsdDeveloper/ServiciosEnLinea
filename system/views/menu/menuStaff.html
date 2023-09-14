@@ -1,0 +1,66 @@
+<md-menu md-position-mode="target-right target">
+  <md-button aria-label="open_menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+    <md-icon><md-ico i=more_vert></md-ico></md-icon>
+  </md-button>
+  <md-menu-content width="5">
+  
+    <md-menu-item ng-if="allow.permiso80212">
+      <md-button aria-label="editar" ng-click="openModal(row)">
+          <div layout="row" flex>
+            <p flex translate>LB_EDIT</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=edit></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="row.ppersonal_estado=='EN FUNCIONES' && (allow.permiso1021 && row.hasuser==0)"></md-divider>
+    <md-menu-item ng-if="row.ppersonal_estado=='EN FUNCIONES' && (allow.permiso1021 && row.hasuser==0)">
+      <md-button aria-label="editar" ng-click="openCustomModal('admin/users','Usuarios',mergeData(row,{edit:false}))">
+          <div layout="row" flex>
+            <p flex translate>LB_NEW_USER</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=person_add></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="row.ppersonal_estado=='EN FUNCIONES' && allow.permiso80212"></md-divider>
+    <md-menu-item ng-if="row.ppersonal_estado=='EN FUNCIONES' && allow.permiso80212">
+      <md-button aria-label="editar" ng-click="openParentModal('Personal_credenciales',mergeData(row,{type:'restoreAccount'}))">
+          <div layout="row" flex>
+            <p flex translate>LB_RESTORE_CREDENTIALS</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=lock_open></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider ng-if="allow.permiso80217"></md-divider>
+    <md-menu-item ng-if="allow.permiso80217">
+      <md-button aria-label="editar" ng-click="downloadCV(row.personal_id)">
+          <div layout="row" flex>
+            <p flex translate>LB_DOWNLOAD_CV</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=archive></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+    
+    <md-divider></md-divider>
+    <md-menu-item>
+      <md-button aria-label="editar" ng-click="goUI('tthh.staff.detailStaff',{id:row.personal_id})">
+          <div layout="row" flex>
+            <p flex translate>LB_DETAIL</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=zoom_out_map></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

@@ -1,0 +1,49 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+      <md-button aria-label="btn" class="md-icon-button"><md-ico i=account_balance></md-ico></md-button>
+      <h2 translate>TOOLBAR_OFFICE_WORK</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+      <md-button aria-label="btn" class="md-icon-button" ng-click="openParentModal('Trabajoficina',{edit:false,fk_inspector_id:session.usuario_id})"><md-ico i=add></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+        <tr md-row>
+          <th md-column><span translate>LB_ACTIVITY</span></th>
+          <th md-column><span translate>LB_INSPECTOR</span></th>
+          <th md-column><span translate>LB_DETAIL</span></th>
+          <th md-column><span translate>LB_MENU</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr md-row data-ng-repeat="row in rowsParent.data">
+          <td md-cell>
+            <md-ico i=assignment_turned_in></md-ico><span ng-bind-html="highlight(row.trabajo_codigo)"></span><br>
+            <md-ico i=flag></md-ico><span ng-bind-html="highlight(row.trabajo_tipo_actividad)"></span><br>
+            <md-ico i=account_balance></md-ico><span ng-bind-html="highlight(row.trabajo_actividad)"></span><br>
+            <md-ico i=event_available></md-ico><span ng-bind-html="highlight(row.trabajo_fecha_inicio)"></span><br>
+            <md-ico i=event_busy></md-ico><span ng-bind-html="highlight(row.trabajo_fecha_fin)"></span>
+          </td>
+          <td md-cell>
+            <md-ico i=person></md-ico><span ng-bind-html="highlight(row.inspector_nombre)"></span><br>
+            <md-ico i=info></md-ico><span ng-bind-html="highlight(row.trabajo_descripcion)"></span>
+          </td>
+          <td md-cell>
+            <md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.trabajo_estado]"></span><br>
+            <md-ico i=event></md-ico><span ng-bind-html="highlight(row.trabajo_registro)"></span><br>
+            <md-ico i=people></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+          </td>
+          <td md-cell class="table-menu text-center">
+            <menu-mini></menu-mini>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

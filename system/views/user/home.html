@@ -1,0 +1,163 @@
+<div class=no-padding layout-padding>
+	
+	<!-- MENSAJE DE BIENVENIDA -->
+	<div class="card card-outline card-danger padding-all margin-all wow fadeIn">
+		<div class="padding-all">
+			<p ng-bind-html="trustAsHtml(paramsConf.SYS_WELCOME_MESSAGE)"></p>
+		</div>
+	</div>
+	
+	<!-- STATS -->
+	<div layout=column ng-controller="mainDashboardCtrl" class="row">
+			
+		<!-- CITAS SUBSECUENTES -->
+		<div class="col-md-12 wow fadeIn margin-top" ng-if="chartMedical!='' && chartMedical!=null">
+			<div class="card card-outline card-success">
+				<div class="card-header with-border text-center">
+					<h3 class="card-title text-uppercase" translate>LB_SUBSEQUENT_APPOINTMENTS</h3>
+					<div class="card-tools">
+		        <button type="button" class="btn btn-tool" ng-click="refreshStats()"><i class="fa fa-refresh"></i></button>
+		        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+		      </div>
+				</div>
+				<div class="card-body">
+					<div class="row padding-all text-uppercase">
+						<ul class="todo-list col-md-12">
+              <li ng-repeat="item in chartMedical">
+                <!-- todo text -->
+                <a class="text" ui-sref="tthh.medical.detailMedicalhistories({id:item.fk_historiaclinica_id})">{{$index+1}}. {{item.personal_nombre}}</a>
+                <!-- Emphasis label -->
+                <small class="label label-danger"><i class="fa fa-clock-o"></i> {{item.consulta_cita_fecha | date:'fullDate'}}</small>
+                <div class="tools">
+                  <i class="fa fa-edit" ng-click="openCustomModal('tthh/md','Consultasmedicas',item)"></i>
+                </div>
+              </li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div> 
+		
+		<!-- Simple stats -->
+		<div class="col-md-12 wow fadeIn margin-top" ng-if="chartPrevention!='' && chartPrevention!=null">
+			<div class="card card-outline card-success">
+				<div class="card-header with-border text-center">
+					<h3 class="card-title text-uppercase" translate>LB_NOTIFY_REINSPECTION</h3>
+					<div class="card-tools">
+		        <button type="button" class="btn btn-tool" ng-click="refreshStats()"><i class="fa fa-refresh"></i></button>
+		        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+		      </div>
+				</div>
+				<div class="card-body">
+					<div class="row md-padding text-uppercase">
+						<ul class="todo-list">
+              <li ng-repeat="item in chartPrevention">
+                <!-- todo text -->
+                <a class="text" ui-sref="prevention.inspections.detailInspections({id:item.inspeccion_id})">{{$index+1}}. {{item.local_nombrecomercial}}</a>
+                <!-- Emphasis label -->
+                <small class="label label-danger"><i class="fa fa-clock-o"></i> {{item.reinspeccion | date:'fullDate'}}</small>
+                <!-- General tools such as edit or delete-->
+                <div class="tools">
+                  <i class="fa fa-edit"></i>
+                </div>
+              </li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<!-- Simple stats -->
+		<div class="col-md-12" ng-if="configDashboard.CONTADOR>0">
+			<div class="card card-outline card-success">
+				<div class="card-header with-border text-center">
+					<h3 class="card-title text-uppercase">{{currentDate | date: 'fullDate'}}</h3>
+					<div class="card-tools">
+		        <button type="button" class="btn btn-tool" ng-click="refreshStats()"><i class="fa fa-refresh"></i></button>
+		        <button type="button" class="btn btn-tool" ng-click="exportStats('yyyy-MM-dd')"><i class="fa fa-print"></i></button>
+		        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+		      </div>
+				</div>
+				<div class="card-body">
+					<div class="row wow fadeIn md-padding">
+						<div class="col-md-3 col-sm-4 col-xs-6" ng-repeat="item in chartViewer.CONTADOR">
+							<div class="info-box bg-{{item.color}}">
+							  <span class="info-box-icon"><md-ico i={{item.icon}} s=64></md-ico></span> 
+							  <div class="info-box-content">
+							    <a ui-sref={{item.uri}} style="color:white"><span class="info-box-text" translate>{{item.name}}</span></a>
+							    <span class="info-box-number">{{item.count}}</span>
+							    <div class="progress">
+							      <div class="progress-bar" style="width: 50%"></div>
+							    </div>
+					        <span class="progress-description" translate><span ng-if="item.desc!=null">{{item.desc | currency}}</span></span>
+							  </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- REPORTE MENSUAL -->
+		<div class="col-md-12 wow fadeIn margin-top" ng-if="configDashboard.MENSUAL>0">
+			<div class="card card-outline card-primary">
+				<div class="card-header with-border text-center">
+					<h3 class="card-title">REPORTE MENSUAL - PERIODO {{currentDate | date: 'yyyy'}}</h3>
+					<div class="card-tools">
+		        <button type="button" class="btn btn-tool" ng-click="refreshStats()"><i class="fa fa-refresh"></i></button>
+		        <button type="button" class="btn btn-tool" ng-click="exportStats('yyyy')"><i class="fa fa-print"></i></button>
+		        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+		      </div>
+				</div>
+				<div class="card-body">
+					<canvas flex
+			        tc-chartjs-line
+			        chart-data="chartViewer.MENSUAL"
+			        chart-legend="lineChart"></canvas>
+				</div>
+			</div>
+		</div>
+		
+		<!-- REPORTE SEMANAL -->
+		<div class="col-md-12 wow fadeIn margin-top" ng-if="configDashboard.SEMANAL>0">
+			<div class="card card-outline card-danger">
+				<div class="card-header with-border text-center">
+					<h3 class="card-title text-uppercase">REPORTE SEMANAL - PERIODO {{currentDate | date: 'MMMM yyyy'}}</h3>
+					<div class="card-tools">
+		        <button type="button" class="btn btn-tool" ng-click="refreshStats()"><i class="fa fa-refresh"></i></button>
+		        <button type="button" class="btn btn-tool" ng-click="exportStats('yyyy-MM')"><i class="fa fa-print"></i></button>
+		        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+		      </div>
+				</div>
+				<div class="card-body row">
+					<canvas flex
+			        tc-chartjs-line
+			        chart-data="chartViewer.SEMANAL"
+			        chart-legend="barChart"></canvas>
+				</div>
+			</div>
+		</div>
+	
+		<!-- REPORTE DIARIO -->
+		<div class="col-md-12 wow fadeIn margin-top" ng-if="configDashboard.DIARIO>0">
+			<div class="card card-outline card-warning no-margin">
+				<div class="card-header with-border text-center">
+					<h3 class="card-title text-uppercase">REPORTE DIARIO - PERIODO {{currentDate | date: 'MMMM yyyy'}}</h3>
+					<div class="card-tools">
+		        <button type="button" class="btn btn-tool" ng-click="refreshStats()"><i class="fa fa-refresh"></i></button>
+		        <button type="button" class="btn btn-tool" ng-click="exportStats('yyyy-MM-dd')"><i class="fa fa-print"></i></button>
+		        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+		      </div>
+				</div>
+				<div class="card-body row">
+					<canvas flex
+			        tc-chartjs-line
+			        chart-data="chartViewer.DIARIO"
+			        chart-legend="lineChart"></canvas>
+				</div>
+			</div>
+		</div>
+			
+	</div>
+
+</div>

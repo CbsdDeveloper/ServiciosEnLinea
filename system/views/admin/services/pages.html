@@ -1,0 +1,44 @@
+<md-card ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=public></md-ico></md-button>
+			<h2 hide-xs><span translate>TOOLBAR_PAGES</span></h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()"><md-ico i=add></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_PAGE</span></th>
+					<th md-column><span translate>LB_TYPE</span></th>
+					<th md-column><span translate>LB_TEMPLATE</span></th>
+					<th md-column><span translate>LB_URL</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+					<th md-column><span translate>LB_STATUS</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell><span ng-bind-html="highlight(row.page_title)"></span></td>
+					
+					<td md-cell><span ng-bind-html="highlight(row.page_type)"></span></td>
+					<td md-cell><span ng-bind-html="highlight(row.page_template)"></span></td>
+					<td md-cell><span ng-bind-html="highlight(row.page_url)"></span></td>
+					<td md-cell><span ng-bind-html="highlight(row.page_menu)"></span></td>
+					
+					<td md-cell><span ng-bind-html="statusLabel[row.page_estado]"></span></td>
+					<td md-cell class="table-menu text-center">
+						<menu-single></menu-single>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

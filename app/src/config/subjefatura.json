@@ -1,0 +1,65 @@
+{
+	"checkingModel":{
+		"edit":false,
+		"checking_entidad":"",
+		"fk_direccion_id":"",
+		"fk_externo_id":"",
+		"checking_asunto":"",
+		"checking_ingreso":""
+	},
+	
+	"responsible":{
+		"j1":217,
+		"j2":187
+	},
+	
+	"guards":{
+		"GUARDIA DIURNA":{
+			"turno":"dayShift",
+			"libro":"binnacleDay",
+			"time":"<"
+		},
+		"GUARDIA NOCTURNA":{
+			"turno":"nightShift",
+			"libro":"binnacleNight",
+			"time":">="
+		}
+	},
+	
+	"labels":{
+			"flotasvehiculares":"FLOTA VEHICULAR",
+			"abastecimiento":"ABASTECIMIENTO",
+			"mantenimientosvehiculares":"MANTENIMIENTO",
+			"revisionvehicular":"REVISION"
+	},
+	"tracking":{
+		"flotasvehiculares":{
+			"entities":{
+				"abastecimiento":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_abastecimiento)",
+				"mantenimientosvehiculares":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_mantenimiento)",
+				"revisionvehicular":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_revisionvehicular)"
+			}
+		},
+		"abastecimiento":{
+			"entities":{
+				"flotasvehiculares":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_tracking)",
+				"mantenimientosvehiculares":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_mantenimiento)",
+				"revisionvehicular":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_revisionvehicular)"
+			}
+		},
+		"mantenimientosvehiculares":{
+			"entities":{
+				"flotasvehiculares":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_tracking)",
+				"abastecimiento":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_abastecimiento)",
+				"revisionvehicular":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_revisionvehicular)"
+			}
+		},
+		"revisionvehicular":{
+			"entities":{
+				"flotasvehiculares":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_tracking)",
+				"abastecimiento":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_abastecimiento)",
+				"mantenimientosvehiculares":"AND flota_id IN (SELECT flota_id FROM logistica.vw_unidades_in_mantenimiento)"
+			}
+		}
+	}
+} 

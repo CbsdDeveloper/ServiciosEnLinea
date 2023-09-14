@@ -1,0 +1,141 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=groups></md-ico></md-button>
+	    
+	    <form flex name="filter.form">
+	      <input class="form" type="text" ng-model="filterParent.filter" id="inputSearch" ng-model-options="filter.options" placeholder="{{'LB_SEARCH_MAIN_TOOLBAR' | translate}}">
+	    </form>
+			<md-button aria-label="btn" class="md-icon-button" ng-if="filterParent.filter!=''" ng-click="filterParent.filter=''">
+				<md-ico i=clear></md-ico><md-tooltip><span translate>LB_CLEAR</span></md-tooltip>
+			</md-button>
+	    
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal()" ng-if="allow.permiso80211">
+				<md-ico i=person_add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openParentModal('Transparencia')" ng-if="allow.permiso80213">
+				<md-ico i=file_upload></md-ico><md-tooltip><span translate>LB_UPLOAD_LIST</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+     	<col style="width:100px;">
+     	<col style="">
+     	<col style="width:25%;">
+     	<col style="width:20%;">
+     	<col style="width:3%;">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate></span></th>
+					<th md-column><span translate>LB_PERSONAL_INFORMATION</span></th>
+					<th md-column><span translate>LB_JOB_PROFILE</span></th>
+					<th md-column><span translate>LB_CONTRACT_INFORMATION</span></th>
+					<th md-column><span translate>LB_MENU</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<img src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{row.persona_imagen}}" style="width:90px;height:90px;padding:5px" class="img-circle" alt="img" />
+						<md-tooltip>{{row.puesto_modalidad}}</md-tooltip>
+					</td>
+					<td md-cell>
+						<div>
+							<md-ico i=credit_card></md-ico><span ng-bind-html="highlight(row.persona_doc_identidad)"></span>
+							<md-tooltip><span translate>LB_SSN</span></md-tooltip>
+						</div>
+						<div>
+							<a ui-sref="tthh.staff.detailStaff({id:row.personal_id})" target="_balnk"><md-ico i=person></md-ico></a>{{row.personal_id}}-{{row.ppersonal_id}}. <span ng-class="{'text-info text-bold':row.personal_definicion=='ENCARGADO'}" ng-bind-html="highlight(row.personal_nombre)"></span><br>
+							<md-tooltip><span translate>LB_NAME</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=email></md-ico><span ng-bind-html="highlight(row.persona_correo)"></span><br>
+							<md-tooltip><span translate>LB_MAIL</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=contact_phone></md-ico><span ng-bind-html="highlight(row.persona_telefono)"></span> - <span ng-bind-html="highlight(row.persona_celular)"></span><br>
+							<md-tooltip><span translate>LB_TEL</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=place></md-ico><span class="text-uppercase">{{row.parroquia}} / {{row.persona_direccion}}</span>
+							<md-tooltip><span translate>LB_ADDRESS</span></md-tooltip>
+						</div>
+						<div ng-if="row.persona_anexo_cedula!='NO'">
+							<a ng-click="openParentModal('PDFViewer',{embed:setting.uri.img+'users/'+row.persona_anexo_cedula,label:row.personal_nombre,external:true})"><md-ico i=file_download></md-ico><b translate>LB_DOWNLOAD_IDENTITY_CARD</b></a>
+						</div>
+						<div ng-if="row.persona_anexo_votacion!='NO'">
+							<a ng-click="openParentModal('PDFViewer',{embed:setting.uri.img+'users/'+row.persona_anexo_votacion,label:row.personal_nombre,external:true})"><md-ico i=file_download></md-ico><b translate>LB_DOWNLOAD_VOTE_PAPER</b></a>
+						</div>
+					</td>
+					<td md-cell>
+						<div>
+							<md-ico i=flag></md-ico><span ng-bind-html="highlight(row.estacion)"></span>
+							<md-tooltip><span translate>LB_STATION</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=account_balance></md-ico><span ng-bind-html="highlight(row.direccion_nombre)"></span>
+							<md-tooltip><span translate>LB_LEADERSHIP</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i={{string2JSON('mdIconList')[row.puesto_grado]}}></md-ico><span ng-class="{'text-info text-bold':row.personal_definicion=='ENCARGADO'}" ng-bind-html="highlight(row.puesto_definicion)"></span>
+							<md-tooltip><span translate>LB_JOB</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=monetization_on></md-ico>{{row.puesto_remuneracion | currency}}
+							<md-tooltip><span translate>LB_REMUNERATION</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=contact_mail></md-ico><span ng-bind-html="highlight(row.personal_correo_institucional)"></span>
+							<md-tooltip><span translate>LB_INSTITUTIONAL_MAIL</span></md-tooltip>
+						</div>
+					</td>
+					<td class="text-uppercase" md-cell>
+						<div>
+							<md-ico i=style></md-ico><span ng-bind-html="row.personal_regimen_laboral"></span>
+							<md-tooltip><span translate>LB_LABOR_REGIME</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.ppersonal_estado]"></span>
+							<md-tooltip><span translate>LB_STATUS</span></md-tooltip>
+						</div>
+						<div ng-if="row.personal_baselegal!=null">
+							<md-ico i=gavel></md-ico><span ng-bind-html="highlight(row.personal_baselegal)"></span>
+							<md-tooltip><span translate>LB_LEGAL_BASE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=photo_filter></md-ico><span ng-bind-html="highlight(row.personal_contrato)"></span>
+							<md-tooltip><span translate>LB_CONTRACT_TYPE</span></md-tooltip>
+						</div>
+						<div ng-if="row.personal_fecha_registro!=null" class="text-uppercase">
+							<md-ico i=event></md-ico>{{row.personal_fecha_registro | date:'fullDate'}}
+							<md-tooltip><span translate>LB_REGISTRE_DATE</span></md-tooltip>
+						</div>
+						<div>
+							<md-ico i=event_available></md-ico>{{row.personal_fecha_ingreso | date:'fullDate'}}
+							<md-tooltip><span translate>LB_DATE_CONTRACT</span></md-tooltip>
+						</div>
+						
+						<div ng-if="row.ppersonal_estado=='EN FUNCIONES'">
+							<md-ico i=comment></md-ico> <b>{{row.antiguedad}}</b>
+							<md-tooltip><span translate>LB_EMPLOYMENT_HISTORY</span></md-tooltip>
+						</div>
+						
+						<div ng-if="row.ppersonal_estado=='PASIVO' || (row.personal_contrato=='CONTRATO OCASIONAL' || row.personal_contrato=='CONTRATO CIVIL')">
+							<md-ico i=event_busy></md-ico>{{row.personal_fecha_salida | date:'fullDate'}}
+							<md-tooltip><span translate>LB_DEPARTURE_DATE</span></md-tooltip>
+						</div>
+					</td>
+					<td md-cell class="table-menu text-center">
+					  <menu-staff></menu-staff>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

@@ -1,0 +1,53 @@
+<md-dialog aria-label="modal" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=class></md-ico></md-button>
+			<h2 translate>TOOLBAR_POA_PROGRAMS</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" ng-click="closeDialog()"><md-ico i=remove></md-ico><md-tooltip><span translate>LB_CANCEL_AND_CLOSE</span></md-tooltip></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+			
+			<div class="card card-outline card-primary no-margin" layout-padding>
+				<div class="card-header with-border text-center">
+				  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+				<div class="card-body padding-all" layout=column layout-padding>
+					
+					<div class="form-group required">
+						<label translate>LB_PROGRAM</label>
+						<div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=class></md-ico></div></div> 
+					    <input type="text" ng-model="frmParent.programa_nombre" class="form-control" placeholder="Ej. Ingresar entidades" required>
+					  </div>
+					</div>
+					<div class="form-group required">
+						<label translate>LB_DESCRIPTION</label>
+						<div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+					    <textarea ng-model="frmParent.programa_descripcion" class="form-control" placeholder="Ej. Administrar usuarios"></textarea>
+					  </div>
+					</div>
+					<div class="form-group required" ng-if="toogleEditMode">
+						<label translate>LB_STATUS</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+							<select class="form-control" ng-model="frmParent.programa_estado" ng-options="val as val for (key,val) in string2JSON('MAIN_STATUS_SINGLE')"></select>
+						</div>
+					</div>
+				
+				</div>
+			</div>
+			
+    </md-content>
+  </md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

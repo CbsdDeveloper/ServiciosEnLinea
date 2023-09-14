@@ -1,0 +1,19 @@
+<div class="box box-primary no-margin text-center card-entity-information">
+  <div class="box-header with-border">
+    <h3 class="box-title" translate>LB_VEHICLE_INFORMATION</h3>
+  </div>
+  <div class="box-body row">
+    <div class="col-md-3">
+    	<p><img class="profile-user-img img-responsive" src="/app/src/img/vehicles/default.png" ng-src="/app/src/img/vehicles/{{dataEntity.vehiculo_imagen}}" alt="profile"></p>
+    </div>
+    <div class="col-md-9 text-left">
+      <p><i-fa i=car></i-fa> <b translate>LB_TYPE</b>: {{frmParent.vehiculo_tipo}} [{{frmParent.vehiculo_proposito}}]</p>
+      <p><i-fa i=credit-card-alt></i-fa> <b translate>LB_PLATE</b>: {{frmParent.vehiculo_placa}}</p>
+    	<p><i-fa i=info></i-fa> <b translate>LB_MOTOR</b>: {{frmParent.vehiculo_motor}}</p>
+    	<p><i-fa i=info></i-fa> <b translate>LB_CHASSIS</b>: {{frmParent.vehiculo_chasis}}</p>
+      <p><i-fa i=apple></i-fa> <b translate>LB_BRAND</b>: {{frmParent.vehiculo_marca}} / {{frmParent.vehiculo_modelo}} [{{frmParent.vehiculo_anio}}]</p>
+    	<p><md-ico i=local_gas_station></md-ico> <b translate>LB_GAS_TYPE</b>: {{frmParent.vehiculo_combustible}}</p>
+    	<p><i-fa i=paint-brush></i-fa> <b translate>LB_COLOR</b>: {{frmParent.vehiculo_color1}} / {{frmParent.vehiculo_color2}}</p>
+    </div>
+  </div>
+</div>

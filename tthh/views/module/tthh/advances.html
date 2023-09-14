@@ -1,0 +1,54 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=money></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_ADVANCES_OF_REMUNERATION</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="requestEntity({personId:session.persona_id})"><md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<div class="md-padding row no-margin" layout-padding layout-wrap>
+		<div class="col-md-6 col-xs-12 wow fadeInUp" data-ng-repeat="row in rowsParent.data">
+			<div class="box box-widget widget-user-2 text-uppercase no-margin">
+			   <div class="widget-user-header bg-blue" ng-class="[{'bg-green':row.anticipo_estado=='SOLICITUD APROBADA'}]">
+			     <div class="widget-user-image">
+			       <img class="img-circle" src="/app/src/img/stations/default.png" alt="User Avatar">
+			     </div>
+			     <h3 class="widget-user-username">{{row.anticipo_codigo}}</h3>
+			     <h5 class="widget-user-desc">{{row.anticipo_solicitado | date:'fullDate'}}</h5>
+			   </div>
+			   <div class="box-footer no-padding">
+					<ul class="nav nav-stacked">
+						<li><a href="#"><md-ico i=person s=18></md-ico> <small translate>LB_GUARANTOR</small> <span class="pull-right text-right badgeInfo">{{row.garante}}<br><small>{{row.g_puesto}} / {{row.g_remuneracion|currency}}</small></span></a></li>
+						<li><a href="#"><md-ico i=account_balance s=18></md-ico> <small translate>LB_BANK</small> <span class="pull-right text-right badgeInfo">{{row.banco_nombre}}<br><small>{{row.banco_cuenta_tipo}} / {{row.banco_cuenta_numero}}</small></span></a></li>
+						<li><a href="#"><md-ico i=monetization_on s=18></md-ico> <small translate>LB_ADVANCED_VALUE</small> <span class="pull-right badge bg-red badgeInfo">{{row.anticipo_monto|currency}}</span></a></li>
+						<li><a href="#"><md-ico i=event s=18></md-ico> <small translate>LB_PERIOD</small> <span class="pull-right badge bg-blue badgeInfo">{{row.anticipo_inicio | date:'MMM y'}} A {{row.anticipo_fin | date:'MMM y'}}</span></a></li>
+						<li><a href="#"><md-ico i=format_list_numbered s=18></md-ico> <small translate>LB_TERM</small> <span class="pull-right badge bg-green badgeInfo" translate="LB_MONTHS_X" translate-values="{x:row.anticipo_meses}"></span></a></li>
+						<li><a href="#"><md-ico i=money_off s=18></md-ico> <small translate>LB_MONTHLY_FEE</small> <span class="pull-right badge bg-black badgeInfo">{{row.anticipo_cuotas|currency}}</span></a></li>
+						
+						<li><a href="#" ng-if="row.anticipo_estado=='SOLICITUD APROBADA'">
+							<md-ico i=info s=18></md-ico> <small translate>LB_OUTSTANDING_BALANCE</small> <span class="pull-right badge bg-yellow badgeInfo">{{row.anticipo_status}}</span></a>
+						</li>
+						<li><a href="#" ng-if="row.anticipo_estado!='SOLICITUD APROBADA'">
+							<md-ico i=info s=18></md-ico> <small translate>LB_STATUS</small> <span class="pull-right badgeInfo" ng-bind-html="statusLabel[row.anticipo_estado]"></span></a>
+						</li>
+						
+						
+			      <li class="padding-all" ng-if="row.anticipo_estado=='SOLICITUD GENERADA'">
+			       	<button class="btn btn-block btn-warning" ng-click="openModal(row)">
+			       		<md-ico i=edit s=18></md-ico> <span translate>LB_EDIT</span>
+			       	</button>
+			       	<button class="btn btn-block btn-info" ng-click="exportById(row.anticipo_id)">
+			       		<md-ico i=print s=18></md-ico> <span translate>LB_PRINT_SIMPLE_REQUEST</span>
+			       	</button>
+			    	</li>
+			    </ul>
+			   </div>
+			</div>
+		</div>
+	</div>
+	<footer-table></footer-table>
+</md-card>

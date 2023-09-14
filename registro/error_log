@@ -1,0 +1,1 @@
+[20-Jul-2020 08:38:55 America/Guayaquil] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/patronat/public_html/registro/index.php on line 3

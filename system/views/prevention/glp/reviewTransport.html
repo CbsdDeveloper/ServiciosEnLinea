@@ -1,0 +1,71 @@
+﻿<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		<card-glp-transport class="card-information" ng-if="detailConfig.show" flex></card-glp-transport>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=directions_car></md-ico></md-button>
+						<h2>{{dataEntity.transporte_codigo}} - {{dataEntity.vehicle.vehiculo_placa}}</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<md-ico i={{detailConfig.icon}}></md-ico>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<div class="card-body">
+					<div class="timeline timeline-inverse" layout=column>
+						<div ng-repeat="item in dataEntity.resources">
+							<i class="fa fa-{{item.recurso_icon}} bg-{{colorName[$index]}}"></i>
+							<div class="timeline-item pad-btm-10">
+								<h3 class="timeline-header"><b>{{item.recurso_nombre}}</b></h3>
+				    		<div>
+									<div class="timeline-body" layout=row layout-xs=column layout-align="center center">
+										<img ng-if="item.recurso_imagen!=''" src="/app/src/img/src/{{item.recurso_imagen}}" hide-xs style="width:90px;margin:5px;" class="img-requirement" alt="img" />
+										<span><b>{{item.recurso_id}}.</b> {{item.recurso_nombre}}</span>
+										<span flex></span>
+										<md-radio-group class="padding-all" ng-model="dataEntity.model[item.recurso_id].recurso_estado" layout=row layout-wrap>
+								      <md-radio-button value="SI" class="md-primary">SÍ</md-radio-button>
+								      <md-radio-button value="NO" class="md-green">NO</md-radio-button>
+								      <md-radio-button value="NA" class="md-warn">N/A</md-radio-button>
+								    </md-radio-group>
+									</div>
+				    		</div>
+							</div>
+						</div>
+						<div>
+							<i class="fa fa-comments bg-green"></i>
+							<div class="timeline-item pad-btm-10">
+								<h3 class="timeline-header"><b translate>LB_OBSERVATION</b></h3>
+				    		<div>
+									<div class="timeline-body no-margin no-padding">
+										<textarea class="form-control" rows=3 placeholder="{{'LB_OBSERVATION' | translate}}" ng-model="dataEntity.transporte_observacion"></textarea>
+									</div>
+				    		</div>
+							</div>
+						</div>
+						<div><i class="fa fa-clock-o bg-gray"></i></div>
+					</div>
+				</div>
+				<div class="card-footer margin-top">
+					
+					<div layout-xs=column layout=row layout-padding>
+						<div flex>
+							<a class="btn btn-warning btn-block btn-sm" ui-sref="prevention.glp.transport">
+								<i-fa i=angle-double-left></i-fa> <span translate>BTN_PREV</span>
+							</a>
+						</div>
+						<div flex>
+							<button class="btn btn-success btn-block btn-sm" type="button" ng-click="customSubmitForm()" ng-disabled="formData.$invalid">
+								<span translate>LB_SAVE_CHANGES</span> <i-fa i=angle-double-right></i-fa>
+							</button>
+						</div>
+				  </div>
+					
+				</div>
+			</md-card>
+		</div>
+	</div>
+</div>

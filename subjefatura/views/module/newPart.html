@@ -1,0 +1,16 @@
+<form name="formData" class="padding-all" layout-padding>
+	
+	<div>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+		  	<md-button aria-label="btn" class="md-icon-button" hide-xs><i-fa i=star-half-o s=lg></i-fa></md-button>
+		  	<h2 translate hide-xs>TOOLBAR_PARTS</h2>
+		    <span flex hide-xs></span>
+		    <small translate style="font-size: 15px;" class="text-uppercase">{{toolbar | translate}}</small>
+			</div>
+		</md-toolbar>
+	</div>
+	
+	<div ui-view class="no-padding padding-top" layout=column></div>
+	
+</form>

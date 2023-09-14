@@ -1,0 +1,167 @@
+<form name="formData" class="form-digital no-padding" layout-padding>
+	
+	<div class="padding-all no-padding-bottom">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+			  	<md-button aria-label="btn" class="md-icon-button" hide-xs><md-ico i=security></md-ico></md-button>
+			  	<h2 translate hide-xs>LB_BIOSECURITY_PROTOCOL</h2>
+			    <span flex hide-xs></span>
+			    <span>{{toolbar | translate}}</span>
+			</div>
+		</md-toolbar>
+	</div>
+	
+	<div class="padding-all" layout-xs=column layout=row layout-padding>
+		
+		<!-- FORMULARIO DE ACTIVIDAD ECONÓMICA -->
+		<div layout-padding flex>
+			<ul class="timeline margin-top no-padding">
+				<li class="time-label text-uppercase">
+				  <span class="bg-blue padding-all" translate>LB_ACTIVITY_INFORMATION</span>
+				</li>
+				<li>
+					<i class="fa fa-info bg-green"></i>
+				  <div class="timeline-item">
+							<div class="box box-primary no-margin">
+								<div class="box-header text-center">
+								  <h3 class="box-title">{{frmParent.bioseguridad_local_nombrecomercial}}</h3>
+								</div>
+								<div class="box-body" layout=column layout-padding>
+									
+									<div class="form-group required">
+										<label translate>LB_COMERTIAL</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i-fa i=building></i-fa></span>
+											<input ng-model="frmParent.bioseguridad_local_nombrecomercial" class="form-control" placeholder="Ej. Tienda de abarrotes" required />
+										</div>
+									</div>
+									
+									<div class="form-group required">
+										<label translate>LB_PARISH</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i-fa i=globe></i-fa></span>
+											<select class="form-control" ng-model="frmParent.bioseguridad_local_parroquia" required ng-options="val as val for (key,val) in string2JSON('parishesList')"></select>
+										</div>
+									</div>
+									
+									<div class="form-group required">
+										<label translate>LB_FIRST_LINE</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i-fa i=location-arrow></i-fa></span>
+											<input ng-model="frmParent.bioseguridad_local_principal" class="form-control" placeholder="Ej. Av. Quevedo y Av. Coperativismo" required />
+										</div>
+									</div>
+									<div class="form-group required">
+										<label translate>LB_SECOND_LINE</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i-fa i=map-signs></i-fa></span>
+											<input ng-model="frmParent.bioseguridad_local_secundaria" class="form-control" placeholder="Ej. Coop. El Proletariado" required />
+										</div>
+									</div>
+									<div class="form-group required">
+										<label translate>LB_REFERENCE</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i-fa i=map-marker></i-fa></span>
+											<textarea rows="2" ng-model="frmParent.bioseguridad_local_referencia" class="form-control" placeholder="Ej. Al frente de nuevo HINO" required></textarea>
+										</div>
+									</div>
+									
+									<div layout-xs=column layout=row layout-padding flex>
+										<div class="required form-group" flex>
+											<label translate>LB_USEFUL_WORK_AREA</label>
+											<div class="input-group">
+												<div class="input-group-addon"><md-ico i=aspect_ratio></md-ico></div>
+												<input class="form-control" type="number" step="0.01" min=1 parse-float ng-model="frmParent.bioseguridad_local_area" required />
+											</div>
+										</div>
+										<div class="required form-group" flex>
+										  <label translate>LB_CAPACITY_TOTAL</label>
+										  <div class="input-group">
+										    <div class="input-group-addon"><md-ico i=people></md-ico></div>
+										    <input class="form-control" type="number" step="1" min=0 parse-float ng-model="frmParent.bioseguridad_local_aforo" required />
+										  </div>
+										</div>
+									</div>
+									
+								</div>
+								
+							</div>
+					</div>
+				</li>
+				
+				<li>
+					<i class="fa fa-info bg-green"></i>
+				  <div class="timeline-item">
+			      	<img src="/app/src/img/requirements/triangulo.jpg" class="img-responsive" alt="img" />
+				  </div>
+				</li>
+				
+				<li><i class="fa fa-clock-o bg-gray"></i></li>
+			</ul>
+		</div>
+		
+		<!-- FORMULARIO DE BIOSEGURIDAD - COVVID -->
+		<div layout-padding flex>
+			<ul class="timeline margin-top no-padding">
+				
+				<li class="time-label text-uppercase">
+				  <span class="bg-blue padding-all" translate>FORMULARIO DE BIOSEGURIDAD</span>
+				</li>
+				
+				<li ng-repeat="item in frmSrc['PROTOCOLO DE BIOSEGURIDAD']">
+					
+					<i class="fa fa-{{item.recurso_icon}} bg-{{string2JSON('colorName')[$index]}}"></i>
+
+			    <div class="timeline-item">
+			    	<h3 class="timeline-header"><a href="#">{{item.recurso_id}}.</a> {{item.recurso_nombre}}</h3>
+			      <div class="timeline-body" layout-padding>
+			      	
+			      	<img src="/app/src/img/requirements/{{item.recurso_imagen}}" hide-xs class="img-requirement" alt="img" />
+			      	
+			      	<textarea rows="3" class="form-control" ng-if="item.recurso_tipo_formulario=='DESCRIPCION'" ng-model="frmParent.resources[item.recurso_id].formulario_descripcion" required></textarea>
+			    		
+			    		<md-radio-group ng-if="item.recurso_tipo_formulario=='SELECCION MULTIPLE' || item.recurso_tipo_formulario=='UBICACION'" ng-model="frmParent.resources[item.recurso_id].formulario_aplicacion" layout=row required>
+					      <md-radio-button value="SI" class="md-primary">SI</md-radio-button>
+					      <md-radio-button value="NO" class="md-warn">NO</md-radio-button>
+					      <md-radio-button value="NO APLICA" class="md-warn">NO APLICA</md-radio-button>
+					    </md-radio-group>
+					    
+							<div class="form-group required" ng-if="item.recurso_tipo_formulario=='UBICACION'">
+								<label translate>{{item.recurso_descripcion}}</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i-fa i=info></i-fa></span>
+									<textarea rows="2" ng-model="frmParent.resources[item.recurso_id].formulario_descripcion" class="form-control" required></textarea>
+								</div>
+							</div>
+					    
+			      </div>
+					</div>
+				</li>
+				
+				<!-- BOTONERA -->
+				<li>
+					<i class="fa fa-paper-plane bg-red"></i>
+			    <div class="timeline-item">
+			      <div class="timeline-body" layout=row layout-padding layout-align="space-between center">
+				      <div flex>
+								<button type="button" ui-sref="permits.economicActivities" class="btn btn-warning btn-block">
+									<i-fa i=angle-double-left></i-fa> <span translate>BTN_CANCEL</span>
+								</button>
+								</div>
+							<div flex>
+								<button type="button" ng-click="submitForm()" class="btn btn-success btn-block" ng-disabled="formData.$invalid">
+									<span translate>BTN_NEXT</span> <i-fa i=angle-double-right></i-fa>
+								</button>
+							</div>
+			      </div>
+			  	</div>
+			  </li>
+				
+				<li><i class="fa fa-clock-o bg-gray"></i></li>
+				
+			</ul>
+		</div>
+	
+	</div>
+	
+</form>

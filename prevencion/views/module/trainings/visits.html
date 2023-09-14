@@ -1,0 +1,83 @@
+<div layout-padding>
+	<div class="box box-info collapsed-box no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+			<div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+      </div>
+		</div>
+		<div class="box-body box-bg-info" layout=column layout-wrap>
+			<div ng-bind-html="$parent.trustAsHtml(paramsConf.INFO_LIST_VISIT)"></div>
+		</div>
+	</div>
+</div>
+
+<md-card ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="btn"><md-ico i=transfer_within_a_station></md-ico></md-button>
+			<h2 hide-xs><span translate>TOOLBAR_VISITS</span></h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="getParent()">
+				<md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+			</md-button>
+			<md-button class="md-icon-button" ng-click="openSearch()">
+				<md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip>
+			</md-button>
+			<md-button aria-label="btn" class="md-icon-button" ui-sref="training.calendar({entity:'visitas'})">
+				<md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<div class="md-padding" layout-xs=column layout=row layout-padding layout-wrap>
+		<div class="wow fadeInUp" style="min-width:350px;max-width:480px" ng-repeat="row in rowsParent.data" flex>
+			<div class="box box-{{string2JSON('colorCss')[$index]}} text-center no-margin box-material-18">
+				<div class="box-header with-border">
+					<h3 class="box-title">{{row.visita_codigo}}</h3>
+				</div>
+				<div class="box-body">
+					<strong><md-ico i=record_voice_over></md-ico><br><span translate>LB_COORDINATOR</span></strong>
+			    <p class="text-muted">{{row.persona_apellidos}} {{row.persona_nombres}}<br>{{string2JSON('identificationType')[row.persona_tipo_doc]}} / {{row.persona_doc_identidad}}</p>
+			    <hr>
+					<strong><i-fa i=users></i-fa> <span translate>LB_PEOPLE</span></strong>
+			    <p class="text-muted">[{{row.visita_aforo}}]</p>
+			    <hr>
+					<strong><md-ico i=event_available></md-ico><br><span translate>LB_DATE</span></strong>
+			    <p class="text-muted">{{row.visita_fecha}}</p>
+			    <div ng-if="row.visita_estado=='PENDIENTE' || row.visita_estado=='ANULADA'">
+				    <hr>
+						<strong><md-ico i=event_busy></md-ico><br><span translate>LB_CONFIRMATION_DATE</span></strong>
+				    <p class="text-muted text-capitalize"><label class="label label-danger">{{row.visita_confirmacion | date: 'fullDate'}}</label></p>
+			    </div>
+			    <hr>
+					<strong><md-ico i=flag></md-ico><br><span translate>LB_STATUS</span></strong>
+			    <p class="text-muted"><span ng-bind-html="statusLabel[row.visita_estado]"></span></p>
+			    <div ng-if="row.gallery_entity>0">
+				    <hr>
+						<strong><md-ico i=photo_size_select_actual></md-ico><br><span translate>LB_VERIFICATION_SOURCE</span></strong>
+				    <p class="text-muted">{{row.gallery_entity}}</p>
+			    </div>
+				</div>
+				<div class="box-footer">
+					<button class="btn btn-block btn-{{string2JSON('colorCss')[$index]}}" ng-click="openParentModal('Coordinador',mergeData(row,{entityName:'visitas'}))" ng-if="row.visita_estado=='PENDIENTE'">
+						<md-ico i=record_voice_over></md-ico> <span translate>LB_COORDINATOR</span>
+					</button>
+					<button class="btn btn-block btn-{{string2JSON('colorCss')[$index]}}" ng-click="exportWithDetail(row.visita_id)" ng-if="row.visita_estado=='PENDIENTE'">
+						<md-ico i=print></md-ico> <span translate>LB_PRINT_REQUEST</span>
+					</button>
+					<button class="btn btn-block btn-{{string2JSON('colorCss')[$index]}}" ui-sref="main.detailVisits({id:row.visita_id})">
+						<md-ico i=done_all></md-ico> <span translate>LB_DETAIL</span>
+					</button>
+					<button class="btn btn-warning btn-block"  ng-click="openParentModal('Evaluacionsatisfaccion',{entity:'visitas',entityId:row.visita_id,edit:false})"ng-if="row.visita_estado=='DESPACHADA'">
+						<md-ico i=star_half></md-ico> <span translate>LB_EVALUATE</span>
+					</button>
+					<button class="btn btn-block btn-danger" ng-click="openParentModal('Gallery',{edit:false,fk_table:'visitas',fk_id:row.visita_id,media_tipo:'IMG'})" ng-if="(row.visita_estado=='DESPACHADA' || row.visita_estado=='EVALUADA') && row.gallery_entity<3">
+						<md-ico i=publish></md-ico> <span translate>LB_UPLOAD_EVIDENCE</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer-table></footer-table>
+</md-card>

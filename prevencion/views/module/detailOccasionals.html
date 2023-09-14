@@ -1,0 +1,284 @@
+<div layout-padding>
+	<div flex class="box box-info collapsed-box no-margin">
+		<div class="box-header with-border text-center">
+			<h3 class="box-title" translate>LB_INSTRUCTIONS</h3>
+			<div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+      </div>
+		</div>
+		<div class="box-body box-bg-info" layout=column layout-wrap>
+			<div ng-bind-html="$parent.trustAsHtml(paramsConf.INFO_DETAIL_OCCASIONAL)"></div>
+		</div>
+	</div>
+</div>
+
+<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		<card-occasional class="card-information" ng-if="detailConfig.show" flex></card-occasional>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button class="md-icon-button" aria-label="button"><i-fa i=calendar s=lg></i-fa></md-button>
+						<h2>{{entity.ocasional_codigo}} ({{entity.ocasional_serie}})</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="exportWithDetail(entity.ocasional_id)" ng-if="entity.amenazas>0 && entity.internos>0 && entity.externos>0">
+							<i-fa i=print s=lg></i-fa>
+							<md-tooltip><span translate>LB_PRINT_REQUEST</span></md-tooltip>
+						</md-button>
+						<md-button class="md-icon-button" ng-click="reloadEntity()">
+							<md-ico i=refresh></md-ico>
+							<md-tooltip><span translate>LB_REFRESH</span></md-tooltip>
+						</md-button>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()">
+							<i-fa i={{detailConfig.icon}}></i-fa>
+							<md-tooltip><span translate>{{detailConfig.label}}</span></md-tooltip>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<md-tabs md-dynamic-height md-border-bottom>
+					
+					<md-tab label="{{'LB_REQUIREMENTS' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><i-fa i=file-text-o></i-fa></md-button>
+								<h2 translate>TOOLBAR_REQUIREMENTS</h2>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+						<md-table-container>
+					    <table md-table class="md-primary table-hover" md-progress="deferred">
+					      <thead md-head >
+									<tr md-row>
+										<th md-column><span translate>#</span></th>
+										<th md-column><span translate>LB_RESOURCES</span></th>
+										<th md-column><span translate>LB_REQUIRED</span></th>
+									</tr>
+					      </thead>
+					      <tbody>
+									<tr md-row data-ng-repeat="row in entity.documents">
+										<td md-cell>{{$index+1}}</td>
+										<td md-cell>{{row.recurso_nombre}}</td>
+										<td md-cell><div class="label label-success" translate>LB_REQUIRED</div></td>
+									</tr>
+					      </tbody>
+					    </table>
+						</md-table-container>
+					</md-tab>
+					
+					<md-tab label="{{'LB_THREATS' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><i-fa i=bell></i-fa></md-button>
+								<h2 translate>TOOLBAR_THREATS</h2>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+						<md-table-container>
+					    <table md-table class="md-primary table-hover" md-progress="deferred">
+					      <thead md-head >
+									<tr md-row>
+										<th md-column><span translate>#</span></th>
+										<th md-column><span translate>LB_RESOURCES</span></th>
+										<th md-column><span translate>LB_AFFECT_EVENT</span></th>
+										<th md-column><span translate>LB_LEVEL_THREAT</span></th>
+									</tr>
+					      </thead>
+					      <tbody>
+									<tr md-row data-ng-repeat="row in entity.threats">
+										<td md-cell>{{$index+1}}</td>
+										<td md-cell>{{row.recurso_nombre}}</td>
+										<td md-cell>{{row.amenaza_afecta}}</td>
+										<td md-cell>{{row.amenaza_nivel}}</td>
+									</tr>
+					      </tbody>
+					    </table>
+						</md-table-container>
+					</md-tab>
+					
+					<md-tab label="{{'LB_INTERNAL_RESOURCES' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><i-fa i=fire-extinguisher></i-fa></md-button>
+								<h2 translate>TOOLBAR_INTERNAL_RESOURCES</h2>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+						<md-table-container>
+					    <table md-table class="md-primary table-hover" md-progress="deferred">
+					      <thead md-head >
+									<tr md-row>
+										<th md-column><span translate>#</span></th>
+										<th md-column><span translate>LB_RESOURCES</span></th>
+										<th md-column><span translate>LB_PRESENCE</span></th>
+										<th md-column><span translate>LB_QUANTITY</span></th>
+										<th md-column><span translate>LB_STATUS</span></th>
+									</tr>
+					      </thead>
+					      <tbody>
+									<tr md-row data-ng-repeat="row in entity.internal">
+										<td md-cell>{{$index+1}}</td>
+										<td md-cell>{{row.recurso_nombre}}</td>
+										<td md-cell>{{row.interno_presente}}</td>
+										<td md-cell>{{row.interno_cantidad}}</td>
+										<td md-cell>{{row.interno_estado}}</td>
+									</tr>
+					      </tbody>
+					    </table>
+						</md-table-container>
+					</md-tab>
+					
+					<md-tab label="{{'LB_EXTERNAL_RESOURCES' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><i-fa i=ambulance></i-fa></md-button>
+								<h2 translate>TOOLBAR_EXTERNAL_RESOURCES</h2>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+						<md-table-container>
+					    <table md-table class="md-primary table-hover" md-progress="deferred">
+					      <thead md-head >
+									<tr md-row>
+										<th md-column><span translate>#</span></th>
+										<th md-column><span translate>LB_RESOURCES</span></th>
+										<th md-column><span translate>LB_PRESENCE</span></th>
+										<th md-column><span translate>LB_NAME</span></th>
+										<th md-column><span translate>LB_ADDRESS</span></th>
+										<th md-column><span translate>LB_TEL</span></th>
+										<th md-column><span translate>LB_CONTACT</span></th>
+									</tr>
+					      </thead>
+					      <tbody>
+									<tr md-row data-ng-repeat="row in entity.external">
+										<td md-cell>{{$index+1}}</td>
+										<td md-cell>{{row.recurso_nombre}}</td>
+										<td md-cell>{{row.externo_presente}}</td>
+										<td md-cell>{{row.externo_nombre}}</td>
+										<td md-cell>{{row.externo_direccion}}</td>
+										<td md-cell>{{row.externo_telefono}}</td>
+										<td md-cell>{{row.externo_contacto}}</td>
+									</tr>
+					      </tbody>
+					    </table>
+						</md-table-container>
+					</md-tab>
+					
+					<md-tab label="{{'LB_RESPONSIBLE' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><i-fa i=address-book-o></i-fa></md-button>
+								<h2 translate>TOOLBAR_RESPONSIBLE</h2>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+						<div class="md-padding" layout-xs=column layout=row layout-padding layout-wrap>
+							<div style="min-width:360px;max-width:480px;" ng-repeat="(key,row) in entity.agents" flex>
+								<div class="box text-center no-margin" ng-class="{'box-danger':(row.status==false),'box-success':(row.status!=false)}">
+									<div class="box-header">
+										<i-fa i=user s=3x></i-fa><br>
+										<h3 class="box-title no-margin" translate>{{row.label}}</h3>
+									</div>
+									<div class="box-body">
+										<strong><i-fa i=credit-card></i-fa> <span translate>LB_IDENTIFICATION_TYPE</span></strong>
+										<p class="text-muted">{{row.persona_apellidos}} {{row.persona_nombres}}</p>
+								    <hr>
+										<strong><i-fa i=credit-card></i-fa> <span translate>LB_IDENTIFICATION_TYPE</span></strong>
+								    <p class="text-muted">{{string2JSON('identificationType')[row.persona_tipo_doc]}}</p>
+								    <hr>
+										<strong><i-fa i=id-card></i-fa> <span translate>LB_DOC_IDENTIFICATION</span></strong>
+								    <p class="text-muted">{{row.persona_doc_identidad}}</p>
+								    <div ng-if="key=='president'">
+								    	<hr>
+											<strong><i-fa i=envenlope></i-fa> <span translate>LB_MAIL</span></strong>
+									    <p class="text-muted">{{row.persona_telefono}}</p>
+									    <hr>
+											<strong><i-fa i=phone></i-fa> <span translate>LB_TEL</span></strong>
+									    <p class="text-muted">{{row.persona_correo}}</p>
+								    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</md-tab>
+					
+					<md-tab label="{{'LB_ACTIVITY_LOG' | translate}}">
+						<md-content ng-controller="historyEntityCtrl">
+							<div ng-controller="myTableCtrl">
+								<toolbar-filter-in-tab></toolbar-filter-in-tab>
+								<toolbar-filter></toolbar-filter>
+								<md-table-container>
+							    <table md-table class="md-primary table-hover" md-progress="deferred">
+							      <thead md-head >
+											<tr md-row>
+												<th md-column><span translate>LB_EVENT</span></th>
+												<th md-column><span translate>LB_PRESIDENT</span></th>
+												<th md-column><span translate>LB_ADDRESS</span></th>
+												<th md-column><span translate>LB_RESPONSIBILITY</span></th>
+												<th md-column><span translate>LB_REGISTRE_DATE</span></th>
+											</tr>
+							      </thead>
+							      <tbody>
+											<tr md-row data-ng-repeat="row in rowsParent.data">
+												<td md-cell>
+													<i-fa i=shield></i-fa><span ng-bind-html="highlight(row.ocasional_codigo)"></span><br>
+													<i-fa i=calendar></i-fa><span ng-bind-html="highlight(row.ocasional_nombreevento)"></span><br>
+													<i-fa i=calendar-check-o></i-fa><span ng-bind-html="highlight(row.ocasional_fecha_inicio)"></span><br>
+													<i-fa i=calendar-times-o></i-fa><span ng-bind-html="highlight(row.ocasional_fecha_cierre)"></span>
+												</td>
+												<td md-cell>
+													<i-fa i=id-card-o></i-fa><span ng-bind-html="highlight(row.persona_doc_identidad)"></span><br>
+													<i-fa i=user></i-fa><span ng-bind-html="highlight(row.presidente)"></span><br>
+													<i-fa i=envelope></i-fa><span ng-bind-html="highlight(row.persona_correo)"></span><br>
+													<i-fa i=phone></i-fa><span ng-bind-html="highlight(row.persona_telefono)"></span>
+												</td>
+												<td md-cell>
+													<i-fa i=globe></i-fa><span ng-bind-html="highlight(row.ocasional_parroquia)"></span><br>
+													<i-fa i=location-arrow></i-fa><span ng-bind-html="highlight(row.ocasional_principal+' y '+row.ocasional_secundaria)"></span><br>
+													<i-fa i=map-marker></i-fa><span ng-bind-html="highlight(row.lugar_evento)"></span>
+												</td>
+												<td md-cell>
+													<div>
+														<b>P:</b> <span ng-bind-html="highlight(row.presidente)"></span>
+														<md-tooltip><span translate>LB_PRESIDENT_COMMITTEE</span></md-tooltip>
+													</div>
+													<div>
+														<b>CG:</b> <span ng-bind-html="highlight(row.cgeneral_nombre)"></span>
+														<md-tooltip><span translate>LB_MAIN_MANAGER</span></md-tooltip>
+													</div>
+													<div>
+														<b>EB:</b> <span ng-bind-html="highlight(row.ebusqueda_nombre)"></span>
+														<md-tooltip><span translate>LB_RESCUE_MANAGER</span></md-tooltip>
+													</div>
+													<div>
+														<b>PA:</b> <span ng-bind-html="highlight(row.pauxilios_nombre)"></span>
+														<md-tooltip><span translate>LB_FIRST_AID_MANAGER</span></md-tooltip>
+													</div>
+													<div>
+														<b>CS:</b> <span ng-bind-html="highlight(row.cseguridad_nombre)"></span>
+														<md-tooltip><span translate>LB_SECUTIRY_MANAGER</span></md-tooltip>
+													</div>
+													<div>
+														<b>CI:</b> <span ng-bind-html="highlight(row.cincendios_nombre)"></span>
+														<md-tooltip><span translate>LB_FIRE_CONTROL_MANAGER</span></md-tooltip>
+													</div>
+												</td>
+												<td md-cell>
+													<div ng-bind-html="statusLabel[row.ocasional_estado]"></div>
+													<i-fa i=calendar></i-fa><span ng-bind-html="highlight(row.ocasional_registro)"></span><br>
+													<i-fa i=user></i-fa><span ng-bind-html="highlight(row.usuario)"></span>
+												</td>
+											</tr>
+							      </tbody>
+							    </table>
+								</md-table-container>
+								<footer-table></footer-table>
+							</div>
+						</md-content>
+					</md-tab>
+				</md-tabs>
+			</md-card>
+		</div>
+	</div>
+</div>

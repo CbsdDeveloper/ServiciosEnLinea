@@ -1,0 +1,75 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<div ng-controller="inspectionsModelCtrl">
+		<md-toolbar ng-hide="filter.show">
+			<div class="md-toolbar-tools">
+				<md-button aria-label="btn" class="md-icon-button"><md-ico i=transfer_within_a_station></md-ico></md-button>
+				<h2 translate>TOOLBAR_INSPECTIONS</h2>
+				<span flex></span>
+				<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+				<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+			</div>
+		</md-toolbar>
+		<toolbar-filter></toolbar-filter>
+		<md-divider ng-if="allow.permiso6001"></md-divider>
+		<md-toolbar  ng-if="allow.permiso6001">
+		  <form class="md-toolbar-tools" ng-submit="scanBarCode()">
+		    <md-button aria-label="btn" class="md-icon-button" aria-label="search"><i-fa i=barcode s=lg></i-fa></md-button>
+		    <input class="form" ng-model="filterBarCode.code" placeholder="{{'LB_SEARCH' | translate}}" flex>
+		    <md-button aria-label="btn" class="md-icon-button" type="button" ng-if="filterBarCode.code!=''" ng-click="filterBarCode.code=''"><md-ico i=clear></md-ico></md-button>
+		    <md-button aria-label="btn" class="md-icon-button" type="submit"><md-ico i=send></md-ico><md-tooltip><span translate>LB_VALIDATE</span></md-tooltip></md-button>
+		  </form>
+		</md-toolbar>
+		<md-table-container>
+	    <table md-table class="md-primary table-hover" md-progress="deferred">
+	      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+					<tr md-row>
+						<th md-column md-order-by="inspeccion_codigo"><span translate>LB_INSPECTION</span></th>
+						<th md-column><span translate>LB_COMERTIAL</span></th>
+						<th md-column><span translate>LB_DETAIL</span></th>
+						<th md-column><span translate>LB_MENU</span></th>
+					</tr>
+	      </thead>
+	      <tbody>
+					<tr md-row data-ng-repeat="row in rowsParent.data">
+						<td class="text-uppercase" md-cell>
+							<a ui-sref="prevention.detailInspections({id:row.inspeccion_id})" target="_balnk"><md-ico i=transfer_within_a_station></md-ico></a><span ng-bind-html="highlight(row.inspeccion_codigo)"></span> ({{row.inspeccion_serie}})<br>
+							<md-ico i=person></md-ico><span ng-bind-html="highlight(row.inspector)"></span> - <span ng-bind-html="highlight(row.inspeccion_informe_numero)"></span><br>
+							<md-ico i=event></md-ico><span>{{row.reinspeccion_fecha | date:'fullDate'}}</span><br>
+							<md-ico i=timer></md-ico><span>{{row.hora_ingreso}} - {{row.hora_salida}}</span>
+						</td> 
+						<td class="text-uppercase" md-cell>
+							<div>
+								<a ui-sref="src.detailEntities({entityId:row.entidad_id})" target="_balnk"><md-ico i={{string2JSON('mdIconList')[row.entidad_contribuyente]}}></md-ico></a><span ng-bind-html="highlight(row.entidad_ruc)"></span>
+								<md-tooltip>{{row.entidad_razonsocial}}</md-tooltip>
+							</div>
+							<a ui-sref="src.detailLocals({localId:row.local_id})" target="_balnk"><md-ico i=store_mall_directory></md-ico></a><span ng-bind-html="highlight(row.local_nombrecomercial)"></span>
+							<div>
+								<md-ico i=directions></md-ico><span ng-bind-html="highlight(row.local_principal+', '+row.local_secundaria)"></span>
+								<md-tooltip>{{row.local_referencia}}</md-tooltip>
+							</div>
+							<md-ico i=phone></md-ico><span ng-bind-html="highlight(row.local_telefono)"></span> - <span ng-bind-html="highlight(row.representantelegal_email)"></span>
+							<div ng-if="row.local_clavecatastral!='' && row.local_clavecatastral!=null">
+								<i-fa i=podcast s=fw></i-fa><span ng-bind-html="highlight(row.local_clavecatastral)"></span>
+								<md-tooltip>{{'LB_CATASTRAL_KEY' | translate}}</md-tooltip>
+							</div>
+						</td>
+						<td md-cell>
+							<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.reinspeccion_estado]"></span><br>
+              <md-ico i=event></md-ico><span ng-bind-html="highlight(row.reinspeccion_registro)"></span><br>
+              <md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+							<div class="text-uppercase" ng-if="row.gallery>0">
+								<a ng-click="downloadAttachments(row.inspeccion_id)">
+									<md-ico i=file_download></md-ico><span translate="LB_ATTACHED_FILES_X" translate-values="{x:row.gallery}"></span>
+								</a>
+							</div>
+						</td>
+						<td md-cell class="table-menu text-center">
+						  <menu-inspections></menu-inspections>
+						</td>
+					</tr>
+	      </tbody>
+	    </table>
+		</md-table-container>
+		<footer-table></footer-table>
+	</div>
+</md-card>

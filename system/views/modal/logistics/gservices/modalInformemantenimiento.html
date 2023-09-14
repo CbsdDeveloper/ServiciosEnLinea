@@ -1,0 +1,120 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg" ng-controller="reportMaintenanceExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=add_alert></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_MAINTENANCE</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+		<md-content layout=column layout-padding>
+				
+				<!-- FORMULARIO DE REGISTRO -->
+				<div class="card card-outline card-info no-margin" layout-padding>
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+					</div>
+					<div class="card-body padding-all" layout=column layout-padding>
+						
+			    	<div class="form-group required" flex>
+			    		<label translate>LB_REPORT_NUMBER</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=exposure_plus_1></md-ico></div></div> 
+								<input class="form-control" ng-model="frmParent.informe_numero" required>
+							</div>
+			    	</div>
+			    	
+						<div class="form-group required" flex ng-controller="staffToGServicesCtrl">
+			    		<label translate>LB_RESPONSIBLE_FOR_REGISTRATION</label>
+						  <div class="input-group text-uppercase">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=how_to_reg></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.tecnico_servicios" required ng-options="row.ppersonal_id as (row.personal_nombre+', '+row.puesto_definicion) for row in jsonList"></select>
+							</div>
+			    	</div>
+								
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+				    		<label translate>LB_CHARGE_RESPONSIBLE</label>
+							  <div class="input-group">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=how_to_reg></md-ico></div></div> 
+									<select class="form-control" ng-model="frmParent.tecnico_cargo" required ng-options="val as val for (key,val) in string2JSON('ORDENMANTENIMIENTO_CARGO_RESPONSABLES')"></select>
+								</div>
+				    	</div>
+				    	<div class="form-group required" flex>
+				    		<label translate>LB_DATE_ISSUE</label>
+							  <div class="input-group" start-view="day" format="YYYY-MM-DD" moment-picker="frmParent.informe_fecha">
+									<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+									<input class="form-control" ng-model="frmParent.informe_fecha" ng-model-options="{ updateOn: 'blur' }" required>
+								</div>
+				    	</div>
+						</div>
+						
+						<div class="form-group required" flex>
+							<label translate>LB_RESPONSIBLE_GARAGE</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=departure_board></md-ico></div></div> 
+								<input class="form-control" ng-model="frmParent.informe_taller" placeholder="Ej. Taller Juanito" required>
+							</div>
+						</div>
+			    	
+			    	<div class="form-group required" flex>
+			    		<label translate>LB_DETAIL</label>
+						  <div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+								<textarea rows="3" class="form-control" ng-model="frmParent.informe_detalle" ></textarea>
+							</div>
+			    	</div>
+			    	
+					</div>
+				</div>
+				
+				<!-- FILTRO DE REGISTROS -->
+				<div layout-padding> 
+					<div class="card card-outline card-success no-margin margin-top">
+						<div class="card-body text-center">
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=search></md-ico></div></div> 
+								<input ng-model="frmParent.filter" class="form-control" placeholder="Ej. 1236587490" maxlength="20">
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-default" ng-if="frmParent.filter!=''" ng-click="frmParent.filter=''"><md-ico i=clear></md-ico></button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ITERACIÓN DE REGISTRSO -->
+				<div class="card card-outline card-primary no-margin margin-top" layout-padding>
+					<div class="card-header text-center">
+					  <h3 class="card-title" translate>TOOLBAR_MAINTENANCE_ORDER</h3>
+					</div>
+					<div class="card-body padding-all">
+						<div class="row">
+							<div class="col-md-6 col-xs-12 md-2-line contact-item" ng-repeat="item in frmParent.list | filter : frmParent.filter">
+				        <label class="label">
+							    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.selected" checklist-value="item.orden_id" />
+							    <span class="label__text">
+							      <span class="label__check">
+							        <i class="fa fa-check icon"></i>
+							      </span>
+							    </span>
+							  </label>
+				        <div class="md-list-item-text compact">
+			          	<span class="text-bold" ng-bind-html="highlight(' ORDEN MTO NUMERO: '+ item.orden_serie,frmParent.filter)"></span>
+				          <p style="font-size:11px;" ng-bind-html="highlight(item.unidad_nombre+' // '+item.orden_fecha_mantenimiento,frmParent.filter)"></p>
+				        </div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

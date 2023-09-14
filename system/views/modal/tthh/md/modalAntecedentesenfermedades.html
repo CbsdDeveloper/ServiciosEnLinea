@@ -1,0 +1,168 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=history></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_BACKGROUND_PATIENT</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+			<!-- DATOS DEL FORMULARIO -->
+			<div class="card card-outline card-info no-margin" layout-padding>
+				<div class="card-header text-center">
+					<h3 class="card-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+				<div class="card-body md-padding padding-all" layout=column layout-padding>
+					<div layout-xs=column layout=row layout-padding>
+			    	<div class="form-group required" flex>
+							<label translate>LB_RELATIONSHIP</label>
+						  <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=voice_over_off></md-ico></div></div> 
+						    <select class="form-control" ng-model="frmParent.antecedente_relacion" required ng-options="val as val for (key,val) in string2JSON('MEDICAL_BACKGROUND_TYPE')"></select>
+						  </div>
+						</div>
+			    	<div class="form-group required" flex ng-if="frmParent.antecedente_relacion=='FAMILIAR'">
+							<label translate>LB_KNOW_FAMILY_DATA</label>
+						  <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=voice_over_off></md-ico></div></div> 
+						    <select class="form-control" ng-model="frmParent.antecedente_datos_familiar" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+						  </div>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding ng-if="frmParent.antecedente_relacion=='FAMILIAR'">
+						<div class="form-group required" flex>
+							<label translate>LB_SEX</label>
+							<div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><i-fa i="{{string2JSON('iFaIconList')[frmParent.antecedente_sexo_familiar]}}"></md-ico></div></div> 
+						    <select class="form-control" ng-model="frmParent.antecedente_sexo_familiar" required ng-options="val as val for (key,val) in string2JSON('sexPersonsList')"></select>
+						  </div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_RELATIONSHIP</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=favorite></md-ico></div></div> 
+								<select class="form-control" ng-model="frmParent.antecedente_parentesco" required ng-options="val as val for (key,val) in string2JSON('relationshipList')[frmParent.antecedente_sexo_familiar]"></select>
+							</div>
+						</div>
+					</div>
+					
+		    	<div class="form-group required">
+						<label translate>LB_TYPE_OF_REGISTER</label>
+					  <div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=leak_remove></md-ico></div></div> 
+					    <select class="form-control" ng-model="frmParent.antecedente_clasificacion" required ng-options="val as val for (key,val) in string2JSON('MEDICAL_DISEASE_TYPE')"></select>
+					  </div>
+					</div>
+					
+		    	<div class="form-group required" ng-if="frmParent.antecedente_clasificacion!=null">
+						<label translate>{{frmParent.antecedente_clasificacion}}</label>
+					  <div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=airline_seat_individual_suite></md-ico></div></div> 
+					    <input class="form-control" ng-model="frmParent.antecedente_enfermedad" placeholder="Ej. Migraña" required >
+					  </div>
+					</div>
+					
+					<div layout-xs=column layout=row layout-padding ng-if="frmParent.antecedente_clasificacion=='DISCAPACIDAD'">
+			    	<div class="form-group required" flex>
+							<label translate>LB_DISABILITY_TYPE</label>
+						  <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=blind></md-ico></div></div> 
+						    <select class="form-control" ng-model="frmParent.discapacidad_tipo" required ng-options="val as val for (key,val) in string2JSON('MEDICAL_DISABILITY_TYPE')"></select>
+						  </div>
+						</div>
+	          <div class="form-group required" flex>
+	            <label translate>LB_PERCENTAGE_OF_DISABILITY</label>
+	            <div class="input-group">
+	              <div class="input-group-prepend"><div class="input-group-text"><i-fa i=balance-scale></md-ico></div></div>  
+	              <input type="number" step="0.1" min=0 max="100" parse-float ng-model="frmParent.discapacidad_porcentaje" class="form-control" placeholder="106" required>
+	              <span class="input-group-addon"><span>%</span></span> 
+	            </div>
+	          </div>
+					</div>
+					
+		    	<div class="form-group required">
+						<label translate>LB_DESCRIPTION</label>
+					  <div class="input-group">
+					    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+					    <textarea rows="4" class="form-control" ng-model="frmParent.antecedente_descripcion" placeholder="Ej. Dolores de cabeza constantes" required ></textarea>
+					  </div>
+					</div>
+					
+					<div class="form-group required">
+						<label translate>LB_STATUS</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+							<select class="form-control" ng-model="frmParent.antecedente_estado" ng-options="val as val for (key,val) in string2JSON('MEDICAL_BACKGROUND_STATUS')" required></select>
+						</div>
+					</div>
+		    	<div layout=column layout-padding ng-if="frmParent.antecedente_estado=='EN TRATAMIENTO'">
+			    	<div class="form-group required">
+							<label translate>LB_CHECK_FREQUENCY</label>
+						  <div class="input-group">
+						    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_note></md-ico></div></div> 
+						    <textarea class="form-control" ng-model="frmParent.frecuencia_chequeo" placeholder="Ej. Cada 15 días" required></textarea>
+						  </div>
+						</div>
+	          <div class="form-group required" flex>
+	            <label translate>LB_PLACE_OF_CHECK</label>
+	            <div class="input-group">
+	              <div class="input-group-prepend"><div class="input-group-text"><i-fa i=hospital-o></md-ico></div></div>  
+	              <input ng-model="frmParent.lugar_chequeo" class="form-control" placeholder="Ej. Hospital Dr. Gustavo Dominguez" required>
+	            </div>
+	          </div>
+					</div>
+				</div>
+			</div>
+			<!-- DATOS GENERALES DEL EVENTO -->
+			<div class="card card-outline card-warning no-margin margin-top" layout-padding ng-if="frmParent.antecedente_relacion=='FAMILIAR' && frmParent.antecedente_datos_familiar=='SI'">
+				<div class="card-header text-center">
+					<h3 class="card-title" translate>LB_FAMILY_DATA</h3>
+				</div>
+				<div class="card-body md-padding padding-all" layout=column layout-padding>
+		    	<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_IDENTIFICATION_TYPE</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=account_balance_wallet></md-ico></div></div> 
+								<select class="form-control select2" ng-model="frmParent.persona_tipo_doc" required
+												ng-options="key as val for (key,val) in string2JSON('identificationType')"></select>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_IDENTIFICATION_NUMBER</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=credit_card></md-ico></div></div> 
+								<input ng-model="frmParent.persona_doc_identidad" class="form-control" placeholder="Ej. 1236587490" required maxlength="20">
+							</div>
+						</div>
+					</div>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<label translate>LB_LASTNAME</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=person></md-ico></div></div> 
+								<input ng-model="frmParent.persona_apellidos" class="form-control" placeholder="Ej. Tipan Jaramillo" required>
+							</div>
+						</div>
+						<div class="form-group required" flex>
+							<label translate>LB_NAME</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><div class="input-group-text"><md-ico i=person_outline></md-ico></div></div> 
+						    <input ng-model="frmParent.persona_nombres" class="form-control" placeholder="Ej. Julio Arnoldo" required>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

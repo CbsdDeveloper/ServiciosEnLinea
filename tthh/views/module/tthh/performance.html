@@ -1,0 +1,44 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=history></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_PERFORMANCE</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column><span translate>LB_JOB_PROFILE</span></th>
+					<th md-column><span translate>LB_CONTRACT_INFORMATION</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="highlight(row.personal_estacion)"></span><br>
+						<md-ico i=account_balance></md-ico><span ng-bind-html="highlight(row.personal_direccion)"></span><br>
+						<md-ico i=wrap_text></md-ico><span ng-class="{'text-info text-bold':row.personal_definicion=='ENCARGADO'}" ng-bind-html="highlight(row.puesto_definicion)"></span><br>
+						<md-ico i=monetization_on></md-ico>{{row.personal_remuneracion | currency}}
+					</td>
+					<td class="text-uppercase" md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.ppersonal_estado]"></span><br>
+						<div ng-if="row.personal_baselegal!=null">
+							<md-ico i=gavel></md-ico><span ng-bind-html="highlight(row.personal_baselegal)"></span>
+						</div>
+						<md-ico i=photo_filter></md-ico><span ng-bind-html="highlight(row.personal_contrato)"></span><br>
+						<md-ico i=event_available></md-ico>{{row.personal_fecha_ingreso | date:'fullDate'}}
+						<div ng-if="row.ppersonal_estado=='PASIVO' || (row.personal_contrato=='CONTRATO OCASIONAL' || row.personal_contrato=='CONTRATO CIVIL')">
+							<md-ico i=event_busy></md-ico>{{row.personal_fecha_salida | date:'fullDate'}}
+						</div>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

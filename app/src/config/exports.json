@@ -1,0 +1,264 @@
+{
+	"filters":{
+		"vw_especies":"fecha_registro",
+		"vw_solicitudes":"solicitud_fecha",
+		"vw_ordenescobro":"fecha_despachado",
+		
+		"vw_permisos_solicitados":"permiso_fecha_desde",
+		"vw_permisos_solicitados_aprobados":"permiso_fecha_desde",
+		"vw_vacaciones_solicitadas_aprobados":"vacacion_fecha_desde",
+		
+		"vw_checking_externos":"checking_ingreso",
+		
+		"vw_locales":"local_registro",
+		"vw_autoinspecciones":"autoinspeccion_fecha",
+		"vw_permisos":"permiso_fecha",
+		"vw_duplicados":"fecha_impreso",
+		
+		"vw_barridos":"inspeccion_fingreso",
+		"vw_inspecciones":"inspeccion_fecha_inspeccion",
+		"vw_citaciones":"citacion_registro",
+		
+		"vw_prorrogas":"prorroga_aprobado",
+		"vw_vbp":"vbp_aprobado",
+		"vw_vbp_modificaciones":"modificacion_aprobado",
+		"vw_habitabilidad":"habitabilidad_aprobado",
+		"vw_factibilidadglp":"factibilidad_aprobado",
+		"vw_definitivoglp":"definitivo_aprobado",
+		
+		"vw_transporteglp":"transporte_registro",
+		"vw_planesemergencia":"plan_aprobado",
+		"vw_training":"capacitacion_fecha",
+		"vw_stands":"stand_fecha",
+		"vw_ocasionales":"ocasional_despachado"
+	},
+	
+	
+	"status":{
+		"vw_inspecciones":[
+			"NO CUMPLE","PRIMERA CITACION","SEGUNDA CITACION","NOTIFICADO","APROBADO"
+		],
+		"vw_citaciones":[
+			"PRIMERA CITACION","SEGUNDA CITACION","NOTIFICADO"
+		]
+	},
+	
+	
+	"entities":{
+		"vw_checking_externos":{
+			"title":"REGISTRO DE PERSONAL QUE INGRESA A LA INSTITUCIÓN",
+			"order":{
+				"checking_ingreso":"Fecha de registro",
+				"checking_direccion":"Dirección o Jefatura"
+			}
+		},
+		
+		"vw_especies":{
+			"title":"Especies Valoradas",
+			"order":{
+				"fecha_registro":"Fecha",
+				"total_costo":"Valor recaudado"
+			}
+		},
+		"vw_solicitudes":{
+			"title":"Solicitudes",
+			"order":{
+				"solicitud_fecha":"Fecha",
+				"solicitud_entidad":"Proyecto"
+			}
+		},
+		"vw_ordenescobro":{
+			"title":"Órdenes de cobro",
+			"order":{
+				"fecha_despachado":"Fecha",
+				"orden_entidad":"Proyecto"
+			}
+		},
+		
+		"vw_certificadosmedicos":{
+			"title":"Certificados médicos",
+			"order":{
+				"reposo_desde":"Fecha de descanso"
+			}
+		},
+		"vw_permisos_solicitados":{
+			"title":"Permisos solicitados",
+			"order":{
+				"permiso_desde":"Fecha que solicitan"
+			}
+		},
+		"vw_permisos_solicitados_aprobados":{
+			"title":"Permisos con cargo a vacaciones - REGISTRADOS",
+			"order":{
+				"permiso_desde":"Fecha que solicitan"
+			}
+		},
+		"vw_vacaciones_solicitadas_aprobados":{
+			"title":"Vacaciones del personal - REGISTRADOS",
+			"order":{
+				"vacacion_fecha_desde":"Fecha que solicitan"
+			}
+		},
+		
+		"vw_locales":{
+			"title":"Locales / Actividades comerciales",
+			"order":{
+				"local_nombrecomercial":"Nombre comercial/Actividad"
+			}
+		},
+		"vw_autoinspecciones":{
+			"title":"AutoInspecciones",
+			"order":{
+				"autoinspeccion_fecha":"Fecha"
+			}
+		},
+		"vw_permisos":{
+			"title":"Permisos Anuales de Funcionamiento",
+			"order":{
+				"permiso_fecha":"Fecha de emisión",
+				"entidad_ruc":"RUC [Entidad Comercial]",
+				"entidad_razonsocial":"Razón Social",
+				"local_nombrecomercial":"Local [Actividad Económica]",
+				"ciiu_nombre":"Actividad ciiu",
+				"actividad_nombre":"Macroactividades"
+			}
+		},
+		"vw_duplicados":{
+			"title":"Duplicados",
+			"order":{
+				"fecha_impreso":"Fecha",
+				"codigo_per":"Permiso"
+			}
+		},
+		
+		"vw_inspecciones":{
+			"title":"Inspecciones",
+			"order":{
+				"inspeccion_fecha_inspeccion":"Fecha",
+				"inspector":"Inspector"
+			}
+		},
+		"vw_barridos":{
+			"title":"Barridos",
+			"order":{
+				"barrido_registro":"Fecha",
+				"inspector":"Inspector"
+			}
+		},
+		"vw_citaciones":{
+			"title":"Citaciones",
+			"order":{
+				"citacion_registro":"Fecha",
+				"inspector":"Inspector"
+			}
+		},
+		
+		
+		"vw_transporteglp":{
+			"title":"Permisos de Transporte de GLP",
+			"order":{
+				"transporte_serie":"Serie de aprobación",
+				"transporte_registro":"Fecha",
+				"inspector":"Inspector"
+			}
+		},
+		"vw_planesemergencia":{
+			"title":"Planes de Emergencia",
+			"order":{
+				"plan_serie":"Serie de aprobación",
+				"plan_aprobado":"Fecha",
+				"inspector":"Inspector"
+			}
+		},
+		"vw_ocasionales":{
+			"title":"Permisos Ocasionales de Funcionamiento",
+			"order":{
+				"ocasional_serie":"Serie de aprobación",
+				"ocasional_nombrelugar":"Nombre del evento",
+				"ocasional_lugar":"Lugar del evento",
+				"ocasional_parroquia":"Parroquia",
+				"ocasional_fecha_inicio":"Fecha del evento",
+				"ocasional_despachado":"Fecha despachado"
+			}
+		},
+		
+		
+		"vw_vbp":{
+			"title":"APROBACIÓN DE PLANOS",
+			"order":{
+				"vbp_serie":"Serie de aprobación - VBP",
+				"vbp_aprobado":"Fecha de aprobación",
+				"vbp_proyecto":"Nombre del proyecto"
+			}
+		},
+		"vw_vbp_modificaciones":{
+			"title":"MODIFICACIÓN DE PLANOS",
+			"order":{
+				"modificacion_serie":"Serie de aprobación - MODIFICACIONES",
+				"modificacion_aprobado":"Fecha de aprobación",
+				"vbp_proyecto":"Nombre del proyecto"
+			}
+		},
+		"vw_prorrogas":{
+			"title":"PRORROGAS",
+			"order":{
+				"prorroga_serie":"Serie de aprobación - PRORROGAS",
+				"prorroga_aprobado":"Fecha de aprobación"
+			}
+		},
+		"vw_habitabilidad":{
+			"title":"PERMISO DE OCUPACIÓN Y HABITABILIDAD",
+			"order":{
+				"habitabilidad_serie":"Serie de aprobación - HABITABILIDADA",
+				"habitabilidad_aprobado":"Fecha de aprobación",
+				"vbp_proyecto":"Nombre del proyecto"
+			}
+		},
+		"vw_factibilidadglp":{
+			"title":"FACTIBILIDAD DE GLP",
+			"order":{
+				"factibilidad_serie":"Serie de aprobación - FACTIBILIDAD GLP",
+				"factibilidad_aprobado":"Fecha de aprobación",
+				"factibilidad_proyecto":"Nombre del proyecto"
+			}
+		},
+		"vw_definitivoglp":{
+			"title":"CERTIFICADO DEFINITIVO DE GLP",
+			"order":{
+				"definitivo_serie":"Serie de aprobación - DEFIITIVO GLP",
+				"definitivo_aprobado":"Fecha de aprobación",
+				"factibilidad_proyecto":"Nombre del proyecto"
+			}
+		},
+		
+		
+		"vw_training":{
+			"title":"Capacitaciones Ciudadanas",
+			"order":{
+				"tema_nombre":"Tema",
+				"capacitacion_fecha":"Fecha"
+			}
+		},
+		"vw_stands":{
+			"title":"Casas Abiertas",
+			"order":{
+				"stand_tema":"Tema",
+				"stand_fecha":"Fecha"
+			}
+		},
+		"vw_simulacros":{
+			"title":"Simulacros",
+			"order":{
+				"simulacro_tema":"Tema",
+				"simulacro_fecha":"Fecha"
+			}
+		},
+		"vw_visitas":{
+			"title":"Visitas",
+			"order":{
+				"visita_fecha":"Fecha"
+			}
+		}
+	}
+	
+}

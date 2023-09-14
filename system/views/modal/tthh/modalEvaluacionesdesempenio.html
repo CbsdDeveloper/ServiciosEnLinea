@@ -1,0 +1,110 @@
+<md-dialog aria-label="Form Data" class="modal-dialog" ng-controller="performanceExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=assignment_ind></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_PERFORMANCE_EVALUATION</h2>
+				<span flex></span>
+				<md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<md-content layout=column layout-padding>
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_PERIOD_FROM</label>
+						<div class="input-group" moment-picker="frmParent.evaluacion_periodo_desde" format="YYYY-MM-DD">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_available></md-ico></div></div> 
+							<input ng-model="frmParent.evaluacion_periodo_desde" class="form-control" placeholder="Ej. 2017-03-01" required>
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_PERIOD_UPTO</label>
+						<div class="input-group" moment-picker="frmParent.evaluacion_periodo_hasta" format="YYYY-MM-DD">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_busy></md-ico></div></div> 
+					    <input ng-model="frmParent.evaluacion_periodo_hasta" class="form-control" placeholder="Ej. 2018-03-01" required>
+						</div>
+					</div>
+				</div>
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_SCORE_ACTIVITIES</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+							<input type="number" step="1" min="0" max="100" parse-float ng-change="getScore()" ng-model="frmParent.actividades_porcentaje" class="form-control" placeholder="Ej. 80" required>
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_SCORE_KNOWLEDGE</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+					    <input type="number" step="1" min="0" max="100" parse-float ng-change="getScore()" ng-model="frmParent.conocimientos_porcentaje" class="form-control" placeholder="Ej. 20" required>
+						</div>
+					</div>
+				</div>
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_SCORE_UNIVERSAL_COMPETENCES</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+							<input type="number" step="1" min="0" max="100" parse-float ng-change="getScore()" ng-model="frmParent.competencias_tecnicas_porcentaje" class="form-control" placeholder="Ej. 80" required>
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_SCORE_TECHNICAL_COMPETENCES</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+					    <input type="number" step="1" min="0" max="100" parse-float ng-change="getScore()" ng-model="frmParent.competencias_universales_porcentaje" class="form-control" placeholder="Ej. 20" required>
+						</div>
+					</div>
+				</div>
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_SCORE_TEAMWORK</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info></md-ico></div></div> 
+							<input type="number" step="1" min="0" max="100" parse-float ng-change="getScore()" ng-model="frmParent.trabajo_equipo_porcentaje" class="form-control" placeholder="Ej. 80" required>
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_SCORE_TOTAL</label>
+						<div class="input-group">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=info_outline></md-ico></div></div> 
+					    <input type="number" step="1" min="100" max="100" parse-float ng-model="frmParent.evaluacion_total" class="form-control" placeholder="Ej. 20" required readonly>
+						</div>
+					</div>
+				</div>
+				<div layout-xs=column layout=row layout-padding>
+					<div class="form-group required" flex>
+						<label translate>LB_ENABLE_FROM</label>
+						<div class="input-group" moment-picker="frmParent.evaluacion_desde" format="YYYY-MM-DD">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_available></md-ico></div></div> 
+							<input ng-model="frmParent.evaluacion_desde" class="form-control" placeholder="Ej. 2017-03-01" required>
+						</div>
+					</div>
+					<div class="form-group required" flex>
+						<label translate>LB_ENABLE_UPTO</label>
+						<div class="input-group" moment-picker="frmParent.evaluacion_hasta" format="YYYY-MM-DD">
+							<div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_busy></md-ico></div></div> 
+					    <input ng-model="frmParent.evaluacion_hasta" class="form-control" placeholder="Ej. 2018-03-01" required>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group required" ng-if="toogleEditMode">
+					<label translate>LB_STATUS</label>
+					<div class="input-group">
+						<div class="input-group-prepend"><div class="input-group-text"><md-ico i=flag></md-ico></div></div> 
+						<select class="form-control" ng-model="frmParent.evaluacion_estado"
+										ng-options="val as val for (key,val) in string2JSON('statusType')"></select>
+					</div>
+				</div>
+			</md-content>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<md-button type="submit" ng-disabled="formData.$invalid || frmParent.evaluacion_total<100"><span translate>BTN_SAVE</span></md-button>
+			<span flex></span>
+			<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+		</md-dialog-actions>
+  </form>
+</md-dialog>

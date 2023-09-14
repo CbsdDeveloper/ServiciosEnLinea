@@ -1,0 +1,52 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=event_busy></md-ico></md-button>
+			<h2 class="md-flex" translate>TOOLBAR_CITATIONS</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content class="my-dialog-content" ng-controller="citationsExtendsCtrl">
+    <md-content layout-padding layout=column layout-wrap>
+	    <div class="form-group">
+		    <label translate>LB_CITATION_NUMBER</label>
+		    <div class="input-group">
+			    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_note></span>
+			    <input ng-model="frmParent.citacion_numero" class="form-control" required>
+			  </div>
+		  </div>
+		  <div class="form-group">
+		    <label translate>LB_NEXT_INSPECTION</label>
+		    <div class="input-group">
+			    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event_note></span>
+			    <input type="date" ng-model="frmParent.citacion_fecha_reinspeccion" class="form-control" required>
+			  </div>
+		  </div>
+		  <div class="form-group">
+				<label translate>LB_EXTENSION</label>
+			  <div class="input-group" ng-if="toogleEditMode" flex>
+					<div class="input-group-prepend"><div class="input-group-text"><md-ico i=extension></md-ico></div></div> 
+					<select class="form-control" ng-model="frmParent.citacion_prorroga">
+						<option value="true">Sí</option>
+						<option value="false">NO</option>
+					</select>
+				</div>
+			</div>
+		  <div class="form-group">
+		    <label translate>LB_OBSERVATION</label>
+			  <div class="input-group">
+			    <div class="input-group-prepend"><div class="input-group-text"><i-fa i=comments></md-ico></div></div> 
+			    <textarea rows=5 ng-model="frmParent.citacion_observacion" class="form-control"></textarea>
+			  </div>
+		  </div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

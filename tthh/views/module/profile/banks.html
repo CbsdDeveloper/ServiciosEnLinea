@@ -1,0 +1,40 @@
+<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=account_balance></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_BANK_ACCOUNTS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico><md-tooltip><span translate>LB_SEARCH</span></md-tooltip></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico><md-tooltip><span translate>LB_REFRESH</span></md-tooltip></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openModal({fk_personal_id:session.personal_id,fk_persona_id:session.persona_id,edit:false})"><md-ico i=add></md-ico><md-tooltip><span translate>LB_NEW</span></md-tooltip></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<div class="md-padding row no-margin" layout-padding layout-wrap>
+		<div class="col-md-6 col-xs-12 wow fadeInUp" data-ng-repeat="row in rowsParent.data">
+			<div class="box box-widget widget-user-2 text-uppercase no-margin">
+			   <div class="widget-user-header bg-black" ng-class="[{'bg-green':row.banco_estado=='ACTIVA'}]">
+			     <div class="widget-user-image">
+			       <img class="img-circle" src="/app/src/img/entities/default.png" alt="User Avatar">
+			     </div>
+			     <h3 class="widget-user-username">{{row.banco_nombre}}</h3>
+			     <h5 class="widget-user-desc">{{row.titular}}</h5>
+			   </div>
+			   <div class="box-footer no-padding">
+					<ul class="nav nav-stacked">
+						<li><a href="#"><md-ico i=account_balance s=18></md-ico> <small translate>LB_BANK</small> <span class="pull-right text-right" style="max-width:60%;font-size:10px;">{{row.banco_nombre}}</span></a></li>
+						<li><a href="#"><md-ico i=flag s=18></md-ico> <small translate>LB_ACCOUNT_TYPE</small> <span class="pull-right text-right" style="max-width:60%;font-size:10px;">{{row.banco_cuenta_tipo}}</span></a></li>
+						<li><a href="#"><md-ico i=how_to_vote s=18></md-ico> <small translate>LB_ACCOUNT_NUMBER</small> <span class="pull-right text-right badge badge-blue" style="max-width:60%;font-size:10px;">{{row.banco_cuenta_numero}}</span></a></li>
+						<li><a href="#"><md-ico i=flag s=18></md-ico> <small translate>LB_STATUS</small> <span class="pull-right badge" ng-class="[{'bg-green':row.banco_estado=='ACTIVA','bg-red':row.banco_estado!='ACTIVA'}]" style="max-width:60%;font-size:10px;">{{row.banco_estado}}</span></a></li>
+						<li class="padding-all">
+							<button class="btn btn-block btn-warning" ng-click="openModal(row)">
+								<md-ico i=edit s=18></md-ico> <span translate>LB_EDIT</span>
+							</button>
+			      </li>
+			    </ul>
+			   </div>
+			</div>
+		</div>
+	</div>
+	<footer-table></footer-table>
+</md-card>

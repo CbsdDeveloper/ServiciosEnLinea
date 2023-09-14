@@ -1,0 +1,275 @@
+﻿<div layout-padding class="no-padding">
+	<div layout-xs=column layout=row layout-padding>
+		
+		<card-unit class="card-information" ng-if="detailConfig.show" flex></card-unit>
+		
+		<div flex>
+			<md-card class="no-margin">
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<md-button aria-label="btn" class="md-icon-button"><md-ico i=local_shipping></md-ico></md-button>
+						<h2>{{entity.unidad_nombre}} [{{entity.vehiculo_placa}}]</h2>
+						<span flex></span>
+						<md-button aria-label="btn" class="md-icon-button" ng-click="toogleShowDetail()"><md-ico i={{detailConfig.icon}}></md-ico></md-button>
+					</div>
+				</md-toolbar>
+				<md-tabs md-dynamic-height md-border-bottom>
+				
+					<!-- FLOTAS VEHICULAS -->
+					<md-tab label="{{'LB_VEHICULAR_FLEETS' | translate}}">
+						<md-content ng-controller="unitTrackingCtrl">
+							<div ng-controller="myTableCtrl">
+								<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+									<div class="md-toolbar-tools">
+										<md-button aria-label="btn" class="md-icon-button"><md-ico i={{filterInTab.mdIcon}}></md-ico></md-button>
+										<h2 translate>{{filterInTab.label}}</h2>
+										<span flex></span>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()" ng-if="filterInTab.search"><md-ico i=search></md-ico></md-button>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()" ><md-ico i=refresh></md-ico></md-button>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="openParentModal('Tracking',mergeData(entity,{fk_unidad_id:entity.unidad_id,edit:false}))" ng-if="allow.permiso7071"><md-ico i=add></md-ico></md-button>
+									</div>
+								</md-toolbar>
+								<toolbar-filter></toolbar-filter>	
+								<md-table-container>
+							    
+							    <table md-table class="md-primary table-hover" md-progress="deferred">
+							     	<col style="width:35%;">
+							     	<col style="width:35%;">
+							     	<col style="width:30%;">
+							<!--      	<col style="width:3%;"> -->
+							      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+											<tr md-row>
+												<th md-column md-order-by="flota_salida_hora"><span translate>LB_DATA_OUTPUT</span></th>
+												<th md-column md-order-by="flota_arribo_hora"><span translate>LB_DATA_INPUT</span></th>
+												<th md-column md-order-by="unidad_nombre"><span translate>LB_DETAIL</span></th>
+							<!-- 					<th md-column><span translate>LB_MENU</span></th> -->
+											</tr>
+							      </thead>
+							      <tbody>
+											<tr md-row data-ng-repeat="row in rowsParent.data">
+												
+												<td md-cell>
+													<div>
+														<md-ico i=person></md-ico><span ng-bind-html="highlight(row.conductor_salida)"></span>
+														<md-tooltip><span translate>LB_OPERATOR</span></md-tooltip>
+													</div>
+													<div>
+														<md-ico i=timer></md-ico><span ng-bind-html="highlight(row.flota_salida_hora)"></span>
+														<md-tooltip><span translate>LB_DEPARTURE_TIME</span></md-tooltip>
+													</div>
+													<div>
+														<md-ico i=flight_takeoff></md-ico><span ng-bind-html="highlight(row.flota_salida_km+' km')"></span>
+														<md-tooltip><span translate>LB_MILEAGE</span></md-tooltip>
+													</div>
+													<div>
+														<md-ico i=flag></md-ico><span ng-bind-html="highlight(row.estacion_salida)"></span>
+														<md-tooltip><span translate>LB_STATION</span></md-tooltip>
+													</div>
+													<div>
+														<md-ico i=person_outline></md-ico><span ng-bind-html="highlight(row.usuario_salida)"></span>
+														<md-tooltip><span translate>LB_RESPONSIBLE_FOR_REGISTRATION	</span></md-tooltip>
+													</div>
+												</td>
+												
+												<td md-cell>
+													<div ng-if="row.flota_estado=='ESTACION'">
+														<div>
+															<md-ico i=person></md-ico><span ng-bind-html="highlight(row.conductor_arribo)"></span>
+															<md-tooltip><span translate>LB_OPERATOR	</span></md-tooltip>
+														</div>
+														<div>
+															<md-ico i=timer_off></md-ico><span ng-bind-html="highlight(row.flota_arribo_hora)"></span>
+															<md-tooltip><span translate>LB_CHECK_IN_TIME	</span></md-tooltip>
+														</div>
+														<div>
+															<md-ico i=flight_land></md-ico><span ng-bind-html="highlight(row.flota_arribo_km+' km')"></span>
+															<md-tooltip><span translate>LB_MILEAGE	</span></md-tooltip>
+														</div>
+														<div>
+															<md-ico i=flag></md-ico><span ng-bind-html="highlight(row.estacion_arribo)"></span>
+															<md-tooltip><span translate>LB_STATION	</span></md-tooltip>
+														</div>
+														<div>
+															<md-ico i=person_outline></md-ico><span ng-bind-html="highlight(row.usuario_arribo)"></span>
+															<md-tooltip><span translate>LB_RESPONSIBLE_FOR_REGISTRATION	</span></md-tooltip>
+														</div>
+													</div>
+												</td>
+												
+												<td md-cell>
+													<div>
+														<a ui-sref="subjefature.detailTracking({id:row.flota_id})" target="_balnk"><md-ico i=gps_fixed></md-ico></a><span ng-bind-html="highlight(row.codigo_clave+' ['+row.codigo_detalle+']')"></span>
+														<md-tooltip><span translate>LB_KEY</span></md-tooltip>
+													</div>
+													<div>
+														<md-ico i=location_on></md-ico><span ng-bind-html="highlight(row.flota_destino)"></span>
+														<md-tooltip><span translate>LB_DESTINATION</span></md-tooltip>
+													</div>
+													<div>
+														<a ui-sref="logistics.gservices.detailUnits({id:row.fk_unidad_id})" target="_balnk"><md-ico i=local_shipping></md-ico></a><span ng-bind-html="highlight(row.flota_codigo+' ['+row.vehiculo_placa+']')"></span> <span ng-bind-html="statusLabel[row.flota_estado]"></span>
+														<md-tooltip><span translate>LB_UNIT</span></md-tooltip>
+													</div>
+													<div ng-if="row.flota_estado=='ESTACION'">
+														<md-ico i=timer></md-ico><span ng-bind-html="highlight(row.tiempo)"></span> / <i-fa i=tachometer></i-fa>{{row.kilometros+' km'}}<br>
+													</div>
+													<md-ico i=group></md-ico>{{row.pasajeros}} <span translate>LB_PASSENGERS</span>
+												</td>
+												
+							<!-- 					<td md-cell class="table-menu text-center"> -->
+							<!-- 					  <menu-tracking ng-if="allow.permiso10021"></menu-tracking> -->
+							<!-- 					</td> -->
+												
+											</tr>
+							      </tbody>
+							    </table>
+							    
+								</md-table-container>
+								<footer-table></footer-table>
+							</div>
+						</md-content>
+					</md-tab>
+				
+					<!-- ORDENES DE CUMBUSTIBLE -->
+					<md-tab label="{{'LB_FUEL_ORDER' | translate}}">
+						<md-content ng-controller="unitSupplyingCtrl">
+							<div ng-controller="myTableCtrl">
+								<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+									<div class="md-toolbar-tools">
+										<md-button aria-label="btn" class="md-icon-button"><md-ico i={{filterInTab.mdIcon}}></md-ico></md-button>
+										<h2 translate>{{filterInTab.label}}</h2>
+										<span flex></span>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()" ng-if="filterInTab.search"><md-ico i=search></md-ico></md-button>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()" ><md-ico i=refresh></md-ico></md-button>
+										<md-button aria-label="btn" class="md-icon-button" ng-click="openParentModal('Abastecimiento',mergeData(entity,{fk_unidad_id:entity.unidad_id,edit:false}))" ng-if="allow.permiso7081"><md-ico i=add></md-ico></md-button>
+									</div>
+								</md-toolbar>
+								<toolbar-filter></toolbar-filter>	
+								<md-table-container>
+							    <table md-table class="md-primary table-hover" md-progress="deferred">
+							      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+											<tr md-row>
+												<th md-column md-order-by="codigo_clave"><span translate>LB_DESTINATION</span></th>
+												<th md-column md-order-by="flota_hora_salida"><span translate>LB_DATA_OUTPUT</span></th>
+												<th md-column md-order-by="flota_hora_arribo"><span translate>LB_DATA_INPUT</span></th>
+												<th md-column md-order-by="flota_estado"><span translate>LB_STATUS</span></th>
+											</tr>
+							      </thead>
+							      <tbody>
+											<tr md-row data-ng-repeat="row in rowsParent.data">
+												<td md-cell>
+													<md-ico i=person></md-ico><span ng-bind-html="highlight(row.conductor)"></span><br>
+													<md-ico i=local_gas_station></md-ico><span ng-bind-html="highlight('ORDEN: '+row.abastecimiento_orden)"></span><br>
+													<md-ico i=location_on></md-ico><span ng-bind-html="highlight(row.flota_destino)"></span><br>
+													<md-ico i=local_gas_station></md-ico> <span ng-bind-html="highlight(row.vehiculo_combustible+' ['+row.abastecimiento_galones+' gal]')"></span>
+												</td>
+												<td md-cell>
+													<md-ico i=timer></md-ico>{{row.flota_salida_hora | date:'medium'}}<br>
+													<md-ico i=subdirectory_arrow_right></md-ico><span ng-bind-html="highlight(row.flota_salida_km)"></span><br>
+													<md-ico i=person_outline></md-ico><span ng-bind-html="highlight(row.usuario_salida)"></span>
+												</td>
+												<td md-cell>
+													<md-ico i=timer_off></md-ico>{{row.flota_arribo_hora | date:'medium'}}<br>
+													<md-ico i=subdirectory_arrow_left></md-ico><span ng-bind-html="highlight(row.flota_arribo_km)"></span><br>
+													<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario_arribo)"></span>
+												</td>
+												
+												<td md-cell>
+													<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.flota_estado]"></span><br>
+													<div ng-if="row.flota_estado=='ESTACION'">
+														<md-ico i=timer></md-ico><span ng-bind-html="highlight(row.tiempo)"></span><br>
+														<i-fa i=tachometer></i-fa><span ng-bind-html="highlight(row.kilometros)"></span><br>
+													</div>
+												</td>
+											</tr>
+							      </tbody>
+							    </table>
+								</md-table-container>
+								<footer-table></footer-table>
+							</div>
+						</md-content>
+					</md-tab>
+				
+					<!-- ORDENES DE MANTENIMIENTO -->
+					<md-tab label="{{'LB_MAINTENANCE_ORDERS' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i={{filterInTab.mdIcon}}></md-ico></md-button>
+								<h2 translate>{{filterInTab.label}}</h2>
+								<span flex></span>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()" ng-if="filterInTab.search"><md-ico i=search></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()" ><md-ico i=refresh></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openParentModal('Mantenimiento',mergeData(entity,{fk_unidad_id:entity.unidad_id,edit:false}))" ng-if="allow.permiso7091"><md-ico i=add></md-ico></md-button>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+					</md-tab>
+					
+					<!-- ORDENES DE TRABAJO -->
+					<md-tab label="{{'LB_WORK_ORDER' | translate}}">
+						<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+							<div class="md-toolbar-tools">
+								<md-button aria-label="btn" class="md-icon-button"><md-ico i={{filterInTab.mdIcon}}></md-ico></md-button>
+								<h2 translate>{{filterInTab.label}}</h2>
+								<span flex></span>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()" ng-if="filterInTab.search"><md-ico i=search></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()" ><md-ico i=refresh></md-ico></md-button>
+								<md-button aria-label="btn" class="md-icon-button" ng-click="openParentModal('Mantenimiento',mergeData(entity,{fk_unidad_id:entity.unidad_id,edit:false}))" ng-if="allow.permiso7091"><md-ico i=add></md-ico></md-button>
+							</div>
+						</md-toolbar>
+						<md-divider></md-divider>
+					</md-tab>
+					
+					<!-- Open tab history -->
+		      <md-tab label="{{'LB_HISTORY' | translate}}">
+						<md-content ng-controller="historyEntityCtrl">
+							<div ng-controller="myTableCtrl">
+								<toolbar-filter-in-tab></toolbar-filter-in-tab>
+								<toolbar-filter></toolbar-filter>
+								<md-table-container>
+							    <table md-table class="md-primary table-hover" md-progress="deferred">
+							      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+											<tr md-row>
+												<th md-column md-order-by="vehiculo_marca"><span translate>LB_BRAND</span></th>
+												<th md-column md-order-by="vehiculo_placa"><span translate>LB_PLATE</span></th>
+												<th md-column md-order-by="estacion_nombre"><span translate>LB_STATIONS</span></th>
+												<th md-column md-order-by="unidad_estado"><span translate>LB_STATUS</span></th>
+											</tr>
+							      </thead>
+							      <tbody>
+											<tr md-row data-ng-repeat="row in rowsParent.data">
+												<td md-cell>
+													<md-ico i=directions_car></md-ico> <span ng-bind-html="highlight(row.vehiculo_tipo)"></span><br>
+													<md-ico i=local_offer></md-ico> <span ng-bind-html="highlight(row.vehiculo_marca)"></span><br>
+													<md-ico i=local_car_wash></md-ico> <span ng-bind-html="highlight(row.vehiculo_modelo)"></span>
+												</td>
+												<td md-cell>
+													<md-ico i=directions_car></md-ico> <span ng-bind-html="highlight(row.vehiculo_placa)"></span><br>
+													<md-ico i=fingerprint></md-ico> <span ng-bind-html="highlight(row.vehiculo_chasis)"></span><br>
+													<md-ico i=fingerprint></md-ico> <span ng-bind-html="highlight(row.vehiculo_motor)"></span>
+												</td>
+												<td md-cell>
+													<md-ico i=local_shipping></md-ico> <span ng-bind-html="highlight(row.unidad_nombre)"></span><br>
+													<md-ico i=flag></md-ico> <span ng-bind-html="highlight(row.estacion)"></span>
+												</td>
+												<td md-cell>
+													<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.unidad_estado]"></span><br>
+													<md-ico i=event></md-ico><span ng-bind-html="row.unidad_registro"></span><br>
+													<md-ico i=people></md-ico><span ng-bind-html="row.usuario"></span>
+												</td>
+												<td md-cell class="table-menu text-center">
+												  <menu-units></menu-units>
+												</td>
+											</tr>
+							      </tbody>
+							    </table>
+								</md-table-container>
+								<footer-table></footer-table>
+							</div>
+		        </md-content>
+					</md-tab>
+					
+				</md-tabs>
+			</md-card>
+		</div>
+	</div>
+</div>

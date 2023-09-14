@@ -1,0 +1,100 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=done_all></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_PROCESSES_AND_CONTRACTS</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+    	
+    	<div class="box box-primary no-margin">
+				<div class="box-header text-center with-border">
+				  <h3 class="box-title" translate>LB_REGISTRATION_FORM</h3>
+				</div>
+				<div class="box-body no-padding" layout=column layout-padding>
+			
+						<div class="form-group required" flex>
+							<label translate>LB_REQUIRING_AREA</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=person></md-ico></span>
+								<input ng-model="frmParent.personal_nombre" class="form-control" placeholder="Ej. Adquisicón de equipos para mantenimiento de..." required readonly="readonly" />
+							</div>
+						</div>
+						
+						<div class="form-group required" flex>
+							<label translate>LB_PROJECT_NAME</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=info></md-ico></span>
+								<input ng-model="frmParent.proceso_nombre" class="form-control" placeholder="Ej. Adquisicón de equipos para mantenimiento de..." required />
+							</div>
+						</div>
+						
+						<div class="form-group required" flex>
+							<label translate>LB_PROJECT_NAME</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=info></md-ico></span>
+								<input ng-model="frmParent.proceso_nombre" class="form-control" placeholder="Ej. Adquisicón de equipos para mantenimiento de..." required />
+							</div>
+						</div>
+						
+						<div class="form-group required" flex>
+							<label translate>LB_DESCRIPTION</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=info></md-ico></span>
+								<textarea rows="2" ng-model="frmParent.proceso_descripcion" class="form-control" placeholder="Ej. Fortalecimiento institucional" required></textarea>
+							</div>
+						</div>
+						
+						<div layout-xs=column layout=row layout-padding>
+							<div class="form-group required" flex>
+								<label translate>LB_CONTRACTING_OBJECT</label>
+								<div class="input-group">
+									<span class="input-group-addon"><md-ico i=info></md-ico></span>
+									<select class="form-control" ng-model="frmParent.proceso_objeto_contratacion" ng-options="val as val for (key,val) in string2JSON('FINANCIAL_PROCESSES_CONTRACT_SETTING')['OBJETOS']" required></select>
+								</div>
+							</div>
+							
+							<div class="form-group required" flex>
+								<label translate>LB_REFERENTIAL_BUDGET</label>
+								<div class="input-group">
+									<span class="input-group-addon"><md-ico i=info></md-ico></span>
+									<input type="number" step="0.01" min="0" parse-float ng-model="frmParent.proceso_presupuestoreferencial" class="form-control" placeholder="Ej. 123.36" required />
+								</div>
+							</div>
+						</div>
+						
+						<!-- 
+						<div class="form-group required" flex ng-controller="contractingproceduresListCtrl">
+							<label translate>LB_CONTRACTING_PROCEDURE	</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=info></md-ico></span>
+								<select class="form-control" ng-model="frmParent.fk_procedimientocontratacion_id" ng-options="row.procedimiento_id as row.procedimiento_contratacion+' ('+row.procedimiento_tipo_contratacion+')' for row in jsonList" required></select>
+							</div>
+						</div>
+						
+						<div class="form-group required" flex>
+							<label translate>LB_PURCHASE_ORDER</label>
+							<div class="input-group">
+								<span class="input-group-addon"><md-ico i=info></md-ico></span>
+								<input ng-model="frmParent.proceso_contrato_ordencompra" class="form-control" placeholder="Ej. Casa 2" required />
+							</div>
+						</div>
+						 -->
+				
+				
+				</div>
+			</div>
+			
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

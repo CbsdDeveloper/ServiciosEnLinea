@@ -1,0 +1,49 @@
+<div class="box box-primary no-margin">
+  <div class="box-body box-profile text-center">
+    <div class="container-img-user">
+    	<img class="profile-user-img img-responsive" src="/app/src/img/users/default.png" ng-src="{{setting.uri.img}}users/{{dataEntity.persona_imagen}}" alt="profile">
+    </div>
+		<h3 class="profile-username">{{dataEntity.persona_apellidos}} {{dataEntity.persona_nombres}}</h3>
+		<p class="text-muted text-center">{{dataEntity.personal_fingreso}}</p>
+    <hr>
+		<strong><md-ico i=cake></md-ico><br><span translate>LB_BIRTHDATE</span></strong>
+    <p class="text-muted text-uppercase">{{dataEntity.persona_fnacimiento | date:'fullDate'}}</p>
+    <hr>
+		<strong><i-fa i="{{string2JSON('iFaIconList')[dataEntity.persona_sexo]}}" s=lg></i-fa><br><span translate>LB_SEX</span> / <span translate>LB_MARITAL_STATUS</span></strong>
+    <p class="text-muted text-uppercase">{{dataEntity.persona_estadocivil}}</p>
+    <hr>
+		<strong><md-ico i=place></md-ico><br><span translate>LB_ADDRESS</span></strong>
+    <p class="text-muted">{{dataEntity.provincia}} - {{dataEntity.pais}} <br> {{dataEntity.canton}} / {{dataEntity.parroquia}} <br> {{dataEntity.persona_principal}} y {{dataEntity.persona_secundaria}}</p> 
+    <hr>
+		<strong><md-ico i=credit_card></md-ico><br><span translate>LB_DOC_IDENTIFICATION</span></strong>
+    <p class="text-muted">{{string2JSON('identificationType')[dataEntity.persona_tipo_doc]}} / {{dataEntity.persona_doc_identidad}}</p>
+    <hr>
+    <strong><md-ico i=mail></md-ico><br><span translate>LB_MAIL</span></strong>
+    <p class="text-muted">{{dataEntity.persona_correo}}</p>
+    <hr>
+    <strong><md-ico i=phone></md-ico><br><span translate>LB_TEL</span></strong>
+    <p class="text-muted">{{dataEntity.persona_telefono}} - {{dataEntity.persona_celular}}</p>
+  </div>
+  
+  <div class="box-footer" layout=column layout-adding>
+  	<button class="btn btn-block btn-info" ng-click="$parent.openModal(tbParent,dataEntity)">
+			<md-ico i=edit s=18></md-ico> <span translate>LB_EDIT_PERSONAL_INFORMATION</span>
+		</button>
+		<hr>
+		<button class="btn btn-warning btn-block" ng-click="openParentModal('PDFViewer',{embed:'img/users/'+dataEntity.persona_anexo_cedula,label:'C.C. - '+dataEntity.persona_doc_identidad})" ng-if="dataEntity.persona_anexo_cedula!='NO'">
+			<md-ico i=file_download s=18></md-ico>
+    	<b translate>LB_DOWNLOAD_IDENTITY_CARD</b>
+		</button>
+  	<button class="btn btn-block btn-info" ng-click="$parent.openModal('Filesperson',{edit:false,fk_table:'personas',fk_id:dataEntity.persona_id,object:'persona_anexo_cedula',typeFile:'PDF'})">
+			<md-ico i=list_alt s=18></md-ico> <span translate>LB_UPLOAD_IDENTITY_CARD</span>
+		</button>
+		<hr>
+		<button class="btn btn-warning btn-block" ng-click="openParentModal('PDFViewer',{embed:'img/users/'+dataEntity.persona_anexo_votacion,label:'Papeleta de votacion - '+dataEntity.persona_doc_identidad})" ng-if="dataEntity.persona_anexo_votacion!='NO'">
+			<md-ico i=file_download s=18></md-ico>
+    	<b translate>LB_DOWNLOAD_VOTE_PAPER</b>
+		</button>
+  	<button class="btn btn-block btn-info" ng-click="$parent.openModal('Filesperson',{edit:false,fk_table:'personas',fk_id:dataEntity.persona_id,object:'persona_anexo_votacion',typeFile:'PDF'})">
+			<md-ico i=list_alt s=18></md-ico> <span translate>LB_UPLOAD_VOTE_PAPER</span>
+		</button>
+  </div>
+</div>

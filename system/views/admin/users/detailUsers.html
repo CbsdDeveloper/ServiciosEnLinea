@@ -1,0 +1,67 @@
+﻿<div class="w-100" layout=row layout-padding layout-wrap>
+	<card-profile flex=25 hide-xs></card-profile>
+	<card-profile flex hide-gt-xs></card-profile>
+	<div flex>
+		<md-card class="no-margin">
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<md-button aria-label="btn" class="md-icon-button"><md-ico i=person></md-ico></md-button>
+					<h2>{{dataEntity.persona_apellidos}} {{dataEntity.persona_nombres}}</h2>
+					<span flex></span>
+					<h2>{{dataEntity.perfil_nombre}}</h2>
+				</div>
+			</md-toolbar>
+			<md-tabs md-dynamic-height md-border-bottom>
+					
+					<md-tab label="{{'LB_ROLES' | translate}}">
+						<md-content>
+							<div class="padding-all">
+								<div class="timeline timeline-inverse" layout=column>
+									<div class="time-label" flex>
+										<span class="bg-red">{{currentDate | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+									</div>
+									<div ng-repeat="row in dataEntity.permisos" style="padding:0px;margin-bottom:0px" flex>
+										<i class="fa {{recordTypeColor[row.rol_nombre]}}"><md-ico i={{string2JSON('mdIconList')[row.rol_nombre]}} s=18></i>
+										<div class="timeline-item">
+											<span class="time">{{row.rol_tipo}}</span>
+											<h3 class="timeline-header">{{row.rol_nombre}}</h3>
+			                <div class="timeline-body">{{row.rol_descripcion}}</div>
+										</div>
+									</div>
+									<div><i class="fa bg-gray"><md-ico i=access_time s=18></md-ico></i></div>
+								</div>
+							</div>
+						</md-content>
+					</md-tab>
+					
+					<md-tab label="{{'LB_BINNACLE' | translate}}">
+						<md-content ng-controller="myTableCtrl">
+							<toolbar-filter-in-tab></toolbar-filter-in-tab>
+							<toolbar-filter></toolbar-filter>
+							<md-divider></md-divider>
+							<div class="padding-all">
+								<div class="timeline timeline-inverse">
+									<div class="time-label" flex>
+										<span class="bg-red">{{currentDate | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+									</div>
+									<div ng-repeat="row in rowsParent.data" style="padding:0px;margin-bottom:0px" flex>
+										<i class="fa {{recordTypeColor[row.tipo]}}"><md-ico i={{string2JSON('mdIconList')[row.tipo]}} s=18></i>
+										<div class="timeline-item">
+											<span class="time"><md-ico i=access_time s=18></md-ico> {{row.fecha}}</span>
+											<h3 class="timeline-header"><a href="#">{{row.descripcion}}</a></h3>
+			                  <div class="timeline-body">
+			                    <md-ico i=computer s=18></md-ico> {{row.equipo}}<br>
+			                    <md-ico i=info_outline s=18></md-ico> {{row.ipaddress}}
+			                  </div>
+										</div>
+									</div>
+									<div><i class="fa bg-gray"><md-ico i=access_time s=18></md-ico></i></div>
+								</div>
+							</div>
+							<footer-table></footer-table>
+						</md-content>
+					</md-tab>
+			</md-tabs>
+		</md-card>
+	</div>
+</div>

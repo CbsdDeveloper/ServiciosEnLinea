@@ -1,0 +1,63 @@
+<md-dialog aria-label="Dialog" class="modal-dialog">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=thumb_down></md-ico></md-button>
+			<h2 class="md-flex" translate>LB_SANCTIONS</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout-padding layout=column>
+    	<card-person-information></card-person-information>
+    	
+    	<div layout-xs=column layout=row layout-padding>
+    		<div class="form-group required" flex>
+					<label translate>LB_TYPE</label>
+			    <div class="input-group">
+			      <div class="input-group-prepend"><div class="input-group-text"><md-ico i=error_outline></md-ico></div></div> 
+			      <select class="form-control" ng-model="frmParent.sancion_tipo" required>
+			      	<option value="SANCION" translate>LB_SANCTION</option>
+			      	<option value="LLAMADO DE ATENCION" translate>LB_CALL_ATTENTION</option>
+			      </select>
+			    </div>
+				</div>
+	    	<div class="form-group required" flex>
+					<label translate>LB_DATE</label>
+				  <div class="input-group" moment-picker="frmParent.sancion_fecha" format="YYYY-MM-DD" max-date="today">
+				    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=event></md-ico></div></div> 
+				    <input class="form-control" ng-model="frmParent.sancion_fecha" placeholder="Ej. 2017-02-23" required >
+				  </div>
+				</div>
+    	</div>
+    	<div class="form-group required">
+				<label translate>LB_LACK</label>
+			  <div class="input-group">
+			    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=error></md-ico></div></div> 
+			    <input class="form-control" ng-model="frmParent.sancion_falta" placeholder="Ej. El sujeto no acudió al evento del día del bombero" required >
+			  </div>
+			</div>
+    	<div class="form-group required">
+				<label translate>LB_SANCTION</label>
+			  <div class="input-group">
+			    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=thumb_down></md-ico></div></div> 
+			    <textarea class="form-control" ng-model="frmParent.sancion_sancion" placeholder="Ej. No gozará de sus vacaciones" required ></textarea>
+			  </div>
+			</div>
+    	<div class="form-group">
+				<label translate>LB_OBSERVATIONS</label>
+			  <div class="input-group">
+			    <div class="input-group-prepend"><div class="input-group-text"><md-ico i=comment></md-ico></div></div> 
+			    <textarea class="form-control" ng-model="frmParent.sancion_observaciones"placeholder="Ej. Describir el detalle" ></textarea>
+			  </div>
+			</div>
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

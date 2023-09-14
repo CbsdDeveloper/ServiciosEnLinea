@@ -1,0 +1,61 @@
+﻿<md-card ng-cloak ng-controller="myTableCtrl">
+	<md-toolbar ng-hide="filter.show">
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=clear></md-ico></md-button>
+			<h2 translate>TOOLBAR_CITATIONS</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="openSearch()"><md-ico i=search></md-ico></md-button>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="getParent()"><md-ico i=refresh></md-ico></md-button>
+		</div>
+	</md-toolbar>
+	<toolbar-filter></toolbar-filter>
+	<md-table-container>
+    <table md-table class="md-primary table-hover" md-progress="deferred">
+      <thead md-head md-order="filterParent.order" md-on-reorder="onOrderParent">
+				<tr md-row>
+					<th md-column md-order-by="citacion_fecha"><span translate>LB_CITATIONS</span></th>
+					<th md-column><span translate>LB_COMERTIAL</span></th>
+					<th md-column><span translate>LB_STATUS</span></th>
+				</tr>
+      </thead>
+      <tbody>
+				<tr md-row data-ng-repeat="row in rowsParent.data">
+					<td class="text-uppercase" md-cell>
+						<a ui-sref="prevention.detailInspections({id:row.fk_inspeccion_id})" target="_balnk"><md-ico i=transfer_within_a_station></md-ico></a><span ng-bind-html="highlight(row.inspeccion_codigo)"></span> ({{row.inspeccion_serie}})<br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.inspector)"></span> - <span ng-bind-html="highlight(row.inspeccion_informe_numero)"></span>
+						<div>
+							<md-ico i=event></md-ico>{{row.citacion_fecha |date:'fullDate'}}
+							<md-tooltip>{{'LB_REGISTRE_DATE' | translate}}</md-tooltip>
+						</div>
+						<div>
+							<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.citacion_tipo]"></span> - <span ng-bind-html="highlight(row.citacion_numero)"></span> 
+							<md-tooltip>{{'LB_CITATION_NUMBER' | translate}}</md-tooltip>
+						</div>
+						<div ng-if="(row.citacion_estado=='ACTIVO')">
+							<md-ico i=event_busy></md-ico><span class="label label-{{string2JSON('inspectionLabelStatus')[row.citacion_tipo]}}">{{row.citacion_reinspeccion |date:'fullDate'}}</span>
+							<md-tooltip>{{'LB_NEXT_INSPECTION' | translate}}</md-tooltip>
+						</div>
+					</td>
+					<td class="text-uppercase" md-cell>
+						<div>
+							<a ui-sref="src.detailEntities({entityId:row.entidad_id})" target="_balnk"><md-ico i={{string2JSON('mdIconList')[row.entidad_contribuyente]}}></md-ico></a><span ng-bind-html="highlight(row.entidad_ruc)"></span>
+							<md-tooltip>{{row.entidad_razonsocial}}</md-tooltip>
+						</div>
+						<a ui-sref="src.detailLocals({localId:row.local_id})" target="_balnk"><md-ico i=store_mall_directory></md-ico></a><span ng-bind-html="highlight(row.local_nombrecomercial)"></span>
+						<div>
+							<md-ico i=directions></md-ico><span ng-bind-html="highlight(row.local_principal+', '+row.local_secundaria)"></span>
+							<md-tooltip>{{row.local_referencia}}</md-tooltip>
+						</div>
+						<md-ico i=phone></md-ico><span ng-bind-html="highlight(row.local_telefono)"></span> - <span ng-bind-html="highlight(row.representantelegal_email)"></span>
+					</td>
+					<td md-cell>
+						<md-ico i=flag></md-ico><span ng-bind-html="statusLabel[row.citacion_estado]"></span><br>
+						<md-ico i=event></md-ico><span ng-bind-html="row.citacion_registro"></span><br>
+						<md-ico i=person></md-ico><span ng-bind-html="highlight(row.usuario)"></span>
+					</td>
+				</tr>
+      </tbody>
+    </table>
+	</md-table-container>
+	<footer-table></footer-table>
+</md-card>

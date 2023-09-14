@@ -1,0 +1,134 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg form-fa" ng-controller="habitabilityExtendsCtrl">
+  <form name="formData">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><i-fa i=object-group s=lg></i-fa></md-button>
+			<h2 translate>LB_HABITABILITY</h2>
+			<span flex></span>
+			<md-button aria-label="btn" class="md-icon-button" ng-click="closeDialog()"><md-ico i=close></md-ico></md-button>
+		</div>
+	</md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+			<!-- CONFIRMACIÓN DE SOLICITUD -->
+			<div class="no-padding">
+				<div class="callout callout-info no-margin text-center">
+				  <div class="text-center"><i class="icon fa fa-bell-o fa-2x faa-ring animated"></i></div>
+				  <p ng-bind-html="trustAsHtml(paramsConf.VBP_REQUEST_HABITABILITY)"></p>
+				</div>
+			</div>
+    	<!-- INFORMACIÓN DE PROPIETARIO -EMPRESA, SOCIEDAD O PERSONA -->
+    	<div flex class="box box-danger text-center card-entity-information no-margin margin-top">
+			  <div class="box-header with-border">
+			    <h3 class="box-title" translate>LB_OWNER_INFORMATION</h3>
+			  </div>
+			  <div class="box-body row">
+			    <div class="col-md-3">
+			    	<p><img src="/app/src/img/entities/default.png" style="width:128px;margin:auto" class="img-responsive"/></p>
+			    </div>
+			    <div class="col-md-9 text-left">
+			    	<p><b translate>LB_TRADENAME</b>: {{sessionEntity.entidad_razonsocial}}</p>
+			    	<p><b translate>LB_TAXPAYER_TYPE</b>: {{string2JSON('contribuyenteType')[sessionEntity.entidad_contribuyente]}}</p>
+			    	<p><b translate>LB_RUC</b>: {{sessionEntity.entidad_ruc}}</p>
+			    	<div ng-if="!(sessionEntity.entidad_contribuyente=='natural' || sessionEntity.entidad_contribuyente=='cedula')">
+				    	<p><b translate>LB_AGENT</b>: {{sessionEntity.persona_apellidos+' '+sessionEntity.persona_nombres}}</p>
+				    	<p><b translate>LB_IDENTIFICATION_NUMBER</b>: {{sessionEntity.persona_doc_identidad}}</p>
+			    	</div>
+			    	<p><b translate>LB_TEL</b>: {{sessionEntity.persona_telefono}} - {{sessionEntity.persona_celular}}</p>
+			    	<p><b translate>LB_MAIL</b>: {{sessionEntity.persona_correo}}</p>
+			    </div>
+			  </div>
+			</div>
+    	<!-- FORMULARIO DE REGISTRO -->
+			<div flex class="box box-primary text-center no-margin margin-top card-entity-information">
+			  <div class="box-header with-border">
+			    <h3 class="box-title">{{frmParent.vbp_codigo}}</h3>
+			  </div>
+			  <div class="box-body row">
+			    <div class="col-md-3">
+			    	<p><img src="/app/src/img/services/vbp.png" style="width:128px;margin:auto" class="img-responsive"/></p>
+			    </div>
+			    <div class="col-md-9 text-left">
+			    	<p><b translate>LB_BUILDING_PURPOSE</b>: {{frmParent.actividad_nombre}}</p>
+			    	<p><b translate>LB_PARISH</b>: {{frmParent.vbp_parroquia}}</p>
+			    	<p><b translate>LB_ADDRESS</b>: {{frmParent.vbp_principal}}, {{frmParent.vbp_secundaria}}</p>
+			    	<hr>
+			    	<p><b translate>LB_CATASTRAL_KEY</b>: {{frmParent.vbp_clavecatastral}}</p>
+			    	<p><b translate>LB_LAND_AREA</b>: {{frmParent.area_terreno | number:2}} m²</p>
+			    	<p><b translate>LB_CONSTRUCTION_AREA</b>: {{frmParent.area_construccion | number:2}} m²</p>
+			    	<p><b translate>LB_BUILDING_HEIGHT</b>: {{frmParent.vbp_altura | number:2}} m</p>
+			    	<p><b translate>LB_BUILDING_MATERIALS</b>: {{frmParent.vbp_material}}</p>
+			    </div>
+			  </div>
+			</div>
+			
+			
+			<div class="box box-success no-margin margin-top" layout-padding>
+				<div class="box-header text-center">
+				  <h3 class="box-title text-uppercase" translate>LB_PROJECT_INFORMATION</h3>
+				</div>
+				<div class="box-body padding-all" layout-padding>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<i-fa i=universal-access></i-fa>
+							<label translate>LB_WHO_SIGNED_RESPONSIBLE</label>
+							<select class="form-control" ng-model="frmParent.habitabilidad_firma_responsable" required ng-options="val as val for (key,val) in string2JSON('VBP_FIRMA_RESPONSABLES')"></select>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div layout-padding ng-if="frmParent.habitabilidad_facturacion=='OTRA'">
+				<div class="callout callout-warning text-center no-margin margin-top">
+				  <p ng-bind-html="trustAsHtml(paramsConf.PROJECT_BILLING_INFORMATION)"></p>
+				</div>
+			</div>
+      
+      <!-- DATOS PARA FACTURACIÓN -->
+			<div class="box box-primary card-entity-information no-margin margin-top no-padding">
+				<div class="box-header with-border text-center">
+				  <h3 class="box-title" translate>LB_BILLING_INFORMATION</h3>
+				</div>
+				<div class="box-body padding-all" layout-padding>
+					<div layout-xs=column layout=row layout-padding>
+						<div class="form-group required" flex>
+							<i-fa i=money></i-fa>
+							<label translate>LB_BILLING_TO</label>
+							<select class="form-control" ng-model="frmParent.habitabilidad_facturacion" required
+										ng-options="key as val for (key,val) in string2JSON('BILLING_TO')"></select>
+						</div>
+						<div class="form-group required" flex ng-if="frmParent.habitabilidad_facturacion=='OTRA'">
+							<i-fa i=credit-card></i-fa>
+							<label translate>LB_BILLING_RUC</label>
+							<div class="input-group">
+								<input ng-model="frmParent.facturacion_ruc" class="form-control" placeholder="Ej. 1721953189001" required maxlength="13" />
+								<span class="input-group-btn"><button type="button" ng-click="searchRucInformation(frmParent.facturacion_ruc,'frmParent','billing')" class="btn btn-info btn-flat"><i-fa i=search></i-fa></button></span>
+							</div>
+						</div>
+					</div>
+			  	<div class="col-md-3" ng-if="frmParent.habitabilidad_facturacion=='OTRA' && !(frmParent.billing | isEmpty)">
+			  		<p><img src="/app/src/img/entities/default.png" style="width:128px;margin:auto" class="img-responsive"/></p>
+			    </div>
+			    <div class="col-md-9 text-left" ng-if="frmParent.habitabilidad_facturacion=='OTRA' && !(frmParent.billing | isEmpty)">
+			    	<p><b translate>LB_TRADENAME</b>: {{frmParent.billing.entidad_razonsocial}}</p>
+			    	<p><b translate>LB_TAXPAYER_TYPE</b>: {{string2JSON('contribuyenteType')[frmParent.billing.entidad_contribuyente]}}</p>
+			    	<p><b translate>LB_RUC</b>: {{frmParent.billing.entidad_ruc}}</p>
+			    	<div ng-if="!(frmParent.billing.entidad_contribuyente=='natural' || frmParent.billing.entidad_contribuyente=='cedula')">
+				    	<p><b translate>LB_AGENT</b>: {{frmParent.billing.person.persona_apellidos+' '+frmParent.billing.person.persona_nombres}}</p>
+				    	<p><b translate>LB_IDENTIFICATION_NUMBER</b>: {{frmParent.billing.person.persona_doc_identidad}}</p>
+			    	</div>
+			    	<p><b translate>LB_TEL</b>: {{frmParent.billing.person.persona_telefono}} - {{frmParent.billing.person.persona_celular}}</p>
+			    	<p><b translate>LB_MAIL</b>: {{frmParent.billing.person.persona_correo}}</p>
+			    </div>
+			  </div>
+			</div>
+			
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button ng-disabled="formData.$invalid" ng-click="submitCustomForm()"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

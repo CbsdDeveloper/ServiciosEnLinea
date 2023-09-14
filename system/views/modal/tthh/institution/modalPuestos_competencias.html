@@ -1,0 +1,53 @@
+<md-dialog aria-label="Dialog" class="form-content-alt modal-dialog modal-lg" ng-controller="functionsJobsExtendsCtrl">
+  <form name="formData" ng-submit="submitForm()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+			<md-button aria-label="btn" class="md-icon-button"><md-ico i=accessible></md-ico></md-button>
+			<h2 translate>TOOLBAR_ACTIVITIES_JOBS</h2>
+      <span flex></span>
+      <md-button aria-label="btn" class="md-icon-button" aria-label="Close dialog" ng-click="closeDialog()"><md-ico i=remove></md-ico></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content layout=column layout-padding>
+			
+			<!-- INFORMACION DEL PUESTO -->
+			<card-job-information layout-padding></card-job-information>
+			
+			<!-- FORMULARIO DE REGISTRO -->
+			<div class="margin-top" layout-padding ng-repeat="(key, src) in jsonList">
+				<div class="card card-outline card-{{string2JSON('colorCss')[$index]}} no-margin no-padding">
+					<div class="card-header text-center">
+						<h3 class="card-title no-margin" translate>{{key}}</h3>
+					</div>
+					<div class="card-body">
+						<!-- LISTADO DE PARTICIPANTES -->
+						<div class="row" style="padding:8px;">
+							<div class="col-md-6 col-xs-12 md-2-line contact-item" ng-repeat="item in src">
+				        <label class="label">
+							    <input  class="label__checkbox" type="checkbox" checklist-model="frmParent.selected[key]" checklist-value="item.competencia_id" />
+							    <span class="label__text">
+							      <span class="label__check">
+							        <i class="fa fa-check icon"></i>
+							      </span>
+							    </span>
+							  </label>
+				        <div class="md-list-item-text" style="padding-top:5px;">
+			          	<span class="text-bold">{{item.competencia_id}}. </span>
+				          <span style="font-size:11px;">{{item.competencia_descripcion}}</span>
+				        </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+    </md-content>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+		<md-button type="submit" ng-disabled="formData.$invalid"><span translate>BTN_SAVE</span></md-button>
+		<span flex></span>
+		<md-button type="button" ng-click="closeDialog()"><span translate>BTN_CANCEL</span></md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>
