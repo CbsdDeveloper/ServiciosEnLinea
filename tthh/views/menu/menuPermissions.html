@@ -13,7 +13,7 @@
           </div>
       </md-button>
     </md-menu-item>
-    <md-menu-item ng-if="row.permiso_estado=='SOLICITUD GENERADA' && session.personal_id==row.fk_personal_id">
+    <!-- <md-menu-item ng-if="row.permiso_estado=='SOLICITUD GENERADA' && session.personal_id==row.fk_personal_id">
       <md-button aria-label="editar" ng-click="openModal(mergeData(row,{permiso_estado:'SOLICITUD ANULADA'}))">
           <div layout="row" flex>
             <p class="text-warning text-bold" flex translate>LB_DELETE_REQUEST</p>
@@ -22,7 +22,7 @@
             </md-icon>
           </div>
       </md-button>
-    </md-menu-item>
+    </md-menu-item> -->
     
     <md-divider ng-if="(session.puesto_direccion=='SI' || entityInfo.requestedpermissions>0) && (row.permiso_estado=='SOLICITUD GENERADA' || row.permiso_estado=='SOLICITUD NEGADA' || row.permiso_estado=='SOLICITUD AUTORIZADA')"></md-divider>
     <md-menu-item ng-if="(session.puesto_direccion=='SI' || entityInfo.requestedpermissions>0) && (row.permiso_estado=='SOLICITUD GENERADA' || row.permiso_estado=='SOLICITUD NEGADA')">

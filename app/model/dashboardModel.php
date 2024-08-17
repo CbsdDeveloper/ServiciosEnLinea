@@ -38,6 +38,7 @@ class dashboardModel extends app\controller {
 		$this->get['month']=$this->getFecha('n');//#mes
 		$this->get['day']=$this->getFecha('N');//#día (semana)
 		$this->get['week']=$this->getFecha('W');//#semana
+		$this->get['lastweek']=$this->getFecha('W') - 1;//#semana
 		$this->get['dayF']=$this->getFecha('d');//día (fecha)
 		// MODELO DE ENTIDADES
 		$entities=array(
@@ -84,6 +85,8 @@ class dashboardModel extends app\controller {
 			$where=str_replace("{{date}}",$date,$where);
 		}
 		// RETORNAR CONSULTA
+		// print_r($date);
+		// print_r($where);
 		return $this->db->findOne($where);
 	}
 	
@@ -220,7 +223,7 @@ class dashboardModel extends app\controller {
 			$total=0;
 				// VALIDAR FECHAS DE CONSULTA
 				$rangesDate=array(
-					'init'=>$val[0],
+					'init'=> $val[0], // date("Y-m-d",strtotime($val[0]."- 7 days")), 
 					'final'=>$val[count($val)-1]
 				);
 				// GENERAR CONTADOR

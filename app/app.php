@@ -1,6 +1,9 @@
 <?php namespace app;
 use api as ini;
 use controller as ctrl;
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 /** 
  * Description of app
  * Página de inicio (ruta principal) permite preparar el conjunto de clases
@@ -53,6 +56,7 @@ class app {
 		if(count($params)>=3 || isset($_GET['qry'])){
 			// CONEXIÓN A LA BASE DE DATOS
 			$request=array('sys'=>$params[1],'db'=>$params[2]);
+			// print_r($request);
 			// VALIDAR ID DE ENTIDAD
 			if(count($params)>3)$request['serial']=$params[3];
 			// RETORNAR CONSULTA

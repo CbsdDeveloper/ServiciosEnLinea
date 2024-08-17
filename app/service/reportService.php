@@ -415,6 +415,7 @@ class reportService extends app\controller {
 		// ARMAR CONSULTA
 		$str=$this->db->selectFromView("vw_{$tb}","WHERE ($strWhere) ORDER BY {$get['orderBy']} {$get['orderType']}");
 		// echo $str;
+		// return;
 		
 		// CONSULTAR TOTAL DE REGISTROS
 		$numRows=$this->db->numRows($str);

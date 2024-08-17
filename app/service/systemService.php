@@ -17,6 +17,7 @@ class systemService extends app\controller implements ctrl\crudController {
 	public function executeQuery($opList){
 		// EXTRAER PARAMETROS ENVIADOS EN URL
 		$uri=$this->getURI();
+		// print_r($uri);
 		// VALIDAR PERMISOS CON RUTAS ASOCIADAS
 		if(in_array($uri['db'],$opList) || in_array($uri['tb'],$opList)){
 			// RETORNAR AL USUARIO LA CONSULTA
@@ -65,6 +66,10 @@ class systemService extends app\controller implements ctrl\crudController {
 	public function POST(){
 	    // EXTRAER PARAMETROS ENVIADOS EN URL
 	    $uri=$this->getURI();
+		// print_r('POST');
+		// print_r('<br>');
+		// print_r($uri);
+		// print_r($this->getConfig('interceptor')['model'][$uri['tb']]);
 		// VALIDACIONES - INTERCEPTOR
 		if(isset($this->getConfig('interceptor')['model'][$uri['tb']]))$this->interceptor($uri['tb'],'POST');
 		// VALIDAR TODAS LAS OPCIONES

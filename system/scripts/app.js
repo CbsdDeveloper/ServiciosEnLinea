@@ -535,6 +535,12 @@ app
 		controller:'aph.suppliesstockstationsCtrl',
 		data:{ displayName:'LB_STATION_CONTROL' }
 	})
+	.state('subjefature.aph.rechargeorder',{
+		url:'/rechargeorder',
+		templateUrl:pathSubj+'aph/rechargeorder.html',
+		controller:'aph.rechargeorderCtrl',
+		data:{ displayName:'TOOLBAR_APH_RECHARGE_ORDER' }
+	})
 	
 	// TALENTO HUMANO
 	.state('tthh',{

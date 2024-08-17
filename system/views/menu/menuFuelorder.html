@@ -14,5 +14,15 @@
           </div>
       </md-button>
     </md-menu-item>
+    <md-menu-item ng-if="row.orden_estado=='EMITIDA'">
+      <md-button aria-label="editar" ng-click="anulaItem(row.orden_id)">
+          <div layout="row" flex>
+            <p flex translate>Anular</p>
+            <md-icon md-menu-align-target class="md-menu-btn-ico">
+              <md-ico i=local_gas_station></md-ico>
+            </md-icon>
+          </div>
+      </md-button>
+    </md-menu-item>
   </md-menu-content>
 </md-menu>

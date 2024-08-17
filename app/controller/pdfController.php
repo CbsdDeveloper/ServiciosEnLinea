@@ -215,7 +215,8 @@ class pdfController extends app\view {
 			 *  false => S
 			 */
 			// DESCARGAR/GUARDAR REPORTE
-			$this->html2pdf->Output("{$fileName}.pdf",$config['reporte_autodownload']);
+			// $this->html2pdf->Output("{$fileName}.pdf",$config['reporte_autodownload']);
+			$this->html2pdf->Output("{$fileName}.pdf","D");
 			// GUARDAR PDF EN DIRECTORIO
 			// $this->html2pdf->Output('file.pdf');
 			exit;

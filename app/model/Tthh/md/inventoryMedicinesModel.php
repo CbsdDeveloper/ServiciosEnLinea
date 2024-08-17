@@ -74,10 +74,10 @@ class inventoryMedicinesModel extends mdl\personModel {
 	        // VALIDAR TIPO DE STOCK
 	        if($v['total_medicamento']<10){
 	            $idx+=1;
-	            $row['listSinStock'].="<tr><td>{$idx}</td><td>{$v['medicamento_codigo']}. {$v['medicamento_nombre']}<br>{$v['medicamento_presentacion']}</td><td>{$v['total_medicamento']}</td></tr>";
+	            $row['listSinStock'].="<tr><td>{$idx}</td><td>{$v['medicamento_codigo']}. {$v['medicamento_nombre']}<br>{$v['medicamento_presentacion']}</td><td>{$v['total_ingresos']}</td><td>{$v['total_descargos']}</td><td>{$v['total_medicamento']}</td></tr>";
 	        }else{
 	            $ix+=1;
-    	        $row['listStock'].="<tr><td>{$ix}</td><td>{$v['medicamento_codigo']}. {$v['medicamento_nombre']}<br>{$v['medicamento_presentacion']}</td><td>{$v['total_medicamento']}</td></tr>";
+    	        $row['listStock'].="<tr><td>{$ix}</td><td>{$v['medicamento_codigo']}. {$v['medicamento_nombre']}<br>{$v['medicamento_presentacion']}</td><td>{$v['total_ingresos']}</td><td>{$v['total_descargos']}</td><td>{$v['total_medicamento']}</td></tr>";
 	        }
         }
         

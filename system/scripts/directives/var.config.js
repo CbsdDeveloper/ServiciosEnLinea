@@ -6,8 +6,8 @@ var sys_name='system',
 	pathIncApp='/app/src/views/',
 	uriBreadcrumbs='/app/src/views/main/breadcrumbs.sys.html';
 
-//var host_remote='http://localhost:81/api/';
-var host_remote='http://servicios.cbsd.gob.ec:8081/api/';
+var host_remote='http://localhost:81/api/';
+// var host_remote='http://servicios.cbsd.gob.ec:8081/api/';
 
 // CONFIGURACIÓN DE RUTA DE CONSULTAS
 var Server;

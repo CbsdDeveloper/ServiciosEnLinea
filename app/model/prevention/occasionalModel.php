@@ -567,7 +567,7 @@ class occasionalModel extends mdl\personModel {
 				$row['jtp_aprueba']=$this->varGlobal['RUPIF_PPERSONAL_ID'];
 				
 				// GENERAR NÚMERO DE SERIE DE DESPACHADOS
-				if($row['ocasional_serie']==0) $row['ocasional_serie']=$this->db->getNextSerie($this->entity);
+				if($row['ocasional_serie']==0) $row['ocasional_serie']=$this->db->getNextSerie($this->entity)+1;
 				$sql=$this->db->executeTested($this->db->getSQLUpdate($row,$this->entity));
 			}
 			// GENERAR NUMERO DE TRÁMITE - EDICIÓN DE 0 POR DEFECTO - VERIFICAR SI HA SIDO APROBADO SIN GENERAR ORDEN DE COBRO
@@ -590,7 +590,7 @@ class occasionalModel extends mdl\personModel {
 					// NOTIFICAR CAMBIOS
 					$stateUpdate=true;
 					// CAMBIOS
-					$row['ocasional_serie']=$this->db->getNextSerie($this->entity);
+					$row['ocasional_serie']=$this->db->getNextSerie($this->entity)+1;
 				}
 				// VALIDAR SI ES NECESARIA LA ACTUALIZACIÓN
 				if($stateUpdate) $sql=$this->db->executeTested($this->db->getSQLUpdate($row,$this->entity));

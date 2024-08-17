@@ -475,6 +475,9 @@ class connectDB {
 	public function getParams($tb,$scan=false){
 		$config=$this->entityModel;
 		if(empty($config))$config=$this->ctrl->setConfig($this->getTbList());
+		// print_r($config['tbConfig'][$this->schemaList][$tb]);
+		// return;
+		// print_r($config);
 		// CONSULTAR EN LISTADO DE VISTAS
 		if(in_array($tb,$config['viewList']))return $config['tbConfig'][$this->schemaList][$tb];
 		// CONSULTAR EN LISTADO DE TABLAS

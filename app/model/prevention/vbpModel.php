@@ -84,7 +84,7 @@ class vbpModel extends mdl\personModel {
 		$data['asignInspector']=true;
 		$data['selected']=array();
 		// ID DE USUARIOS COMO INSPECTORES
-		$inspectorsList=$this->db->getSQLSelect($this->db->setCustomTable('usuarios','fk_persona_id'),[],"WHERE fk_perfil_id=6 AND usuario_estado='ACTIVO'");
+		$inspectorsList=$this->db->getSQLSelect($this->db->setCustomTable('usuarios','fk_persona_id'),[],"WHERE fk_perfil_id in (5,6) AND usuario_estado='ACTIVO'");
 		// LISTA DE INSPECTORES
 		$data['list']=$this->db->findAll($this->db->selectFromView('vw_personal',"WHERE fk_persona_id IN ({$inspectorsList}) AND ppersonal_estado='EN FUNCIONES'"));
 		// INSPECTORES YA INGRESADOS
@@ -599,7 +599,7 @@ class vbpModel extends mdl\personModel {
 				// OBTENER ID DE PERSONAL RESPONSABLE DE APROBACIÓN
 				$userId=app\session::getSessionAdmin();
 				$strWhr=$this->db->getSQLSelect($this->db->setCustomTable('usuarios','fk_persona_id'),[],"WHERE usuario_id={$userId}");
-				$strAprueba=$this->db->selectFromView('vw_personal',"WHERE fk_persona_id=({$strWhr}) AND ppersonal_estado='EN FUNCIONES' AND personal_definicion='TITULAR'");
+				$strAprueba=$this->db->selectFromView('vw_personal',"WHERE fk_persona_id=({$strWhr}) AND ppersonal_estado='EN FUNCIONES' "); // AND personal_definicion='TITULAR'
 				if($this->db->numRows($strAprueba)<1) $this->getJSON("No se ha podido generar la aprobación, el usuario que intenta generar el VBP no cuenta con un registro como personal institucional!");
 				$row['vbp_aprueba']=$this->db->findOne($strAprueba)['ppersonal_id'];
 				// GENERAR NÚMERO DE SERIE DE DESPACHADOS

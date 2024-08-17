@@ -213,6 +213,14 @@ class controller {
 		return $this->db->findOne($this->db->selectFromView('vw_informacion_usuarios',"WHERE usuario_id={$sessionId}"));
 	}
 	/*
+	 * OBTENER MODULO EN EL QUE SE ESTÁ EJECUTANDO LA FUNCION
+	 */
+	public function getModuleBySession(){
+	    // TIPO DE SESIÓN
+	    $sessionType=session::getKey();
+		return $sessionType;
+	}
+	/*
 	 * OBTENER DATOS DE USUARIO - DATOS DE PERSONAL
 	 */
 	public function getStaffIdBySession(){
@@ -901,6 +909,10 @@ class controller {
 		// LISTADO DE METODOS EJECUTADAS
 		$interceptor=$this->getConfig('interceptor');
 		// VALIDAR SI EL MÉTODO REQUIERE DE UNA FUNCIÓN ESPECÍFICA
+		// print_r('INTERCEPTOR');
+		// print_r('<br>');
+		// print_r($interceptor);
+		// print_r($interceptor[$method][$tb]);
 		if(isset($interceptor[$method][$tb])){
 			// INSTANCIA DE MODELO
 			$model=new $interceptor['model'][$tb];

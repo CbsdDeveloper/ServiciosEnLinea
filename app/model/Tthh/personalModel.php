@@ -742,6 +742,6 @@ class personalModel extends mdl\personModel {
 			$pdfCtrl->template='emptyReport';
 		}	return '';
 	}
-	
-	
+
+
 }

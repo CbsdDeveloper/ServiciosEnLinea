@@ -34,11 +34,11 @@
 	</div>
 </div>
 
-<div class="form-group required">
+<div class="form-group">
 	<label translate>LB_COMERTIAL</label>
 	<div class="input-group">
 		<div class="input-group-prepend"><div class="input-group-text"><md-ico i=store_mall_directory></md-ico></div></div> 
-		<input ng-model="frmParent.local_nombrecomercial" class="form-control" placeholder="Ej. Tienda de abarrotes" required />
+		<input ng-model="frmParent.local_nombrecomercial" class="form-control" placeholder="Ej. Tienda de abarrotes"  />
 	</div>
 </div>
 
@@ -86,10 +86,68 @@
 <div class="form-group required" flex>
 	<label translate>LB_DO_YOU_HAVE_AN_ESTABLISHMENT</label>
 	<div class="input-group">
-		<div class="input-group-prepend"><div class="input-group-text"><i-fa i=local_offer></i-fa></div></div> 
+		<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_offer></md-ico></div></div> 
 		<select class="form-control" ng-model="frmParent.local_establecimiento" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
 	</div>
 </div>
+
+<!-- <div ng-if="frmParent.local_establecimiento == 'SI'">
+	<div class="form-group required" flex>
+		<label translate>¿Su aforo es mayor a 200 personas?</label>
+		<div class="input-group">
+			<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_offer></md-ico></div></div> 
+			<select class="form-control" ng-model="frmParent.local_aforo" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+		</div>
+	</div>
+	<div class="form-group required" flex>
+		<label translate>¿Su área útil es mayor 200 metros cuadrados?</label>
+		<div class="input-group">
+			<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_offer></md-ico></div></div> 
+			<select class="form-control" ng-model="frmParent.local_areautil" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+		</div>
+	</div>
+	<div class="form-group required" flex>
+		<label translate>¿Comercializa/Almacena/Usa Utiliza materiales peligrosos INEN 2266?</label>
+		<div class="input-group">
+			<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_offer></md-ico></div></div> 
+			<select class="form-control" ng-model="frmParent.local_inen2266" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+		</div>
+	</div>
+	<div class="form-group required" flex>
+		<label translate>¿Comercializa/Almacena/Usa Gas Licuado de Petróleo?</label>
+		<div class="input-group">
+			<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_offer></md-ico></div></div> 
+			<select class="form-control" ng-model="frmParent.local_glp" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+		</div>
+	</div>
+
+	<div ng-if="frmParent.local_glp == 'SI'">
+		<div class="form-group required" flex>
+			<label translate>¿Comercializa cilindros de GLP?</label>
+			<div class="input-group">
+				<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_offer></md-ico></div></div> 
+				<select class="form-control" ng-model="frmParent.local_glp_comercio" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+			</div>
+		</div>
+		<div class="form-group required" flex>
+			<label translate>¿Cuantos cilindros de GLP almacena? </label>
+			<div class="input-group">
+				<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_offer></md-ico></div></div> 
+				<select class="form-control" ng-model="frmParent.local_glp_almacena" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+			</div>
+		</div>
+		<div class="form-group required" flex>
+			<label translate>¿Cuántos cilindros de GLP utiliza de forma simultánea? </label>
+			<div class="input-group">
+				<div class="input-group-prepend"><div class="input-group-text"><md-ico i=local_offer></md-ico></div></div> 
+				<select class="form-control" ng-model="frmParent.local_glp_utiliza" required ng-options="val as val for (key,val) in string2JSON('yesnoLabel')"></select>
+			</div>
+		</div>
+	</div>
+
+</div> -->
+
+
 
 <!-- 
 <div layout=column layout-gt-xs=row layout-padding>

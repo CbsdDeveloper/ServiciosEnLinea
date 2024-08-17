@@ -2,6 +2,9 @@
 use controller as ctrl;
 use model as mdl;
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 class employeeModel extends mdl\personModel {
 	
 	private $entity='local_empleados';

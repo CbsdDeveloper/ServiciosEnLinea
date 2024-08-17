@@ -1292,7 +1292,7 @@
         "vw_informacion_vbp",
         "vw_inspeccion_inspector",
         "vw_inspeccion_recursos",
-        "vw_inspecciones",
+        "vw_inspecciones1",
         "vw_lotaip",
         "vw_lotaip_mensual",
         "vw_ocasionales",
@@ -13320,6 +13320,23 @@
                 "is_typed": "NO",
                 "commit_action": null,
                 "sequence": "prevencion.",
+                "fkRef": [],
+                "fkList": []
+            },
+            "vw_inspecciones_historico": {
+                "table_catalog": "db_cbsd",
+                "table_schema": "records",
+                "table_name": "vw_inspecciones",
+                "table_type": "VIEW",
+                "self_referencing_column_name": null,
+                "reference_generation": null,
+                "user_defined_type_catalog": null,
+                "user_defined_type_schema": null,
+                "user_defined_type_name": null,
+                "is_insertable_into": "NO",
+                "is_typed": "NO",
+                "commit_action": null,
+                "sequence": "records.",
                 "fkRef": [],
                 "fkList": []
             },
@@ -66964,7 +66981,8 @@
                     "es_puesto",
                     "es_funcion",
                     "usuario",
-                    "unidad_nombre"
+                    "unidad_nombre",
+                    "caneca"
                 ],
                 "config": {
                     "orden_id": {

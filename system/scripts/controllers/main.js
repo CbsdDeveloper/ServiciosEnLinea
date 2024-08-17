@@ -354,6 +354,16 @@ app
 		});
 	};
 
+	// DIALOG PARA ANULAR
+	$scope.anulaItem=function(id){
+		myResource.myDialog.swalConfirm('Está seguro que desea anular este registro?',function(){
+			myResource.sendData(params.tb+'/DELETE').save({id:id},function(json){
+				 myResource.myDialog.showNotify(json);
+				 if(json.estado===true) $scope.getParent();
+			},myResource.setError);
+		});
+	};
+
 	// FORMULARIO PARA EXPORTAR DATOS
 	$scope.exportData=function(row){$scope.$parent.openModal('Exportdata',angular.merge(row,{entity:params.tb,edit:false}));};
 	

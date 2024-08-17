@@ -101,6 +101,26 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- PERMISOS Y DUPLICADOS - DE LA SEMANA EN CURSO -->
+		<div class="col-md-12 wow fadeIn margin-top" ng-if="configDashboard.SEMANAL>0">
+			<div class="card card-outline card-danger">
+				<div class="card-header with-border text-center">
+					<h3 class="card-title text-uppercase">REPORTE ANTERIOR - PERIODO {{currentDate - 1 | date: 'yyyy'}}</h3>
+					<div class="card-tools">
+		        <button type="button" class="btn btn-tool" ng-click="refreshStats()"><i class="fa fa-refresh"></i></button>
+		        <button type="button" class="btn btn-tool" ng-click="exportStats('yyyy-MM')"><i class="fa fa-print"></i></button>
+		        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+		      </div>
+				</div>
+				<div class="card-body row">
+					<canvas flex
+			        tc-chartjs-line
+			        chart-data="chartViewer.SEMANAL"
+			        chart-legend="barChart"></canvas>
+				</div>
+			</div>
+		</div>
 		
 	</div>
 

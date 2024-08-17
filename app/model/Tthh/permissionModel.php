@@ -270,7 +270,20 @@ class permissionModel extends breakModel {
 	 */
 	public function updateEntity(){
 	    // VALIDAR SI EL PROYECTO SE EJECUTA EN SYSTEM O DEL LADO DE TTHH Y OBTENER ID DE PERSONAL (SESSION)
-        // $personalId=$this->getStaffIdBySession();
+        $sessionType=$this->getModuleBySession();
+		// $this->getJSON($sessionType);
+
+		// Prohibiendo la anulación de permisos
+		if($sessionType=='session.system'){
+			if($this->post['permiso_estado']=='SOLICITUD ANULADA' && !in_array(802411,$this->getAccesRol())){
+				$this->getJSON("No cuenta con permisos para anular los permisos solicitados! <br> Por favor comuníquese con la dirección de Talento Humano del CBSD");
+			}
+		}elseif( $sessionType=='session.tthh'){
+	        if($this->post['permiso_estado']=='SOLICITUD ANULADA'){
+				$this->getJSON("No cuenta con permisos para anular los permisos solicitados! <br> Por favor comuníquese con la dirección de Talento Humano del CBSD");
+			}
+	    }
+
 	    $personalId=$this->post['fk_personal_id'];
 	    
 	    // OBTENER INFORMACION DEL PERSONALs

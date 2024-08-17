@@ -2,6 +2,9 @@
 use api as app;
 use controller as ctrl;
 
+// error_reporting(E_ALL);
+// ini_set('display_errors', 'On');
+
 class exportModel extends app\controller {
 	
 	/*
@@ -10,6 +13,7 @@ class exportModel extends app\controller {
 	private $data;
 	private $fieldList;
 	private $config;
+	private $pdfCtrl;
 	
 	/*
 	 * MÉTODO CONSTRUCTOR
@@ -140,10 +144,25 @@ class exportModel extends app\controller {
 				// DATOS DEL SUBORDINADO
 				$subordinado=$this->db->findOne($strLeader);
 				// DATOS DE JEFE INMEDIATO
-				$subordinado=$this->db->findOne($this->db->selectFromView('vw_personal',"WHERE fk_puesto_id={$subordinado['fk_superior_id']} AND ppersonal_estado='EN FUNCIONES'"));
+				if ($subordinado['fk_superior_id'] == 16){ //SOLO PARA BOMBEROS 4
+					$subordinado=$this->db->findOne($this->db->selectFromView('vw_personal',"WHERE fk_puesto_id={$subordinado['fk_superior_id']} AND fk_estacion_id={$platoonStaff['data']['fk_estacion_id']} AND ppersonal_estado='EN FUNCIONES'"));
+				} else {
+					$subordinado=$this->db->findOne($this->db->selectFromView('vw_personal',"WHERE fk_puesto_id={$subordinado['fk_superior_id']} AND ppersonal_estado='EN FUNCIONES'"));
+				}
 				// INGRESO DE DATOS
 				$auxData['jf_nombre']=$subordinado['personal_nombre'];
 				$auxData['jf_definicion']=$subordinado['puesto_definicion'];
+
+				// if ($staffData['personal_modalidad'] == 'OPERATIVO' ){
+				// 	// IMPRESION DE FIMRAS DE RESPONSABLES
+				// 	$auxData['FIRMAS_RESPONSABLES_HOJATURA']=$this->varGlobal['EXPORTDATA_TEMPLATE_ROADMAP_OPERATIVOS'];
+				// 	// IMPRESION DE UNIDAD DE OPERACIONES
+				// 	$auxData['ee_nombre']='BRO 4. FARIAS BRIONES PAUL DIEGO';
+				// 	$auxData['ee_definicion']='RESPONSABLE DE LA UNIDAD DE OPERACIONES, ENCARGADO';
+
+				// 	$auxData['jf_nombre']= 'SOLÓRZANO ZAMBRANO FÉLIX RAMÓN';
+				// 	$auxData['jf_definicion']= 'SUBJEFE DE BOMBEROS, ENCARGADO';
+				// }
 
 // 				$auxData['jf_nombre']='ING. PARRA CHAVEZ HUGO JAVIER';
 // 				$auxData['jf_definicion']='DIRECTOR GENERAL';

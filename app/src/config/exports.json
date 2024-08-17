@@ -78,7 +78,8 @@
 		"vw_certificadosmedicos":{
 			"title":"Certificados médicos",
 			"order":{
-				"reposo_desde":"Fecha de descanso"
+				"reposo_desde":"Fecha de descanso",
+				"fecha_emision":"Fecha de emisión"
 			}
 		},
 		"vw_permisos_solicitados":{

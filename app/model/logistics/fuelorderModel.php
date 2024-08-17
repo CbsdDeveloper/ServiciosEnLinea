@@ -20,8 +20,16 @@ class fuelorderModel extends app\controller {
 	 * INGRESAR NUEVO REGISTRO
 	 */ 
 	public function insertEntity(){
+
+		
 		// INICIAR TRANSACCIÓN
 		$this->db->begin();
+
+		$sqlPendientes= "SELECT count(orden_id) as ordenes_generadas FROM logistica.tb_ordenescombustible WHERE fk_unidad = {$this->post['fk_unidad']} AND orden_estado='EMITIDA'";
+		$ordenesPendientes=$this->db->findOne($sqlPendientes);
+
+		$sql=$this->setJSON("La unidad tiene {$ordenesPendientes["ordenes_generadas"]} ordenes pendientes de validar!");
+		$this->getJSON($this->db->closeTransaction($sql));
 		// DATOS DE SESSION
 		$sessionId=$this->getStaffIdBySession();
 		// DATOS DE PERSONAL - PUESTOS
@@ -188,7 +196,7 @@ class fuelorderModel extends app\controller {
 		// VALIDAR ESTADO EMITIDO
 		if($fuelOrder['orden_estado']=='EMITIDA'){
 			// VALORES POR DEFECTO
-			$fuelOrder['orden_estacionservicio']='SINDICATO DE CHOFERES';
+			$fuelOrder['orden_estacionservicio']='TERPEL'; // TODO:  CAMBIAR VALOR FIJO POR UNA VARIABLE EN PARÁMETROS
 			$fuelOrder['orden_valdacion']=$this->getFecha();
 			$fuelOrder['orden_estado']='VALIDADA';
 			$fuelOrder['units']=array();
@@ -216,6 +224,20 @@ class fuelorderModel extends app\controller {
 		$this->getJSON($this->setJSON("Ok",true,$json));
 	}
 	
+	/*
+	 * ACTUALIZACIÓN DE REGISTRO - ANULAR ORDEN
+	 */
+	public function anularEntity(){
+		
+		// GENERAR MODELO TEMPORAL
+		$temp=array(
+		    'orden_id'=>$this->post['id'],
+		    'orden_estado'=>'ANULADA'
+		);
+		
+		// VALIDAR TRANSACCIÓN Y RETORNAR DATOS DE CONSULTA
+		$this->getJSON($this->db->executeTested($this->db->getSQLUpdate($temp,$this->entity)));
+	}
 	
 	/*
 	 * IMPRIMIR REGISTRO POR ID

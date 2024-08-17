@@ -82,6 +82,7 @@
 			// UNIÓN DE DATOS POST
 			$post=array_merge((array)json_decode(file_get_contents("php://input"),true),(array)filter_input_array(INPUT_POST));
 			
+			// print_r($post);
 			// VALIDAR TAMAÑO DE ARCHIVOS Y DATOS POST
 			if ($requestMethod=='POST' && empty($post) && empty($_FILES) && $_SERVER['CONTENT_LENGTH']>0){
 				// DATOS DE CONFIGURACIÓN

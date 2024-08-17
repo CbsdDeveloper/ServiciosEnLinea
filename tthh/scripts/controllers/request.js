@@ -90,6 +90,7 @@ app
 			
 			var file = new Blob([json], {type:'application/pdf'});
 		    var fileURL = URL.createObjectURL(file);
+			// console.log(json)
 		    $scope.content = myResource.sce.trustAsResourceUrl(fileURL);
 		    
 		    url = myResource.window.URL || myResource.window.webkitURL;

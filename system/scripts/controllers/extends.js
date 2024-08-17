@@ -7,9 +7,9 @@ app
  * Función: 
  */
 .controller('pdfViewerExtendsCtrl',['$scope','myResource',function($scope,myResource){
-	console.log('Extends request -> pdfViewerExtendsCtrl -> Form to reference:: ',$scope.frm);
+	console.log('Extends request -> pdfViewerExtendsCtrl -> Form to 1 reference:: ',$scope.frm);
 	$scope.getIframeSrc=function(src){
-		if(myResource.testNull($scope.frmParent.external)) return myResource.sce.trustAsResourceUrl(src);
+		if(myResource.testNull($scope.frmParent.external)) return '/app/src/' + myResource.sce.trustAsResourceUrl(src);
 		else return '/app/src/' + src;
 	};
 }])

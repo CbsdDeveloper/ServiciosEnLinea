@@ -536,6 +536,9 @@ app
 		controller:'training.calendarCtrl',
 		resolve:{
 			calendar:function(myResource,$stateParams,$state){
+				// myResource.myDialog.showNotify('No se puede generar capacitaciones desde el 2023-12-01 hasta el 2023-12-31!')
+				// $state.go('main');
+				// return;
 				return myResource.getData($stateParams.entity).get(function(json){
 					return json
 				}, function(error){$state.go('main');}).$promise;

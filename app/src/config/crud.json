@@ -1221,6 +1221,7 @@
 			"autoproteccion_anexos":"deleteAnnexesList",
 			
 			"ordenesmovilizacion":"deleteEntity",
+			"ordenescombustible":"anularEntity",
 			
 			"planesemergencia":"deleteAnnexe"
 		},

@@ -54,6 +54,7 @@ class routeController {
 		// VALIDAR SI ES UNA CONEXIÓN A BASE DE DATOS
 		elseif(isset($db)){
 			$opList = array_merge($this->query->getConfig('sessionQuery'),$this->query->getConfig('mainQuery'));
+			// print_r($opList);
 			//foreach($opList as $k=>$v){if($db==$v){$rol=$k+1;}}
 			//(in_array($rol,$this->query->getAccesRol()))?$this->query->executeQuery($opList):$this->query->e301();
 			$this->query->executeQuery($opList);
